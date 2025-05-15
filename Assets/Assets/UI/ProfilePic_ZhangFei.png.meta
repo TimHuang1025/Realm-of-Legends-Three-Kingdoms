@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ProfilePic_ZhangFei_0: 2923789023463018091
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
