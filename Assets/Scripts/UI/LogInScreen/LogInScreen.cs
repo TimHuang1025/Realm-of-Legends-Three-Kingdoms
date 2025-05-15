@@ -9,14 +9,16 @@ public class LogInScreen : MonoBehaviour
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
 
-        Button guest = root.Q<Button>("Guest");
-        Button apple = root.Q<Button>("Apple");
-        Button email = root.Q<Button>("Email");
-        Button namePassword = root.Q<Button>("NamePassword");   
+        Button apple = root.Q<Button>("AppleLogo");
+        Button google = root.Q<Button>("GoogleLogo");
+        Button email = root.Q<Button>("EmailLogo");
+        Button account = root.Q<Button>("AccountLogo");
+        Button guest = root.Q<Button>("GuestLogo");
 
-        guest.clicked += () => Debug.Log($"Clicked guest login button");
         apple.clicked += () => Debug.Log($"Clicked apple login button");
+        google.clicked += () => Debug.Log($"Clicked google login button");
         email.clicked += () => Debug.Log($"Clicked email login button");
-        namePassword.clicked += () => Debug.Log($"Clicked namePassword login button");
+        account.clicked += () => Debug.Log($"Clicked account login button");
+        guest.clicked += () => Debug.Log($"Clicked guest login button");
     }
 }

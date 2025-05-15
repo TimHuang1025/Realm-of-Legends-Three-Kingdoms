@@ -1,12 +1,32 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Scripts/UI/LogInScreen/LogInScreenStyle.uss?fileID=7433441132597879392&amp;guid=8e3c1d1d72db48846824660886e3196a&amp;type=3" />
-    <ui:VisualElement name="Container" style="flex-grow: 1; align-items: center; justify-content: center;">
-        <ui:VisualElement name="LogInSelectorContainer" class="border" style="flex-grow: 0; background-color: rgb(255, 255, 255); left: auto; top: auto; width: 50%; height: 50%; flex-basis: auto; position: relative; flex-shrink: 0; right: auto; bottom: auto; align-items: center; justify-content: center;">
-            <ui:VisualElement name="ButtonsContainer" style="flex-grow: 0; width: 75%; height: 85%; flex-shrink: 0;">
-                <ui:Button text="游客身份游玩" name="Guest" class="buttons border" />
-                <ui:Button text="Apple" name="Apple" class="buttons border" />
-                <ui:Button text="Email" name="Email" class="buttons border" />
-                <ui:Button text="帐号密码" name="NamePassword" emoji-fallback-support="false" class="buttons border" />
+    <Style src="project://database/Assets/Scripts/UI/LogInScreen/LogInScreenStyle.uss?fileID=7433441132597879392&amp;guid=8e3c1d1d72db48846824660886e3196a&amp;type=3#LogInScreenStyle" />
+    <ui:VisualElement name="Container" style="flex-grow: 1; align-items: center; justify-content: center; background-image: url(&quot;project://database/Assets/Assets/UI/%E6%B5%8B%E8%AF%95%E8%83%8C%E6%99%AF.png?fileID=2800000&amp;guid=fd16284650cc3384db9ef1ca29c4259a&amp;type=3#测试背景&quot;);">
+        <ui:VisualElement name="Logo" style="flex-grow: 1; position: absolute; width: 18%; height: 32%; background-image: url(&quot;project://database/Assets/Assets/UI/logo%E9%80%8F%E6%98%8E.png?fileID=2800000&amp;guid=0fc1328b8f51b724ca89bc73ed9e3f57&amp;type=3#logo透明&quot;); top: 0%; left: 1%;" />
+        <ui:VisualElement name="LogInSelectorContainer" style="flex-grow: 0; background-color: rgba(255, 160, 78, 0.39); left: auto; top: 25%; width: 70%; height: 35%; flex-basis: auto; position: relative; flex-shrink: 0; right: auto; bottom: auto; align-items: center; justify-content: center; border-left-color: rgb(194, 134, 80); border-right-color: rgb(194, 134, 80); border-top-color: rgb(194, 134, 80); border-bottom-color: rgb(194, 134, 80); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px;">
+            <ui:VisualElement name="LogInTextContainer" style="flex-grow: 0; width: 90%; flex-shrink: 0; height: 25%; justify-content: center; align-items: center;">
+                <ui:Label text="请选择登录方式" name="LogInText" style="color: rgb(255, 255, 255); font-size: 50%; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="LogInMethodsContainer" style="flex-grow: 0; width: 95%; flex-shrink: 0; height: 75%; flex-direction: row;">
+                <ui:VisualElement name="AppleLogInContainer" style="flex-grow: 1; flex-shrink: 1; align-items: center; justify-content: center;">
+                    <ui:Button name="AppleLogo" class="buttons border" style="flex-grow: 0;" />
+                    <ui:Label text="Apple" name="AppleText" class="englishText" />
+                </ui:VisualElement>
+                <ui:VisualElement name="GoogleLogInContainer" style="flex-grow: 1; align-items: center; justify-content: center;">
+                    <ui:Button name="GoogleLogo" class="buttons border" style="flex-grow: 0;" />
+                    <ui:Label text="Google" name="GoogleText" class="englishText" />
+                </ui:VisualElement>
+                <ui:VisualElement name="EmailLogInContainer" style="flex-grow: 1; align-items: center; justify-content: center;">
+                    <ui:Button name="EmailLogo" class="buttons border" />
+                    <ui:Label text="Email" name="EmailText" class="englishText" />
+                </ui:VisualElement>
+                <ui:VisualElement name="AccountLogInContainer" style="flex-grow: 1; align-items: center; justify-content: center;">
+                    <ui:Button name="AccountLogo" class="buttons border" />
+                    <ui:Label text="Account" name="AccountText" class="englishText" />
+                </ui:VisualElement>
+                <ui:VisualElement name="GuestlogInContainer" style="flex-grow: 1; align-items: center; justify-content: center;">
+                    <ui:Button name="GuestLogo" class="buttons border" />
+                    <ui:Label text="Guest" name="GuestText" class="englishText" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
