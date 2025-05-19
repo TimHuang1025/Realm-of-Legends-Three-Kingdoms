@@ -234,7 +234,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "logo\u900F\u660E_0": -5854246763594470197
+      "logo\u900F\u660E_1": 4705179866759326572
+      "logo\u900F\u660E_2": -1365489810485016676
+      "logo\u900F\u660E_3": -7201807976348591131
+      "logo\u900F\u660E_4": -6871329478007980230
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
