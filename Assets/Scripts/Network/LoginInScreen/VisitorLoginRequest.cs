@@ -7,7 +7,7 @@ public class VisitorLoginRequest : MonoBehaviour
 {
     [SerializeField] string testDeviceId = "debug-device-001"; // ← test
 
-    const string kUrl = "http://43.166.244.142:8000/user/VisitorPlay";
+    const string kUrl = "http://login.threekingdom.realmoflegend.com:8000/user/VisitorPlay";
 
     // Inspector ▸ 三点菜单 ▸ POST VisitorPlay
     [ContextMenu("POST VisitorPlay")]
@@ -15,7 +15,10 @@ public class VisitorLoginRequest : MonoBehaviour
     {
         StartCoroutine(PostCoroutine());
     }
-
+    public void SendVisitorPlay()
+    {
+        StartCoroutine(PostCoroutine());
+    }
     IEnumerator PostCoroutine()
     {
         // ① 直接拼 JSON 字符串
