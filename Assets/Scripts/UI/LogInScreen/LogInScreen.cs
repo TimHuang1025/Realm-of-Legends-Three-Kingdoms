@@ -11,6 +11,7 @@ using System.Linq;
 [RequireComponent(typeof(UIDocument))]
 public class LoginUIManager : MonoBehaviour
 {
+    public static LoginUIManager I;
     /* ---------- 外层 UI ------------- */
     VisualElement selectorBar;                 // #LogInSelectorContainer
     VisualElement pagesRoot;                   // #Page
@@ -25,6 +26,8 @@ public class LoginUIManager : MonoBehaviour
     VisualElement loginPanel;                  // #LoginPanel
     VisualElement registerPanel;               // #RegisterPanel
     VisualElement accountChangePwPanel;        // #AccountChangePwPanel
+    VisualElement AccChangePw;                 // #AccChangePw
+    VisualElement AccEmailVerifyPanel;         // #AccEmailVerifyPanel
 
     /* ---------- 映射  ----------------- */
     readonly Dictionary<Button, VisualElement> pageOf = new();
@@ -32,6 +35,7 @@ public class LoginUIManager : MonoBehaviour
     void OnEnable()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
+        I = this;
 
         // 抓核心节点 -------------------------------------------------
         selectorBar = root.Q<VisualElement>("LogInSelectorContainer");
@@ -49,6 +53,9 @@ public class LoginUIManager : MonoBehaviour
         // 顶栏按钮 -------------------------------------------------
         Button emailBtn = root.Q<Button>("EmailLogo");
         Button accountBtn = root.Q<Button>("AccountLogo");
+
+        AccChangePw = root.Q<VisualElement>("AccChangePw");
+        AccEmailVerifyPanel = root.Q<VisualElement>("AccEmailVerifyPanel");
 
         pageOf[emailBtn] = emailPage;
         pageOf[accountBtn] = accountPage;
@@ -122,7 +129,9 @@ public class LoginUIManager : MonoBehaviour
         HideAccSubPanel();
         registerPanel.style.display = DisplayStyle.None;
         loginPanel.style.display = DisplayStyle.None;
+        AccChangePw.style.display = DisplayStyle.None;
         accountChangePwPanel.style.display = DisplayStyle.Flex;
+        AccEmailVerifyPanel.style.display = DisplayStyle.Flex;
     }
 
     void HideAccSubPanel()
@@ -130,5 +139,14 @@ public class LoginUIManager : MonoBehaviour
         accountChangePwPanel.style.display = DisplayStyle.None;
         registerPanel.style.display = DisplayStyle.None;
         loginPanel.style.display = DisplayStyle.None;
+    }
+
+    public void ToChangePwPanel()
+    {
+        HideAccSubPanel();
+        Debug.Log("触发修改密码Panel");
+        accountChangePwPanel.style.display = DisplayStyle.Flex;
+        AccEmailVerifyPanel.style.display = DisplayStyle.None;
+        AccChangePw.style.display = DisplayStyle.Flex;
     }
 }

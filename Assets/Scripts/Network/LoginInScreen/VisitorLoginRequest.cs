@@ -2,14 +2,15 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 using System.Text;
+using UnityEngine.WSA;
 
 public class VisitorLoginRequest : MonoBehaviour
 {
     [SerializeField] string testDeviceId = "debug-device-001"; // ← test
 
+
     const string kUrl = "http://login.threekingdom.realmoflegend.com:8000/user/VisitorPlay";
 
-    // Inspector ▸ 三点菜单 ▸ POST VisitorPlay
     [ContextMenu("POST VisitorPlay")]
     void PostVisitorPlay()
     {

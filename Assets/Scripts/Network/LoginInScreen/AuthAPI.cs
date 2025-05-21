@@ -135,7 +135,7 @@ public class AuthAPI : MonoBehaviour
         return StartCoroutine(PostJson(url, body, ok, fail));
     }
     /* ------- 邮箱验证码登录 ------- */
-    public Coroutine EmailLogin(string email, int verifycode,
+    public Coroutine EmailLogin(string email, string verifycode,
                                 Action<string> ok, Action<string> fail)
     {
         string url = $"{host}/user/EmailLogin";

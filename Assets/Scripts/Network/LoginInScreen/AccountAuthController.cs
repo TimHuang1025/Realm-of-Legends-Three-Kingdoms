@@ -43,14 +43,14 @@ public class AccountAuthController : MonoBehaviour
         var visitorapi = GetComponent<VisitorLoginRequest>();
         visitorBtn.clicked += visitorapi.SendVisitorPlay;
 
-        // 验证码
-        var verifyBtn = root.Query<Button>(className: "verifybtn").ToList(); //接收验证码按钮
-        foreach (var tf in verifyBtn)
-            tf.clicked += OnClickVerify;
+        // 修改密码页面
+        var pwd1Field = root.Q<TextField>("NewPwd1");
+        var pwd2Field = root.Q<TextField>("NewPwd2");
+        var changePwdBtn = root.Q<Button>("ChangePwdBtn");
+        changePwdBtn.clicked += () => OnClickChangePwd(pwd1Field, pwd2Field);
 
-        sendCodeBtn = root.Query<Button>(className: "getemailcode").ToList(); //接收验证码按钮
-        foreach (var tf in sendCodeBtn)
-            tf.clicked += OnClickSendCode;
+        // 验证码
+
 
         var verifyCodeFields = root.Query<TextField>(className: "verifycode-input").ToList();
         foreach (var tf in verifyCodeFields)
@@ -63,8 +63,23 @@ public class AccountAuthController : MonoBehaviour
         }
         verifyCodeField = root.Q<TextField>(className: "verifycode-input");
 
-        // email 登录
-        loginEmailField = root.Q<TextField>(className: "email-input");
+        // ── 注册 / 邮箱登录页 ──
+        var regEmailField = root.Q<TextField>("RegEmail");
+        var regCodeField = root.Q<TextField>("RegCode");          // 验证码框
+        var regSendBtn = root.Q<Button>("RegSendCodeBtn");
+        var regVerifyBtn = root.Q<Button>("RegVerifyBtn");
+
+        regSendBtn.clicked += () => OnClickSendCode(regEmailField, regSendBtn);
+        regVerifyBtn.clicked += () => OnClickVerify(regEmailField, regCodeField);
+
+        // ── 修改密码页 ──
+        var rstEmailField = root.Q<TextField>("RstEmail");
+        var rstCodeField = root.Q<TextField>("RstCode");
+        var rstSendBtn = root.Q<Button>("RstSendCodeBtn");
+        var rstVerifyBtn = root.Q<Button>("RstVerifyBtn");
+
+        rstSendBtn.clicked += () => OnClickSendCode(rstEmailField, rstSendBtn);
+        rstVerifyBtn.clicked += () => OnClickVerify(rstEmailField, rstCodeField);
 
         // 登录区
         loginAccField = root.Q<TextField>(className: "account-input");
@@ -239,71 +254,58 @@ public class AccountAuthController : MonoBehaviour
     }
 
     /* ───── 邮箱验证码按钮 ───── */
-    private void OnClickSendCode()
+    // 之前：private void OnClickSendCode()
+    // 现在：
+    private void OnClickSendCode(TextField emailField, Button senderBtn)
     {
-        // 1) 取得邮箱输入
-        string email = loginEmailField.value.Trim();          // ★ 你的邮箱输入框
+        string email = emailField.value.Trim();
 
-        // 2) 基础校验：不能为空 & 格式合法
         if (string.IsNullOrEmpty(email) || !IsEmailValid(email))
         {
             Toast("请输入合法邮箱地址");
-            Focus(loginEmailField);
+            Focus(emailField);
             return;
         }
 
-        // 3) 显示 Loading
-        LoadingPanelManager.Instance.Show();                  // ★ 如你之前写的管理类
+        LoadingPanelManager.Instance.Show();
 
-        // 4) 调服务器接口
         api.GetEmailCode(
             email,
             ok: _ =>
             {
-                LoadingPanelManager.Instance.Hide();          // 关 Loading
+                LoadingPanelManager.Instance.Hide();
                 Toast("验证码已发送，请查收邮箱");
-
-                // 5) 成功后才进入按钮冷却
                 if (cooldownCO == null)
-                    cooldownCO = StartCoroutine(ButtonCooldown(30));
+                    cooldownCO = StartCoroutine(ButtonCooldown(senderBtn, 30));
             },
             fail: msg =>
             {
-                LoadingPanelManager.Instance.Hide();          // 关 Loading
+                LoadingPanelManager.Instance.Hide();
                 Toast($"发送失败：{msg}");
             });
     }
 
 
-    private IEnumerator ButtonCooldown(int seconds)
-    {
-        // 1. 禁用并统一初始样式
-        foreach (var b in sendCodeBtn)
-        {
-            b.SetEnabled(false);
-            b.style.opacity = 0.8f;        // 想要的置灰效果
-        }
 
-        // 2. 倒计时
+    private IEnumerator ButtonCooldown(Button btn, int seconds)
+    {
+        btn.SetEnabled(false);
+        btn.style.opacity = 0.8f;
+
         for (int t = seconds; t > 0; --t)
         {
-            foreach (var b in sendCodeBtn)
-                b.text = $"重新获取 ({t}s)";
+            btn.text = $"重新获取 ({t}s)";
             yield return new WaitForSeconds(1);
         }
 
-        // 3. 恢复按钮
-        foreach (var b in sendCodeBtn)
-        {
-            b.text = "获取验证码";
-            b.style.opacity = 1f;
-            b.SetEnabled(true);
-        }
-
-        cooldownCO = null;                 // 允许下一次点击重新进入冷却
+        btn.text = "获取验证码";
+        btn.style.opacity = 1f;
+        btn.SetEnabled(true);
+        cooldownCO = null;
     }
+
     /* ───── Toast 逻辑 ───── */
-    private void Toast(string msg, float duration = 2f)
+    public void Toast(string msg, float duration = 2f)
     {
         if (toastCO != null) StopCoroutine(toastCO);
 
@@ -325,48 +327,97 @@ public class AccountAuthController : MonoBehaviour
     private static bool IsEmailValid(string mail) =>
         System.Text.RegularExpressions.Regex.IsMatch(
             mail, @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$");
-    
-    /* ───── 邮箱验证码登录 ───── */
-    private void OnClickVerify()
-    {
-        string email = loginEmailField.value.Trim();       // 你的邮箱输入框
-        string code  = verifyCodeField.value.Trim();       // 6 位验证码输入框
 
-        /* 1. 本地校验 */
+    /* ───── 邮箱验证码登录 ───── */
+    private void OnClickVerify(TextField emailField, TextField codeField)
+    {
+        string email = emailField.value.Trim();
+        string code = codeField.value.Trim();
+
+        /* 1) 本地校验 */
         if (!IsEmailValid(email))
         {
             Toast("请输入合法邮箱地址");
-            Focus(loginEmailField);
+            Focus(emailField);
             return;
         }
 
-        if (!System.Text.RegularExpressions.Regex.IsMatch(code, @"^\d{6}$"))
+        if (!Regex.IsMatch(code, @"^\d{6}$"))
         {
             Toast("验证码需为 6 位数字");
-            Focus(verifyCodeField);
+            Focus(codeField);
             return;
         }
 
-        /* 2. Loading + 请求 */
+        /* 2) Loading + 请求 */
         LoadingPanelManager.Instance.Show();
 
         api.EmailLogin(
-            email,
-            int.Parse(code),
+            email, code,
             ok: _ =>
             {
                 LoadingPanelManager.Instance.Hide();
-                Toast("登录成功！");
-                Debug.Log("邮箱登录成功");
+
+                /* === 根据邮箱框名字判断是哪个流程 === */
+                if (emailField.name == "RstEmail")          // 来自找回密码页
+                {
+                    Toast("验证成功，请设置新密码");
+                    // 跳转到修改密码面板
+                    if (LoginUIManager.I != null)
+                        LoginUIManager.I.ToChangePwPanel();
+                }
+                else                                        // 普通邮箱登录
+                {
+                    Toast("登录成功！");
+                    // TODO: 如果登录成功要切到主场景，在这里调用
+                }
+
                 ClearAllInputs();
             },
             fail: msg =>
             {
                 LoadingPanelManager.Instance.Hide();
-                Toast($"登录失败：{msg}");
-                Debug.LogError($"邮箱登录失败：{msg}");
+                Toast($"操作失败：{msg}");
             });
     }
+    private void OnClickChangePwd(TextField pwd1, TextField pwd2)
+{
+    string p1 = pwd1.value;
+    string p2 = pwd2.value;
 
+    /* 1) 本地校验 */
+    if (!IsPasswordStrong(p1))
+    {
+        Toast("密码需≥8位，并包含字母和数字");
+        Focus(pwd1);
+        return;
+    }
+    if (!IsPasswordMatch(p1, p2))
+    {
+        Toast("两次输入的密码不一致");
+        Focus(pwd2);
+        return;
+    }
+
+    /* 2) TODO: 服务器接口 */
+    LoadingPanelManager.Instance.Show();
+    /*
+    api.ChangePassword(
+        p1,
+        ok: _ => {
+            LoadingPanelManager.Instance.Hide();
+            Toast("修改成功！");
+            ClearAllInputs();
+        },
+        fail: msg => {
+            LoadingPanelManager.Instance.Hide();
+            Toast($"修改失败: {msg}");
+        });
+    */
+
+    // 目前接口未完成，先本地提示
+    LoadingPanelManager.Instance.Hide();
+    Toast("（示例）本地校验通过，待接入 API");
+}
 
 }
