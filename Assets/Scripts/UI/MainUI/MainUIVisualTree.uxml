@@ -1,0 +1,113 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/UI/MainUI/MainUIStyle.uss?fileID=7433441132597879392&amp;guid=7a479157b07a2634aae451fc5641c636&amp;type=3#MainUIStyle" />
+    <ui:VisualElement name="Container" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/Maps/%E6%B5%8B%E8%AF%95%E6%B8%B8%E6%88%8F%E5%86%85%E8%83%8C%E6%99%AF.png?fileID=2800000&amp;guid=74dd115a55d92ae44bfd23871cc66ff6&amp;type=3#测试游戏内背景&quot;); -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
+        <ui:VisualElement name="TopPanelContainer" style="flex-grow: 1; position: relative; top: 0%; flex-direction: row; margin-top: 30px; margin-left: 30px; margin-right: 30px;">
+            <ui:VisualElement name="ProfilePanel" style="flex-grow: 1; flex-direction: row;">
+                <ui:VisualElement name="IconPanel" style="flex-grow: 0; flex-shrink: 0; height: 100%; width: 55%;">
+                    <ui:VisualElement name="ProfilePanel" class="profilepanel" style="flex-grow: 0; flex-direction: row; flex-shrink: 0; height: 80%; justify-content: center;">
+                        <ui:VisualElement name="ProfileIcon" class="profilepanel" style="flex-grow: 0; height: 100%; background-image: url(&quot;project://database/Assets/Assets/UI/ProfilePic_ZhangFei.png?fileID=2800000&amp;guid=1fd7ba22a6df63e4cb8d4a67ab146ae1&amp;type=3#ProfilePic_ZhangFei&quot;); border-top-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px; border-left-color: rgb(177, 137, 84); border-right-color: rgb(177, 137, 84); border-top-color: rgb(177, 137, 84); border-bottom-color: rgb(177, 137, 84); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; width: 80%; flex-shrink: 0; justify-content: center; -unity-background-scale-mode: scale-and-crop;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="vipContainer" style="flex-grow: 1; flex-direction: row; justify-content: center;">
+                        <ui:VisualElement name="vipPanel" style="flex-grow: 0; height: 80%; background-color: rgb(177, 160, 138); width: 55%; border-right-width: 2px; border-left-width: 2px; border-bottom-width: 2px; border-left-color: rgb(177, 137, 84); border-right-color: rgb(177, 137, 84); border-top-color: rgb(177, 137, 84); border-bottom-color: rgb(177, 137, 84); justify-content: center; flex-direction: row;">
+                            <ui:Label text="VIP20" name="vipLv" style="font-size: 32px; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); -unity-text-align: middle-left; -unity-font-style: bold;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="ProfileSidePanel" style="flex-grow: 0; width: 35%;">
+                    <ui:VisualElement name="SidePanelContainer" style="flex-grow: 0; width: 80%; height: 50%;">
+                        <ui:VisualElement name="armystatPanel" class="displaybar" style="flex-grow: 0; margin-top: 5px; height: 35%; justify-content: space-around; flex-direction: row; align-items: center;">
+                            <ui:VisualElement name="IconContainer" style="flex-grow: 1; align-items: center;">
+                                <ui:VisualElement name="foodstatIcon" style="flex-grow: 0; width: 45px; background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E5%85%B5%E5%8A%9B.png?fileID=2800000&amp;guid=28f8fe5d71ccf7d45b9ccdc149007a90&amp;type=3#兵力&quot;); margin-top: 0; margin-bottom: 0; flex-shrink: 0; height: 45px;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="valueContainer" style="flex-grow: 0; align-items: flex-start; flex-direction: row; flex-shrink: 0; width: 67%;">
+                                <ui:Label text="7898" name="armystatValue" triple-click-selects-line="false" class="smallstatdisplay" style="-unity-text-align: middle-left; flex-grow: 1; width: 75%;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="foodstatPanel" class="displaybar" style="flex-grow: 0; margin-top: 5px; height: 35%; justify-content: space-around; flex-direction: row; align-items: center;">
+                            <ui:VisualElement name="IconContainer" style="flex-grow: 1; align-items: center;">
+                                <ui:VisualElement name="foodstatIcon" style="flex-grow: 0; width: 45px; background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E7%B2%AE%E8%8D%89.png?fileID=2800000&amp;guid=9be2dd49093bc5447baa696235d89d4d&amp;type=3#粮草&quot;); margin-top: 0; margin-bottom: 0; flex-shrink: 0; height: 45px;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="valueContainer" style="flex-grow: 0; align-items: flex-start; flex-direction: row; flex-shrink: 0; width: 67%;">
+                                <ui:Label text="32190" name="armystatValue" triple-click-selects-line="false" class="smallstatdisplay" style="-unity-text-align: middle-left; flex-grow: 1; width: 75%;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="StatsPanel" style="flex-grow: 0; width: 45%; flex-shrink: 0; flex-direction: row; height: 60%;">
+                <ui:VisualElement name="GoldPanel" style="flex-grow: 1;">
+                    <ui:VisualElement name="GoldBar" class="displaybar" style="flex-grow: 0; height: 45%; flex-direction: row;">
+                        <ui:VisualElement name="GoldIcon" style="flex-grow: 0; width: 26%; background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E9%87%91%E9%94%AD.png?fileID=2800000&amp;guid=89ed6e5ae89d70e4493fb93b561e6bd5&amp;type=3#金锭&quot;); margin-top: 0; margin-bottom: 0; flex-shrink: 0;" />
+                        <ui:VisualElement name="GoldValuePanel" style="flex-grow: 1; flex-direction: column; -unity-text-align: upper-left; justify-content: center;">
+                            <ui:Label text="355232" name="goldvalue" class="golddisplay" style="-unity-text-align: middle-left;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="SilverPanel" style="flex-grow: 1;">
+                    <ui:VisualElement name="SilverBar" class="displaybar" style="flex-grow: 0; height: 45%; flex-direction: row;">
+                        <ui:VisualElement name="SilverIcon" style="flex-grow: 0; width: 26%; background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E9%93%B6%E9%94%AD.png?fileID=2800000&amp;guid=ee3c346f5e8f2d747a51b4f69dd46ca6&amp;type=3#银锭&quot;); margin-top: 0; margin-bottom: 0; flex-shrink: 0;" />
+                        <ui:VisualElement name="SilverValuePanel" style="flex-grow: 1; flex-direction: column; -unity-text-align: upper-left; justify-content: center;">
+                            <ui:Label text="452135" name="silvervalue" class="golddisplay" style="-unity-text-align: middle-left;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="CopperPanel" style="flex-grow: 1;">
+                    <ui:VisualElement name="CopperBar" class="displaybar" style="flex-grow: 0; height: 45%; flex-direction: row;">
+                        <ui:VisualElement name="CopperIcon" style="flex-grow: 0; width: 26%; background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E9%93%9C%E5%B8%81.png?fileID=2800000&amp;guid=a040931efe2fcf142948a21d5157c2a4&amp;type=3#铜币&quot;); margin-top: 0; margin-bottom: 0; flex-shrink: 0;" />
+                        <ui:VisualElement name="CopperValuePanel" style="flex-grow: 1; flex-direction: column; -unity-text-align: upper-left; justify-content: center;">
+                            <ui:Label text="31243" name="coppervalue" class="golddisplay" style="-unity-text-align: middle-left;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="EventsPanel" style="flex-grow: 0; width: 23%; margin-left: 5%;">
+                <ui:VisualElement name="buttonPanel" style="flex-grow: 0; flex-shrink: 0; flex-direction: row; height: 28%;">
+                    <ui:VisualElement name="btnContainer" style="flex-grow: 1; flex-direction: column-reverse; width: auto;">
+                        <ui:Button text="邮件" emoji-fallback-support="true" name="mailBtn" class="topBtn" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="btnContainer" style="flex-grow: 1; flex-direction: column-reverse; margin-left: -17px;">
+                        <ui:Button text="活动" emoji-fallback-support="true" name="extendBtn" class="topBtn" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="MidPanelContainer" style="flex-grow: 1; height: 30%;" />
+        <ui:VisualElement name="BotPanelContainer" style="flex-grow: 0; flex-direction: row; height: 20%; margin-left: 30px; margin-bottom: 10px; margin-right: 30px;">
+            <ui:VisualElement name="ChatPanel" style="flex-grow: 0; width: 30%; flex-direction: row;">
+                <ui:VisualElement name="msgPanel" style="flex-grow: 1; flex-direction: row; background-color: rgba(224, 214, 200, 0); margin-bottom: 30px; margin-left: 30px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgba(201, 158, 83, 0); border-right-color: rgba(201, 158, 83, 0); border-top-color: rgba(201, 158, 83, 0); border-bottom-color: rgba(201, 158, 83, 0);">
+                    <ui:VisualElement name="msgPreviewBar" style="flex-grow: 1; width: 85%;">
+                        <ui:VisualElement name="textBar1" class="textbar">
+                            <ui:Label text="张飞:" name="sender" class="sender" />
+                            <ui:Label text="今天被曹军偷袭啦！" name="textmsg" class="textmsg" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="textBar2" class="textbar">
+                            <ui:Label text="关羽:" name="sender" class="sender" />
+                            <ui:Label text="快去找大哥" name="textmsg" class="textmsg" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="textBar3" class="textbar">
+                            <ui:Label text="赵云:" name="sender" class="sender" />
+                            <ui:Label text="我速速赶到!" name="textmsg" class="textmsg" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="extendBtnPanel" style="flex-grow: 1; width: 15%; flex-direction: column-reverse;">
+                        <ui:Button text="&#10;" emoji-fallback-support="true" name="extendBtn" class="botSmallBtn" style="margin-bottom: 0%; align-self: auto; justify-content: center; height: 35%; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(201, 158, 83); border-right-color: rgb(201, 158, 83); border-top-color: rgb(201, 158, 83); border-bottom-color: rgb(201, 158, 83); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; background-color: rgb(90, 62, 43); background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/extend2.png?fileID=2800000&amp;guid=a5deb628ac5411743a2cf9d9be9bd328&amp;type=3#extend2&quot;); background-size: 35% 25%; width: 100px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="PlaceHolder" style="flex-grow: 1;" />
+            <ui:VisualElement name="BotSidePanel" style="flex-grow: 0; width: 32%; flex-direction: row-reverse; margin-bottom: 30px; margin-right: 30px;">
+                <ui:VisualElement name="sideContainer" style="flex-grow: 1; flex-direction: row; align-content: auto;">
+                    <ui:VisualElement name="btnContainer" style="flex-grow: 1; flex-direction: column-reverse; width: auto;">
+                        <ui:Button text="公会" emoji-fallback-support="true" name="extendBtn" class="botBigBtn" style="align-self: auto; justify-content: center; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(201, 158, 83); border-right-color: rgb(201, 158, 83); border-top-color: rgb(201, 158, 83); border-bottom-color: rgb(201, 158, 83); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; background-color: rgb(90, 62, 43); background-image: none; background-size: 35% 25%;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="btnContainer" style="flex-grow: 1; flex-direction: column-reverse; margin-left: -17px;">
+                        <ui:Button text="地图" emoji-fallback-support="true" name="extendBtn" class="botBigBtn" style="align-self: auto; justify-content: center; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(201, 158, 83); border-right-color: rgb(201, 158, 83); border-top-color: rgb(201, 158, 83); border-bottom-color: rgb(201, 158, 83); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; background-color: rgb(90, 62, 43); background-image: none; background-size: 35% 25%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="sideContainer" style="flex-grow: 0; flex-direction: column-reverse; align-content: auto; flex-shrink: 0; width: 20%; margin-right: -23px;">
+                    <ui:Button text="&#10;" emoji-fallback-support="true" name="extendBtn" class="botSmallBtn" style="align-self: auto; justify-content: center; height: 35%; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(201, 158, 83); border-right-color: rgb(201, 158, 83); border-top-color: rgb(201, 158, 83); border-bottom-color: rgb(201, 158, 83); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; background-color: rgb(90, 62, 43); background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/extend2.png?fileID=2800000&amp;guid=a5deb628ac5411743a2cf9d9be9bd328&amp;type=3#extend2&quot;); background-size: 35% 25%; width: 90%;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

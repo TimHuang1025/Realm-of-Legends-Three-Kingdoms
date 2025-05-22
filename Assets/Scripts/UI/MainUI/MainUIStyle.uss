@@ -1,0 +1,112 @@
+VisualElement {
+}
+
+.botSmallBtn {
+    width: auto;
+}
+
+.sender {
+    font-size: 33px;
+    -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
+    color: rgb(60, 140, 186);
+    -unity-text-align: middle-left;
+}
+
+.textmsg {
+    -unity-text-align: middle-left;
+    font-size: 28px;
+    -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
+}
+
+.textbar {
+    height: 25%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    border-left-color: rgba(0, 0, 0, 0.4);
+    border-right-color: rgba(0, 0, 0, 0.4);
+    border-top-color: rgba(0, 0, 0, 0.4);
+    border-bottom-color: rgba(0, 0, 0, 0.4);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: rgb(224, 214, 200);
+}
+
+.botBigBtn {
+    height: 91%;
+    width: 87%;
+    align-self: auto;
+    align-items: auto;
+    align-content: auto;
+    justify-content: flex-start;
+    margin-left: 30px;
+    -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
+    font-size: 45px;
+    letter-spacing: 30px;
+    -unity-text-outline-color: rgb(224, 214, 200);
+    color: rgb(255, 201, 159);
+}
+
+.golddisplay {
+    -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
+    font-size: 35px;
+    color: rgb(255, 255, 255);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0);
+    -unity-font-style: bold;
+}
+
+.displaybar {
+    background-color: rgba(0, 0, 0, 0.45);
+    border-left-color: rgb(177, 137, 84);
+    border-right-color: rgb(177, 137, 84);
+    border-top-color: rgb(177, 137, 84);
+    border-bottom-color: rgb(177, 137, 84);
+    border-top-width: 1.5px;
+    border-right-width: 1.5px;
+    border-bottom-width: 1.5px;
+    border-left-width: 1.5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.smallstatdisplay {
+    -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
+    font-size: 25px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+}
+
+.topBtn {
+    width: 80%;
+    height: 100%;
+    background-color: rgb(90, 62, 43);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-left-color: rgb(201, 158, 83);
+    border-right-color: rgb(201, 158, 83);
+    border-top-color: rgb(201, 158, 83);
+    border-bottom-color: rgb(201, 158, 83);
+    font-size: 35px;
+    -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
+    color: rgb(255, 201, 159);
+}
+
+.profilepanel {
+    aspect-ratio: 1;
+}
