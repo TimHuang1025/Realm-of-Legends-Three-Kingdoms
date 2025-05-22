@@ -7,23 +7,23 @@
             </ui:VisualElement>
             <ui:VisualElement name="LogInMethodsContainer" style="flex-grow: 0; width: 65%; flex-shrink: 0; height: 55%; flex-direction: row; display: flex;">
                 <ui:VisualElement name="AppleLogInContainer" style="flex-grow: 1; flex-shrink: 0; align-items: center; justify-content: center; width: 20%;">
-                    <ui:Button name="AppleLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/appleicon.png?fileID=2800000&amp;guid=49cc8934aea75a94ab5bca6ec14f8e78&amp;type=3#appleicon&quot;);" />
+                    <ui:Button name="AppleLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/appleicon.png?fileID=2800000&amp;guid=49cc8934aea75a94ab5bca6ec14f8e78&amp;type=3#appleicon&quot;); background-size: 50% 50%;" />
                     <ui:Label text="Apple" name="AppleText" class="englishText" />
                 </ui:VisualElement>
                 <ui:VisualElement name="GoogleLogInContainer" style="flex-grow: 1; align-items: center; justify-content: center; flex-shrink: 0; width: 20%;">
-                    <ui:Button name="GoogleLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/googleicon.png?fileID=2800000&amp;guid=b885c4c4fa2599143abaf84e6ab5a1b2&amp;type=3#googleicon&quot;);" />
+                    <ui:Button name="GoogleLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/googleicon.png?fileID=2800000&amp;guid=b885c4c4fa2599143abaf84e6ab5a1b2&amp;type=3#googleicon&quot;); background-size: 50% 50%;" />
                     <ui:Label text="Google" name="GoogleText" class="englishText" />
                 </ui:VisualElement>
                 <ui:VisualElement name="EmailLogInContainer" style="flex-grow: 1; align-items: center; justify-content: center; flex-shrink: 0; width: 20%;">
-                    <ui:Button name="EmailLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/emailicon.png?fileID=2800000&amp;guid=3fd069585bb57e54097149d3a8a0a5d1&amp;type=3#emailicon&quot;);" />
+                    <ui:Button name="EmailLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/emailicon.png?fileID=2800000&amp;guid=3fd069585bb57e54097149d3a8a0a5d1&amp;type=3#emailicon&quot;); background-size: 50% 50%;" />
                     <ui:Label text="Email" name="EmailText" class="englishText" />
                 </ui:VisualElement>
                 <ui:VisualElement name="AccountLogInContainer" style="flex-grow: 1; align-items: center; justify-content: center; flex-shrink: 0; width: 20%;">
-                    <ui:Button name="AccountLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/accounticon.png?fileID=2800000&amp;guid=0d52499bda7013644b2044619010c05d&amp;type=3#accounticon&quot;);" />
+                    <ui:Button name="AccountLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/accounticon.png?fileID=2800000&amp;guid=0d52499bda7013644b2044619010c05d&amp;type=3#accounticon&quot;); background-size: 50% 50%;" />
                     <ui:Label text="Account" name="AccountText" class="englishText" />
                 </ui:VisualElement>
                 <ui:VisualElement name="GuestlogInContainer" style="flex-grow: 1; align-items: center; justify-content: center; flex-shrink: 0; width: 20%;">
-                    <ui:Button name="GuestLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/accounticon.png?fileID=2800000&amp;guid=0d52499bda7013644b2044619010c05d&amp;type=3#accounticon&quot;);" />
+                    <ui:Button name="GuestLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/accounticon.png?fileID=2800000&amp;guid=0d52499bda7013644b2044619010c05d&amp;type=3#accounticon&quot;); background-size: 50% 50%;" />
                     <ui:Label text="Guest" name="GuestText" class="englishText" />
                 </ui:VisualElement>
             </ui:VisualElement>

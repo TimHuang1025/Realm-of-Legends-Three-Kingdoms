@@ -27,6 +27,7 @@
     height: 50%;
     background-color: rgb(255, 255, 255);
     background-size: 50% 50%;
+    -unity-background-scale-mode: scale-and-crop;
 }
 
 .englishText {
