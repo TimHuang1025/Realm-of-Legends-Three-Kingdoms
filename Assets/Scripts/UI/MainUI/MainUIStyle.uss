@@ -62,7 +62,7 @@ VisualElement {
 }
 
 .displaybar {
-    background-color: rgba(0, 0, 0, 0.45);
+    background-color: rgba(0, 0, 0, 0.74);
     border-left-color: rgb(177, 137, 84);
     border-right-color: rgb(177, 137, 84);
     border-top-color: rgb(177, 137, 84);

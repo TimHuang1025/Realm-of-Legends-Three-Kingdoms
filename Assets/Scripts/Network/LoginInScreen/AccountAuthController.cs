@@ -257,7 +257,7 @@ public class AccountAuthController : MonoBehaviour
 
         if (!IsAccountValid(acc.value.Trim()))
         {
-            Toast("账号需≥5位，仅限英文或数字");
+            Toast("账号需≥5位<32位，仅限英文或数字");
             Focus(acc);
             return false;
         }
@@ -273,7 +273,7 @@ public class AccountAuthController : MonoBehaviour
 
     /* ───── 静态验证函数 ───── */
     private static bool IsAccountValid(string acc) =>
-        Regex.IsMatch(acc, @"^[A-Za-z0-9]{5,}$");
+        Regex.IsMatch(acc, @"^[A-Za-z0-9]{5,32}$");
 
     private static bool IsPasswordStrong(string pwd) =>
         Regex.IsMatch(pwd, @"^(?=.*\d)(?=.*[A-Za-z]).{8,}$");
