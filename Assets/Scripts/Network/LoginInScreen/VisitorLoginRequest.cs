@@ -1,44 +1,43 @@
 using UnityEngine;
-using UnityEngine.Networking;
-using System.Collections;
-using System.Text;
 using UnityEngine.WSA;
+using static AuthAPI;
 
+[RequireComponent(typeof(AuthAPI))]
 public class VisitorLoginRequest : MonoBehaviour
 {
-    [SerializeField] string testDeviceId = "debug-device-001"; // ← test
+    //[SerializeField] string testDeviceId = "debug-device-001";
 
+    AuthAPI api;
 
-    const string kUrl = "http://login.threekingdom.realmoflegend.com:8000/user/VisitorPlay";
+    void Awake() => api = GetComponent<AuthAPI>();
 
-    [ContextMenu("POST VisitorPlay")]
-    void PostVisitorPlay()
-    {
-        StartCoroutine(PostCoroutine());
-    }
     public void SendVisitorPlay()
     {
-        StartCoroutine(PostCoroutine());
-    }
-    IEnumerator PostCoroutine()
-    {
-        // ① 直接拼 JSON 字符串
-        string json   = $"{{\"device_id\":\"{testDeviceId}\"}}";
-        byte[] raw    = Encoding.UTF8.GetBytes(json);
+        string deviceId = SystemInfo.deviceUniqueIdentifier;
 
-        // ② UnityWebRequest
-        using var req = new UnityWebRequest(kUrl, UnityWebRequest.kHttpVerbPOST);
-        req.uploadHandler   = new UploadHandlerRaw(raw);
-        req.downloadHandler = new DownloadHandlerBuffer();
-        req.SetRequestHeader("Content-Type", "application/json");
-
-        // ③ 发送
-        yield return req.SendWebRequest();
-
-        // ④ 结果
-        if (req.result != UnityWebRequest.Result.Success)
-            Debug.LogError($"HTTP {req.responseCode}  {req.error}");
-        else
-            Debug.Log($"Server reply:\n{req.downloadHandler.text}");
+        api.VisitorLogin(
+            deviceId,
+            onSuccess: json =>
+            {
+                var data = JsonUtility.FromJson<ServerResp>(json);
+                PlayerData.I.SetSession(
+                    data.uuid,
+                    data.user_token,
+                    data.cuid,
+                    data.character_token,
+                    data.server_id,
+                    data.server_ip_address,
+                    data.server_port
+                );
+                PlayerData.I.Dump();
+                Debug.Log("游客登录成功 "+ deviceId);
+                var controller = Object.FindAnyObjectByType<AccountAuthController>();
+                if (controller != null)
+                    controller.Toast("游客登录成功！");
+            },
+            onFail: msg =>
+            {
+                Debug.LogError($"游客登录失败：{msg}");
+            });
     }
 }

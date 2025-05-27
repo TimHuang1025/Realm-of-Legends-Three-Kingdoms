@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static AuthAPI;
 
 [RequireComponent(typeof(UIDocument))]
 public class AccountAuthController : MonoBehaviour
@@ -23,6 +24,7 @@ public class AccountAuthController : MonoBehaviour
     private TextField regPwdField1;      // class="pwdregister" (第 1 个)
     private TextField regPwdField2;      // class="pwdregister" (第 2 个)
     private Button registerBtn;       // name="RegisterBtn"
+    private Button checkUserBtn;   // name="CheckUserBtn"
 
     /* ───── 验证码输入框 ───── */
     private TextField emailCodeField;    // name="emailCodeField"
@@ -69,6 +71,7 @@ public class AccountAuthController : MonoBehaviour
         var regSendBtn = root.Q<Button>("RegSendCodeBtn");
         var regVerifyBtn = root.Q<Button>("RegVerifyBtn");
 
+
         regSendBtn.clicked += () => OnClickSendCode(regEmailField, regSendBtn);
         regVerifyBtn.clicked += () => OnClickVerify(regEmailField, regCodeField);
 
@@ -102,8 +105,11 @@ public class AccountAuthController : MonoBehaviour
         registerBtn = root.Q<Button>("RegisterBtn");
         if (registerBtn != null) registerBtn.clicked += OnClickRegister;
 
+        checkUserBtn = root.Q<Button>("checkUserBtn");  // 检查用户名按钮
+        if (checkUserBtn != null) checkUserBtn.clicked += () => OnClickCheckUsername(regAccField);
+
         // return-btn：清空所有输入
-        root.Query<Button>(className: "return-btn")
+            root.Query<Button>(className: "return-btn")
             .ForEach(b => b.clicked += ClearAllInputs);
 
         /* ───── Toast 引用 ───── */
@@ -128,6 +134,17 @@ public class AccountAuthController : MonoBehaviour
             pwd,
             ok: json =>
             {
+                ServerResp data = JsonUtility.FromJson<ServerResp>(json);
+                PlayerData.I.SetSession(
+                    data.uuid,
+                    data.user_token,
+                    data.cuid,
+                    data.character_token,
+                    data.server_id,
+                    data.server_ip_address,
+                    data.server_port
+                );
+                PlayerData.I.Dump();
                 LoadingPanelManager.Instance.Hide();
                 Debug.Log("登陆成功");
                 Toast("登陆成功！");
@@ -186,6 +203,49 @@ public class AccountAuthController : MonoBehaviour
         // TODO: HTTP 注册请求…
     }
 
+    private void OnClickCheckUsername(TextField userField)
+    {
+        string name = userField.value.Trim();
+        if (string.IsNullOrEmpty(name))
+        {
+            Toast("用户名不能为空");
+            Focus(userField);
+            return;
+        }
+
+        if (!IsAccountValid(userField.value.Trim()))
+        {
+            Toast("账号需≥5位，仅限英文或数字");
+            Focus(userField);
+            return;
+        }
+
+        LoadingPanelManager.Instance.Show();
+
+        api.CheckUsername(
+            name,
+            ok: _ =>                       // ① code == 0 → 可用
+            {
+                LoadingPanelManager.Instance.Hide();
+                Toast("用户名可以使用！");
+            },
+            fail: msg =>                   // ② 其它业务码 或 网络错误
+            {
+                LoadingPanelManager.Instance.Hide();
+
+                // 服务器把业务错误也装在 fail 里，约定 code=1 表示已占用
+                if (msg.StartsWith("1"))
+                {
+                    Toast("已被占用，请换一个");
+                }
+                else
+                {
+                    Debug.LogError(msg);   // 记录其它异常
+                    Toast($"请求失败：{msg}");
+                }
+            });
+    }
+
     /* ───── 通用校验 ───── */
     private bool CheckAccountAndPwd(TextField acc, TextField pwd)
     {
@@ -197,7 +257,7 @@ public class AccountAuthController : MonoBehaviour
 
         if (!IsAccountValid(acc.value.Trim()))
         {
-            Toast("账号需≥5位，仅限英文或数字");
+            Toast("账号需≥5位<32位，仅限英文或数字");
             Focus(acc);
             return false;
         }
@@ -213,7 +273,7 @@ public class AccountAuthController : MonoBehaviour
 
     /* ───── 静态验证函数 ───── */
     private static bool IsAccountValid(string acc) =>
-        Regex.IsMatch(acc, @"^[A-Za-z0-9]{5,}$");
+        Regex.IsMatch(acc, @"^[A-Za-z0-9]{5,32}$");
 
     private static bool IsPasswordStrong(string pwd) =>
         Regex.IsMatch(pwd, @"^(?=.*\d)(?=.*[A-Za-z]).{8,}$");
@@ -381,43 +441,43 @@ public class AccountAuthController : MonoBehaviour
             });
     }
     private void OnClickChangePwd(TextField pwd1, TextField pwd2)
-{
-    string p1 = pwd1.value;
-    string p2 = pwd2.value;
-
-    /* 1) 本地校验 */
-    if (!IsPasswordStrong(p1))
     {
-        Toast("密码需≥8位，并包含字母和数字");
-        Focus(pwd1);
-        return;
-    }
-    if (!IsPasswordMatch(p1, p2))
-    {
-        Toast("两次输入的密码不一致");
-        Focus(pwd2);
-        return;
-    }
+        string p1 = pwd1.value;
+        string p2 = pwd2.value;
 
-    /* 2) TODO: 服务器接口 */
-    LoadingPanelManager.Instance.Show();
-    /*
-    api.ChangePassword(
-        p1,
-        ok: _ => {
-            LoadingPanelManager.Instance.Hide();
-            Toast("修改成功！");
-            ClearAllInputs();
-        },
-        fail: msg => {
-            LoadingPanelManager.Instance.Hide();
-            Toast($"修改失败: {msg}");
-        });
-    */
+        /* 1) 本地校验 */
+        if (!IsPasswordStrong(p1))
+        {
+            Toast("密码需≥8位，并包含字母和数字");
+            Focus(pwd1);
+            return;
+        }
+        if (!IsPasswordMatch(p1, p2))
+        {
+            Toast("两次输入的密码不一致");
+            Focus(pwd2);
+            return;
+        }
 
-    // 目前接口未完成，先本地提示
-    LoadingPanelManager.Instance.Hide();
-    Toast("（示例）本地校验通过，待接入 API");
-}
+        /* 2) TODO: 服务器接口 */
+        LoadingPanelManager.Instance.Show();
+        /*
+        api.ChangePassword(
+            p1,
+            ok: _ => {
+                LoadingPanelManager.Instance.Hide();
+                Toast("修改成功！");
+                ClearAllInputs();
+            },
+            fail: msg => {
+                LoadingPanelManager.Instance.Hide();
+                Toast($"修改失败: {msg}");
+            });
+        */
+
+        // 目前接口未完成，先本地提示
+        LoadingPanelManager.Instance.Hide();
+        Toast("（示例）本地校验通过，待接入 API");
+    }
 
 }

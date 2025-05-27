@@ -142,7 +142,31 @@ public class AuthAPI : MonoBehaviour
         string body = $"{{\"email\":\"{email}\",\"code\":\"{verifycode}\"}}";
         Debug.Log(body);
         return StartCoroutine(PostJson(url, body, ok, fail));
-        
+
+    }
+    public Coroutine CheckUsername(string username,
+                                Action<string> ok,
+                                Action<string> fail)
+    {
+        string url = $"{host}/user/CheckUsername";
+        string body = $"{{\"username\":\"{username}\"}}";
+        return StartCoroutine(PostJson(url, body, ok, fail));
     }
 
+    public struct ServerResp
+    {
+        public int code;
+        public string message;
+
+        //角色
+        public string uuid;
+        public string user_token;
+        public string cuid;
+        public string character_token;
+
+        //服务器信息
+        public int server_id;
+        public string server_ip_address;
+        public int server_port;
+    }
 }

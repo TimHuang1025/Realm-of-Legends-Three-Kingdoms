@@ -12,6 +12,7 @@ using System.Linq;
 public class LoginUIManager : MonoBehaviour
 {
     public static LoginUIManager I;
+    readonly Stack<System.Action> navStack = new();   // 返回栈
     /* ---------- 外层 UI ------------- */
     VisualElement selectorBar;                 // #LogInSelectorContainer
     VisualElement pagesRoot;                   // #Page
@@ -36,6 +37,15 @@ public class LoginUIManager : MonoBehaviour
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
         I = this;
+
+        // Google / Apple 登录按钮 ----------------------
+        var appleBtn  = root.Q<VisualElement>("AppleLogInContainer");
+        var googleBtn = root.Q<VisualElement>("GoogleLogInContainer");
+        if (PlatformDetector.IsAndroid)
+        {
+            appleBtn.style.display = DisplayStyle.None;
+            googleBtn.style.display = DisplayStyle.Flex;
+        }
 
         // 抓核心节点 -------------------------------------------------
         selectorBar = root.Q<VisualElement>("LogInSelectorContainer");
@@ -77,7 +87,7 @@ public class LoginUIManager : MonoBehaviour
 
         // Return 按钮 （class="return-btn"）
         root.Query<Button>(className: "return-btn")
-            .ForEach(b => b.clicked += ShowTopBar);
+            .ForEach(b => b.clicked += GoBack);
 
         // 启动：只显示顶栏
         pagesRoot.style.display = DisplayStyle.None;
@@ -87,6 +97,7 @@ public class LoginUIManager : MonoBehaviour
 
     void ShowPage(Button btn)
     {
+        navStack.Push(ShowTopBar); // 先压入栈上一页
         // 隐顶栏，显外层 Page 父容器
         selectorBar.style.display = DisplayStyle.None;
         pagesRoot.style.display = DisplayStyle.Flex;
@@ -111,6 +122,7 @@ public class LoginUIManager : MonoBehaviour
 
     void ShowLogin()
     {
+        navStack.Push(ShowTopBar);
         HideAccSubPanel();
         accountPagePanel.style.display = DisplayStyle.Flex;
         loginPanel.style.display = DisplayStyle.Flex;
@@ -119,6 +131,7 @@ public class LoginUIManager : MonoBehaviour
 
     void ShowRegister()
     {
+        navStack.Push(ShowLogin);            // 返回注册页上一层 = Login
         HideAccSubPanel();
         loginPanel.style.display = DisplayStyle.None;
         registerPanel.style.display = DisplayStyle.Flex;
@@ -126,6 +139,7 @@ public class LoginUIManager : MonoBehaviour
 
     void ShowAccVerify()
     {
+        navStack.Push(ShowLogin); 
         HideAccSubPanel();
         registerPanel.style.display = DisplayStyle.None;
         loginPanel.style.display = DisplayStyle.None;
@@ -143,10 +157,24 @@ public class LoginUIManager : MonoBehaviour
 
     public void ToChangePwPanel()
     {
+        navStack.Push(ShowAccVerify);
         HideAccSubPanel();
         Debug.Log("触发修改密码Panel");
         accountChangePwPanel.style.display = DisplayStyle.Flex;
         AccEmailVerifyPanel.style.display = DisplayStyle.None;
         AccChangePw.style.display = DisplayStyle.Flex;
+    }
+    void GoBack()
+    {
+        if (navStack.Count > 0)
+        {
+            var back = navStack.Pop();
+            back?.Invoke();
+        }
+        else
+        {
+            // 栈空 ⇒ 回到顶栏
+            ShowTopBar();
+        }
     }
 }
