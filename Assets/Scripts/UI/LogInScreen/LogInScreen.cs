@@ -139,7 +139,7 @@ public class LoginUIManager : MonoBehaviour
 
     void ShowAccVerify()
     {
-        navStack.Push(ShowRegister); 
+        navStack.Push(ShowLogin); 
         HideAccSubPanel();
         registerPanel.style.display = DisplayStyle.None;
         loginPanel.style.display = DisplayStyle.None;

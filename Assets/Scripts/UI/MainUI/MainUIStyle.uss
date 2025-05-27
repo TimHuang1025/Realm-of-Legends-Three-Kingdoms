@@ -45,7 +45,7 @@ VisualElement {
     align-items: auto;
     align-content: auto;
     justify-content: flex-start;
-    margin-left: 30px;
+    margin-left: 0;
     -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
     font-size: 45px;
     letter-spacing: 30px;
@@ -77,6 +77,9 @@ VisualElement {
     border-bottom-left-radius: 10px;
     margin-left: 2px;
     margin-right: 2px;
+    flex-shrink: 1;
+    width: 100%;
+    height: 100%;
 }
 
 .smallstatdisplay {
@@ -109,4 +112,36 @@ VisualElement {
 
 .profilepanel {
     aspect-ratio: 1;
+}
+
+.smalldisplaybar {
+    background-color: rgba(0, 0, 0, 0.74);
+    border-left-color: rgb(177, 137, 84);
+    border-right-color: rgb(177, 137, 84);
+    border-top-color: rgb(177, 137, 84);
+    border-bottom-color: rgb(177, 137, 84);
+    border-top-width: 1.5px;
+    border-right-width: 1.5px;
+    border-bottom-width: 1.5px;
+    border-left-width: 1.5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+    width: 116%;
+}
+
+.smallicon {
+}
+
+.bigdisplayicon {
+}
+
+.displaypanel {
+    align-items: center;
+    height: 100%;
+    width: initial;
+    flex-shrink: 0;
 }

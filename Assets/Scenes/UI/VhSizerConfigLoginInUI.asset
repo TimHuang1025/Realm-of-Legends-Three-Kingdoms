@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cf3741383c24e4e8e1a0343e811986, type: 3}
+  m_Name: VhSizerConfigLoginInUI
+  m_EditorClassIdentifier: 
+  rules:
+  - queryType: 0
+    queryValue: Logo
+    widthVh: 35
+    heightVh: 35
+    fontVh: 0
+    applyScale: 1
+  - queryType: 0
+    queryValue: LogInSelectorContainer
+    widthVh: 110
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+  - queryType: 1
+    queryValue: buttons
+    widthVh: 10
+    heightVh: 10
+    fontVh: 0
+    applyScale: 0
+  - queryType: 0
+    queryValue: LogInText
+    widthVh: 0
+    heightVh: 0
+    fontVh: 4
+    applyScale: 0
+  - queryType: 1
+    queryValue: englishText
+    widthVh: 0
+    heightVh: 0
+    fontVh: 2.5
+    applyScale: 0
+  - queryType: 1
+    queryValue: bar
+    widthVh: 70
+    heightVh: 8
+    fontVh: 0
+    applyScale: 0
+  - queryType: 1
+    queryValue: pagepanel
+    widthVh: 110
+    heightVh: 70
+    fontVh: 0
+    applyScale: 0
+  - queryType: 0
+    queryValue: AcceptHintPanel
+    widthVh: 70
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+  - queryType: 0
+    queryValue: RegisterOptionPanel
+    widthVh: 70
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+  - queryType: 0
+    queryValue: accsubpanel
+    widthVh: 70
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+  - queryType: 1
+    queryValue: toast
+    widthVh: 70
+    heightVh: 40
+    fontVh: 0
+    applyScale: 0

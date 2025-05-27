@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &371958756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,12 +172,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -357,49 +357,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73c2f2cf251ef7042877417eeac9d96c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targets:
-  - queryType: 1
-    queryValue: buttons
-    widthVh: 9.5
-    heightVh: 9.5
-    fontVh: 0
-    paddingVh: 0
-    borderVh: 0.1
-  - queryType: 0
-    queryValue: LogInSelectorContainer
-    widthVh: 120
-    heightVh: 35
-    fontVh: 0
-    paddingVh: 0
-    borderVh: 0
-  - queryType: 0
-    queryValue: LogInText
-    widthVh: 0
-    heightVh: 0
-    fontVh: 5
-    paddingVh: 0
-    borderVh: 0
-  - queryType: 1
-    queryValue: englishText
-    widthVh: 0
-    heightVh: 0
-    fontVh: 2
-    paddingVh: 0
-    borderVh: 0
-  - queryType: 0
-    queryValue: LogInMethodsContainer
-    widthVh: 80
-    heightVh: 0
-    fontVh: 0
-    paddingVh: 0
-    borderVh: 0
-  - queryType: 0
-    queryValue: Logo
-    widthVh: 30
-    heightVh: 30
-    fontVh: 0
-    paddingVh: 0
-    borderVh: 0
+  config: {fileID: 11400000, guid: d12a75724c343914aa8983e0dd91efed, type: 2}
+  referenceShort: 1179
+  minScale: 0.65
 --- !u!1001 &963660214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -663,7 +623,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1551562079
 MonoBehaviour:
@@ -733,7 +693,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: eafe140d11e4bf64e8d607885659c27c, type: 3}
   m_Resource: {fileID: 8300000, guid: eafe140d11e4bf64e8d607885659c27c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.156
   m_Pitch: 1
   Loop: 1
   Mute: 0

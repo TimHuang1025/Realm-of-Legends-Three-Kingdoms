@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cf3741383c24e4e8e1a0343e811986, type: 3}
+  m_Name: VhSizerConfigMainUI
+  m_EditorClassIdentifier: 
+  rules:
+  - queryType: 1
+    queryValue: botBigBtn
+    widthVh: 25
+    heightVh: 18
+    fontVh: 5
+    applyScale: 0
+  - queryType: 0
+    queryValue: BotSidePanel
+    widthVh: 65
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+  - queryType: 1
+    queryValue: textmsg
+    widthVh: 0
+    heightVh: 0
+    fontVh: 3.5
+    applyScale: 0
+  - queryType: 1
+    queryValue: sender
+    widthVh: 0
+    heightVh: 0
+    fontVh: 4.5
+    applyScale: 0
+  - queryType: 1
+    queryValue: botSmallBtn
+    widthVh: 10
+    heightVh: 5
+    fontVh: 0
+    applyScale: 0
+  - queryType: 1
+    queryValue: golddisplay
+    widthVh: 0
+    heightVh: 0
+    fontVh: 3.5
+    applyScale: 0
+  - queryType: 0
+    queryValue: ProfilePanelBig
+    widthVh: 42
+    heightVh: 29
+    fontVh: 0
+    applyScale: 0
+  - queryType: 0
+    queryValue: ProfileIcon
+    widthVh: 24
+    heightVh: 24
+    fontVh: 0
+    applyScale: 0
+  - queryType: 0
+    queryValue: vipPanel
+    widthVh: 20
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+  - queryType: 1
+    queryValue: smalldisplaybar
+    widthVh: 15
+    heightVh: 5
+    fontVh: 0
+    applyScale: 0
+  - queryType: 1
+    queryValue: smallstatdisplay
+    widthVh: 0
+    heightVh: 0
+    fontVh: 2.5
+    applyScale: 0
+  - queryType: 1
+    queryValue: smallicon
+    widthVh: 3.5
+    heightVh: 3.5
+    fontVh: 0
+    applyScale: 0
+  - queryType: 0
+    queryValue: ProfileSidePanel
+    widthVh: 17
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+  - queryType: 1
+    queryValue: topBtn
+    widthVh: 13
+    heightVh: 13
+    fontVh: 4
+    applyScale: 0
+  - queryType: 0
+    queryValue: EventsPanel
+    widthVh: 26
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+  - queryType: 0
+    queryValue: StatsPanel
+    widthVh: 125
+    heightVh: 15
+    fontVh: 0
+    applyScale: 0
+  - queryType: 1
+    queryValue: bigdisplayicon
+    widthVh: 6
+    heightVh: 6
+    fontVh: 0
+    applyScale: 0
+  - queryType: 0
+    queryValue: msgPreviewBar
+    widthVh: 0
+    heightVh: 18
+    fontVh: 0
+    applyScale: 0
