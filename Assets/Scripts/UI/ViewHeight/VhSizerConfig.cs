@@ -12,13 +12,13 @@ public class VhSizerConfig : ScriptableObject
         public QueryType queryType = QueryType.ByName;
         public string    queryValue;
 
-        [Header("尺寸 vh (0 = ignore)")]
         public float widthVh  = 0;
         public float heightVh = 0;
         public float fontVh   = 0;
 
-        [Header("是否缩放?")]
-        public bool applyScale = true;     // ← 逐元素开关，默认开启
+        [Header("可选开关")]
+        public bool  applyScale  = true;   // 之前的
+        public bool  aspectWidth = false;  // ← 新：按长宽比调宽度
     }
 
     public List<Rule> rules = new();

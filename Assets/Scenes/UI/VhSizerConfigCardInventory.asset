@@ -19,21 +19,25 @@ MonoBehaviour:
     heightVh: 17
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 0
     queryValue: SelectedCardImage
-    widthVh: 50
+    widthVh: 45
     heightVh: 65
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: bigBtn
     widthVh: 35
     heightVh: 7
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: smallbtns
     widthVh: 10
     heightVh: 5
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0

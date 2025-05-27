@@ -19,111 +19,130 @@ MonoBehaviour:
     heightVh: 18
     fontVh: 5
     applyScale: 0
+    aspectWidth: 0
   - queryType: 0
     queryValue: BotSidePanel
     widthVh: 65
     heightVh: 0
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: textmsg
     widthVh: 0
     heightVh: 0
     fontVh: 3.5
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: sender
     widthVh: 0
     heightVh: 0
     fontVh: 4.5
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: botSmallBtn
     widthVh: 10
     heightVh: 5
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: golddisplay
     widthVh: 0
     heightVh: 0
     fontVh: 3.5
     applyScale: 0
+    aspectWidth: 0
   - queryType: 0
     queryValue: ProfilePanelBig
     widthVh: 42
     heightVh: 29
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 0
     queryValue: ProfileIcon
     widthVh: 24
     heightVh: 24
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 0
     queryValue: vipPanel
     widthVh: 20
     heightVh: 0
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: smalldisplaybar
     widthVh: 15
     heightVh: 5
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: smallstatdisplay
     widthVh: 0
     heightVh: 0
     fontVh: 2.5
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: smallicon
     widthVh: 3.5
     heightVh: 3.5
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 0
     queryValue: ProfileSidePanel
     widthVh: 17
     heightVh: 0
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: topBtn
     widthVh: 13
     heightVh: 13
     fontVh: 4
     applyScale: 0
+    aspectWidth: 0
   - queryType: 0
     queryValue: EventsPanel
     widthVh: 26
     heightVh: 0
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 0
     queryValue: StatsPanel
     widthVh: 125
     heightVh: 15
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: bigdisplayicon
     widthVh: 6
     heightVh: 6
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 0
     queryValue: msgPreviewBar
     widthVh: 0
     heightVh: 18
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: displaybar
     widthVh: 20
     heightVh: 0
     fontVh: 0
     applyScale: 0
+    aspectWidth: 1

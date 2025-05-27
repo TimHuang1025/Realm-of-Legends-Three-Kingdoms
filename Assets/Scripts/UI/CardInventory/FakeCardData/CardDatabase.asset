@@ -1,0 +1,213 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af4d4d3f9fb4d36449ba12b1ffacbf5d, type: 3}
+  m_Name: CardDatabase
+  m_EditorClassIdentifier: 
+  cards:
+  - cardName: "\u5F20\u98DE"
+    iconSprite: {fileID: -2733068137183976511, guid: 0382da5c72c06814a8bb1d4dd4a94c34, type: 3}
+    fullBodySprite: {fileID: 1725589617098948740, guid: 2fa29a5287b6c7d42b81f09936a41cf8, type: 3}
+    quality: S
+    rank: 5
+    level: 125
+  - cardName: "\u8D75\u4E91"
+    iconSprite: {fileID: -1366298798693134112, guid: 80ebe9d8838e2c44db0a0b41cf3d0a89, type: 3}
+    fullBodySprite: {fileID: -4308975989848757366, guid: fd5fdff2656695242bfbe2a1f3ebe6b3, type: 3}
+    quality: S
+    rank: 4
+    level: 110
+  - cardName: "\u5173\u7FBD"
+    iconSprite: {fileID: 9142675310687091583, guid: 1049f5addb4ee704b97f7c4c0fb3a6bd, type: 3}
+    fullBodySprite: {fileID: 529629312781924708, guid: 35bf34c841f060546bae95a119a44680, type: 3}
+    quality: S
+    rank: 4
+    level: 116
+  - cardName: "\u5218\u5907"
+    iconSprite: {fileID: -3209625706465352077, guid: d58cb96e3932f4f43bc2fa61347e508f, type: 3}
+    fullBodySprite: {fileID: -8205101601232706128, guid: 11523132d4c548345b4c462f98570477, type: 3}
+    quality: S
+    rank: 5
+    level: 0
+  - cardName: "\u5415\u5E03"
+    iconSprite: {fileID: 3236439282166646870, guid: f71af7f570f40b148b2dc6cc09346781, type: 3}
+    fullBodySprite: {fileID: 6800671461536939374, guid: 73419048ca4db5e42bdf98bab19c90e5, type: 3}
+    quality: S
+    rank: 3
+    level: 98
+  - cardName: "\u5F90\u6643"
+    iconSprite: {fileID: 3745222003832749838, guid: 02b65bc6d5c080649b17cc8acb616660, type: 3}
+    fullBodySprite: {fileID: -5535379941654348796, guid: d0f5b6e219059194f8537f88a96bfbaa, type: 3}
+    quality: A
+    rank: 3
+    level: 99
+  - cardName: "\u5F20\u90C3"
+    iconSprite: {fileID: 3834348068314207152, guid: 7985b7e398f4f4d4ea0a90e056ee4ace, type: 3}
+    fullBodySprite: {fileID: 1248988723269106178, guid: 1dfcbbedc278b4d4291f47a78368cee8, type: 3}
+    quality: A
+    rank: 3
+    level: 95
+  - cardName: "\u592A\u53F2\u6148"
+    iconSprite: {fileID: 2907782705730775007, guid: 818c841fb574e324eb281e0594179eee, type: 3}
+    fullBodySprite: {fileID: 7469216650821317539, guid: 166b296ec11b5af4e992437b181c0a18, type: 3}
+    quality: A
+    rank: 3
+    level: 87
+  - cardName: "\u5F20\u8FBD"
+    iconSprite: {fileID: 4121144305309486746, guid: 336962ef998886f4eb84c7d805ae48a1, type: 3}
+    fullBodySprite: {fileID: -2177580818297069291, guid: 1bd9a689a508c784a897256bcc02b66c, type: 3}
+    quality: A
+    rank: 2
+    level: 85
+  - cardName: "\u7518\u5B81"
+    iconSprite: {fileID: -5259164582657543156, guid: 9683fd663e42be341a77717836daeae4, type: 3}
+    fullBodySprite: {fileID: -8213178766314657240, guid: 1b5acb71ed4dcd44089cabf4cdb7213e, type: 3}
+    quality: B
+    rank: 2
+    level: 84
+  - cardName: "\u59DC\u7EF4"
+    iconSprite: {fileID: -1325720961088046193, guid: cb81207ca3336ee47b1112f82c202bea, type: 3}
+    fullBodySprite: {fileID: -4843001521309378052, guid: a27af79bb89509642a457e8831253151, type: 3}
+    quality: B
+    rank: 1
+    level: 46
+  - cardName: "\u5415\u8499"
+    iconSprite: {fileID: 3379487300885016017, guid: 756fe480cfb0cec44b9845095417f027, type: 3}
+    fullBodySprite: {fileID: -3120286161263316955, guid: 677100bbac4e3c84388767cfda3dd3de, type: 3}
+    quality: B
+    rank: 1
+    level: 34
+  - cardName: "\u66F9\u64CD"
+    iconSprite: {fileID: 3984718113670313727, guid: 9181fe8f813165242997846de30f80ba, type: 3}
+    fullBodySprite: {fileID: -2268256344580882571, guid: 055209d17ecfee845b376577e54213b6, type: 3}
+    quality: B
+    rank: 0
+    level: 0
+  - cardName: "\u53F8\u9A6C\u61FF"
+    iconSprite: {fileID: 8177442308066101962, guid: 6c5b3cfcea52e33448caeb66c4889082, type: 3}
+    fullBodySprite: {fileID: 4986646486148356737, guid: 85f8e506279f08441afa9ba8e31a51c8, type: 3}
+    quality: B
+    rank: 0
+    level: 10
+  - cardName: "\u5E9E\u7EDF"
+    iconSprite: {fileID: -7176730970917189635, guid: d42401170d655ad40b0c043bfd83dab3, type: 3}
+    fullBodySprite: {fileID: 1551070945494382156, guid: f94e92f135e82ba488b24efdf2503360, type: 3}
+    quality: B
+    rank: 0
+    level: 1
+  - cardName: "\u8C82\u8749"
+    iconSprite: {fileID: 5685970408213424760, guid: 6ef58d9d81938fd478b7b3aaf87e332c, type: 3}
+    fullBodySprite: {fileID: 2057985643921122474, guid: d2a04256d9fede149b2c394934b04f89, type: 3}
+    quality: B
+    rank: 0
+    level: 1
+  - cardName: "\u7A0B\u6631"
+    iconSprite: {fileID: 9168716099028403731, guid: b81b07c5e4c8bd64db7024df5e1582bf, type: 3}
+    fullBodySprite: {fileID: -4660862475118425815, guid: 4fbacff1b0fc73f46a8488143dc5c26c, type: 3}
+    quality: B
+    rank: 0
+    level: 1
+  - cardName: "\u5F20\u82DE"
+    iconSprite: {fileID: 6995895582165383229, guid: 0b8db8ce3a4488c4d8d77842f79ac6c6, type: 3}
+    fullBodySprite: {fileID: -4631316709777948531, guid: 4c062e2dcbd313a42bb5747a3064c9a3, type: 3}
+    quality: B
+    rank: 0
+    level: 1
+  - cardName: "\u6CD5\u6B63"
+    iconSprite: {fileID: 2605154479123505662, guid: 47b5488ba8ba0814fbaa5bec8e3b6975, type: 3}
+    fullBodySprite: {fileID: 9076822042883571545, guid: 8297491d28abf0247b287e76b992e6f2, type: 3}
+    quality: B
+    rank: 0
+    level: 1
+  - cardName: "\u9C81\u8083"
+    iconSprite: {fileID: 5066681542694161767, guid: c046ea636c7d62a4b954c10d4a22a6bc, type: 3}
+    fullBodySprite: {fileID: 1682937741109158205, guid: c30973a723d58114d94a82b3e07bddef, type: 3}
+    quality: B
+    rank: 0
+    level: 1
+  - cardName: "\u7A0B\u6631"
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    quality: B
+    rank: 0
+    level: 0
+  - cardName: "\u7A0B\u6631"
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    quality: B
+    rank: 0
+    level: 0
+  - cardName: "\u7A0B\u6631"
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    quality: B
+    rank: 0
+    level: 0
+  - cardName: "\u7A0B\u6631"
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    quality: B
+    rank: 0
+    level: 0
+  - cardName: "\u7A0B\u6631"
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    quality: B
+    rank: 0
+    level: 0
+  - cardName: "\u7A0B\u6631"
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    quality: B
+    rank: 0
+    level: 0
+  - cardName: "\u7A0B\u6631"
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    quality: B
+    rank: 0
+    level: 0
+  - cardName: "\u7A0B\u6631"
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    quality: B
+    rank: 0
+    level: 0
+  - cardName: "\u7A0B\u6631"
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    quality: B
+    rank: 0
+    level: 0
+  - cardName: "\u7A0B\u6631"
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    quality: B
+    rank: 0
+    level: 0
+  - cardName: "\u7A0B\u6631"
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    quality: B
+    rank: 0
+    level: 0
+  - cardName: "\u7A0B\u6631"
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    quality: B
+    rank: 0
+    level: 0
+  - cardName: "\u7A0B\u6631"
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    quality: B
+    rank: 0
+    level: 0

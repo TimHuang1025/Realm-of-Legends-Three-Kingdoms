@@ -7,15 +7,16 @@
                     <ui:VisualElement name="Equipment1" class="EquipmentIcons" style="bottom: 0%; left: 0%; top: auto; position: absolute;" />
                     <ui:VisualElement name="Equipment2" class="EquipmentIcons" style="bottom: 0; left: auto; top: auto; position: absolute; right: auto;" />
                     <ui:VisualElement name="Equipment3" class="EquipmentIcons" style="bottom: 0%; left: auto; top: auto; position: absolute; right: 0%;" />
+                    <ui:Label text="测试" double-click-selects-word="false" name="CardName" style="white-space: pre; -unity-text-align: upper-center; align-self: center; justify-content: flex-start; align-items: center; top: 23%; font-size: 160%; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); color: rgb(255, 255, 255); text-shadow: 2px 2px 1px rgb(0, 0, 0);" />
                 </ui:VisualElement>
                 <ui:VisualElement name="BackButton" style="flex-grow: 0; position: absolute; top: 1.875%; left: 1.2%; border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; flex-shrink: 0; width: 9%; height: 10%; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-left-radius: 150px; border-top-right-radius: 150px; border-bottom-right-radius: 150px; border-bottom-left-radius: 150px;" />
             </ui:VisualElement>
             <ui:VisualElement name="Cards" style="flex-grow: 1; height: 90%; top: 10%; position: relative; width: 50%;">
-                <ui:VisualElement name="OrderContainer" style="align-items: center; height: 10%; flex-direction: row-reverse; justify-content: space-between;">
-                    <ui:Button name="OrderButton" class="smallbtns" style="width: 20%; height: 60%;" />
+                <ui:VisualElement name="OrderContainer" style="align-items: center; height: 8%; flex-direction: row-reverse; justify-content: space-between;">
+                    <ui:Button name="OrderButton" class="smallbtns" style="width: 20%; height: 80%;" />
                 </ui:VisualElement>
-                <ui:ListView name="CardScrollView" selection-type="None" fixed-item-height="200" style="height: 70%;" />
-                <ui:VisualElement name="InfoRecruitButtons" style="align-items: center; justify-content: space-evenly; flex-direction: row; height: 20%;">
+                <ui:ScrollView name="CardScrollView" mode="Vertical" focusable="false" style="height: 73%;" />
+                <ui:VisualElement name="InfoRecruitButtons" style="align-items: center; justify-content: space-evenly; flex-direction: row; height: 18%;">
                     <ui:Button name="InfoButton" class="bigBtn" style="width: 42.5%; height: 60%;" />
                     <ui:Button name="RecruitButton" class="bigBtn" style="width: 42.5%; height: 60%; right: auto;" />
                 </ui:VisualElement>

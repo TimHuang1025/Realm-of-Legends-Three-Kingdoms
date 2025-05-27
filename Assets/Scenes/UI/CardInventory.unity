@@ -184,9 +184,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7ff3f35622714e41bbfea3f6e167d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardsPerRow: 4
-  totalCards: 30
-  fixedItemHeight: 180
+  cardDatabase: {fileID: 11400000, guid: 899c48a3ccd99804abf8967b75fb7a00, type: 2}
+  rows: 3
+  cardSize: 180
+  colGap: 10
+  rowGap: 10
+  borderWidth: 3
+  cornerRadius: 10
+  defaultBorderColor: {r: 0, g: 0, b: 0, a: 1}
+  fillColor: {r: 0.85, g: 0.85, b: 0.85, a: 1}
+  levelFontSize: 30
+  levelFontColor: {r: 1, g: 1, b: 1, a: 1}
+  levelFont: {fileID: 12800000, guid: bd77ce5c718bc0e47b01c5156d0863d8, type: 3}
+  levelOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  levelOutlineWidth: 1
+  filledStarSprite: {fileID: 4815476061570213978, guid: 4384ef65fc759934fae030d5d99cb75c, type: 3}
+  emptyStarSprite: {fileID: -617737654735824149, guid: 5e65bc52abf30f4409d4d629a1a26e1a, type: 3}
+  starSize: 22
+  starGap: 2
 --- !u!114 &17718239
 MonoBehaviour:
   m_ObjectHideFlags: 0
