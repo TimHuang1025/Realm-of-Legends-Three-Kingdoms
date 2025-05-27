@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 17718237}
   - component: {fileID: 17718236}
   - component: {fileID: 17718238}
+  - component: {fileID: 17718239}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -186,6 +187,21 @@ MonoBehaviour:
   cardsPerRow: 4
   totalCards: 30
   fixedItemHeight: 180
+--- !u!114 &17718239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17718235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73c2f2cf251ef7042877417eeac9d96c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 5c44114afd8525e458c68b7112c6036e, type: 2}
+  referenceShort: 1179
+  minScale: 0.6
 --- !u!1 &378505457
 GameObject:
   m_ObjectHideFlags: 0

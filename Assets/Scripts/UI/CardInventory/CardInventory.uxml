@@ -1,9 +1,9 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3#CardInventory" />
-    <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgb(255, 255, 255); align-self: auto; align-content: flex-start; flex-direction: column;">
+    <ui:VisualElement name="Container" enabled="true" style="flex-grow: 1; background-color: rgb(244, 240, 231); align-self: auto; align-content: flex-start; flex-direction: column;">
         <ui:VisualElement name="Top" style="flex-grow: 4; flex-direction: row; height: 80%;">
             <ui:VisualElement name="SelectedCard" style="flex-grow: 1; width: 50%;">
-                <ui:VisualElement name="SelectedCardImage" style="flex-grow: 0; top: 12.5%; left: 20%; width: 60%; height: 80%; flex-shrink: 0; background-color: rgb(197, 197, 197); flex-direction: row; justify-content: center; align-self: auto; align-content: flex-start; align-items: stretch;">
+                <ui:VisualElement name="SelectedCardImage" style="flex-grow: 0; top: 12.5%; left: 20%; width: 50%; height: 80%; flex-shrink: 0; background-color: rgb(197, 197, 197); flex-direction: row; justify-content: center; align-self: auto; align-content: flex-start; align-items: stretch; background-image: none; -unity-background-scale-mode: scale-and-crop; background-position-x: center 0; background-position-y: top 0; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
                     <ui:VisualElement name="Equipment1" class="EquipmentIcons" style="bottom: 0%; left: 0%; top: auto; position: absolute;" />
                     <ui:VisualElement name="Equipment2" class="EquipmentIcons" style="bottom: 0; left: auto; top: auto; position: absolute; right: auto;" />
                     <ui:VisualElement name="Equipment3" class="EquipmentIcons" style="bottom: 0%; left: auto; top: auto; position: absolute; right: 0%;" />
@@ -11,19 +11,19 @@
                 <ui:VisualElement name="BackButton" style="flex-grow: 0; position: absolute; top: 1.875%; left: 1.2%; border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; flex-shrink: 0; width: 9%; height: 10%; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-left-radius: 150px; border-top-right-radius: 150px; border-bottom-right-radius: 150px; border-bottom-left-radius: 150px;" />
             </ui:VisualElement>
             <ui:VisualElement name="Cards" style="flex-grow: 1; height: 90%; top: 10%; position: relative; width: 50%;">
-                <ui:VisualElement name="OrderContainer" style="align-items: center; height: 10%; flex-direction: row-reverse;">
-                    <ui:Button name="OrderButton" class="Buttons" style="width: 20%; height: 60%;" />
+                <ui:VisualElement name="OrderContainer" style="align-items: center; height: 10%; flex-direction: row-reverse; justify-content: space-between;">
+                    <ui:Button name="OrderButton" class="smallbtns" style="width: 20%; height: 60%;" />
                 </ui:VisualElement>
                 <ui:ListView name="CardScrollView" selection-type="None" fixed-item-height="200" style="height: 70%;" />
-                <ui:VisualElement name="InfoRecruitButtons" style="align-items: center; justify-content: space-between; flex-direction: row; height: 20%;">
-                    <ui:Button name="InfoButton" class="Buttons" style="width: 42.5%; height: 60%;" />
-                    <ui:Button name="RecruitButton" class="Buttons" style="width: 42.5%; height: 60%; right: auto;" />
+                <ui:VisualElement name="InfoRecruitButtons" style="align-items: center; justify-content: space-evenly; flex-direction: row; height: 20%;">
+                    <ui:Button name="InfoButton" class="bigBtn" style="width: 42.5%; height: 60%;" />
+                    <ui:Button name="RecruitButton" class="bigBtn" style="width: 42.5%; height: 60%; right: auto;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Bottom" style="flex-grow: 1; align-items: center; justify-content: center; height: 20%;">
             <ui:VisualElement name="SkillBox" style="flex-grow: 0; width: 100%; height: 90%; flex-shrink: 0; justify-content: center; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 30px; border-top-right-radius: 30px; border-bottom-right-radius: 30px; border-bottom-left-radius: 30px; flex-direction: row;">
-                <ui:VisualElement name="MainSkillImage" style="flex-grow: 1; background-color: rgb(0, 0, 0); -unity-background-scale-mode: stretch-to-fill;" />
+                <ui:VisualElement name="MainSkillImage" class="skillimg" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); -unity-background-scale-mode: stretch-to-fill;" />
                 <ui:VisualElement name="MainSkillContainer" style="flex-grow: 2;">
                     <ui:VisualElement name="MainSkillNameContainer" class="SkillDescriptions" style="flex-grow: 1; width: 50%;">
                         <ui:Label text="Label" name="MainSkillName" class="SkillText" />
@@ -32,7 +32,7 @@
                         <ui:Label text="Label" name="MainSkillDescription" class="SkillText" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Passive1Image" style="flex-grow: 1; background-color: rgb(0, 0, 0);" />
+                <ui:VisualElement name="Passive1Image" class="skillimg" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
                 <ui:VisualElement name="Passive1Container" style="flex-grow: 2;">
                     <ui:VisualElement name="Passive1NameContainer" class="SkillDescriptions" style="flex-grow: 1; width: 50%;">
                         <ui:Label text="Label" name="Passive1Name" class="SkillText" />
@@ -41,7 +41,7 @@
                         <ui:Label text="Label" name="Passive1Description" class="SkillText" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Passive2Image" style="flex-grow: 1; background-color: rgb(0, 0, 0);" />
+                <ui:VisualElement name="Passive2Image" class="skillimg" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
                 <ui:VisualElement name="Passive2Container" style="flex-grow: 2;">
                     <ui:VisualElement name="Passive2NameContainer" class="SkillDescriptions" style="flex-grow: 1; width: 50%;">
                         <ui:Label text="Label" name="Passive2Name" class="SkillText" />

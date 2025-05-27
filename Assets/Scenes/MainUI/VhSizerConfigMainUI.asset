@@ -121,3 +121,9 @@ MonoBehaviour:
     heightVh: 18
     fontVh: 0
     applyScale: 0
+  - queryType: 1
+    queryValue: displaybar
+    widthVh: 20
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0

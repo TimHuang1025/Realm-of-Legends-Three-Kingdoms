@@ -1,8 +1,8 @@
 .SkillDescriptions {
-    border-top-width: 8px;
-    border-right-width: 8px;
-    border-bottom-width: 8px;
-    border-left-width: 8px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -17,6 +17,7 @@
     margin-left: 0;
     justify-content: center;
     align-items: stretch;
+    background-color: rgb(232, 214, 185);
 }
 
 .SkillText {
@@ -25,16 +26,16 @@
     flex-shrink: 0;
 }
 
-.Buttons {
-    background-color: rgb(255, 255, 255);
-    border-left-color: rgb(125, 125, 125);
-    border-right-color: rgb(125, 125, 125);
-    border-top-color: rgb(125, 125, 125);
-    border-bottom-color: rgb(125, 125, 125);
-    border-top-width: 6px;
-    border-right-width: 6px;
-    border-bottom-width: 6px;
-    border-left-width: 6px;
+.bigBtn {
+    background-color: rgb(90, 62, 43);
+    border-left-color: rgb(201, 158, 83);
+    border-right-color: rgb(201, 158, 83);
+    border-top-color: rgb(201, 158, 83);
+    border-bottom-color: rgb(201, 158, 83);
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
@@ -53,10 +54,10 @@
     border-right-color: rgb(55, 55, 55);
     border-top-color: rgb(55, 55, 55);
     border-bottom-color: rgb(55, 55, 55);
-    border-top-width: 7px;
-    border-right-width: 7px;
-    border-bottom-width: 7px;
-    border-left-width: 7px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
 }
 
 .card {
@@ -79,4 +80,31 @@
 
 .card:hover {
     background-color: rgb(229, 229, 229);
+}
+
+.skillimg {
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.smallbtns {
+    background-color: rgb(90, 62, 43);
+    border-left-color: rgb(201, 158, 83);
+    border-right-color: rgb(201, 158, 83);
+    border-top-color: rgb(201, 158, 83);
+    border-bottom-color: rgb(201, 158, 83);
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
 }
