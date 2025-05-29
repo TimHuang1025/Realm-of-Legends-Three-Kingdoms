@@ -21,7 +21,7 @@ public class VhSizer : MonoBehaviour
     void Update() { if (Screen.width != lastW || Screen.height != lastH) Apply(); }
 
     /*──────── 主逻辑 ────────*/
-    void Apply()
+    public void Apply()
     {
         if (config == null) return;
         lastW = Screen.width;

@@ -5,6 +5,8 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static AuthAPI;
+using UnityEngine.SceneManagement;
+
 
 [RequireComponent(typeof(UIDocument))]
 public class AccountAuthController : MonoBehaviour
@@ -109,8 +111,8 @@ public class AccountAuthController : MonoBehaviour
         if (checkUserBtn != null) checkUserBtn.clicked += () => OnClickCheckUsername(regAccField);
 
         // return-btn：清空所有输入
-            root.Query<Button>(className: "return-btn")
-            .ForEach(b => b.clicked += ClearAllInputs);
+        root.Query<Button>(className: "return-btn")
+        .ForEach(b => b.clicked += ClearAllInputs);
 
         /* ───── Toast 引用 ───── */
         toastPanel = root.Q<VisualElement>("ToastPanel");
@@ -148,6 +150,8 @@ public class AccountAuthController : MonoBehaviour
                 LoadingPanelManager.Instance.Hide();
                 Debug.Log("登陆成功");
                 Toast("登陆成功！");
+                JumpToMainUI(); // 切换到主场景
+
             },
             fail: msg =>
             {
@@ -183,6 +187,7 @@ public class AccountAuthController : MonoBehaviour
                 LoadingPanelManager.Instance.Hide();
                 Toast("注册成功！");
                 Debug.Log($"注册成功: {json}");
+                JumpToMainUI(); // 切换到主场景
             },
             fail: msg =>
             {
@@ -429,6 +434,7 @@ public class AccountAuthController : MonoBehaviour
                 else                                        // 普通邮箱登录
                 {
                     Toast("登录成功！");
+                    JumpToMainUI(); // 切换到主场景
                     // TODO: 如果登录成功要切到主场景，在这里调用
                 }
 
@@ -478,6 +484,11 @@ public class AccountAuthController : MonoBehaviour
         // 目前接口未完成，先本地提示
         LoadingPanelManager.Instance.Hide();
         Toast("（示例）本地校验通过，待接入 API");
+    }
+    private void JumpToMainUI()
+    {
+        Destroy(gameObject);
+        SceneManager.LoadScene("MainUI", LoadSceneMode.Single);
     }
 
 }

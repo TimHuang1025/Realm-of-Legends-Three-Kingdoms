@@ -1,247 +1,321 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using Kamgam.UIToolkitScrollViewPro;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(UIDocument))]
 public class CardInventory : MonoBehaviour
 {
-    /* ───── 数据源 ───── */
-    [Header("数据源")]
-    public CardDatabase cardDatabase;
+    /*──────────── 1. Inspector 资源 ────────────*/
+    [Header("UI 文件 / 数据")]
+    [SerializeField] private VisualTreeAsset cardTemplate;
+    [SerializeField] private CardDatabase cardDatabase;
 
-    /* ───── 网格布局 ───── */
-    [Header("网格")]
-    public int   rows     = 3;      // 固定行数
-    public int   cardSize = 180;    // 卡片边长
-    public float colGap   = 8f;     // 列间距
-    public float rowGap   = 12f;    // 行间距
+    [Header("星星贴图")]
+    [SerializeField] private Sprite filledStarSprite;
+    [SerializeField] private Sprite emptyStarSprite;
 
-    /* ───── 卡片外观 ───── */
-    [Header("统一外观")]
-    public float borderWidth  = 2f;
-    public float cornerRadius = 10f;
-    public Color defaultBorderColor = Color.black;
-    public Color fillColor          = new(0.85f, 0.85f, 0.85f, 1);
+    [Header("稀有度贴图 (S / A / B)")]
+    [SerializeField] private Sprite raritySpriteS;
+    [SerializeField] private Sprite raritySpriteA;
+    [SerializeField] private Sprite raritySpriteB;
 
-    /* ───── 等级文字 ───── */
-    [Header("等级文字")]
-    public int   levelFontSize  = 16;
-    public Color levelFontColor = Color.white;
-    public Font  levelFont;                       // 自定义字体
-    [Header("等级描边 (Unity 2023.1+)")]
-    public Color levelOutlineColor = Color.black;
-    [Range(0, 8)] public int levelOutlineWidth = 2;
+    [Header("星星大小")]
+    [SerializeField] private float starSize = 22f;
 
-    /* ───── 星星 ───── */
-    [Header("星星外观")]
-    public Sprite filledStarSprite;
-    public Sprite emptyStarSprite;
-    public int    starSize = 22;
-    public int    starGap  = 2;
+    [Header("品质边框颜色")]
+    [SerializeField] private Color colorS = new(1f, 0.78f, 0.28f);
+    [SerializeField] private Color colorA = new(0.64f, 0.30f, 1f);
+    [SerializeField] private Color colorB = new(0.22f, 0.84f, 1f);
+    [SerializeField] private Color defaultBorder = Color.black;
 
-    /* ───── 品质颜色 ───── */
-    static readonly Color COLOR_S = Hex("#FFC947");
-    static readonly Color COLOR_A = Hex("#A44DFF");
-    static readonly Color COLOR_B = Hex("#37D5FF");
+    [Header("网格布局")]
+    [SerializeField] private int rows = 3;
+    [SerializeField] private int cardSize = 180;
+    [SerializeField] private float colGap = 8f;
+    [SerializeField] private float rowGap = 12f;
 
-    /* 选中展示区 */
-    VisualElement selectedCardImage;
-    Label cardNameLabel;
+    /*──────────── 2. 运行时引用 ────────────*/
+    private VisualElement  selectedCardVE;
+    private Label          cardNameLabel;
 
-    /* ──────────────── */
-    void OnEnable()
+    private ScrollViewPro  scroll;
+    private VisualElement  gridRoot;
+
+    // ★★★ 新增：排序按钮与状态 ★★★
+    private Button         orderButton;               // #OrderButton
+    readonly string[]      sortModes = { "稀有度排序", "星级排序", "等级排序" };
+    int                    modeIdx = 0;
+
+    /*──────────────────────────────────────*/
+    private void OnEnable()
     {
-
-        if (cardDatabase == null) return;
+        if (cardTemplate == null || cardDatabase == null) return;
 
         var root = GetComponent<UIDocument>().rootVisualElement;
-        cardNameLabel = root.Q<Label>("CardName");
 
-        /* 0) 选中展示位 */
-        selectedCardImage = root.Q<VisualElement>("SelectedCardImage");
+        /*──────── 左侧展示区 ────────────*/
+        selectedCardVE = root.Q<VisualElement>("SelectedCardImage");
+        cardNameLabel  = root.Q<Label>("CardName");
 
-        /* 1) ScrollView */
-        var scroll = root.Q<ScrollView>("CardScrollView");
-        if (scroll == null)
-        {
-            scroll = new ScrollView { name = "CardScrollView" };
-            root.Add(scroll);
-        }
+        /*──────── ScrollViewPro ─────────*/
+        scroll = root.Q<ScrollViewPro>("CardScrollView")
+              ?? new ScrollViewPro { name = "CardScrollView" };
+        if (scroll.parent == null) root.Add(scroll);
 
         scroll.mode = ScrollViewMode.Horizontal;
         scroll.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
         scroll.verticalScrollerVisibility   = ScrollerVisibility.Hidden;
-
-        /* 设定整体高度 */
+        scroll.infinite = true;
         scroll.style.height = rows * cardSize + (rows - 1) * rowGap;
 
-        /* 2) 列排布容器 */
-        var cc = scroll.contentContainer;
-        cc.Clear();
-        cc.style.flexDirection = FlexDirection.Column;
+        gridRoot = scroll.contentContainer;
+        gridRoot.style.flexDirection = FlexDirection.Row;
+        gridRoot.style.paddingLeft   = 20;
+        gridRoot.style.paddingTop    = 20;
 
-        /* 3) 创建行容器 */
-        var rowVE = new VisualElement[rows];
-        for (int r = 0; r < rows; r++)
+        /*──────── 排序按钮 ─────────────*/
+        orderButton = root.Q<Button>("OrderButton");
+        if (orderButton == null)
         {
-            var row = new VisualElement
+            Debug.LogError("找不到 #OrderButton");
+            return;
+        }
+        orderButton.text = sortModes[modeIdx];
+        orderButton.clicked += OnOrderButtonClick;
+
+        /*──────── 首次生成 ─────────────*/
+        ApplySort();      // 先按默认模式排一次
+        FocusFirstCard();
+    }
+
+    /*──────── 按钮点击：循环排序模式 ──────*/
+    void OnOrderButtonClick()
+    {
+        modeIdx = (modeIdx + 1) % sortModes.Length;
+        orderButton.text = sortModes[modeIdx];
+        ApplySort();
+    }
+
+    /*──────── 根据当前模式排序并刷新 ──────*/
+    void ApplySort()
+    {
+        switch (sortModes[modeIdx])
+        {
+            case "稀有度排序":
+                cardDatabase.cards.Sort((a, b) =>
+                    QualityWeight(b.quality).CompareTo(QualityWeight(a.quality)));
+                break;
+
+            case "星级排序":   // 5★ > 4★ …
+                cardDatabase.cards.Sort((a, b) => b.rank.CompareTo(a.rank));
+                break;
+
+            case "等级排序":
+                cardDatabase.cards.Sort((a, b) => b.level.CompareTo(a.level));
+                break;
+        }
+        BuildGrid();
+    }
+
+    int QualityWeight(string q) => q switch
+    {
+        "S" => 3, "A" => 2, "B" => 1, _ => 0
+    };
+
+    /*──────── 生成 / 刷新网格 ───────────*/
+    void BuildGrid()
+    {
+        gridRoot.Clear();
+
+        int cardIdx = 0;
+        while (cardIdx < cardDatabase.cards.Count)
+        {
+            var col = new VisualElement
             {
                 style =
                 {
-                    flexDirection = FlexDirection.Row,
-                    marginBottom  = (r < rows - 1) ? rowGap : 0
+                    flexDirection = FlexDirection.Column,
+                    marginRight   = colGap,
+                    width         = cardSize,
+                    flexShrink    = 0,
+                    flexGrow      = 0
                 }
             };
-            cc.Add(row);
-            rowVE[r] = row;
+
+            for (int r = 0; r < rows && cardIdx < cardDatabase.cards.Count; r++)
+            {
+                var card = BuildCard(cardDatabase.cards[cardIdx]);
+                if (r > 0) card.style.marginTop = rowGap;
+                col.Add(card);
+                cardIdx++;
+            }
+            gridRoot.Add(col);
         }
 
-        /* 4) 生成卡片 */
-        for (int i = 0; i < cardDatabase.cards.Count; i++)
+        scroll.RefreshAfterHierarchyChange();
+    }
+
+    /*──────── 帮助函数：聚焦第一张 ─────────*/
+    void FocusFirstCard()
+    {
+        if (gridRoot.childCount == 0) return;
+        var firstCol = gridRoot[0];
+        if (firstCol.childCount == 0) return;
+
+        var firstBtn = firstCol[0].Q<Button>("CardRoot");
+        if (firstBtn == null) return;
+
+        ShowSelected((CardInfo)firstBtn.userData);
+        firstBtn.schedule.Execute(() =>
         {
-            var data = cardDatabase.cards[i];
-            rowVE[i % rows].Add(CreateCardButton(data));
+            firstBtn.Focus();
+            scroll.ScrollTo(firstBtn);
+        }).ExecuteLater(0);
+    }
+
+
+    /*──────── 构建单张卡片 ───────────────*/
+    private VisualElement BuildCard(CardInfo data)
+    {
+        var container = cardTemplate.Instantiate();
+        container.style.width  = cardSize;
+        container.style.height = cardSize;
+        container.style.marginRight = colGap;
+        container.style.flexShrink  = 0;
+
+        var cardBtn   = container.Q<Button>("CardRoot");
+        var lvlLabel  = container.Q<Label>("Level");
+        var starPanel = container.Q<VisualElement>("StarPanel");
+        var rarityVe  = container.Q<VisualElement>("CardRarity");
+
+        cardBtn.AddToClassList("cardroot");
+        cardBtn.userData = data;                          // <<< 新增: 绑定数据
+
+        /* 背景图 */
+        if (data.iconSprite != null)
+        {
+            cardBtn.style.backgroundImage = new StyleBackground(data.iconSprite);
+            cardBtn.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
         }
+
+        /* 边框 & 等级颜色 */
+        Color borderCol = data.quality switch
+        {
+            "S" => colorS,
+            "A" => colorA,
+            "B" => colorB,
+            _   => defaultBorder
+        };
+        cardBtn.style.borderTopColor    =
+        cardBtn.style.borderRightColor  =
+        cardBtn.style.borderBottomColor =
+        cardBtn.style.borderLeftColor   = borderCol;
+
+        lvlLabel.text       = data.level.ToString();
+        lvlLabel.style.color = borderCol;
+
+        /* 星级 */
+        FillStars(starPanel, data.rank);
+
+        /* 稀有度角标 */
+        if (rarityVe != null)
+        {
+            Sprite sprite = data.quality switch
+            {
+                "S" => raritySpriteS,
+                "A" => raritySpriteA,
+                "B" => raritySpriteB,
+                _   => null
+            };
+
+            if (sprite == null)
+            {
+                rarityVe.style.display = DisplayStyle.None;
+            }
+            else
+            {
+                rarityVe.style.display = DisplayStyle.Flex;
+                rarityVe.style.backgroundImage           = new StyleBackground(sprite);
+                rarityVe.style.unityBackgroundScaleMode  = ScaleMode.StretchToFill;
+            }
+        }
+
+        /* 点击行为 */
+        cardBtn.clicked += () => ShowSelected(data);
+
+        /* 获焦/失焦 动画 */
+        var normalScale  = new Scale(new Vector3(1f,   1f, 1f));
+        var pressedScale = new Scale(new Vector3(1.05f,1.05f,1f));
+        var overlay = container.Q<VisualElement>("DimOverlay");
+        var glowS   = container.Q<VisualElement>("Glow_S");
+        var glowA   = container.Q<VisualElement>("Glow_A");
+        var glowB   = container.Q<VisualElement>("Glow_B");
+
+        void ShowGlow(string q)
+        {
+            glowS.style.display = glowA.style.display = glowB.style.display = DisplayStyle.None;
+            var target = q == "S" ? glowS : q == "A" ? glowA : glowB;
+            target.RemoveFromClassList("rarity-s");
+            target.RemoveFromClassList("rarity-a");
+            target.RemoveFromClassList("rarity-b");
+            target.AddToClassList($"rarity-{q.ToLower()}");
+            target.style.display = DisplayStyle.Flex;
+        }
+
+        cardBtn.RegisterCallback<FocusInEvent>(e =>
+        {
+            cardBtn.style.scale    = pressedScale;
+            rarityVe.style.scale   = pressedScale;
+            overlay.style.display  = DisplayStyle.Flex;
+            ShowGlow(data.quality);
+            ShowSelected(data);                           // <<< 新增: 焦点时同步展示
+        });
+
+        cardBtn.RegisterCallback<FocusOutEvent>(e =>
+        {
+            cardBtn.style.scale    = normalScale;
+            rarityVe.style.scale   = normalScale;
+            overlay.style.display  = DisplayStyle.None;
+            glowS.style.display = glowA.style.display = glowB.style.display = DisplayStyle.None;
+        });
+
+        return container;
     }
 
-    /* ───── 创建按钮 ───── */
-    Button CreateCardButton(CardInfo d)
+    /*──────── 填充星星 ───────────────*/
+    private void FillStars(VisualElement panel, int rank)
     {
-        var btn = new Button
-        {
-            name = d.cardName,      // 内部标识，不会显示
-            style =
-            {
-                width       = cardSize,
-                height      = cardSize,
-                marginRight = colGap,
-                backgroundColor = fillColor,
-                unityTextAlign  = TextAnchor.MiddleCenter,
-
-                /* 圆角 */
-                borderTopLeftRadius     = cornerRadius,
-                borderTopRightRadius    = cornerRadius,
-                borderBottomLeftRadius  = cornerRadius,
-                borderBottomRightRadius = cornerRadius,
-
-                /* 边框粗细 */
-                borderLeftWidth   = borderWidth,
-                borderRightWidth  = borderWidth,
-                borderTopWidth    = borderWidth,
-                borderBottomWidth = borderWidth
-            }
-        };
-
-        /* 边框颜色 */
-        var borderCol = d.quality switch
-        {
-            "S" => COLOR_S,
-            "A" => COLOR_A,
-            "B" => COLOR_B,
-            _   => HexOrDefault(d.quality, defaultBorderColor)
-        };
-        btn.style.borderLeftColor =
-        btn.style.borderRightColor =
-        btn.style.borderTopColor   =
-        btn.style.borderBottomColor = borderCol;
-
-        /* 背景图：头像 */
-        if (d.iconSprite != null)
-            btn.style.backgroundImage = new StyleBackground(d.iconSprite);
-
-        /* ── Overlay：等级 & 星星 ── */
-        var overlay = new VisualElement
-        {
-            pickingMode = PickingMode.Ignore,
-            style =
-            {
-                position = Position.Absolute,
-                left = 0, top = 0, right = 0, bottom = 0
-            }
-        };
-        btn.Add(overlay);
-
-        /* 等级标签 */
-        var lvlLabel = new Label($"Lv.{d.level}")
-        {
-            style =
-            {
-                position  = Position.Absolute,
-                left      = 6,
-                top       = 4,
-                fontSize  = levelFontSize,
-                color     = levelFontColor,
-                unityFont = levelFont
-#if UNITY_2023_1_OR_NEWER
-                ,unityTextOutlineColor = levelOutlineColor,
-                 unityTextOutlineWidth = levelOutlineWidth
-#endif
-            }
-        };
-        overlay.Add(lvlLabel);
-
-        /* 星星行 */
-        overlay.Add(BuildStarRow(d.rank));
-
-
-        /* 点击事件：切换大图 */
-        btn.clicked += () =>
-        {
-            if (selectedCardImage == null) return;
-
-            var body = d.fullBodySprite ?? d.iconSprite;
-            if (body != null)
-            {
-                selectedCardImage.style.backgroundImage =
-                    new StyleBackground(body);
-                selectedCardImage.style.unityBackgroundScaleMode =
-                    ScaleMode.ScaleToFit;
-            }
-            cardNameLabel.text = d.cardName;
-            Debug.Log(cardNameLabel.text +" 替换Card Name: " + d.cardName);
-        };
-
-        return btn;
-    }
-
-    /* ───── 星星行 ───── */
-    VisualElement BuildStarRow(int rank)
-    {
-        var row = new VisualElement
-        {
-            pickingMode = PickingMode.Ignore,
-            style =
-            {
-                position = Position.Absolute,
-                bottom   = 4,
-                left     = 0,
-                right    = 0,
-                flexDirection  = FlexDirection.Row,
-                justifyContent = Justify.Center
-            }
-        };
-
+        panel.Clear();
         rank = Mathf.Clamp(rank, 0, 5);
+
         for (int i = 0; i < 5; i++)
         {
-            row.Add(new Image
+            var img = new Image
             {
-                sprite    = i < rank ? filledStarSprite : emptyStarSprite,
-                scaleMode = ScaleMode.ScaleToFit,
-                style =
-                {
-                    width  = starSize,
-                    height = starSize,
-                    marginRight = (i < 4) ? starGap : 0
-                }
-            });
+                sprite = i < rank ? filledStarSprite : emptyStarSprite,
+                scaleMode = ScaleMode.ScaleToFit
+            };
+            img.style.width  = starSize;
+            img.style.height = starSize;
+            img.style.marginRight = i < 4 ? 2 : 0;
+            panel.Add(img);
         }
-        return row;
     }
 
-    /* ───── 小工具 ───── */
-    static Color Hex(string hex)
-        { ColorUtility.TryParseHtmlString(hex, out var c); return c; }
-
-    static Color HexOrDefault(string hex, Color fallback)
-        => ColorUtility.TryParseHtmlString(hex, out var c) ? c : fallback;
+    /*──────── 展示大图 / 名称 ─────────*/
+    private void ShowSelected(CardInfo data)
+    {
+        if (selectedCardVE != null)
+        {
+            var pic = data.fullBodySprite ?? data.iconSprite;
+            if (pic != null)
+            {
+                selectedCardVE.style.backgroundImage = new StyleBackground(pic);
+                selectedCardVE.style.unityBackgroundScaleMode = ScaleMode.StretchToFill;
+            }
+        }
+        if (cardNameLabel != null)
+            cardNameLabel.text = data.cardName;
+    }
 }

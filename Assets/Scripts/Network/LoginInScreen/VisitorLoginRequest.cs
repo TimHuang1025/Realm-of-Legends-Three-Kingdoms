@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.WSA;
 using static AuthAPI;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AuthAPI))]
 public class VisitorLoginRequest : MonoBehaviour
@@ -31,6 +32,8 @@ public class VisitorLoginRequest : MonoBehaviour
                 );
                 PlayerData.I.Dump();
                 Debug.Log("游客登录成功 "+ deviceId);
+                Destroy(gameObject);
+                SceneManager.LoadScene("MainUI", LoadSceneMode.Single);
                 var controller = Object.FindAnyObjectByType<AccountAuthController>();
                 if (controller != null)
                     controller.Toast("游客登录成功！");

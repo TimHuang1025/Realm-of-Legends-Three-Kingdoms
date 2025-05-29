@@ -129,8 +129,9 @@ GameObject:
   m_Component:
   - component: {fileID: 17718237}
   - component: {fileID: 17718236}
-  - component: {fileID: 17718238}
   - component: {fileID: 17718239}
+  - component: {fileID: 17718240}
+  - component: {fileID: 17718241}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -172,36 +173,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &17718238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 17718235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7ff3f35622714e41bbfea3f6e167d50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardDatabase: {fileID: 11400000, guid: 899c48a3ccd99804abf8967b75fb7a00, type: 2}
-  rows: 3
-  cardSize: 180
-  colGap: 10
-  rowGap: 10
-  borderWidth: 3
-  cornerRadius: 10
-  defaultBorderColor: {r: 0, g: 0, b: 0, a: 1}
-  fillColor: {r: 0.85, g: 0.85, b: 0.85, a: 1}
-  levelFontSize: 30
-  levelFontColor: {r: 1, g: 1, b: 1, a: 1}
-  levelFont: {fileID: 12800000, guid: bd77ce5c718bc0e47b01c5156d0863d8, type: 3}
-  levelOutlineColor: {r: 0, g: 0, b: 0, a: 1}
-  levelOutlineWidth: 1
-  filledStarSprite: {fileID: 4815476061570213978, guid: 4384ef65fc759934fae030d5d99cb75c, type: 3}
-  emptyStarSprite: {fileID: -617737654735824149, guid: 5e65bc52abf30f4409d4d629a1a26e1a, type: 3}
-  starSize: 22
-  starGap: 2
 --- !u!114 &17718239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +188,46 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: 5c44114afd8525e458c68b7112c6036e, type: 2}
   referenceShort: 1179
   minScale: 0.6
+--- !u!114 &17718240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17718235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7ff3f35622714e41bbfea3f6e167d50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardTemplate: {fileID: 9197481963319205126, guid: ce7ec8992aedf614db80452685e736c3, type: 3}
+  cardDatabase: {fileID: 11400000, guid: 899c48a3ccd99804abf8967b75fb7a00, type: 2}
+  filledStarSprite: {fileID: -8980388821408755452, guid: 225758a5b9c5ff348bffc048eddfe6c0, type: 3}
+  emptyStarSprite: {fileID: -7591466717229274091, guid: 8504f353272c0784dad404ea941450f7, type: 3}
+  raritySpriteS: {fileID: 9156046936503501570, guid: 359d1ec66d067254384d312a7fff7c2c, type: 3}
+  raritySpriteA: {fileID: 3954183128216192898, guid: 64f5d6f3b6be4ce4bad264d38864f329, type: 3}
+  raritySpriteB: {fileID: 8574901359312092316, guid: 178fdcd8cc6de2c4f8e45f226800968f, type: 3}
+  starSize: 50
+  colorS: {r: 1, g: 0.78, b: 0.28, a: 1}
+  colorA: {r: 0.6862745, g: 0.6039216, b: 1, a: 1}
+  colorB: {r: 0.22, g: 0.84, b: 1, a: 1}
+  defaultBorder: {r: 0, g: 0, b: 0, a: 1}
+  rows: 3
+  cardSize: 183
+  colGap: 31
+  rowGap: 31
+--- !u!114 &17718241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17718235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f0c916a4fc7a84b899a9e1521e2424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &378505457
 GameObject:
   m_ObjectHideFlags: 0

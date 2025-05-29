@@ -15,29 +15,57 @@ MonoBehaviour:
   rules:
   - queryType: 1
     queryValue: skillimg
-    widthVh: 17
-    heightVh: 17
+    widthVh: 19
+    heightVh: 19
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
   - queryType: 0
     queryValue: SelectedCardImage
-    widthVh: 45
-    heightVh: 65
+    widthVh: 46
+    heightVh: 66
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
   - queryType: 1
     queryValue: bigBtn
     widthVh: 35
-    heightVh: 7
-    fontVh: 0
+    heightVh: 8
+    fontVh: 6
     applyScale: 0
     aspectWidth: 0
   - queryType: 1
     queryValue: smallbtns
-    widthVh: 10
+    widthVh: 25
+    heightVh: 8
+    fontVh: 4
+    applyScale: 0
+    aspectWidth: 0
+  - queryType: 1
+    queryValue: skillname
+    widthVh: 0
+    heightVh: 0
+    fontVh: 3.5
+    applyScale: 0
+    aspectWidth: 0
+  - queryType: 1
+    queryValue: skilltext
+    widthVh: 0
+    heightVh: 25
+    fontVh: 2.5
+    applyScale: 0
+    aspectWidth: 1
+  - queryType: 1
+    queryValue: skillnamecontainer
+    widthVh: 0
     heightVh: 5
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+  - queryType: 0
+    queryValue: SelectedCard
+    widthVh: 60
+    heightVh: 0
     fontVh: 0
     applyScale: 0
     aspectWidth: 0

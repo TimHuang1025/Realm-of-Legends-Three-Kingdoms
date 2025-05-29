@@ -1,0 +1,26 @@
+.star {
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.cardroot {
+}
+
+.cardroot:focus {
+    border-top-width: 6px;
+    border-right-width: 6px;
+    border-bottom-width: 6px;
+    border-left-width: 6px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.glow {
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    left: 5%;
+    position: absolute;
+    display: none;
+}
