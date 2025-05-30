@@ -62,7 +62,7 @@ public class ResolutionRefresher : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-        Debug.Log($"[ResolutionRefresher] 尝试刷新，成功={allReady}，数量={sizers.Length}");
+        
 #endif
         return allReady;
     }

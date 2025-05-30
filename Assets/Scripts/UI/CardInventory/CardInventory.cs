@@ -66,7 +66,7 @@ public class CardInventory : MonoBehaviour
         scroll.mode = ScrollViewMode.Horizontal;
         scroll.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
         scroll.verticalScrollerVisibility   = ScrollerVisibility.Hidden;
-        scroll.infinite = true;
+        scroll.infinite = false;
         scroll.style.height = rows * cardSize + (rows - 1) * rowGap;
 
         gridRoot = scroll.contentContainer;

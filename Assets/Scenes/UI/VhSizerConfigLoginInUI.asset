@@ -19,63 +19,74 @@ MonoBehaviour:
     heightVh: 35
     fontVh: 0
     applyScale: 1
+    aspectWidth: 0
   - queryType: 0
     queryValue: LogInSelectorContainer
     widthVh: 110
     heightVh: 0
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: buttons
     widthVh: 10
     heightVh: 10
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 0
     queryValue: LogInText
     widthVh: 0
     heightVh: 0
     fontVh: 4
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: englishText
     widthVh: 0
     heightVh: 0
     fontVh: 2.5
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: bar
     widthVh: 70
     heightVh: 8
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: pagepanel
     widthVh: 110
     heightVh: 70
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 0
     queryValue: AcceptHintPanel
     widthVh: 70
     heightVh: 0
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 0
     queryValue: RegisterOptionPanel
     widthVh: 70
     heightVh: 0
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 0
     queryValue: accsubpanel
     widthVh: 70
     heightVh: 0
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
   - queryType: 1
     queryValue: toast
     widthVh: 70
     heightVh: 40
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0

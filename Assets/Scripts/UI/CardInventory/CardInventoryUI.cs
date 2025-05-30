@@ -1,36 +1,71 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(UIDocument))]
 public class CardInventoryUI : MonoBehaviour
 {
+    /*──────── Inspector 拖入 ────────*/
+    [SerializeField] UpgradePanelController upgradePanelCtrl;   // 升级面板控制脚本
+    [SerializeField] VhSizer                vhSizer;            // 全局/主界面的 VhSizer
+
+    /*──────── 私有字段 ────────*/
     Button returnBtn;
+    Button upgradeBtn;
 
     void Awake()
     {
-        // ① 找到 UXML 根
         var root = GetComponent<UIDocument>().rootVisualElement;
 
-        // ② 拿到按钮（UXML 里 name="ReturnBtn"）
+        /*—— 返回按钮 ——*/
         returnBtn = root.Q<Button>("ReturnBtn");
         if (returnBtn == null)
-        {
-            Debug.LogError("CardInventoryUI: 找不到 <Button name=\"ReturnBtn\">");
-            return;
-        }
+            Debug.LogError("[CardInventoryUI] 找不到 <Button name=\"ReturnBtn\">");
+        else
+            returnBtn.clicked += OnClickReturn;
 
-        // ③ 绑定点击事件
-        returnBtn.clicked += OnClickReturn;
+        /*—— 升级按钮 ——*/
+        upgradeBtn = root.Q<Button>("UpgradeButton");
+        if (upgradeBtn == null)
+            Debug.LogError("[CardInventoryUI] 找不到 <Button name=\"UpgradeButton\">");
+        else
+            upgradeBtn.clicked += OpenUpgradePanel;
     }
 
-    /*──────── 点击返回 ────────*/
-    void OnClickReturn()
-    {
-        // 若本脚本挂载的物体被 DontDestroyOnLoad 过，这里销毁以免跟到下个场景
-        Destroy(gameObject);
+    /*──────── 返回主界面 ────────*/
+    void OnClickReturn() => StartCoroutine(ReturnRoutine());
 
-        // 加载主 UI 场景（需已加入 Build Settings）
-        SceneManager.LoadScene("MainUI", LoadSceneMode.Single);
+    IEnumerator ReturnRoutine()
+    {
+        LoadingPanelManager.Instance.Show();
+        yield return null;                            // 让 Loading 先渲染
+        yield return new WaitForSecondsRealtime(1f);
+
+        // ❗如果不想把缩放脚本也销毁，改成 SetActive(false)
+        gameObject.SetActive(false);                 // or Destroy(gameObject);
+
+        var op = SceneManager.LoadSceneAsync("MainUI", LoadSceneMode.Single);
+        while (!op.isDone) yield return null;
+
+        LoadingPanelManager.Instance.Hide();
+    }
+
+    /*──────── 打开升级面板 ────────*/
+    void OpenUpgradePanel() => StartCoroutine(OpenUpgradePanelRefresh());
+
+    IEnumerator OpenUpgradePanelRefresh()
+    {
+        if (upgradePanelCtrl == null)
+        {
+            Debug.LogError("[CardInventoryUI] upgradePanelCtrl 未赋值！");
+            yield break;
+        }
+
+        upgradePanelCtrl.Open();          // 激活面板
+        yield return null;                // 等 1 帧布局
+
+        if (vhSizer != null)
+            vhSizer.Apply();              // 统一刷新一次
     }
 }
