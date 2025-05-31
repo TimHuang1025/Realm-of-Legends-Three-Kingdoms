@@ -71,8 +71,29 @@ MonoBehaviour:
     aspectWidth: 0
   - queryType: 0
     queryValue: Info
-    widthVh: 0
+    widthVh: 80
     heightVh: 76
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 1
+  - queryType: 1
+    queryValue: equipmentinfo
+    widthVh: 15
+    heightVh: 15
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+  - queryType: 0
+    queryValue: SelectedCard
+    widthVh: 60
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 1
+  - queryType: 0
+    queryValue: InfoPanel
+    widthVh: 23
+    heightVh: 0
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
