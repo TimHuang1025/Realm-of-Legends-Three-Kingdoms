@@ -1,8 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// 根据 vh / vw 规则自动调整 UI 元素尺寸。<br/>
+/// 通过监听 <see cref="GeometryChangedEvent"/>，在布局完成当帧立即刷新。<br/>
+/// 不再出现“切分辨率要点两次才生效”的现象。
+/// </summary>
 [RequireComponent(typeof(UIDocument))]
 public class VhSizer : MonoBehaviour
 {
@@ -11,47 +17,69 @@ public class VhSizer : MonoBehaviour
     public VhSizerConfig config;
 
     [Header("缩放参数 (短边像素基准)")]
-    public float referenceShort = 1179f;          // iPhone 15 竖屏短边
+    public float referenceShort = 1179f;
     [Range(0.1f, 1f)] public float minScale = 0.6f;
 
     /*──────── 内部字段 ────────*/
     UIDocument doc;
-    int lastW, lastH;
 
     /*──────── 生命周期 ────────*/
-    void Awake()  => doc = GetComponent<UIDocument>();
-
-    /// <summary>Start 时再 Apply，确保 UIDocument 已完成克隆</summary>
-    IEnumerator Start()
+    void OnEnable()
     {
-        // 等到 root 有非零高度，说明布局 OK
-        yield return new WaitUntil(() =>
+        doc = GetComponent<UIDocument>();
+
+        if (doc.rootVisualElement != null)
         {
-            return doc != null &&
-                   doc.rootVisualElement != null &&
-                   doc.rootVisualElement.layout.height > 1f;
-        });
-
-        Apply();   // 首次刷新
+            RegisterGeometryChanged(doc.rootVisualElement);   // 运行时大概率直接有 root
+        }
+        else
+        {
+            // 部分情况下（热重载、编辑器即时播放）root 会延迟 1 帧才克隆好
+            StartCoroutine(WaitForRoot());
+        }
     }
 
-    void Update()
+    void OnDisable()
     {
-        if (Screen.width != lastW || Screen.height != lastH)
-            Apply();                                // 分辨率变化时刷新
+        if (doc != null && doc.rootVisualElement != null)
+            doc.rootVisualElement.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
     }
 
-    /*──────── 主逻辑 ────────*/
-    public void Apply()
+    IEnumerator WaitForRoot()
     {
-        // 0. 防呆：引用检测
+        // 等到 rootVisualElement 可用
+        while (doc != null && doc.rootVisualElement == null)
+            yield return null;
+
+        if (doc != null && doc.rootVisualElement != null)
+            RegisterGeometryChanged(doc.rootVisualElement);
+    }
+
+    /*──────── 事件回调 ────────*/
+    void RegisterGeometryChanged(VisualElement root)
+    {
+        root.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+        ApplyInternal();                 // 首次立即刷新一次
+    }
+
+    void OnGeometryChanged(GeometryChangedEvent e)
+    {
+        ApplyInternal();                 // 每次布局尺寸变动都会调用
+    }
+
+    /*──────── 对外 API ────────*/
+    public void Apply() => ApplyInternal();
+
+    /*──────── 主逻辑（与之前一致） ────────*/
+    void ApplyInternal()
+    {
         if (config == null)
         {
             Debug.LogWarning("[VhSizer] 未设置 config，跳过");
             return;
         }
 
-        if (doc == null)            doc = GetComponent<UIDocument>();
+        if (doc == null) doc = GetComponent<UIDocument>();
         if (doc == null)
         {
             Debug.LogError("[VhSizer] 找不到 UIDocument！");
@@ -59,15 +87,7 @@ public class VhSizer : MonoBehaviour
         }
 
         var root = doc.rootVisualElement;
-        if (root == null || root.layout.height <= 0f)
-        {
-            // 布局还没完成 → 1 帧后重试
-            StartCoroutine(RetryNextFrame());
-            return;
-        }
-
-        lastW = Screen.width;
-        lastH = Screen.height;
+        if (root == null || root.layout.height <= 0f) return;
 
         /*① 全局缩放 (≤1)*/
         float shortEdge   = Mathf.Min(Screen.width, Screen.height);
@@ -75,40 +95,53 @@ public class VhSizer : MonoBehaviour
         float globalScale = Mathf.Clamp(rawScale, minScale, 1f);
 
         /*② 单位换算*/
-        float vh     = root.layout.height / 100f;           // 1 vh 像素
-        float aspect = (float)Screen.width / Screen.height; // 宽高比
+        float vh     = root.layout.height / 100f;   // 1 vh
+        float vw     = root.layout.width  / 100f;   // 1 vw
+        float aspect = (float)Screen.width / Screen.height;
 
         /*③ 遍历规则并应用尺寸*/
         foreach (var r in config.rules)
         foreach (var ve in Query(r))
         {
-            float s = r.applyScale ? globalScale : 1f;
-
-            /*—— 宽度 ——*/
-            if (r.widthVh > 0)
+            /* —— 宽度 —— */
+            if (r.widthVh > 0 || (r.addWidthVw && r.widthVw > 0))
             {
-                float w = r.widthVh * vh * s;
-                if (r.aspectWidth) w *= aspect / 1.4f;      // 额外按(宽/高)/1.4
+                float w = 0f;
+
+                // (a) vh 部分
+                if (r.widthVh > 0)
+                {
+                    float wVh = r.widthVh * vh;
+                    if (r.applyScale)  wVh *= globalScale;
+                    if (r.aspectWidth) wVh *= aspect / 1.4f;
+                    w += wVh;
+                }
+
+                // (b) vw 部分（永远不乘 globalScale）
+                if (r.addWidthVw && r.widthVw > 0)
+                    w += r.widthVw * vw;
+
                 ve.style.width = w;
             }
 
-            /*—— 高度 ——*/
+            /* —— 高度 —— */
             if (r.heightVh > 0)
-                ve.style.height = r.heightVh * vh * s;
+            {
+                float h = r.heightVh * vh;
+                if (r.applyScale) h *= globalScale;
+                ve.style.height = h;
+            }
 
-            /*—— 字号 ——*/
+            /* —— 字号 —— */
             if (r.fontVh > 0)
-                ve.style.fontSize = r.fontVh * vh * s;
+            {
+                float f = r.fontVh * vh;
+                if (r.applyScale) f *= globalScale;
+                ve.style.fontSize = f;
+            }
         }
 
-        /*④ 调试输出*/
-        // Debug.Log($"[VhSizer] {Screen.width}×{Screen.height}  aspect={aspect:F2}  scale={globalScale:F3}");
-    }
-
-    IEnumerator RetryNextFrame()
-    {
-        yield return null;
-        Apply();
+        // Debug.Log($"[VhSizer] refreshed  scale={globalScale:F3}");
     }
 
     /*──────── 工具：查询元素 ────────*/

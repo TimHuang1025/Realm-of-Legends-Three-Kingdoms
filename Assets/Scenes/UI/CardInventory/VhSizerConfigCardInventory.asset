@@ -20,6 +20,8 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 0
     queryValue: SelectedCardImage
     widthVh: 46
@@ -27,13 +29,17 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: bigBtn
-    widthVh: 35
+    widthVh: 12
     heightVh: 8
     fontVh: 6
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: smallbtns
     widthVh: 25
@@ -41,6 +47,8 @@ MonoBehaviour:
     fontVh: 4
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: skillname
     widthVh: 0
@@ -48,13 +56,17 @@ MonoBehaviour:
     fontVh: 3.5
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: skilltext
     widthVh: 0
     heightVh: 25
     fontVh: 2.5
     applyScale: 0
-    aspectWidth: 1
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: skillnamecontainer
     widthVh: 0
@@ -62,34 +74,17 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
-  - queryType: 0
-    queryValue: SelectedCard
-    widthVh: 60
-    heightVh: 0
-    fontVh: 0
-    applyScale: 0
-    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 0
     queryValue: Info
     widthVh: 80
     heightVh: 76
     fontVh: 0
     applyScale: 0
-    aspectWidth: 1
-  - queryType: 1
-    queryValue: equipmentinfo
-    widthVh: 15
-    heightVh: 15
-    fontVh: 0
-    applyScale: 0
     aspectWidth: 0
-  - queryType: 0
-    queryValue: SelectedCard
-    widthVh: 60
-    heightVh: 0
-    fontVh: 0
-    applyScale: 0
-    aspectWidth: 1
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 0
     queryValue: InfoPanel
     widthVh: 23
@@ -97,3 +92,95 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 1
+    widthVw: 40
+  - queryType: 1
+    queryValue: bigBtn
+    widthVh: 23
+    heightVh: 8
+    fontVh: 5
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 40
+  - queryType: 0
+    queryValue: InfoStatsPanel
+    widthVh: 25
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 1
+    widthVw: 30
+  - queryType: 0
+    queryValue: Relation
+    widthVh: 25
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 30
+  - queryType: 0
+    queryValue: Relation
+    widthVh: 25
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 30
+  - queryType: 1
+    queryValue: equipmentinfo
+    widthVh: 13
+    heightVh: 13
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 30
+  - queryType: 0
+    queryValue: EquipmentPanel
+    widthVh: 0
+    heightVh: 45
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 30
+  - queryType: 0
+    queryValue: BtnPanel
+    widthVh: 25
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 1
+    widthVw: 30
+  - queryType: 0
+    queryValue: BtnPanel
+    widthVh: 25
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 1
+    widthVw: 30
+  - queryType: 1
+    queryValue: skilltextinfo
+    widthVh: 0
+    heightVh: 0
+    fontVh: 5
+    applyScale: 1
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 30
+  - queryType: 0
+    queryValue: ClosePanelForInfo
+    widthVh: 6
+    heightVh: 6
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 30
