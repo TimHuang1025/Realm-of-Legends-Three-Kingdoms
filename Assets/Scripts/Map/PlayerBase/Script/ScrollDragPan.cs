@@ -1,63 +1,84 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-/// <summary>
-/// 给 UI Toolkit ScrollView 添加左键拖拽（鼠标 / 触摸）
-/// </summary>
 [RequireComponent(typeof(UIDocument))]
 public class ScrollDragPan : MonoBehaviour
 {
-    [SerializeField] string scrollViewName = "CampScroll";   // Inspector 可改
-    ScrollView sv;
-    Vector3  lastPos;
-    int      dragId = -1;
+    [SerializeField] private string scrollViewName = "CampScroll";
 
-    void Awake()
+    static readonly Dictionary<string, Vector2> SavedOffset = new();
+
+    ScrollView    sv;
+    VisualElement vp;
+    int           dragId = -1;
+    Vector2       lastPos;
+
+    void OnEnable()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
-
         sv = root.Q<ScrollView>(scrollViewName);
-        if (sv == null) { Debug.LogError("找不到 ScrollView"); return; }
+        if (sv == null) { Debug.LogError($"找不到 ScrollView: {scrollViewName}"); return; }
+
+        // ←─────────① 推迟 1 帧恢复 ─────────→
+        if (SavedOffset.TryGetValue(scrollViewName, out var off))
+            sv.schedule.Execute(() => sv.scrollOffset = off).ExecuteLater(1);
+        // --------------------------------------
 
         sv.verticalScroller.style.display   = DisplayStyle.None;
         sv.horizontalScroller.style.display = DisplayStyle.None;
 
-        var vp = sv.contentContainer;   // viewport
+        vp     = sv.contentContainer;
+        dragId = -1;
 
-        /* PointerDown —— 开始拖拽 */
-        vp.RegisterCallback<PointerDownEvent>(e =>
+        vp.RegisterCallback<PointerDownEvent>(OnPointerDown,  TrickleDown.TrickleDown);
+        vp.RegisterCallback<PointerMoveEvent>(OnPointerMove,  TrickleDown.TrickleDown);
+        vp.RegisterCallback<PointerUpEvent>(  OnPointerUp,    TrickleDown.TrickleDown);
+        vp.RegisterCallback<PointerCaptureOutEvent>(OnPointerCaptureOut);
+    }
+
+    void OnDisable()
+    {
+        // ←─────────② 保存当前位置 ─────────→
+        if (sv != null) SavedOffset[scrollViewName] = sv.scrollOffset;
+        // --------------------------------------
+
+        if (vp != null)
         {
-            if (e.button != 0) return;               // 只管左键 / 第一指
-            dragId  = e.pointerId;
-            lastPos = e.position;
-            vp.CapturePointer(dragId);
-            // 不再 StopPropagation，免得上层丢事件
-        }, TrickleDown.TrickleDown);
+            if (dragId != -1) vp.ReleasePointer(dragId);
 
-        /* PointerMove —— 拖动 */
-        vp.RegisterCallback<PointerMoveEvent>(e =>
-        {
-            if (e.pointerId != dragId) return;
-            Vector3 delta = e.position - lastPos;
-            lastPos = e.position;
-            sv.scrollOffset -= new Vector2(delta.x, delta.y);
-        }, TrickleDown.TrickleDown);
+            vp.UnregisterCallback<PointerDownEvent>(OnPointerDown,  TrickleDown.TrickleDown);
+            vp.UnregisterCallback<PointerMoveEvent>(OnPointerMove,  TrickleDown.TrickleDown);
+            vp.UnregisterCallback<PointerUpEvent>(  OnPointerUp,    TrickleDown.TrickleDown);
+            vp.UnregisterCallback<PointerCaptureOutEvent>(OnPointerCaptureOut);
+        }
 
-        /* PointerUp —— 结束拖拽 */
-        vp.RegisterCallback<PointerUpEvent>(OnPointerUp, TrickleDown.TrickleDown);
-        /* 如果指针捕获意外丢失（移出窗口等），也重置 */
-        vp.RegisterCallback<PointerCaptureOutEvent>(_ => ResetDrag());
+        sv = null; vp = null; dragId = -1;
+    }
+
+    /*──────── Pointer 事件保持不变 ────────*/
+    void OnPointerDown(PointerDownEvent e)
+    {
+        if (e.button != 0) return;
+        dragId  = e.pointerId;
+        lastPos = (Vector2)e.position;
+        vp.CapturePointer(dragId);
+    }
+
+    void OnPointerMove(PointerMoveEvent e)
+    {
+        if (e.pointerId != dragId) return;
+        Vector2 delta = (Vector2)e.position - lastPos;
+        lastPos = (Vector2)e.position;
+        sv.scrollOffset -= delta;
     }
 
     void OnPointerUp(PointerUpEvent e)
     {
         if (e.pointerId != dragId) return;
-        (sv.contentContainer).ReleasePointer(dragId);
-        ResetDrag();
-    }
-
-    void ResetDrag()
-    {
+        vp.ReleasePointer(dragId);
         dragId = -1;
     }
+
+    void OnPointerCaptureOut(PointerCaptureOutEvent _) => dragId = -1;
 }

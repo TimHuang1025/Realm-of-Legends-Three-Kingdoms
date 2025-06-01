@@ -20,6 +20,8 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: upgradeBtnShadow
     widthVh: 24
@@ -27,6 +29,8 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: materialicon
     widthVh: 10
@@ -34,6 +38,8 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: materialnum
     widthVh: 0
@@ -41,6 +47,8 @@ MonoBehaviour:
     fontVh: 3.3
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: materialnum
     widthVh: 0
@@ -48,6 +56,8 @@ MonoBehaviour:
     fontVh: 3.3
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 0
     queryValue: PanelTitle
     widthVh: 0
@@ -55,6 +65,8 @@ MonoBehaviour:
     fontVh: 3.2
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: upgradeskilltext
     widthVh: 0
@@ -62,6 +74,8 @@ MonoBehaviour:
     fontVh: 3.4
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: statnum
     widthVh: 0
@@ -69,6 +83,8 @@ MonoBehaviour:
     fontVh: 3.8
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: stataddnum
     widthVh: 0
@@ -76,6 +92,8 @@ MonoBehaviour:
     fontVh: 3.8
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: level
     widthVh: 0
@@ -83,6 +101,8 @@ MonoBehaviour:
     fontVh: 5
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 0
     queryValue: CardOnTop
     widthVh: 17
@@ -90,6 +110,8 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 0
     queryValue: UpgradePanel
     widthVh: 80
@@ -97,6 +119,8 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 0
     queryValue: UpgradePanelContainer
     widthVh: 80
@@ -104,6 +128,8 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 0
     queryValue: ClosePanel
     widthVh: 10
@@ -111,3 +137,68 @@ MonoBehaviour:
     fontVh: 5
     applyScale: 1
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: UptierPanel
+    widthVh: 80
+    heightVh: 73
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: UptierPanelContainer
+    widthVh: 80
+    heightVh: 73
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: GiftListPanel
+    widthVh: 81
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: smallbtnforgift
+    widthVh: 15
+    heightVh: 5
+    fontVh: 3
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: smallbtnforgift
+    widthVh: 15
+    heightVh: 5
+    fontVh: 3
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: GiftPanelContainer
+    widthVh: 90
+    heightVh: 73
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: GiftPanel
+    widthVh: 90
+    heightVh: 73
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0

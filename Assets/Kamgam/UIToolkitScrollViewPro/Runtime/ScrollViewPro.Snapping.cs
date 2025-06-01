@@ -49,6 +49,17 @@ namespace Kamgam.UIToolkitScrollViewPro
 #endif
         public Easing snapEase { get; set; } = DefaultSnapEase;
 
+        #if UNITY_6000_0_OR_NEWER
+        [UxmlAttribute("snap-edge-clamp-x")]
+        #endif
+        public bool snapEdgeClampX { get; set; } = false;
+
+        #if UNITY_6000_0_OR_NEWER
+        [UxmlAttribute("snap-edge-clamp-y")]
+        #endif
+        public bool snapEdgeClampY { get; set; } = false;
+
+
         static Vector4 DefaultSnapMargin = Vector4.zero;
         /// <summary>
         /// Extra margin to add around the snap target. Order: top, right, bottom, left, (positive = outwards, negative = inwards).<br />
@@ -198,27 +209,102 @@ namespace Kamgam.UIToolkitScrollViewPro
         {
             SnapDirection(-100f);
         }
+        
+        public void SnapToItem(VisualElement target, bool animate = true)
+        {
+            if (target == null)
+                return;
+
+            // ① 先滚到可见（跟 ScrollTo 一样）
+            ScrollTo(target);
+
+            // ② 组装边距 = 额外 Margin + (可选) 目标自身 Margin
+            var margins = snapMargin;
+            if (snapIncludeMargin)
+            {
+                margins.x += target.resolvedStyle.marginLeft;
+                margins.y += target.resolvedStyle.marginTop;
+                margins.z += target.resolvedStyle.marginRight;
+                margins.w += target.resolvedStyle.marginBottom;
+            }
+
+            // ③ 调用 ScrollToAnimated 做真正对齐
+            float duration = animate ? snapDurationSec : 0f;
+            var   ease     = animate ? snapEase       : Easing.BackOut;
+
+            ScrollToAnimated(
+                target,
+                duration,
+                ease,
+                snapAlignX,
+                snapAlignY,
+                margins
+            );
+
+            // ④ 触发与内置 Snap 相同的事件
+            SnapEvent.Dispatch(target, this);
+        }
 
         public void Snap()
         {
+            // ① 找到本次要对齐的目标元素
             var target = findSnapTarget(_velocity, true, snapAlignX, snapAlignY);
-            if (target != null)
-            {
-                var margins = snapMargin;
-                if(snapIncludeMargin)
-                {
-                    margins.x += target.resolvedStyle.marginLeft;
-                    margins.y += target.resolvedStyle.marginTop;
-                    margins.z += target.resolvedStyle.marginRight;
-                    margins.w += target.resolvedStyle.marginBottom;
-                }
-                var distance = ScrollToAnimated(target, snapDurationSec, snapEase, snapAlignX, snapAlignY, margins);
+            if (target == null)
+                return;
 
-                // Event
-                if (distance.sqrMagnitude > dragThreshold * dragThreshold)
-                    SnapEvent.Dispatch(target, this);
+            // ② 组装 margin
+            var margin = snapMargin;
+            if (snapIncludeMargin)
+            {
+                margin.x += target.resolvedStyle.marginLeft;   // top
+                margin.y += target.resolvedStyle.marginTop;    // right
+                margin.z += target.resolvedStyle.marginRight;  // bottom
+                margin.w += target.resolvedStyle.marginBottom; // left
             }
+
+            // ③ 决定本次 X / Y 对齐方式
+            ScrollToAlign alignX = snapAlignX;   // 默认用全局
+            ScrollToAlign alignY = snapAlignY;
+
+            const float eps = 1f;                // 容差像素
+
+            if (snapEdgeClampX)
+            {
+                if (scrollOffset.x <= eps)
+                    alignX = ScrollToAlign.Start;                      // 首列
+                else if (scrollOffset.x >= scrollableWidth - eps)
+                    alignX = ScrollToAlign.End;                        // 末列
+            }
+
+            if (snapEdgeClampY)
+            {
+                if (scrollOffset.y <= eps)
+                {
+                    alignY  = ScrollToAlign.Start;                     // 第一行
+                    margin.x = 0f;                                     // 去掉 top margin
+                }
+                else if (scrollOffset.y >= scrollableHeight - eps)
+                {
+                    alignY  = ScrollToAlign.End;                       // 最后一行
+                    margin.z = 0f;                                     // 去掉 bottom margin
+                }
+            }
+
+            // ④ 执行补间对齐
+            var dist = ScrollToAnimated(
+                target,
+                snapDurationSec,
+                snapEase,
+                alignX,
+                alignY,
+                margin
+            );
+
+            // ⑤ 触发 SnapEvent（保持官方行为）
+            if (dist.sqrMagnitude > dragThreshold * dragThreshold)
+                SnapEvent.Dispatch(target, this);
         }
+
 
         // Called while interia animation at the end of the seach step.
         protected void handleSnappingWhileInteriaAnimation()

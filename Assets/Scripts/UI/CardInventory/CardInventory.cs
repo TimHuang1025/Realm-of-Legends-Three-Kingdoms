@@ -41,9 +41,10 @@ public class CardInventory : MonoBehaviour
 
     private ScrollViewPro  scroll;
     private VisualElement  gridRoot;
+    private CardInfo      currentSelected;
 
     // ★★★ 新增：排序按钮与状态 ★★★
-    private Button         orderButton;               // #OrderButton
+    private Button orderButton;               // #OrderButton
     readonly string[]      sortModes = { "稀有度排序", "星级排序", "等级排序" };
     int                    modeIdx = 0;
 
@@ -127,6 +128,7 @@ public class CardInventory : MonoBehaviour
     void BuildGrid()
     {
         gridRoot.Clear();
+        VisualElement btnToFocus = null;
 
         int cardIdx = 0;
         while (cardIdx < cardDatabase.cards.Count)
@@ -145,15 +147,35 @@ public class CardInventory : MonoBehaviour
 
             for (int r = 0; r < rows && cardIdx < cardDatabase.cards.Count; r++)
             {
-                var card = BuildCard(cardDatabase.cards[cardIdx]);
-                if (r > 0) card.style.marginTop = rowGap;
-                col.Add(card);
+                var cardContainer = BuildCard(cardDatabase.cards[cardIdx]);
+
+                // 找到真正带 userData 的按钮
+                var cardBtn = cardContainer.Q<Button>("CardRoot");
+                if (cardBtn != null && cardBtn.userData == currentSelected)
+                    btnToFocus = cardBtn;
+
+                if (r > 0) cardContainer.style.marginTop = rowGap;
+                col.Add(cardContainer);
                 cardIdx++;
             }
             gridRoot.Add(col);
         }
 
         scroll.RefreshAfterHierarchyChange();
+
+        // 聚焦并滚动到旧选中卡；否则退回首张
+        if (btnToFocus != null)
+        {
+            btnToFocus.schedule.Execute(() =>
+            {
+                btnToFocus.Focus();
+                //scroll.SnapToItem(btnToFocus, animate:true);
+            }).ExecuteLater(0);
+        }
+        else
+        {
+            FocusFirstCard();
+        }
     }
 
     /*──────── 帮助函数：聚焦第一张 ─────────*/
@@ -246,11 +268,14 @@ public class CardInventory : MonoBehaviour
 
         /* 获焦/失焦 动画 */
         var normalScale  = new Scale(new Vector3(1f,   1f, 1f));
-        var pressedScale = new Scale(new Vector3(1.05f,1.05f,1f));
+        var pressedScale = new Scale(new Vector3(1.10f,1.10f,1f));
         var overlay = container.Q<VisualElement>("DimOverlay");
         var glowS   = container.Q<VisualElement>("Glow_S");
         var glowA   = container.Q<VisualElement>("Glow_A");
         var glowB   = container.Q<VisualElement>("Glow_B");
+
+        float normalBorder = 4f;
+        float focusedBorder = 8f;
 
         void ShowGlow(string q)
         {
@@ -265,19 +290,31 @@ public class CardInventory : MonoBehaviour
 
         cardBtn.RegisterCallback<FocusInEvent>(e =>
         {
-            cardBtn.style.scale    = pressedScale;
-            rarityVe.style.scale   = pressedScale;
-            overlay.style.display  = DisplayStyle.Flex;
+
+            cardBtn.style.scale = pressedScale;
+            rarityVe.style.scale = pressedScale;
+            overlay.style.display = DisplayStyle.Flex;
             ShowGlow(data.quality);
             ShowSelected(data);                           // <<< 新增: 焦点时同步展示
+
+            cardBtn.style.borderTopWidth =
+            cardBtn.style.borderRightWidth =
+            cardBtn.style.borderBottomWidth =
+            cardBtn.style.borderLeftWidth = focusedBorder;
+            
         });
 
         cardBtn.RegisterCallback<FocusOutEvent>(e =>
         {
-            cardBtn.style.scale    = normalScale;
-            rarityVe.style.scale   = normalScale;
-            overlay.style.display  = DisplayStyle.None;
+            cardBtn.style.scale = normalScale;
+            rarityVe.style.scale = normalScale;
+            overlay.style.display = DisplayStyle.None;
             glowS.style.display = glowA.style.display = glowB.style.display = DisplayStyle.None;
+            
+            cardBtn.style.borderTopWidth    =
+            cardBtn.style.borderRightWidth  =
+            cardBtn.style.borderBottomWidth =
+            cardBtn.style.borderLeftWidth   = normalBorder;
         });
 
         return container;
@@ -306,6 +343,7 @@ public class CardInventory : MonoBehaviour
     /*──────── 展示大图 / 名称 ─────────*/
     private void ShowSelected(CardInfo data)
     {
+        currentSelected = data;
         if (selectedCardVE != null)
         {
             var pic = data.fullBodySprite ?? data.iconSprite;

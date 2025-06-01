@@ -1,0 +1,16 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3#CardInventory" />
+    <ui:Button name="GiftOption" style="height: 120px; flex-direction: row; background-color: rgb(201, 184, 162); border-left-color: rgb(119, 104, 88); border-right-color: rgb(119, 104, 88); border-top-color: rgb(119, 104, 88); border-bottom-color: rgb(119, 104, 88); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; width: 827px; flex-grow: 1; align-content: auto; align-self: stretch;">
+        <ui:Label text="田地" name="GiftItem" class="giftbtntext" style="flex-grow: 0; width: 20%; justify-content: flex-start; -unity-text-align: middle-center;" />
+        <ui:VisualElement name="GiftIcon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E7%B2%AE%E8%8D%89.png?fileID=2800000&amp;guid=9be2dd49093bc5447baa696235d89d4d&amp;type=3#粮草&quot;); -unity-background-scale-mode: scale-to-fit; flex-shrink: 0;" />
+        <ui:VisualElement name="GiftAdd" style="flex-grow: 0; flex-direction: row; justify-content: flex-start; width: 25%; flex-shrink: 0;">
+            <ui:Label text="赏赐值" name="GiftAddTitle" class="giftbtntext" />
+            <ui:Label text="+5000" name="GiftAddNum" class="giftbtntext" />
+        </ui:VisualElement>
+        <ui:VisualElement name="GiftStock" style="flex-grow: 0; flex-direction: row; justify-content: flex-start; align-items: stretch; width: 25%; flex-shrink: 0;">
+            <ui:Label text="库存:&#x9;" name="GiftStockTitle" class="giftbtntext" style="width: auto;" />
+            <ui:Label text="300" name="GiftStockNum" class="giftbtntext" />
+        </ui:VisualElement>
+        <ui:VisualElement name="DimMask" picking-mode="Ignore" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.63); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-top-color: rgba(0, 0, 0, 0); border-bottom-color: rgba(0, 0, 0, 0); display: none;" />
+    </ui:Button>
+</ui:UXML>

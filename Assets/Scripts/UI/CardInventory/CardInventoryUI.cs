@@ -1,133 +1,99 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(UIDocument))]
 public class CardInventoryUI : MonoBehaviour
 {
     /*──────── Inspector 拖入 ────────*/
-    [SerializeField] private UpgradePanelController upgradePanelCtrl;   // 升级面板控制脚本
-    [SerializeField] private VhSizer vhSizer;                           // 全局/主界面的 VhSizer
+    [SerializeField] private UpgradePanelController upgradePanelCtrl;
+    [SerializeField] private UptierPanelController uptierPanelCtrl;
+    [SerializeField] private GiftPanelController giftPanelCtrl;
+    [SerializeField] private VhSizer vhSizer;
+    [SerializeField] private PlayerBaseController playerBaseController;
+
 
     /*──────── 私有字段 ────────*/
-    private VisualElement cardsVe;   // 卡片列表容器
-    private VisualElement infoVe;    // 详情面板容器
+    private VisualElement cardsVe;
+    private VisualElement infoVe;
 
     private Button returnBtn;
     private Button upgradeBtn;
-    private Button infobtn;           // 打开 Info 的按钮
-    private Button closeInfoBtn;      // 关闭 Info → 返回卡片界面
+    private Button infobtn;
+    private Button uptierBtn;
+    private Button closeInfoBtn;
+    private Button giftBtn;
 
-    /*──────── Awake ────────*/
-    void Awake()
+
+    void OnEnable()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
 
-        /*—— 缓存 Cards / Info 容器 ——*/
+        // —— Cards / Info —— //
         cardsVe = root.Q<VisualElement>("Cards");
-        infoVe  = root.Q<VisualElement>("Info");
+        infoVe = root.Q<VisualElement>("Info");
+        if (infoVe != null) infoVe.style.display = DisplayStyle.None;
 
-        if (cardsVe == null)
-            Debug.LogError("[CardInventoryUI] 找不到 <VisualElement name=\"Cards\">");
-        if (infoVe == null)
-            Debug.LogError("[CardInventoryUI] 找不到 <VisualElement name=\"Info\">");
-
-        // 默认显示 Cards，隐藏 Info
-        if (infoVe != null)
-            infoVe.style.display = DisplayStyle.None;
-
-        /*—— 返回按钮 ——*/
+        // —— 按钮绑定 —— //
         returnBtn = root.Q<Button>("ReturnBtn");
-        if (returnBtn == null)
-            Debug.LogError("[CardInventoryUI] 找不到 <Button name=\"ReturnBtn\">");
-        else
-            returnBtn.clicked += OnClickReturn;
-
-        /*—— 升级按钮 ——*/
         upgradeBtn = root.Q<Button>("InfoUpgradeBtn");
-        if (upgradeBtn == null)
-            Debug.LogError("[CardInventoryUI] 找不到 <Button name=\"UpgradeButton\">");
-        else
-            upgradeBtn.clicked += OpenUpgradePanel;
-
-        /*—— 打开 Info 按钮 ——*/
+        uptierBtn = root.Q<Button>("InfoUptierBtn");
+        giftBtn = root.Q<Button>("InfoGiftBtn");
         infobtn = root.Q<Button>("InfoBtn");
-        if (infobtn == null)
-            Debug.LogError("[CardInventoryUI] 找不到 <Button name=\"InfoBtn\">");
-        else
-            infobtn.clicked += OpenInfoPanel;
-
-        /*—— 关闭 Info（返回卡片）按钮 ——*/
         closeInfoBtn = root.Q<Button>("ClosePanelForInfo");
-        if (closeInfoBtn == null)
-            Debug.LogError("[CardInventoryUI] 找不到 <Button name=\"ClosePanelForInfo\">");
-        else
-            closeInfoBtn.clicked += CloseInfoPanel;
-    }
 
-    /*──────── 返回主界面 ────────*/
-    void OnClickReturn() => StartCoroutine(ReturnRoutine());
 
-    IEnumerator ReturnRoutine()
-    {
-        LoadingPanelManager.Instance.Show();
-        yield return null;                            // 让 Loading 先渲染
-        yield return new WaitForSecondsRealtime(0f);
-
-        // ❗不想销毁缩放脚本可改成 SetActive(false)
-        gameObject.SetActive(false);                  // or Destroy(gameObject);
-
-        var op = SceneManager.LoadSceneAsync("MainUI", LoadSceneMode.Single);
-        while (!op.isDone) yield return null;
-
-        LoadingPanelManager.Instance.Hide();
+        if (returnBtn != null) returnBtn.clicked += () => playerBaseController?.HideCardInventoryPage();
+        if (upgradeBtn != null) upgradeBtn.clicked += () => StartCoroutine(OpenUpgradePanelRefresh());
+        if (uptierBtn != null) uptierBtn.clicked += () => StartCoroutine(OpenUptierPanelRefresh());
+        if (giftBtn != null) giftBtn.clicked += () => StartCoroutine(OpenGiftPanelRefresh());
+        if (infobtn != null) infobtn.clicked += OpenInfoPanel;
+        if (closeInfoBtn != null) closeInfoBtn.clicked += CloseInfoPanel;
     }
 
     /*──────── 打开升级面板 ────────*/
-    void OpenUpgradePanel() => StartCoroutine(OpenUpgradePanelRefresh());
-
     IEnumerator OpenUpgradePanelRefresh()
     {
-        if (upgradePanelCtrl == null)
-        {
-            Debug.LogError("[CardInventoryUI] upgradePanelCtrl 未赋值！");
-            yield break;
-        }
+        if (upgradePanelCtrl == null) yield break;
 
-        upgradePanelCtrl.Open();          // 激活面板
-        yield return null;                // 等 1 帧布局
+        upgradePanelCtrl.Open();
+        yield return null;        // 等 1 帧布局
+        vhSizer?.Apply();
+    }
+    IEnumerator OpenUptierPanelRefresh()
+    {
+        if (uptierPanelCtrl == null) yield break;
 
-        if (vhSizer != null)
-            vhSizer.Apply();              // 统一刷新一次
+        uptierPanelCtrl.Open();
+        yield return null;        // 等 1 帧布局
+        vhSizer?.Apply();
     }
 
-    /*──────── 打开 Info 面板 ────────*/
+    IEnumerator OpenGiftPanelRefresh()
+    {
+        if (giftPanelCtrl == null) yield break;
+
+        giftPanelCtrl.Open();
+        yield return null;        // 等 1 帧布局
+        vhSizer?.Apply();
+    }
+
+    /*──────── Info 面板切换 ────────*/
     void OpenInfoPanel()
     {
-        if (cardsVe == null || infoVe == null)
-        {
-            Debug.LogError("[CardInventoryUI] Cards / Info 容器未找到，无法切换面板！");
-            return;
-        }
-
-        cardsVe.style.display = DisplayStyle.None;   // 隐藏卡片列表
-        infoVe.style.display  = DisplayStyle.Flex;   // 显示详情面板
-
-        // Info 面板若需要适配刷新
-        if (vhSizer != null)
-            vhSizer.Apply();
+        if (cardsVe == null || infoVe == null) return;
+        cardsVe.style.display = DisplayStyle.None;
+        infoVe.style.display = DisplayStyle.Flex;
+        vhSizer?.Apply();
     }
-
-    /*──────── 关闭 Info 面板（返回卡片列表） ────────*/
     void CloseInfoPanel()
     {
         if (cardsVe == null || infoVe == null) return;
-
-        infoVe.style.display  = DisplayStyle.None;   // 隐藏详情面板
-        cardsVe.style.display = DisplayStyle.Flex;   // 显示卡片列表
-
-        if (vhSizer != null)
-            vhSizer.Apply();
+        infoVe.style.display = DisplayStyle.None;
+        cardsVe.style.display = DisplayStyle.Flex;
+        vhSizer?.Apply();
     }
+
+    /*──────── 关闭整个卡片界面 ────────*/
+
 }
