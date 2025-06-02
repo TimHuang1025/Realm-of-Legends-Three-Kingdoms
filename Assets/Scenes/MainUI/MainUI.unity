@@ -1084,6 +1084,10 @@ MonoBehaviour:
     level: 0
     giftLv: 1
     giftExp: 0
+    equip:
+      weaponUnlocked: 0
+      armorUnlocked: 0
+      mountUnlocked: 0
 --- !u!1 &1064857531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1259,6 +1263,53 @@ Animation:
   m_AnimatePhysics: 0
   m_UpdateMode: 0
   m_CullingType: 0
+--- !u!1 &1638672916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1638672918}
+  - component: {fileID: 1638672917}
+  m_Layer: 0
+  m_Name: GlobalPopupManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1638672917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638672916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7588f8f25415c564298abc3b59a5cab8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupTpl: {fileID: 9197481963319205126, guid: 806f648e6b68cbf42815051094070975, type: 3}
+  popupPanelSettings: {fileID: 11400000, guid: 9816ddb2272670348aac53422af5414e, type: 2}
+  vhsizerConfig: {fileID: 11400000, guid: 2aaa2d1a82e46c64ea63a9ded377ce4e, type: 2}
+--- !u!4 &1638672918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638672916}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 95.73802, y: 110.35014, z: 4.3075995}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1638890674 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 22400000, guid: 522ae146cf930e24795907d2039f36ba, type: 3}
@@ -1600,3 +1651,4 @@ SceneRoots:
   - {fileID: 1852069952}
   - {fileID: 892353333}
   - {fileID: 2141170242}
+  - {fileID: 1638672918}

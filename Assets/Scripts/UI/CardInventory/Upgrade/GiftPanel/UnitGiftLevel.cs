@@ -75,16 +75,19 @@ void PlayUpgradeFX(int newLv)
             case 2:   // 拜将 → 授甲：解锁武器槽
                 data.equip.weaponUnlocked = true;          // ① 改数据
                 BindEquipSlot(weaponslot, true);           // ② 刷 UI
+                PopupManager.Show("恭喜！","完成拜将仪式。解锁武器槽！"); // ③ 弹窗提示
                 break;
 
             case 3:   // 授甲 → 赐骑：解锁盔甲槽
                 data.equip.armorUnlocked  = true;
                 BindEquipSlot(armorslot, true);
+                PopupManager.Show("恭喜！","完成授甲仪式。解锁盔甲槽！"); // ③ 弹窗提示
                 break;
 
             case 4:   // 赐骑 → 封侯：解锁坐骑槽
                 data.equip.mountUnlocked  = true;
                 BindEquipSlot(horseslot, true);
+                PopupManager.Show("恭喜！","完成赐骑仪式。解锁坐骑槽！"); // ③ 弹窗提示
                 break;
         }
     }
