@@ -12,6 +12,6 @@ public class GiftData
 {
     public string name;
     public Sprite icon;
-    public int    value;
-    public int    stock;
+    public int value;
+    public int stock;
 }

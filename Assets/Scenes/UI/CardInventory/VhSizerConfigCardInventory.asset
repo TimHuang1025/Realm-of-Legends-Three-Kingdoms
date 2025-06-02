@@ -131,7 +131,16 @@ MonoBehaviour:
     addWidthVw: 0
     widthVw: 30
   - queryType: 1
-    queryValue: equipmentinfo
+    queryValue: equipmentlocked
+    widthVh: 13
+    heightVh: 13
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 30
+  - queryType: 0
+    queryValue: equipmentunlocked
     widthVh: 13
     heightVh: 13
     fontVh: 0
@@ -158,13 +167,13 @@ MonoBehaviour:
     addWidthVw: 1
     widthVw: 30
   - queryType: 0
-    queryValue: BtnPanel
-    widthVh: 25
+    queryValue: InfoTextContainer
+    widthVh: 45
     heightVh: 0
     fontVh: 0
     applyScale: 0
-    aspectWidth: 0
-    addWidthVw: 1
+    aspectWidth: 1
+    addWidthVw: 0
     widthVw: 30
   - queryType: 1
     queryValue: skilltextinfo
@@ -182,5 +191,14 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 30
+  - queryType: 0
+    queryValue: InfoTextContainer
+    widthVh: 45
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 1
     addWidthVw: 0
     widthVw: 30

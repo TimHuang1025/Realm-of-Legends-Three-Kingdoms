@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,6 +12,7 @@ public class CardInventoryUI : MonoBehaviour
     [SerializeField] private GiftPanelController giftPanelCtrl;
     [SerializeField] private VhSizer vhSizer;
     [SerializeField] private PlayerBaseController playerBaseController;
+    [SerializeField] private UnitGiftLevel UnitGiftLevel;
 
 
     /*──────── 私有字段 ────────*/
@@ -32,7 +34,8 @@ public class CardInventoryUI : MonoBehaviour
         // —— Cards / Info —— //
         cardsVe = root.Q<VisualElement>("Cards");
         infoVe = root.Q<VisualElement>("Info");
-        if (infoVe != null) infoVe.style.display = DisplayStyle.None;
+        infoVe.style.display = DisplayStyle.None;
+        cardsVe.style.display = DisplayStyle.Flex;
 
         // —— 按钮绑定 —— //
         returnBtn = root.Q<Button>("ReturnBtn");
@@ -84,6 +87,7 @@ public class CardInventoryUI : MonoBehaviour
         if (cardsVe == null || infoVe == null) return;
         cardsVe.style.display = DisplayStyle.None;
         infoVe.style.display = DisplayStyle.Flex;
+        UnitGiftLevel.RefreshUI();
         vhSizer?.Apply();
     }
     void CloseInfoPanel()
@@ -94,6 +98,13 @@ public class CardInventoryUI : MonoBehaviour
         vhSizer?.Apply();
     }
 
-    /*──────── 关闭整个卡片界面 ────────*/
+    public CardInfo CurrentCard { get; private set; }   // 给 GiftPanel 用
+
+    public void OnCardClicked(CardInfo card)
+    {
+        UnitGiftLevel.data = card;       // data 不再是 null
+        UnitGiftLevel.RefreshUI();
+        UnitGiftLevel.RefreshEquipSlots();
+    }
 
 }

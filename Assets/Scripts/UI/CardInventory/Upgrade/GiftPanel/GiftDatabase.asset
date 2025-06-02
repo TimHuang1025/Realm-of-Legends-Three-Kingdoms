@@ -16,23 +16,23 @@ MonoBehaviour:
   - name: "\u7530\u5730"
     icon: {fileID: 3492362103025666016, guid: be7ad99e768fcde4c82c308f09332ccb, type: 3}
     value: 5000
-    stock: 300
+    stock: 1000
   - name: "\u5FA1\u81B3\u7CD5\u70B9"
     icon: {fileID: -2235024325406870526, guid: 446c4bb707c9bf842a2c808088c5278d, type: 3}
     value: 300
-    stock: 20
+    stock: 551
   - name: "\u9999\u9187\u7F8E\u9152"
     icon: {fileID: 1396055337626854341, guid: 4f02e7c7a58a0d6418aa0b081e2562af, type: 3}
     value: 500
-    stock: 15
+    stock: 9
   - name: "\u7194\u91D1\u5315\u9996"
     icon: {fileID: 2684186725173538584, guid: 5b7c195337a7167418ed46796ed2647a, type: 3}
     value: 1200
-    stock: 5
+    stock: 0
   - name: "\u7EC7\u9526\u62AB\u98CE"
     icon: {fileID: 1702674019587913882, guid: 18d59750ba047c240b4a9e4bde3bf583, type: 3}
     value: 800
-    stock: 20
+    stock: 12
   - name: "\u7409\u7483\u82B1\u74F6"
     icon: {fileID: -6550790838762962676, guid: 97744d58a7da78f49b436e2f08772ba8, type: 3}
     value: 1000
@@ -44,7 +44,7 @@ MonoBehaviour:
   - name: "\u9C9B\u73E0\u8033\u5760"
     icon: {fileID: -7452570604720596761, guid: 953a5d50330190e4dadb00141897377e, type: 3}
     value: 2500
-    stock: 100
+    stock: 69
   - name: "\u7075\u77FF\u6676\u77F3"
     icon: {fileID: 3594377629746356445, guid: 6bba74b5f8e587b4d9ad59dd4dad1160, type: 3}
     value: 2000

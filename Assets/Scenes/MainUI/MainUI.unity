@@ -634,6 +634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 518c9252bf70bc9459882773b7f5c71c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryUI: {fileID: 1063526870}
+  giftLevelUI: {fileID: 1063526874}
   vhSizer: {fileID: 805805662}
   giftDatabase: {fileID: 11400000, guid: 86d9a385c56c9c94eae86d964dea4fe9, type: 2}
   giftOptionTpl: {fileID: 9197481963319205126, guid: 9e83fe6711421b4439602c0ed2a8f633, type: 3}
@@ -944,6 +946,7 @@ GameObject:
   - component: {fileID: 1063526871}
   - component: {fileID: 1063526870}
   - component: {fileID: 1063526869}
+  - component: {fileID: 1063526874}
   m_Layer: 5
   m_Name: CardInventoryPage
   m_TagString: Untagged
@@ -996,6 +999,7 @@ MonoBehaviour:
   giftPanelCtrl: {fileID: 805805661}
   vhSizer: {fileID: 1064857534}
   playerBaseController: {fileID: 1844380995}
+  UnitGiftLevel: {fileID: 1063526874}
 --- !u!114 &1063526871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1024,6 +1028,7 @@ MonoBehaviour:
   cardSize: 180
   colGap: 30
   rowGap: 30
+  inventoryUI: {fileID: 1063526870}
 --- !u!114 &1063526872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1058,6 +1063,27 @@ MonoBehaviour:
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
+--- !u!114 &1063526874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1063526867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 670375d4341cb2b4eb90f2dd2ca8395f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    cardName: 
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    quality: 
+    rank: 0
+    level: 0
+    giftLv: 1
+    giftExp: 0
 --- !u!1 &1064857531
 GameObject:
   m_ObjectHideFlags: 0

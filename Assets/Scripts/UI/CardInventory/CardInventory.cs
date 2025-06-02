@@ -36,17 +36,19 @@ public class CardInventory : MonoBehaviour
     [SerializeField] private float rowGap = 12f;
 
     /*──────────── 2. 运行时引用 ────────────*/
-    private VisualElement  selectedCardVE;
-    private Label          cardNameLabel;
+    private VisualElement selectedCardVE;
+    private Label cardNameLabel;
 
-    private ScrollViewPro  scroll;
-    private VisualElement  gridRoot;
-    private CardInfo      currentSelected;
+    private ScrollViewPro scroll;
+    private VisualElement gridRoot;
+    private CardInfo currentSelected;
 
     // ★★★ 新增：排序按钮与状态 ★★★
     private Button orderButton;               // #OrderButton
-    readonly string[]      sortModes = { "稀有度排序", "星级排序", "等级排序" };
-    int                    modeIdx = 0;
+    readonly string[] sortModes = { "稀有度排序", "星级排序", "等级排序" };
+    int modeIdx = 0;
+
+    [SerializeField] CardInventoryUI inventoryUI;
 
     /*──────────────────────────────────────*/
     private void OnEnable()
@@ -57,7 +59,7 @@ public class CardInventory : MonoBehaviour
 
         /*──────── 左侧展示区 ────────────*/
         selectedCardVE = root.Q<VisualElement>("SelectedCardImage");
-        cardNameLabel  = root.Q<Label>("CardName");
+        cardNameLabel = root.Q<Label>("CardName");
 
         /*──────── ScrollViewPro ─────────*/
         scroll = root.Q<ScrollViewPro>("CardScrollView")
@@ -66,14 +68,14 @@ public class CardInventory : MonoBehaviour
 
         scroll.mode = ScrollViewMode.Horizontal;
         scroll.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
-        scroll.verticalScrollerVisibility   = ScrollerVisibility.Hidden;
+        scroll.verticalScrollerVisibility = ScrollerVisibility.Hidden;
         scroll.infinite = false;
         scroll.style.height = rows * cardSize + (rows - 1) * rowGap;
 
         gridRoot = scroll.contentContainer;
         gridRoot.style.flexDirection = FlexDirection.Row;
-        gridRoot.style.paddingLeft   = 20;
-        gridRoot.style.paddingTop    = 20;
+        gridRoot.style.paddingLeft = 20;
+        gridRoot.style.paddingTop = 20;
 
         /*──────── 排序按钮 ─────────────*/
         orderButton = root.Q<Button>("OrderButton");
@@ -121,7 +123,10 @@ public class CardInventory : MonoBehaviour
 
     int QualityWeight(string q) => q switch
     {
-        "S" => 3, "A" => 2, "B" => 1, _ => 0
+        "S" => 3,
+        "A" => 2,
+        "B" => 1,
+        _ => 0
     };
 
     /*──────── 生成 / 刷新网格 ───────────*/
@@ -178,41 +183,55 @@ public class CardInventory : MonoBehaviour
         }
     }
 
-    /*──────── 帮助函数：聚焦第一张 ─────────*/
+        /*──────── 帮助函数：聚焦第一张 ─────────*/
     void FocusFirstCard()
     {
         if (gridRoot.childCount == 0) return;
+
         var firstCol = gridRoot[0];
         if (firstCol.childCount == 0) return;
 
-        var firstBtn = firstCol[0].Q<Button>("CardRoot");
-        if (firstBtn == null) return;
+        VisualElement cardRoot = firstCol[0];
+        var cardBtn  = cardRoot.Q<Button>("CardRoot");
+        var cardData = cardBtn?.userData as CardInfo;
+        if (cardBtn == null || cardData == null) return;
 
-        ShowSelected((CardInfo)firstBtn.userData);
-        firstBtn.schedule.Execute(() =>
+        /* 1. 刷左侧信息 & 装备槽 */
+        ShowSelected(cardData);
+        inventoryUI.OnCardClicked(cardData);
+        RefreshEquipSlots(cardData, cardRoot);
+
+        /* 2. 下一帧再设置焦点与滚动，防止被布局抢焦点 */
+        cardBtn.schedule.Execute(() =>
         {
-            firstBtn.Focus();
-            scroll.ScrollTo(firstBtn);
-        }).ExecuteLater(0);
+            cardBtn.Focus();
+            scroll.ScrollTo(cardBtn);
+        }).ExecuteLater(1);   // ← 延迟 1 帧
     }
 
+
+    class CardButtonData
+    {
+        public CardInfo      card;
+        public VisualElement root;   // 这张卡片的根（方便外部再找槽）
+    }
 
     /*──────── 构建单张卡片 ───────────────*/
     private VisualElement BuildCard(CardInfo data)
     {
         var container = cardTemplate.Instantiate();
-        container.style.width  = cardSize;
+        container.style.width = cardSize;
         container.style.height = cardSize;
         container.style.marginRight = colGap;
-        container.style.flexShrink  = 0;
+        container.style.flexShrink = 0;
 
-        var cardBtn   = container.Q<Button>("CardRoot");
-        var lvlLabel  = container.Q<Label>("Level");
+        var cardBtn = container.Q<Button>("CardRoot");
+        var lvlLabel = container.Q<Label>("Level");
         var starPanel = container.Q<VisualElement>("StarPanel");
-        var rarityVe  = container.Q<VisualElement>("CardRarity");
+        var rarityVe = container.Q<VisualElement>("CardRarity");
 
         cardBtn.AddToClassList("cardroot");
-        cardBtn.userData = data;                          // <<< 新增: 绑定数据
+        cardBtn.userData = data;
 
         /* 背景图 */
         if (data.iconSprite != null)
@@ -227,14 +246,14 @@ public class CardInventory : MonoBehaviour
             "S" => colorS,
             "A" => colorA,
             "B" => colorB,
-            _   => defaultBorder
+            _ => defaultBorder
         };
-        cardBtn.style.borderTopColor    =
-        cardBtn.style.borderRightColor  =
+        cardBtn.style.borderTopColor =
+        cardBtn.style.borderRightColor =
         cardBtn.style.borderBottomColor =
-        cardBtn.style.borderLeftColor   = borderCol;
+        cardBtn.style.borderLeftColor = borderCol;
 
-        lvlLabel.text       = data.level.ToString();
+        lvlLabel.text = data.level.ToString();
         lvlLabel.style.color = borderCol;
 
         /* 星级 */
@@ -248,7 +267,7 @@ public class CardInventory : MonoBehaviour
                 "S" => raritySpriteS,
                 "A" => raritySpriteA,
                 "B" => raritySpriteB,
-                _   => null
+                _ => null
             };
 
             if (sprite == null)
@@ -258,21 +277,33 @@ public class CardInventory : MonoBehaviour
             else
             {
                 rarityVe.style.display = DisplayStyle.Flex;
-                rarityVe.style.backgroundImage           = new StyleBackground(sprite);
-                rarityVe.style.unityBackgroundScaleMode  = ScaleMode.StretchToFill;
+                rarityVe.style.backgroundImage = new StyleBackground(sprite);
+                rarityVe.style.unityBackgroundScaleMode = ScaleMode.StretchToFill;
             }
         }
 
         /* 点击行为 */
-        cardBtn.clicked += () => ShowSelected(data);
+        cardBtn.clicked += () =>
+        {
+        ShowSelected(data);
+        inventoryUI.OnCardClicked(data);
+        RefreshEquipSlots(data, container);
+
+            Debug.Log($"{data.cardName}  武器:{data.equip.weaponUnlocked}  盔甲:{data.equip.armorUnlocked}  坐骑:{data.equip.mountUnlocked}");
+        };
+        cardBtn.RegisterCallback<FocusInEvent>(_ =>
+        {
+            RefreshEquipSlots(data, container);
+        });
+
 
         /* 获焦/失焦 动画 */
-        var normalScale  = new Scale(new Vector3(1f,   1f, 1f));
-        var pressedScale = new Scale(new Vector3(1.10f,1.10f,1f));
+    var normalScale = new Scale(new Vector3(1f, 1f, 1f));
+        var pressedScale = new Scale(new Vector3(1.10f, 1.10f, 1f));
         var overlay = container.Q<VisualElement>("DimOverlay");
-        var glowS   = container.Q<VisualElement>("Glow_S");
-        var glowA   = container.Q<VisualElement>("Glow_A");
-        var glowB   = container.Q<VisualElement>("Glow_B");
+        var glowS = container.Q<VisualElement>("Glow_S");
+        var glowA = container.Q<VisualElement>("Glow_A");
+        var glowB = container.Q<VisualElement>("Glow_B");
 
         float normalBorder = 4f;
         float focusedBorder = 8f;
@@ -301,7 +332,7 @@ public class CardInventory : MonoBehaviour
             cardBtn.style.borderRightWidth =
             cardBtn.style.borderBottomWidth =
             cardBtn.style.borderLeftWidth = focusedBorder;
-            
+
         });
 
         cardBtn.RegisterCallback<FocusOutEvent>(e =>
@@ -310,11 +341,11 @@ public class CardInventory : MonoBehaviour
             rarityVe.style.scale = normalScale;
             overlay.style.display = DisplayStyle.None;
             glowS.style.display = glowA.style.display = glowB.style.display = DisplayStyle.None;
-            
-            cardBtn.style.borderTopWidth    =
-            cardBtn.style.borderRightWidth  =
+
+            cardBtn.style.borderTopWidth =
+            cardBtn.style.borderRightWidth =
             cardBtn.style.borderBottomWidth =
-            cardBtn.style.borderLeftWidth   = normalBorder;
+            cardBtn.style.borderLeftWidth = normalBorder;
         });
 
         return container;
@@ -333,12 +364,13 @@ public class CardInventory : MonoBehaviour
                 sprite = i < rank ? filledStarSprite : emptyStarSprite,
                 scaleMode = ScaleMode.ScaleToFit
             };
-            img.style.width  = starSize;
+            img.style.width = starSize;
             img.style.height = starSize;
             img.style.marginRight = i < 4 ? 2 : 0;
             panel.Add(img);
         }
     }
+
 
     /*──────── 展示大图 / 名称 ─────────*/
     private void ShowSelected(CardInfo data)
@@ -356,4 +388,29 @@ public class CardInventory : MonoBehaviour
         if (cardNameLabel != null)
             cardNameLabel.text = data.cardName;
     }
+    void BindEquipSlot(VisualElement slot, bool unlocked)
+    {
+        if (slot == null) return;
+
+        // 先去掉两种 class，保证互斥
+        slot.RemoveFromClassList("equipmentlocked");
+        slot.RemoveFromClassList("equipmentunlocked");
+
+        // 再根据布尔值添加正确的那一个
+        slot.AddToClassList(unlocked ? "equipmentunlocked"
+                                    : "equipmentlocked");
+    }
+
+    void RefreshEquipSlots(CardInfo card, VisualElement cardRoot)
+    {
+        var weapon = cardRoot.Q<VisualElement>("weaponslot");
+        var armor  = cardRoot.Q<VisualElement>("armorslot");
+        var mount  = cardRoot.Q<VisualElement>("horseslot");
+
+        BindEquipSlot(weapon, card.equip.weaponUnlocked);
+        BindEquipSlot(armor,  card.equip.armorUnlocked);
+        BindEquipSlot(mount,  card.equip.mountUnlocked);
+    }
+
+
 }
