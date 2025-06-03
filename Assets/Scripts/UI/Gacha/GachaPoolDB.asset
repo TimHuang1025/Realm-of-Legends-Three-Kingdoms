@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec98f26ff55ed143be400284e2ca505, type: 3}
+  m_Name: GachaPoolDB
+  m_EditorClassIdentifier: 
+  pools:
+  - poolId: 1
+    title: "\u9B4F"
+    banner: {fileID: -2177580818297069291, guid: 1bd9a689a508c784a897256bcc02b66c, type: 3}
+    costx1: 150
+    costx10: 1400
+    drops:
+    - rewardId: "\u5934\u5956[\u66F9\u64CD]"
+      weight: 2
+    - rewardId: "\u4E8C\u7B49\u5956[\u5178\u97E6]"
+      weight: 8
+    - rewardId: "\u4E09\u7B49\u5956[\u53F8\u9A6C\u61FF]"
+      weight: 20
+    - rewardId: "\u56DB\u7B49\u5956[\u90ED\u5609]"
+      weight: 70
+    showCountdown: 1
+    expireSeconds: 1000000
+  - poolId: 2
+    title: "\u8700"
+    banner: {fileID: -4660862475118425815, guid: 4fbacff1b0fc73f46a8488143dc5c26c, type: 3}
+    costx1: 200
+    costx10: 1800
+    drops:
+    - rewardId: "\u5934\u5956[\u5173\u7FBD]"
+      weight: 2
+    - rewardId: "\u4E8C\u7B49\u5956[\u8BF8\u845B\u4EAE]"
+      weight: 10
+    - rewardId: "\u4E09\u7B49\u5956[\u9EC4\u5FE0]"
+      weight: 10
+    - rewardId: "\u4E09\u7B49\u5956[\u9A6C\u8D85]"
+      weight: 10
+    - rewardId: "\u56DB\u7B49\u5956[\u5F20\u82DE]"
+      weight: 88
+    showCountdown: 0
+    expireSeconds: 0
+  - poolId: 3
+    title: "\u5434"
+    banner: {fileID: 6800671461536939374, guid: 73419048ca4db5e42bdf98bab19c90e5, type: 3}
+    costx1: 200
+    costx10: 1800
+    drops:
+    - rewardId: "\u5934\u5956[\u5173\u7FBD]"
+      weight: 2
+    - rewardId: "\u4E8C\u7B49\u5956[\u8BF8\u845B\u4EAE]"
+      weight: 10
+    - rewardId: "\u4E09\u7B49\u5956[\u9EC4\u5FE0]"
+      weight: 10
+    - rewardId: "\u4E09\u7B49\u5956[\u9A6C\u8D85]"
+      weight: 10
+    - rewardId: "\u56DB\u7B49\u5956[\u5F20\u82DE]"
+      weight: 88
+    showCountdown: 0
+    expireSeconds: 0
+  - poolId: 4
+    title: "\u795E\u5668"
+    banner: {fileID: -2480499124604103135, guid: 6466b4386b29779469e9c5609f387018, type: 3}
+    costx1: 200
+    costx10: 1800
+    drops:
+    - rewardId: "\u5934\u5956[\u5173\u7FBD]"
+      weight: 2
+    - rewardId: "\u4E8C\u7B49\u5956[\u8BF8\u845B\u4EAE]"
+      weight: 10
+    - rewardId: "\u4E09\u7B49\u5956[\u9EC4\u5FE0]"
+      weight: 10
+    - rewardId: "\u4E09\u7B49\u5956[\u9A6C\u8D85]"
+      weight: 10
+    - rewardId: "\u56DB\u7B49\u5956[\u5F20\u82DE]"
+      weight: 88
+    showCountdown: 1
+    expireSeconds: 60000
+  - poolId: 5
+    title: "\u795E\u5668"
+    banner: {fileID: 3492362103025666016, guid: be7ad99e768fcde4c82c308f09332ccb, type: 3}
+    costx1: 200
+    costx10: 1800
+    drops:
+    - rewardId: "\u5934\u5956[\u5173\u7FBD]"
+      weight: 2
+    - rewardId: "\u4E8C\u7B49\u5956[\u8BF8\u845B\u4EAE]"
+      weight: 10
+    - rewardId: "\u4E09\u7B49\u5956[\u9EC4\u5FE0]"
+      weight: 10
+    - rewardId: "\u4E09\u7B49\u5956[\u9A6C\u8D85]"
+      weight: 10
+    - rewardId: "\u56DB\u7B49\u5956[\u5F20\u82DE]"
+      weight: 88
+    showCountdown: 0
+    expireSeconds: 0

@@ -13,6 +13,8 @@ public class CardInventoryUI : MonoBehaviour
     [SerializeField] private VhSizer vhSizer;
     [SerializeField] private PlayerBaseController playerBaseController;
     [SerializeField] private UnitGiftLevel UnitGiftLevel;
+    [SerializeField] private GachaPanelController gachaPanelCtrl;
+
 
 
     /*──────── 私有字段 ────────*/
@@ -25,11 +27,17 @@ public class CardInventoryUI : MonoBehaviour
     private Button uptierBtn;
     private Button closeInfoBtn;
     private Button giftBtn;
+    private Button gachaBtn;
+
 
 
     void OnEnable()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
+        gachaBtn = root.Q<Button>("GachaBtn");
+        if (gachaBtn != null)
+        gachaBtn.clicked += () => playerBaseController?.ShowGachaPage();
+
 
         // —— Cards / Info —— //
         cardsVe = root.Q<VisualElement>("Cards");
@@ -106,5 +114,4 @@ public class CardInventoryUI : MonoBehaviour
         UnitGiftLevel.RefreshUI();
         UnitGiftLevel.RefreshEquipSlots();
     }
-
 }

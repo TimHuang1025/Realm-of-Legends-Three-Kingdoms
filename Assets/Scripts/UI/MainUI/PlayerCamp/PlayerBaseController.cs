@@ -16,6 +16,7 @@ public class PlayerBaseController : MonoBehaviour
     [SerializeField] private GameObject mainUIPanel;
     [SerializeField] private GameObject playerBaseMap;
     [SerializeField] private GameObject cardInventoryPage;
+    [SerializeField] private GameObject gachaPage;
 
     private Button cardInventoryBtn;
 
@@ -25,6 +26,7 @@ public class PlayerBaseController : MonoBehaviour
         cardInventoryPage.SetActive(false);
         mainUIPanel.SetActive(true);
         playerBaseMap.SetActive(true);
+        gachaPage.SetActive(false);
     }
 
     /*———— 每次重新启用时重新取 root 并绑定事件 ————*/
@@ -58,6 +60,21 @@ public class PlayerBaseController : MonoBehaviour
         cardInventoryPage.SetActive(false);
         mainUIPanel.SetActive(true);
         playerBaseMap.SetActive(true);
+    }
+    public void ShowGachaPage()
+    {
+        gachaPage.SetActive(true);
+        cardInventoryPage.SetActive(false);
+        mainUIPanel.SetActive(false);
+        playerBaseMap.SetActive(false);
+    }
+
+    public void HideGachaPage()
+    {
+        gachaPage.SetActive(false);
+        cardInventoryPage.SetActive(true);   // 或 mainUIPanel，看你的返回逻辑
+        mainUIPanel.SetActive(false);
+        playerBaseMap.SetActive(false);
     }
 }
 
