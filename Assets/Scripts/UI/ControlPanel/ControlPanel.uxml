@@ -1,0 +1,55 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/UI/ControlPanel/ControlPanel.uss?fileID=7433441132597879392&amp;guid=749f16dd27372984d91c3b052fcc9027&amp;type=3#ControlPanel" />
+    <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgb(255, 255, 255);">
+        <ui:VisualElement name="StatisticsContainer" style="height: 10%; flex-direction: row;">
+            <ui:Button text="Button" name="BackButton" class="button" />
+            <ui:VisualElement name="AttackStat" class="statistics">
+                <ui:Label text="Label" name="AttackStatText" />
+            </ui:VisualElement>
+            <ui:VisualElement name="DefenseStat" class="statistics">
+                <ui:Label text="Label" name="DefenseStatText" />
+            </ui:VisualElement>
+            <ui:VisualElement name="IntelligenceStat" class="statistics">
+                <ui:Label text="Label" name="IntelligenceStatText" />
+            </ui:VisualElement>
+            <ui:VisualElement name="PowerStat" class="statistics">
+                <ui:Label text="Label" name="PowerStatText" />
+            </ui:VisualElement>
+            <ui:Button text="Button" name="SaveButton" class="button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="CardsContainer" style="height: 65%; flex-direction: row;">
+            <ui:VisualElement name="Main" class="card">
+                <ui:Label text="Label" name="MainText" class="cardtext" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Sub1" class="card">
+                <ui:Label text="Label" name="Sub1Text" class="cardtext" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Sub2" class="card">
+                <ui:Label text="Label" name="Sub2Text" class="cardtext" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Stategist" class="card">
+                <ui:Label text="Label" name="StrategistText" class="cardtext" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="LogisticsContainer" style="height: 10%; flex-direction: row; width: 95%; justify-content: flex-start; align-items: stretch; align-self: center; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
+            <ui:VisualElement name="Infantry" class="panel" style="background-color: rgb(74, 52, 36);">
+                <ui:Label text="Label" name="InfantryLabel" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Splitter1" class="splitter" />
+            <ui:VisualElement name="Cavalry" class="panel" style="background-color: rgb(139, 103, 55);">
+                <ui:Label text="Label" name="CavalryLabel" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Splitter2" class="splitter" />
+            <ui:VisualElement name="Archer" class="panel" style="background-color: rgb(216, 172, 74);">
+                <ui:Label text="Label" name="ArcherLabel" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="TeamsContainer" style="height: 15%; flex-direction: row;">
+            <ui:Button text="Button" name="Team1" class="button" />
+            <ui:Button text="Button" name="Team2" class="button" />
+            <ui:Button text="Button" name="Team3" class="button" />
+            <ui:Button text="Button" name="Team4" class="button" />
+            <ui:Button text="Button" name="Team5" class="button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
