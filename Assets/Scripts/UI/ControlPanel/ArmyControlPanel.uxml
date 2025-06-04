@@ -15,20 +15,25 @@
             <ui:VisualElement name="PowerStat" class="statistics">
                 <ui:Label text="Label" name="PowerStatText" />
             </ui:VisualElement>
-            <ui:Button text="Button" name="SaveButton" class="button" />
+            <ui:Button text="重置当前阵容" name="ResetCurrentCombo" class="button" />
+            <ui:Button text="保存" name="SaveButton" class="button" />
         </ui:VisualElement>
         <ui:VisualElement name="CardsContainer" style="height: 65%; flex-direction: row;">
             <ui:VisualElement name="Main" class="card">
-                <ui:Label text="Label" name="MainText" class="cardtext" />
+                <ui:Button text="&#x9;" name="MainHeroSelectBtn" style="flex-grow: 1; width: 100%; background-color: rgba(188, 188, 188, 0);" />
+                <ui:Label text="主将" name="MainText" class="cardtext" />
             </ui:VisualElement>
             <ui:VisualElement name="Sub1" class="card">
-                <ui:Label text="Label" name="Sub1Text" class="cardtext" />
+                <ui:Button name="SubHero1SelectBtn" style="flex-grow: 1; width: 100%; background-color: rgba(197, 197, 197, 0);" />
+                <ui:Label text="副将" name="Sub1Text" class="cardtext" />
             </ui:VisualElement>
             <ui:VisualElement name="Sub2" class="card">
-                <ui:Label text="Label" name="Sub2Text" class="cardtext" />
+                <ui:Button name="SubHero2SelectBtn" style="flex-grow: 1; width: 100%; background-color: rgba(197, 197, 197, 0);" />
+                <ui:Label text="副将" name="Sub2Text" class="cardtext" />
             </ui:VisualElement>
             <ui:VisualElement name="Stategist" class="card">
-                <ui:Label text="Label" name="StrategistText" class="cardtext" />
+                <ui:Button name="StrategistSelectBtn" style="flex-grow: 1; width: 100%; background-color: rgba(197, 197, 197, 0);" />
+                <ui:Label text="军师" name="StrategistText" class="cardtext" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="LogisticsContainer" style="height: 10%; flex-direction: row; width: 95%; justify-content: flex-start; align-items: stretch; align-self: center; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
@@ -45,11 +50,11 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="TeamsContainer" style="height: 15%; flex-direction: row;">
-            <ui:Button text="Button" name="Team1" class="button" />
-            <ui:Button text="Button" name="Team2" class="button" />
-            <ui:Button text="Button" name="Team3" class="button" />
-            <ui:Button text="Button" name="Team4" class="button" />
-            <ui:Button text="Button" name="Team5" class="button" />
+            <ui:Button text="阵容一" name="Team1" class="button" />
+            <ui:Button text="阵容二" name="Team2" class="button" />
+            <ui:Button text="阵容三" name="Team3" class="button" />
+            <ui:Button text="阵容四" name="Team4" class="button" />
+            <ui:Button text="阵容五" name="Team5" class="button" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

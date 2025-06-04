@@ -9,7 +9,7 @@ public class CardInventoryUI : MonoBehaviour
     /*──────── Inspector 拖入 ────────*/
     [SerializeField] private UpgradePanelController upgradePanelCtrl;
     [SerializeField] private UptierPanelController uptierPanelCtrl;
-    [SerializeField][System.Obsolete] private GiftPanelController giftPanelCtrl;
+    [SerializeField] private GiftPanelController giftPanelCtrl;
     [SerializeField] private VhSizer vhSizer;
     [SerializeField] private PlayerBaseController playerBaseController;
     [SerializeField] private UnitGiftLevel UnitGiftLevel;

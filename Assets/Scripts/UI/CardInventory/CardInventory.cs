@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Kamgam.UIToolkitScrollViewPro;
 using System.Collections.Generic;
-[System.Obsolete]
+
 [RequireComponent(typeof(UIDocument))]
 public class CardInventory : MonoBehaviour
 {
@@ -78,7 +78,7 @@ public class CardInventory : MonoBehaviour
         gridRoot.style.paddingTop = 20;
 
         /*──────── 排序按钮 ─────────────*/
-        orderButton = root.Q<Button>("OrderButton");
+        orderButton = root?.Q<Button>("OrderButton");
         if (orderButton == null)
         {
             Debug.LogError("找不到 #OrderButton");
@@ -130,7 +130,7 @@ public class CardInventory : MonoBehaviour
     };
 
     /*──────── 生成 / 刷新网格 ───────────*/
-    void BuildGrid()
+    public void BuildGrid()
     {
         gridRoot.Clear();
         VisualElement btnToFocus = null;
@@ -217,7 +217,7 @@ public class CardInventory : MonoBehaviour
     }
 
     /*──────── 构建单张卡片 ───────────────*/
-    private VisualElement BuildCard(CardInfo data)
+    public VisualElement BuildCard(CardInfo data)
     {
         var container = cardTemplate.Instantiate();
         container.style.width = cardSize;
@@ -286,10 +286,10 @@ public class CardInventory : MonoBehaviour
         cardBtn.clicked += () =>
         {
         ShowSelected(data);
-        inventoryUI.OnCardClicked(data);
+        inventoryUI?.OnCardClicked(data);
         RefreshEquipSlots(data, container);
 
-            Debug.Log($"{data.cardName}  武器:{data.equip.weaponUnlocked}  盔甲:{data.equip.armorUnlocked}  坐骑:{data.equip.mountUnlocked}");
+            //Debug.Log($"{data.cardName}  武器:{data.equip.weaponUnlocked}  盔甲:{data.equip.armorUnlocked}  坐骑:{data.equip.mountUnlocked}");
         };
         cardBtn.RegisterCallback<FocusInEvent>(_ =>
         {

@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 91055664}
   - component: {fileID: 91055663}
   - component: {fileID: 91055665}
+  - component: {fileID: 91055666}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -183,8 +184,208 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ef2995a5655844f97435319a529907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heroSelectionPanel: {fileID: 1153769916}
   uiDocument: {fileID: 91055663}
   minPercentage: 10
+  cardDB: {fileID: 11400000, guid: 899c48a3ccd99804abf8967b75fb7a00, type: 2}
+  lineupDB: {fileID: 11400000, guid: d2db380b7148dc64a8e446256bb7521c, type: 2}
+  activeLineupIndex: 0
+--- !u!114 &91055666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 91055662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73c2f2cf251ef7042877417eeac9d96c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: d05cb4c34a63742409aef9ef35a8076d, type: 2}
+  referenceShort: 1179
+  minScale: 0.6
+--- !u!1 &316890578
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 316890581}
+  - component: {fileID: 316890580}
+  - component: {fileID: 316890579}
+  m_Layer: 0
+  m_Name: CardInventoryFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &316890579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316890578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7ff3f35622714e41bbfea3f6e167d50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardTemplate: {fileID: 9197481963319205126, guid: ce7ec8992aedf614db80452685e736c3, type: 3}
+  cardDatabase: {fileID: 11400000, guid: 899c48a3ccd99804abf8967b75fb7a00, type: 2}
+  filledStarSprite: {fileID: -8980388821408755452, guid: 225758a5b9c5ff348bffc048eddfe6c0, type: 3}
+  emptyStarSprite: {fileID: -7591466717229274091, guid: 8504f353272c0784dad404ea941450f7, type: 3}
+  raritySpriteS: {fileID: 9156046936503501570, guid: 359d1ec66d067254384d312a7fff7c2c, type: 3}
+  raritySpriteA: {fileID: 3954183128216192898, guid: 64f5d6f3b6be4ce4bad264d38864f329, type: 3}
+  raritySpriteB: {fileID: 8574901359312092316, guid: 178fdcd8cc6de2c4f8e45f226800968f, type: 3}
+  starSize: 22
+  colorS: {r: 1, g: 0.78, b: 0.28, a: 1}
+  colorA: {r: 0.64, g: 0.3, b: 1, a: 1}
+  colorB: {r: 0.22, g: 0.84, b: 1, a: 1}
+  defaultBorder: {r: 0, g: 0, b: 0, a: 1}
+  rows: 3
+  cardSize: 180
+  colGap: 8
+  rowGap: 12
+  inventoryUI: {fileID: 0}
+--- !u!114 &316890580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316890578}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: cc4057f6b7427b54288ee27431155bde, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 806f648e6b68cbf42815051094070975, type: 3}
+  m_SortingOrder: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!4 &316890581
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316890578}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 95.73802, y: 110.35014, z: 4.3075995}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1153769912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1153769915}
+  - component: {fileID: 1153769914}
+  - component: {fileID: 1153769916}
+  - component: {fileID: 1153769917}
+  - component: {fileID: 1153769918}
+  m_Layer: 5
+  m_Name: MainPopupSelection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1153769914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153769912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: cc4057f6b7427b54288ee27431155bde, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 518ce3fd601c1eb4eae514b897a7d9b0, type: 3}
+  m_SortingOrder: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!4 &1153769915
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153769912}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1153769916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153769912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cf259b0a833c0b4ea349c181da2b69a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardFactory: {fileID: 316890579}
+  cardDB: {fileID: 11400000, guid: 899c48a3ccd99804abf8967b75fb7a00, type: 2}
+  uiDoc: {fileID: 1153769914}
+  cardWidth: 210
+  colGap: 12
+  rowGap: 12
+--- !u!114 &1153769917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153769912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73c2f2cf251ef7042877417eeac9d96c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 472ae44f09013234fb70f28718f28cac, type: 2}
+  referenceShort: 1179
+  minScale: 0.6
+--- !u!114 &1153769918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153769912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5505961988f0fb14c970a42fcd19d57b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vhSizer: {fileID: 1153769917}
 --- !u!1 &1377358085
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,3 +529,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 1377358088}
   - {fileID: 91055664}
+  - {fileID: 316890581}
+  - {fileID: 1153769915}

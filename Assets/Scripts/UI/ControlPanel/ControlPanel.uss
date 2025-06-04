@@ -89,3 +89,15 @@
     background-color: white;
     transition: background-color 0.15s;
 }
+
+.teamselected {
+    border-top-width: 15px;
+    border-right-width: 15px;
+    border-bottom-width: 15px;
+    border-left-width: 15px;
+    width: initial;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
