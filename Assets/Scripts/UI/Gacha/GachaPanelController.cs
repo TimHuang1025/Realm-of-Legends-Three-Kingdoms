@@ -197,13 +197,14 @@ public class GachaPanelController : MonoBehaviour
         if (!GachaTicketManager.I.TrySpend(cost))
         {
             Debug.Log("Ticket 不够！");
+            PopupManager.Show("抽奖失败", $"Ticket 不够！需要 {cost} 张 Ticket。");
             return;
         }
 
         // ★ 抽奖
         var results = GachaSystem.Roll(info, count);
         Debug.Log($"Roll {count} 次 → {string.Join(", ", results)}");
-        PopupManager.Show($"抽奖结果：\n{string.Join("\n", results)}");
+        PopupManager.Show("抽奖结果：",$"{string.Join("\n", results)}");
 
         // TODO：将 results 加到玩家背包 / 弹结果面板
     }

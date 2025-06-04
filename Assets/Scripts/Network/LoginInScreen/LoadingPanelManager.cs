@@ -2,24 +2,21 @@ using UnityEngine;
 
 public class LoadingPanelManager : MonoBehaviour
 {
-    // 单例方便全局调用
     public static LoadingPanelManager Instance { get; private set; }
 
-    // 把 Canvas_Loading 拖进来
     [SerializeField] Canvas loadingCanvas;
 
     void Awake()
     {
-        if (Instance == null)
+        if (Instance != null && Instance != this)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);   // 切场景也能继续用
+            Destroy(gameObject);      // 删掉重复体，不影响首个
+            return;
         }
-        else { Destroy(gameObject); return; }
-
-        Hide();                              // 开局默认隐藏
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+        Hide();
     }
-
     public void Show() => loadingCanvas.enabled = true;
     public void Hide() => loadingCanvas.enabled = false;
 }

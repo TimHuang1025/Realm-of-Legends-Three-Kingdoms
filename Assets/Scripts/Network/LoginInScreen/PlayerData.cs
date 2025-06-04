@@ -6,12 +6,12 @@ public class PlayerData : MonoBehaviour
     public static PlayerData I { get; private set; } // 单例
     [Header("玩家数据")]
     [Header("账号 & 会话")]
-    public string uuid;
+    public string uid;
     public string userToken;
     public string username;          // 你的账号 / 显示名
 
     [Header("角色信息")]
-    public string cuid;              // 角色 ID
+    public string cid;              // 角色 ID
     public string characterToken;    // 角色令牌
 
     [Header("游戏服")]
@@ -31,18 +31,18 @@ public class PlayerData : MonoBehaviour
     }
 
     public void SetSession(
-        string uuid,
+        string uid,
         string userToken,
-        string cuid,
+        string cid,
         string characterToken,
         int serverId,
         string serverIpAddress,
         int serverPort,
         string username = null)
     {
-        this.uuid = uuid;
+        this.uid = uid;
         this.userToken = userToken;
-        this.cuid = cuid;
+        this.cid = cid;
         this.characterToken = characterToken;
         this.serverId = serverId;
         this.serverIpAddress = serverIpAddress;
@@ -53,10 +53,10 @@ public class PlayerData : MonoBehaviour
         public void Dump()
     {
         Debug.Log($"[PlayerData]\n" +
-                $"uuid={uuid}\n" +
+                $"uid={uid}\n" +
                 $"userToken={userToken}\n" +
                 $"username={username}\n" +
-                $"cuid={cuid}\n" +
+                $"cid={cid}\n" +
                 $"characterToken={characterToken}\n" +
                 $"serverId={serverId}\n" +
                 $"server={serverIpAddress}:{serverPort}");

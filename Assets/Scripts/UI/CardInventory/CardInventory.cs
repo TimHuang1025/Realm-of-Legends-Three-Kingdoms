@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Kamgam.UIToolkitScrollViewPro;
 using System.Collections.Generic;
-
+[System.Obsolete]
 [RequireComponent(typeof(UIDocument))]
 public class CardInventory : MonoBehaviour
 {
@@ -370,7 +370,6 @@ public class CardInventory : MonoBehaviour
             panel.Add(img);
         }
     }
-
 
     /*──────── 展示大图 / 名称 ─────────*/
     private void ShowSelected(CardInfo data)

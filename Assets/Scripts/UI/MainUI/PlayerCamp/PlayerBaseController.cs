@@ -32,12 +32,10 @@ public class PlayerBaseController : MonoBehaviour
     /*———— 每次重新启用时重新取 root 并绑定事件 ————*/
     void OnEnable()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
+    var root = GetComponent<UIDocument>().rootVisualElement;
+    cardInventoryBtn = root.Q<Button>("CardInventoryBuilding");
+    cardInventoryBtn.clicked += ShowCardInventoryPage;
 
-        // 重新拿一次按钮（新的 Panel → 新的元素实例）
-        cardInventoryBtn = root.Q<Button>("CardInventoryBuilding");
-        if (cardInventoryBtn != null)
-            cardInventoryBtn.clicked += ShowCardInventoryPage;
     }
 
     /*———— 对应卸载，避免重复绑定 ————*/

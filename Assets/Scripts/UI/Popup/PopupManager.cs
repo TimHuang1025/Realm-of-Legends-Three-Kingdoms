@@ -76,7 +76,11 @@ public sealed class PopupManager : MonoBehaviour
 
         // 2) 文案 + 关闭逻辑
         root.Q<Label>("Popuptitle")?.SetText(title);
-        root.Q<Label>("Popuptext") ?.SetText(msg);
+        var txtLbl = root.Q<Label>("Popuptext");
+        if (txtLbl != null)
+            txtLbl.SetText(msg);
+            txtLbl.style.unityTextAlign = TextAnchor.MiddleCenter;
+
 
         void Close() => root.RemoveFromHierarchy();
         root.Q<VisualElement>("BlackSpace") ?.RegisterCallback<ClickEvent>(_ => Close());

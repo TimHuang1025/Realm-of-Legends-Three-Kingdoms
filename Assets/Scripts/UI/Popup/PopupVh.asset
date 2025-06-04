@@ -25,7 +25,7 @@ MonoBehaviour:
   - queryType: 0
     queryValue: PopupPanelContainer
     widthVh: 75
-    heightVh: 75
+    heightVh: 95
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
@@ -72,6 +72,15 @@ MonoBehaviour:
     widthVh: 8
     heightVh: 8
     fontVh: 4
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: space
+    widthVh: 10
+    heightVh: 15
+    fontVh: 0
     applyScale: 0
     aspectWidth: 0
     addWidthVw: 0

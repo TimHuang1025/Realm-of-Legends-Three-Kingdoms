@@ -112,6 +112,7 @@ public class GiftPanelController : MonoBehaviour
     }
 
     /*──────── 生成列表 ────────*/
+
     private void BuildGiftOptions()
     {
         if (giftDatabase == null || giftOptionTpl == null || optionContainer == null)

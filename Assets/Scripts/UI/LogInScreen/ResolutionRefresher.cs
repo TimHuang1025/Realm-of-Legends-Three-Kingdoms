@@ -49,21 +49,24 @@ public class ResolutionRefresher : MonoBehaviour
     {
         bool allReady = true;
 
-        var sizers = FindObjectsOfType<VhSizer>(true);
+#if UNITY_2022_2_OR_NEWER
+        var sizers = Object.FindObjectsByType<VhSizer>(
+                        FindObjectsInactive.Include,   // ← 包含 inactive
+                        FindObjectsSortMode.None);     // ← 不排序
+#else
+        var sizers = Object.FindObjectsOfType<VhSizer>(true); // 旧 API
+#endif
+
         foreach (var s in sizers)
         {
             var root = s.GetComponent<UIDocument>()?.rootVisualElement;
             if (root == null || root.layout.height <= 1f)
             {
-                allReady = false;          // 仍未布局完成
+                allReady = false;
                 continue;
             }
             s.Apply();
         }
-
-#if UNITY_EDITOR
-        
-#endif
         return allReady;
     }
 }

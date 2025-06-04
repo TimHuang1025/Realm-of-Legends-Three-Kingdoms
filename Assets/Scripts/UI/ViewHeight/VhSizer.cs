@@ -75,7 +75,7 @@ public class VhSizer : MonoBehaviour
     {
         if (config == null)
         {
-            Debug.LogWarning("[VhSizer] 未设置 config，跳过");
+            //Debug.LogWarning("[VhSizer] 未设置 config，跳过");
             return;
         }
 

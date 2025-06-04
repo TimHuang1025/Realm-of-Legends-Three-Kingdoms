@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 371958758}
   - component: {fileID: 371958757}
   - component: {fileID: 371958756}
+  - component: {fileID: 371958760}
   m_Layer: 5
   m_Name: Canva_Loading
   m_TagString: Untagged
@@ -227,6 +228,66 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &371958760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371958755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa57bb2c00cf7d44b0296b6c2c58c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingCanvas: {fileID: 371958758}
+--- !u!1 &779578230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 779578232}
+  - component: {fileID: 779578231}
+  m_Layer: 0
+  m_Name: GlobalPopupManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &779578231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779578230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7588f8f25415c564298abc3b59a5cab8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupTpl: {fileID: 9197481963319205126, guid: 806f648e6b68cbf42815051094070975, type: 3}
+  popupPanelSettings: {fileID: 11400000, guid: 9816ddb2272670348aac53422af5414e, type: 2}
+  vhsizerConfig: {fileID: 11400000, guid: 2aaa2d1a82e46c64ea63a9ded377ce4e, type: 2}
+--- !u!4 &779578232
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779578230}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 95.73802, y: 110.35014, z: 4.3075995}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &853378235
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,10 +302,9 @@ GameObject:
   - component: {fileID: 853378239}
   - component: {fileID: 853378240}
   - component: {fileID: 853378241}
-  - component: {fileID: 853378242}
   - component: {fileID: 853378243}
   m_Layer: 5
-  m_Name: UIDocument
+  m_Name: LoginPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -332,19 +392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97e866f02b68608478d930052f1a3943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &853378242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853378235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aa57bb2c00cf7d44b0296b6c2c58c60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loadingCanvas: {fileID: 371958758}
 --- !u!114 &853378243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1293,10 +1340,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4b001d3856d0e42b64dc4379c53263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uuid: 
+  uid: 
   userToken: 
   username: 
-  cuid: 
+  cid: 
   characterToken: 
   serverId: 0
   serverIpAddress: 
@@ -1340,3 +1387,4 @@ SceneRoots:
   - {fileID: 2113899464}
   - {fileID: 1703481949}
   - {fileID: 1726562390}
+  - {fileID: 779578232}
