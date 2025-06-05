@@ -14,6 +14,7 @@ public class HeroArrangePanel : MonoBehaviour
     private Label infantryLabel, cavalryLabel, archerLabel;
     private VisualElement splitter1, splitter2;
     [SerializeField] private CardDatabase cardDB; 
+    [SerializeField] private PlayerBaseController playerBaseController;
     
 
     private float totalWidth;
@@ -26,6 +27,7 @@ public class HeroArrangePanel : MonoBehaviour
 
     private LineupSlot pendingSlot;   // 记录这次要写哪个槽位
     private Dictionary<LineupSlot, Button> slotBtnMap = new();
+    
     void OnEnable()
     {
         var root = uiDocument.rootVisualElement;
@@ -33,6 +35,11 @@ public class HeroArrangePanel : MonoBehaviour
         Button resetBtn = root.Q<Button>("ResetCurrentCombo");
         resetBtn.clicked += ResetCurrentLineup;
 
+        Button returnBtn = root.Q<Button>("ReturnBtn");
+        if (returnBtn != null) returnBtn.clicked += () =>
+        {
+            playerBaseController?.HideArmyControlPage();
+        };
 
         /* 1. 先缓存四个按钮 */
         Button mainHeroBtn = root.Q<Button>("MainHeroSelectBtn");

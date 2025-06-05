@@ -12,9 +12,21 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="RightSidePanel" style="flex-grow: 1;">
-                <ui:VisualElement name="Cards" style="flex-grow: 1; height: 100%; top: 0%; position: relative; width: 100%; display: none;">
+                <ui:VisualElement name="Cards" style="flex-grow: 1; height: 100%; top: 0%; position: relative; width: 100%; display: flex;">
                     <ui:VisualElement name="OrderContainer" style="align-items: center; height: 12%; flex-direction: row-reverse; justify-content: space-between; flex-shrink: 0;">
                         <ui:Button name="OrderButton" text="排序" class="smallbtns" style="width: 20%; height: 80%; margin-right: 10%; margin-top: 1%; letter-spacing: 0;" />
+                        <ui:VisualElement name="Mat2Bar" class="smallbtns" style="flex-grow: 0; height: 45%; flex-direction: row; flex-shrink: 0; width: 251px; letter-spacing: 0;">
+                            <ui:VisualElement name="Mat2Icon" class="bigdisplayicon" style="flex-grow: 0; width: 26%; background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E9%93%B6%E9%94%AD.png?fileID=2800000&amp;guid=ee3c346f5e8f2d747a51b4f69dd46ca6&amp;type=3#银锭&quot;); margin-top: 0; margin-bottom: 0; flex-shrink: 0;" />
+                            <ui:VisualElement name="Mat2Panel" style="flex-grow: 1; flex-direction: column; -unity-text-align: upper-left; justify-content: center;">
+                                <ui:Label text="355232" name="mat2value" class="golddisplay" style="-unity-text-align: middle-left;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="ExpBar" class="smallbtns" style="flex-grow: 0; height: 45%; flex-direction: row; flex-shrink: 0; width: 251px; letter-spacing: 0;">
+                            <ui:VisualElement name="ExpIcon" class="bigdisplayicon" style="flex-grow: 0; width: 26%; background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E5%85%B5%E5%8A%9B.png?fileID=2800000&amp;guid=28f8fe5d71ccf7d45b9ccdc149007a90&amp;type=3#兵力&quot;); margin-top: 0; margin-bottom: 0; flex-shrink: 0;" />
+                            <ui:VisualElement name="ExpValuePanel" style="flex-grow: 1; flex-direction: column; -unity-text-align: upper-left; justify-content: center;">
+                                <ui:Label text="355232" name="expvalue" class="golddisplay" style="-unity-text-align: middle-left;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
                     </ui:VisualElement>
                     <Kamgam.UIToolkitScrollViewPro.ScrollViewPro name="CardScrollView" infinite="true" scroller-buttons="false" mode="Horizontal" focus-snap-on-pointer="false" snap-align-x="Visible" snap-align-y="End" focus-snap-inside="false" focus-snap-include-margin="true" snap-ease="BackOut" focus-snap-ease="BackOut" focus-snap="true" focus-snap-align-x="End" focus-snap-align-y="End" snap="true" snap-margin="20,0,0,0" snap-velocity-threshold="200" focus-snap-duration-sec="0.45" scroll-deceleration-rate="0.03" snap-duration-sec="0.45" snap-include-margin="true" elasticity="0.1" drag-threshold="10" focus-snap-margin="0,0,20,0" snap-edge-clamp="true" snap-edge-clamp-x="true" touch-scroll-type="Clamped" style="height: 73%; flex-shrink: 0; flex-grow: 1; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-top-color: rgba(0, 0, 0, 0); border-bottom-color: rgba(0, 0, 0, 0);" />
                     <ui:VisualElement name="InfoRecruitButtons" style="align-items: center; justify-content: space-evenly; flex-direction: row; height: 10%; flex-shrink: 0;">
@@ -22,7 +34,7 @@
                         <ui:Button name="InfoBtn" text="详情&#x9;" class="bigBtn" style="width: 42.5%; height: 60%; right: auto;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Info" style="flex-grow: 0; width: 100%; height: 100%; display: flex;">
+                <ui:VisualElement name="Info" style="flex-grow: 0; width: 100%; height: 100%; display: none;">
                     <ui:VisualElement name="InfoBar" style="flex-grow: 0; height: 12%; display: flex;" />
                     <ui:VisualElement name="InfoPanel" style="flex-grow: 1; background-color: rgb(177, 160, 138); margin-left: 0; margin-top: 10px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); padding-top: 30px; padding-right: 30px; padding-bottom: 30px; padding-left: 30px; border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; display: flex;">
                         <ui:VisualElement name="LevelStats" style="flex-grow: 0; flex-direction: row;">

@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using Kamgam.UIToolkitScrollViewPro;
+using System;
+
+
+
 
 [RequireComponent(typeof(UIDocument))]
 public class GachaPanelController : MonoBehaviour
@@ -10,6 +14,7 @@ public class GachaPanelController : MonoBehaviour
     [SerializeField] private VisualTreeAsset  poolTemplate;
     [SerializeField] private GachaPoolDatabase poolDatabase;
     [SerializeField] private PlayerBaseController playerBaseController;
+    Action<ResourceType> bankHandler;  // 监听 PlayerBank onBankChanged
 
     /*──── 2. 固定节点名 ────*/
     const string kScrollName = "GachaPoolScroll";
@@ -41,16 +46,23 @@ public class GachaPanelController : MonoBehaviour
         Button freeBtn = root.Q<Button>(freeticketsbtn);
         freeBtn.clicked += () =>
         {
-            GachaTicketManager.I.Add(5000);      
+            PlayerBank.I.Add(ResourceType.GachaTicket, 5000);      
             Debug.Log("赠送 5000 Ticket");
         };
+        bankHandler = t =>
+        {
+        if (t == ResourceType.GachaTicket && ticketLbl != null)
+            ticketLbl.text = PlayerBank.I[ResourceType.GachaTicket].ToString();
+        };
+        PlayerBank.I.onBankChanged += bankHandler;
 
         returnBtn = root.Q<Button>("ReturnBtn");
         if (returnBtn != null) returnBtn.clicked += () => playerBaseController?.HideGachaPage();
 
         /*── Ticket Label ─*/
         ticketLbl = root.Q<Label>("TicketAmount");
-        if (ticketLbl != null) ticketLbl.text = GachaTicketManager.I.Ticket.ToString();
+        if (ticketLbl != null)
+            ticketLbl.text = PlayerBank.I[ResourceType.GachaTicket].ToString();
 
         handler = v => { if (ticketLbl != null) ticketLbl.text = v.ToString(); };
         GachaTicketManager.I.OnTicketChanged += handler;
@@ -81,8 +93,8 @@ public class GachaPanelController : MonoBehaviour
 
     void OnDisable()
     {
-        if (handler != null && GachaTicketManager.I != null)
-            GachaTicketManager.I.OnTicketChanged -= handler;
+        if (bankHandler != null && PlayerBank.I != null)
+            PlayerBank.I.onBankChanged -= bankHandler;
     }
 
     /*──── 5. 生成池子 ────*/
@@ -194,12 +206,13 @@ public class GachaPanelController : MonoBehaviour
         if (selectedItem?.userData is not GachaPoolInfo info) return;
 
         int cost = (count == 1) ? info.costx1 : info.costx10;
-        if (!GachaTicketManager.I.TrySpend(cost))
+        if (PlayerBank.I[ResourceType.GachaTicket] < cost)
         {
             Debug.Log("Ticket 不够！");
             PopupManager.Show("抽奖失败", $"Ticket 不够！需要 {cost} 张 Ticket。");
             return;
         }
+        PlayerBank.I.Spend(ResourceType.GachaTicket, cost);
 
         // ★ 抽奖
         var results = GachaSystem.Roll(info, count);

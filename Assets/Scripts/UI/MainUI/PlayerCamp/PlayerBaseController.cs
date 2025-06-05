@@ -17,8 +17,11 @@ public class PlayerBaseController : MonoBehaviour
     [SerializeField] private GameObject playerBaseMap;
     [SerializeField] private GameObject cardInventoryPage;
     [SerializeField] private GameObject gachaPage;
+    [SerializeField] private GameObject armyControlPage;
+
 
     private Button cardInventoryBtn;
+    private Button armyControlBtn;
 
     /*———— 启动时默认状态 ————*/
     void Awake()
@@ -27,14 +30,18 @@ public class PlayerBaseController : MonoBehaviour
         mainUIPanel.SetActive(true);
         playerBaseMap.SetActive(true);
         gachaPage.SetActive(false);
+        armyControlPage.SetActive(false);
     }
 
     /*———— 每次重新启用时重新取 root 并绑定事件 ————*/
     void OnEnable()
     {
-    var root = GetComponent<UIDocument>().rootVisualElement;
-    cardInventoryBtn = root.Q<Button>("CardInventoryBuilding");
-    cardInventoryBtn.clicked += ShowCardInventoryPage;
+        var root = GetComponent<UIDocument>().rootVisualElement;
+        cardInventoryBtn = root.Q<Button>("CardInventoryBuilding");
+        cardInventoryBtn.clicked += ShowCardInventoryPage;
+
+        armyControlBtn = root.Q<Button>("ArmyControlBuilding");
+        armyControlBtn.clicked += ShowArmyControlPage;
 
     }
 
@@ -73,6 +80,21 @@ public class PlayerBaseController : MonoBehaviour
         cardInventoryPage.SetActive(true);   // 或 mainUIPanel，看你的返回逻辑
         mainUIPanel.SetActive(false);
         playerBaseMap.SetActive(false);
+    }
+
+    public void ShowArmyControlPage()
+    {
+        cardInventoryPage.SetActive(false);
+        mainUIPanel.SetActive(false);
+        playerBaseMap.SetActive(false);
+        armyControlPage.SetActive(true);
+    }
+    public void HideArmyControlPage()
+    {
+        armyControlPage.SetActive(false);
+        mainUIPanel.SetActive(true);
+        playerBaseMap.SetActive(true);
+        cardInventoryPage.SetActive(false);
     }
 }
 

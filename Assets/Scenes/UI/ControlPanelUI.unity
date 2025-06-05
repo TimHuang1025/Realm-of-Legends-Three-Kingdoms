@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heroSelectionPanel: {fileID: 1153769916}
   uiDocument: {fileID: 91055663}
-  minPercentage: 10
+  minPercentage: 0
   cardDB: {fileID: 11400000, guid: 899c48a3ccd99804abf8967b75fb7a00, type: 2}
   lineupDB: {fileID: 11400000, guid: d2db380b7148dc64a8e446256bb7521c, type: 2}
   activeLineupIndex: 0

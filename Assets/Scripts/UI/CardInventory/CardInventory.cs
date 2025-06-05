@@ -42,6 +42,7 @@ public class CardInventory : MonoBehaviour
     private ScrollViewPro scroll;
     private VisualElement gridRoot;
     private CardInfo currentSelected;
+    Dictionary<CardInfo, Button> cardBtnMap = new();  // 卡片 ↔ 按钮
 
     // ★★★ 新增：排序按钮与状态 ★★★
     private Button orderButton;               // #OrderButton
@@ -49,6 +50,8 @@ public class CardInventory : MonoBehaviour
     int modeIdx = 0;
 
     [SerializeField] CardInventoryUI inventoryUI;
+
+
 
     /*──────────────────────────────────────*/
     private void OnEnable()
@@ -133,6 +136,7 @@ public class CardInventory : MonoBehaviour
     public void BuildGrid()
     {
         gridRoot.Clear();
+        cardBtnMap.Clear();
         VisualElement btnToFocus = null;
 
         int cardIdx = 0;
@@ -156,6 +160,7 @@ public class CardInventory : MonoBehaviour
 
                 // 找到真正带 userData 的按钮
                 var cardBtn = cardContainer.Q<Button>("CardRoot");
+                cardBtnMap[cardDatabase.cards[cardIdx]] = cardBtn;
                 if (cardBtn != null && cardBtn.userData == currentSelected)
                     btnToFocus = cardBtn;
 
@@ -181,6 +186,12 @@ public class CardInventory : MonoBehaviour
         {
             FocusFirstCard();
         }
+    }
+    void OnDisable()
+    {
+        /* ✅ 退场时解除事件订阅，防止泄漏 */
+        foreach (var c in cardDatabase.cards)
+            c.OnStatsChanged -= OnCardStatChanged;
     }
 
         /*──────── 帮助函数：聚焦第一张 ─────────*/
@@ -254,6 +265,7 @@ public class CardInventory : MonoBehaviour
         cardBtn.style.borderLeftColor = borderCol;
 
         lvlLabel.text = data.level.ToString();
+        data.OnStatsChanged += OnCardStatChanged;
         lvlLabel.style.color = borderCol;
 
         /* 星级 */
@@ -298,7 +310,7 @@ public class CardInventory : MonoBehaviour
 
 
         /* 获焦/失焦 动画 */
-    var normalScale = new Scale(new Vector3(1f, 1f, 1f));
+        var normalScale = new Scale(new Vector3(1f, 1f, 1f));
         var pressedScale = new Scale(new Vector3(1.10f, 1.10f, 1f));
         var overlay = container.Q<VisualElement>("DimOverlay");
         var glowS = container.Q<VisualElement>("Glow_S");
@@ -349,6 +361,20 @@ public class CardInventory : MonoBehaviour
         });
 
         return container;
+    }
+    void OnCardStatChanged(CardInfo card)
+    {
+        /* 1. 更新网格中等级数字 */
+        if (cardBtnMap.TryGetValue(card, out var btn))
+            btn.Q<Label>("Level").text = card.level.ToString();
+
+        /* 2. 若正选中，刷新左侧大图 / 名字 */
+        if (card == currentSelected)
+            ShowSelected(card);
+
+        /* 3. 如果当前是“等级排序”，需要重排一次 */
+        if (sortModes[modeIdx] == "等级排序")
+            ApplySort();
     }
 
     /*──────── 填充星星 ───────────────*/

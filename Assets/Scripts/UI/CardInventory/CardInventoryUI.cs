@@ -28,6 +28,8 @@ public class CardInventoryUI : MonoBehaviour
     private Button closeInfoBtn;
     private Button giftBtn;
     private Button gachaBtn;
+    private Label mat2valueLbl;
+    private Label expvalueLbl;
 
 
 
@@ -36,7 +38,7 @@ public class CardInventoryUI : MonoBehaviour
         var root = GetComponent<UIDocument>().rootVisualElement;
         gachaBtn = root.Q<Button>("GachaBtn");
         if (gachaBtn != null)
-        gachaBtn.clicked += () => playerBaseController?.ShowGachaPage();
+            gachaBtn.clicked += () => playerBaseController?.ShowGachaPage();
 
 
         // —— Cards / Info —— //
@@ -44,6 +46,11 @@ public class CardInventoryUI : MonoBehaviour
         infoVe = root.Q<VisualElement>("Info");
         infoVe.style.display = DisplayStyle.None;
         cardsVe.style.display = DisplayStyle.Flex;
+        mat2valueLbl = root.Q<Label>("mat2value");
+        expvalueLbl = root.Q<Label>("expvalue");
+        Refresh();
+        PlayerBank.I.onBankChanged += OnBankChanged;
+        
 
         // —— 按钮绑定 —— //
         returnBtn = root.Q<Button>("ReturnBtn");
@@ -108,10 +115,53 @@ public class CardInventoryUI : MonoBehaviour
 
     public CardInfo CurrentCard { get; private set; }   // 给 GiftPanel 用
 
+    CardInfo currentCard;   // 记录当前选中，用来解绑
+
     public void OnCardClicked(CardInfo card)
     {
-        UnitGiftLevel.data = card;       // data 不再是 null
+        /* 1. 先把旧的解绑 */
+        if (currentCard != null)
+            currentCard.OnStatsChanged -= OnCardStatChanged;
+
+        /* 2. 新卡订阅 */
+        currentCard = card;
+        currentCard.OnStatsChanged += OnCardStatChanged;
+
+        /* 3. 原本就有的逻辑保持不变 */
+        UnitGiftLevel.data = card;
+        upgradePanelCtrl.SetData(card);        // 建议直接 Open，内部会 SetData & 刷 UI
         UnitGiftLevel.RefreshUI();
         UnitGiftLevel.RefreshEquipSlots();
     }
+
+    /* 事件回调：这张卡属性（如等级）变时触发 */
+    void OnCardStatChanged(CardInfo card)
+    {
+        // 让 Gift 面板 & 其它 UI 立即同步
+        UnitGiftLevel.RefreshUI();
+        UnitGiftLevel.RefreshEquipSlots();
+    }
+
+    void OnDisable()
+    {
+        // ④ 解绑，防止多次加载重复回调
+        if (PlayerBank.I != null)
+            PlayerBank.I.onBankChanged -= OnBankChanged;
+    }
+
+    /* ===== 回调 & 刷新 ===== */
+    void OnBankChanged(ResourceType type)
+    {
+        if (type == ResourceType.HeroMat2)
+            Refresh();
+        if (type == ResourceType.HeroExp)
+            Refresh();
+    }
+
+    void Refresh()
+    {
+        mat2valueLbl.text = PlayerBank.I[ResourceType.HeroMat2].ToString("N0");
+        expvalueLbl.text = PlayerBank.I[ResourceType.HeroExp].ToString("N0");
+    }
+    
 }

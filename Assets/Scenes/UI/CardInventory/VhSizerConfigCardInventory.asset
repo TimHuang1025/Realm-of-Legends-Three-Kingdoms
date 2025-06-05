@@ -202,3 +202,12 @@ MonoBehaviour:
     aspectWidth: 1
     addWidthVw: 0
     widthVw: 30
+  - queryType: 1
+    queryValue: golddisplay
+    widthVh: 0
+    heightVh: 0
+    fontVh: 5
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 30

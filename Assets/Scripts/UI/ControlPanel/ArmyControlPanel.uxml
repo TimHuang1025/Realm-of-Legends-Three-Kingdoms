@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Scripts/UI/ControlPanel/ControlPanel.uss?fileID=7433441132597879392&amp;guid=749f16dd27372984d91c3b052fcc9027&amp;type=3#ControlPanel" />
     <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgb(255, 255, 255);">
         <ui:VisualElement name="StatisticsContainer" style="height: 10%; flex-direction: row;">
-            <ui:Button text="Button" name="BackButton" class="button" />
+            <ui:Button text="&lt;返回" name="ReturnBtn" class="button" />
             <ui:VisualElement name="AttackStat" class="statistics">
                 <ui:Label text="Label" name="AttackStatText" />
             </ui:VisualElement>
