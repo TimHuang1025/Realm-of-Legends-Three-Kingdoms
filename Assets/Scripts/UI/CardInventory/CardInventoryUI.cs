@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System;
 
 [RequireComponent(typeof(UIDocument))]
 public class CardInventoryUI : MonoBehaviour
@@ -116,9 +117,10 @@ public class CardInventoryUI : MonoBehaviour
     public CardInfo CurrentCard { get; private set; }   // 给 GiftPanel 用
 
     CardInfo currentCard;   // 记录当前选中，用来解绑
-
+    public static event Action<CardInfo> OnCardSelected;
     public void OnCardClicked(CardInfo card)
     {
+        OnCardSelected?.Invoke(card);
         /* 1. 先把旧的解绑 */
         if (currentCard != null)
             currentCard.OnStatsChanged -= OnCardStatChanged;

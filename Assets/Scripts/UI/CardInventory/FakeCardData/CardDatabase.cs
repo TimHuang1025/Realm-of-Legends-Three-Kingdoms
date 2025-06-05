@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 /*───────────────────────────────────────────────*
  *  CardDatabase 保持不变
@@ -28,10 +29,10 @@ public class CardInfo
     [Range(0, 5)] public int rank;   // 星数 0~5
 
     /*── 等级 (仍叫 level) ──*/
-    [Range(1, 999999)] public int level = 1;   
+    [Range(1, 999999)] public int level = 1;
 
     /*── 礼物好感 ──*/
-    public int giftLv  = 1;
+    public int giftLv = 1;
     public int giftExp = 0;
 
     /*── 装备槽 ──*/
@@ -53,6 +54,7 @@ public class CardInfo
         rank = Mathf.Clamp(newRank, 0, 5);
         OnStatsChanged?.Invoke(this);
     }
+    public VideoClip videoClip;
 }
 
 /*───────────────────────────────────────────────*/

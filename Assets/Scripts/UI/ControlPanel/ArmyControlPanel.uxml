@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/UI/ControlPanel/ControlPanel.uss?fileID=7433441132597879392&amp;guid=749f16dd27372984d91c3b052fcc9027&amp;type=3#ControlPanel" />
-    <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgb(255, 255, 255);">
+    <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgb(78, 71, 71);">
         <ui:VisualElement name="StatisticsContainer" style="height: 10%; flex-direction: row;">
             <ui:Button text="&lt;返回" name="ReturnBtn" class="button" />
             <ui:VisualElement name="AttackStat" class="statistics">
@@ -21,18 +21,22 @@
         <ui:VisualElement name="CardsContainer" style="height: 65%; flex-direction: row;">
             <ui:VisualElement name="Main" class="card">
                 <ui:Button text="&#x9;" name="MainHeroSelectBtn" style="flex-grow: 1; width: 100%; background-color: rgba(188, 188, 188, 0);" />
+                <ui:Label text="主" name="MainTitleLbl" class="styletitle" style="align-items: flex-start; align-self: flex-start;" />
                 <ui:Label text="主将" name="MainText" class="cardtext" />
             </ui:VisualElement>
             <ui:VisualElement name="Sub1" class="card">
                 <ui:Button name="SubHero1SelectBtn" style="flex-grow: 1; width: 100%; background-color: rgba(197, 197, 197, 0);" />
+                <ui:Label text="副" name="Sub1TitleLbl" class="styletitle" style="align-items: flex-start; align-self: flex-start;" />
                 <ui:Label text="副将" name="Sub1Text" class="cardtext" />
             </ui:VisualElement>
             <ui:VisualElement name="Sub2" class="card">
                 <ui:Button name="SubHero2SelectBtn" style="flex-grow: 1; width: 100%; background-color: rgba(197, 197, 197, 0);" />
+                <ui:Label text="副" name="Sub2TitleLbl" class="styletitle" style="align-items: flex-start; align-self: flex-start;" />
                 <ui:Label text="副将" name="Sub2Text" class="cardtext" />
             </ui:VisualElement>
             <ui:VisualElement name="Stategist" class="card">
                 <ui:Button name="StrategistSelectBtn" style="flex-grow: 1; width: 100%; background-color: rgba(197, 197, 197, 0);" />
+                <ui:Label text="谋" name="StrategistTitleLbl" class="styletitle" style="align-items: flex-start; align-self: flex-start;" />
                 <ui:Label text="军师" name="StrategistText" class="cardtext" />
             </ui:VisualElement>
         </ui:VisualElement>

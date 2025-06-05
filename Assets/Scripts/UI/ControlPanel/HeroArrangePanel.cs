@@ -27,6 +27,7 @@ public class HeroArrangePanel : MonoBehaviour
 
     private LineupSlot pendingSlot;   // 记录这次要写哪个槽位
     private Dictionary<LineupSlot, Button> slotBtnMap = new();
+    private Dictionary<LineupSlot, Label>  slotNameLblMap = new();
     
     void OnEnable()
     {
@@ -40,6 +41,17 @@ public class HeroArrangePanel : MonoBehaviour
         {
             playerBaseController?.HideArmyControlPage();
         };
+        // ① 找到四个 Label（先在 UI Builder 给它们 name）
+        Label mainNameLbl = root.Q<Label>("MainText");
+        Label sub1NameLbl = root.Q<Label>("Sub1Text");
+        Label sub2NameLbl = root.Q<Label>("Sub2Text");
+        Label stratNameLbl= root.Q<Label>("StrategistText");
+
+        // ② 填字典
+        slotNameLblMap[LineupSlot.Main]       = mainNameLbl;
+        slotNameLblMap[LineupSlot.Sub1]       = sub1NameLbl;
+        slotNameLblMap[LineupSlot.Sub2]       = sub2NameLbl;
+        slotNameLblMap[LineupSlot.Strategist] = stratNameLbl;
 
         /* 1. 先缓存四个按钮 */
         Button mainHeroBtn = root.Q<Button>("MainHeroSelectBtn");
@@ -197,9 +209,13 @@ public class HeroArrangePanel : MonoBehaviour
 
         /* 2️⃣ 刷 4 颗按钮外观为默认 */
         SetHeroVisual(null, slotBtnMap[LineupSlot.Main]);
+        SetHeroName  (null, slotNameLblMap[LineupSlot.Main]);
         SetHeroVisual(null, slotBtnMap[LineupSlot.Sub1]);
+        SetHeroName  (null, slotNameLblMap[LineupSlot.Sub1]);
         SetHeroVisual(null, slotBtnMap[LineupSlot.Sub2]);
+        SetHeroName  (null, slotNameLblMap[LineupSlot.Sub2]);
         SetHeroVisual(null, slotBtnMap[LineupSlot.Strategist]);
+        SetHeroName  (null, slotNameLblMap[LineupSlot.Strategist]);
 
         /* 3️⃣ 重置 UI 宽度 & 百分比显示 */
         SetInitialWidths();     // 这会把 infantryWidth / cavalryWidth / archerWidth
@@ -243,8 +259,11 @@ public class HeroArrangePanel : MonoBehaviour
     #endif
 
         // ④ 刷按钮外观
-        SetHeroVisual(null, slotBtnMap[pendingSlot]);   // 先清目标槽位旧图
-        SetHeroVisual(chosen, slotBtnMap[pendingSlot]); // 再贴新图
+        SetHeroVisual(null,  slotBtnMap[pendingSlot]);     // 清旧图
+        SetHeroName  (null,  slotNameLblMap[pendingSlot]); // 清旧名
+
+        SetHeroVisual(chosen, slotBtnMap[pendingSlot]);    // 贴新图
+        SetHeroName  (chosen, slotNameLblMap[pendingSlot]); // 写新名
 
         Debug.Log($"[{pendingSlot}] 设为 {chosen.cardName}");
     }
@@ -252,6 +271,7 @@ public class HeroArrangePanel : MonoBehaviour
     {
         fieldRef = string.Empty;                            // 清数据库
         SetHeroVisual(null, slotBtnMap[slot]);              // 清按钮背景
+        SetHeroName(null, slotNameLblMap[slot]);
     }
     void SetHeroVisual(CardInfo card, Button btn)
     {
@@ -267,6 +287,21 @@ public class HeroArrangePanel : MonoBehaviour
         {
             // card == null 或没有图片 → 还原默认
             btn.style.backgroundImage = StyleKeyword.None;
+        }
+    }
+    void SetHeroName(CardInfo card, Label lbl)
+    {
+        if (lbl == null) return;
+
+        if (card == null)
+        {
+            lbl.text = "";
+            lbl.style.color = Color.gray;
+        }
+        else
+        {
+            lbl.text = card.cardName;
+            lbl.style.color = Color.white;
         }
     }
     void WriteToDatabase(LineupSlot slot, CardInfo card)
@@ -313,18 +348,22 @@ public class HeroArrangePanel : MonoBehaviour
         // 主将
         CardInfo mainCard = cardDB.FindByName(info.mainGeneral);
         SetHeroVisual(mainCard, uiDocument.rootVisualElement.Q<Button>("MainHeroSelectBtn"));
+        SetHeroName  (mainCard, slotNameLblMap[LineupSlot.Main]);
 
         // 副将①
         CardInfo sub1Card = cardDB.FindByName(info.subGeneral1);
         SetHeroVisual(sub1Card, uiDocument.rootVisualElement.Q<Button>("SubHero1SelectBtn"));
+        SetHeroName  (sub1Card, slotNameLblMap[LineupSlot.Sub1]);
 
         // 副将②
         CardInfo sub2Card = cardDB.FindByName(info.subGeneral2);
         SetHeroVisual(sub2Card, uiDocument.rootVisualElement.Q<Button>("SubHero2SelectBtn"));
+        SetHeroName  (sub2Card, slotNameLblMap[LineupSlot.Sub2]);
 
         // 军师
         CardInfo stratCard = cardDB.FindByName(info.strategist);
         SetHeroVisual(stratCard, uiDocument.rootVisualElement.Q<Button>("StrategistSelectBtn"));
+        SetHeroName  (stratCard, slotNameLblMap[LineupSlot.Strategist]);
 
         ApplyWidthsFromRatio(info.ratio);
     }

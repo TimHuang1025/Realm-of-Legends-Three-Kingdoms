@@ -34,6 +34,8 @@ public class UpgradePanelController : MonoBehaviour
     void OnEnable()
     {
         CacheNodesAndBind();                  // 抓控件 + 事件绑定
+        if (curCard != null)
+            curCard.OnStatsChanged += OnCardChanged;
         RefreshUI();                          // 若 curCard 已有，先显示
         StartCoroutine(AfterEnableRoutine());
     }
