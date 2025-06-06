@@ -1,0 +1,54 @@
+.button:hover {
+    background-color: rgb(255, 184, 81);
+    border-left-color: rgb(175, 83, 2);
+    border-right-color: rgb(175, 83, 2);
+    border-top-color: rgb(175, 83, 2);
+    border-bottom-color: rgb(175, 83, 2);
+}
+
+.button {
+    border-left-color: rgb(255, 168, 65);
+    border-right-color: rgb(255, 168, 65);
+    border-top-color: rgb(255, 168, 65);
+    border-bottom-color: rgb(255, 168, 65);
+    background-color: rgb(101, 62, 0);
+    color: rgb(255, 218, 152);
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
+    font-size: 360%;
+    flex-grow: 1;
+}
+
+.labels {
+    border-left-color: rgb(255, 168, 65);
+    border-right-color: rgb(255, 168, 65);
+    border-top-color: rgb(255, 168, 65);
+    border-bottom-color: rgb(255, 168, 65);
+    background-color: rgb(101, 62, 0);
+    color: rgb(255, 218, 152);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
+    font-size: 360%;
+    align-items: center;
+    justify-content: center;
+    width: 14.2857%;
+    flex-grow: 1;
+}

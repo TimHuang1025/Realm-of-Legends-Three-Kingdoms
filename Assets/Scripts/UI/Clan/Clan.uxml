@@ -1,0 +1,105 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/UI/Clan/Clan.uss?fileID=7433441132597879392&amp;guid=c8f404b3293c88f4cac248ac5968c21d&amp;type=3#Clan" />
+    <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgb(255, 255, 255);">
+        <ui:VisualElement name="FilterBar" style="height: 15%; justify-content: flex-start; flex-direction: row; align-items: stretch; background-color: rgba(255, 255, 255, 0);">
+            <ui:Button text="&lt;返回" name="BackButton" class="button" />
+            <ui:VisualElement name="Block" style="width: 10%;" />
+            <ui:VisualElement name="FilterButtonBar" style="width: 75%; flex-direction: row;">
+                <ui:Button text="成員" name="FilterMember" class="button" />
+                <ui:Button text="申請" name="FilterRequests" class="button" />
+                <ui:Button text="管理" name="FilterModeration" class="button" />
+                <ui:Button text="?" enable-rich-text="true" name="Button2" class="button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="MainMemberContainer" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0); flex-direction: column; display: flex;">
+            <ui:VisualElement name="Bottom1" style="height: 100%; justify-content: center; align-items: center;">
+                <ui:VisualElement name="MemberContainer" style="background-color: rgb(106, 106, 106); width: 95%; height: 90%; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); align-items: center;">
+                    <ui:VisualElement name="MemberLabels" style="height: 15%; width: 95%; flex-direction: row;">
+                        <ui:VisualElement name="Name" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="名" name="NameLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Position" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="職位" name="PositionLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Contribution" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="貢獻" name="ContributionLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Power" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="戰力" name="PowerLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="JoinDate" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="加入時間" name="JoinDateLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="LastOnlineDate" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="上線時間" name="LastOnlineDateLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="OnlinePlayers" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="在線: ?/?" name="OnlinePlayersLabel" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="MemberTemplatesContainer" style="width: 95%; height: 70%; top: 5%;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="MainRequestsContainer" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0); flex-direction: column; display: none;">
+            <ui:VisualElement name="Bottom1" style="height: 100%; justify-content: center; align-items: center;">
+                <ui:VisualElement name="MemberContainer" style="background-color: rgb(106, 106, 106); width: 95%; height: 90%; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); align-items: center;">
+                    <ui:VisualElement name="MemberLabels" style="height: 15%; width: 95%; flex-direction: row;">
+                        <ui:VisualElement name="Name" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="名" name="NameLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Position" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="等級" name="PositionLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Contribution" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="戰力" name="ContributionLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Power" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="推薦人" name="PowerLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="JoinDate" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="申請時間" name="JoinDateLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="LastOnlineDate" class="labels" style="flex-grow: 1;">
+                            <ui:Label name="LastOnlineDateLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="OnlinePlayers" class="labels" style="flex-grow: 1;">
+                            <ui:Label name="OnlinePlayersLabel" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="MemberTemplatesContainer" style="width: 95%; height: 70%; top: 5%;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="MainChangeLogContainer" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0); flex-direction: column; display: none;">
+            <ui:VisualElement name="Bottom1" style="height: 100%; justify-content: center; align-items: center;">
+                <ui:VisualElement name="MemberContainer" style="background-color: rgb(106, 106, 106); width: 95%; height: 90%; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); align-items: center;">
+                    <ui:VisualElement name="MemberLabels" style="height: 15%; width: 95%; flex-direction: row;">
+                        <ui:VisualElement name="Name" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="名" name="NameLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Position" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="等級" name="PositionLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Contribution" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="戰力" name="ContributionLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Power" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="執行人" name="PowerLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="JoinDate" class="labels" style="flex-grow: 1;">
+                            <ui:Label text="變動時間" name="JoinDateLabel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="LastOnlineDate" class="labels" style="flex-grow: 1;">
+                            <ui:Label name="LastOnlineDateLabel" text="變動事項" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="OnlinePlayers" class="labels" style="flex-grow: 1;">
+                            <ui:Label name="OnlinePlayersLabel" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="MemberTemplatesContainer" style="width: 95%; height: 70%; top: 5%;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
