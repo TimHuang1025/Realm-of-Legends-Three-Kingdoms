@@ -1,169 +1,263 @@
+using System;
 using System.Collections;
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System;
+using Game.Core;
 
 [RequireComponent(typeof(UIDocument))]
 public class CardInventoryUI : MonoBehaviour
 {
-    /*──────── Inspector 拖入 ────────*/
-    [SerializeField] private UpgradePanelController upgradePanelCtrl;
-    [SerializeField] private UptierPanelController uptierPanelCtrl;
-    [SerializeField] private GiftPanelController giftPanelCtrl;
-    [SerializeField] private VhSizer vhSizer;
-    [SerializeField] private PlayerBaseController playerBaseController;
-    [SerializeField] private UnitGiftLevel UnitGiftLevel;
-    [SerializeField] private GachaPanelController gachaPanelCtrl;
+    /*──────── Inspector 引用 ────────*/
+    [Header("面板控制器")]
 
+    [SerializeField] UptierPanelController uptierPanelCtrl;
+    [SerializeField] GiftPanelController giftPanelCtrl;
+    [SerializeField] GachaPanelController gachaPanelCtrl;
+    [SerializeField] PlayerBaseController playerBaseController;
+    [SerializeField] UnitGiftLevel unitGiftLevel;
+    [SerializeField] UpgradePanelController upgradePanelCtrl;
+    [SerializeField] VhSizer vhSizer;
+    [SerializeField] private CardInventory cardInv;
+    private VisualElement[] starSlots;  
 
+    /*──────── 私有 UI 元素 ────────*/
+    VisualElement cardsVe, infoVe;
+    Button returnBtn, upgradeBtn, uptierBtn, giftBtn, infoBtn, closeInfoBtn, gachaBtn;
+    Label mat2valueLbl, expvalueLbl;
 
-    /*──────── 私有字段 ────────*/
-    private VisualElement cardsVe;
-    private VisualElement infoVe;
+    /*──────── 当前选中数据 ────────*/
+    CardInfoStatic currentStatic;   // 静态
+    PlayerCard currentDyn;      // 动态 (null = 未拥有)
 
-    private Button returnBtn;
-    private Button upgradeBtn;
-    private Button infobtn;
-    private Button uptierBtn;
-    private Button closeInfoBtn;
-    private Button giftBtn;
-    private Button gachaBtn;
-    private Label mat2valueLbl;
-    private Label expvalueLbl;
-
-
-
+    /*========================================
+     * 生命周期
+     *========================================*/
     void OnEnable()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
-        gachaBtn = root.Q<Button>("GachaBtn");
-        if (gachaBtn != null)
-            gachaBtn.clicked += () => playerBaseController?.ShowGachaPage();
+        starSlots = new VisualElement[5];
+        for (int i = 0; i < 5; i++)
+            starSlots[i] = root.Q<VisualElement>($"DynStar{i + 1}");
+        var bank = PlayerCardBankMgr.I;
+        if (bank != null)
+        {
+            // ⬇ 新增，用于所有动态字段实时刷新
+            bank.onCardUpdated += OnCardUpdated;
 
+            // 旧的：只在抽到 / 移除卡牌时用来重排网格
+            bank.onCardChanged += OnCardChanged;
+        }
 
-        // —— Cards / Info —— //
+        /*──── 左侧 & Info 面板 ────*/
         cardsVe = root.Q<VisualElement>("Cards");
         infoVe = root.Q<VisualElement>("Info");
         infoVe.style.display = DisplayStyle.None;
         cardsVe.style.display = DisplayStyle.Flex;
+
+        /*──── 资源显示 ────*/
         mat2valueLbl = root.Q<Label>("mat2value");
         expvalueLbl = root.Q<Label>("expvalue");
-        Refresh();
-        PlayerBank.I.onBankChanged += OnBankChanged;
-        
+        RefreshResource();
+        PlayerResourceBank.I.onBankChanged += OnBankChanged;
 
-        // —— 按钮绑定 —— //
+        /*──── 按钮 ────*/
         returnBtn = root.Q<Button>("ReturnBtn");
         upgradeBtn = root.Q<Button>("InfoUpgradeBtn");
         uptierBtn = root.Q<Button>("InfoUptierBtn");
         giftBtn = root.Q<Button>("InfoGiftBtn");
-        infobtn = root.Q<Button>("InfoBtn");
+        infoBtn = root.Q<Button>("InfoBtn");
         closeInfoBtn = root.Q<Button>("ClosePanelForInfo");
+        gachaBtn = root.Q<Button>("GachaBtn");
 
+        returnBtn?.RegisterCallback<ClickEvent>(_ => playerBaseController.HideCardInventoryPage());
+        upgradeBtn?.RegisterCallback<ClickEvent>(_ => StartCoroutine(OpenPanel(upgradePanelCtrl)));
+        uptierBtn?.RegisterCallback<ClickEvent>(_ => StartCoroutine(OpenPanel(uptierPanelCtrl)));
+        giftBtn?.RegisterCallback<ClickEvent>(_ => StartCoroutine(OpenPanel(giftPanelCtrl)));
+        infoBtn?.RegisterCallback<ClickEvent>(_ => OpenInfoPanel());
+        closeInfoBtn?.RegisterCallback<ClickEvent>(_ => CloseInfoPanel());
+        gachaBtn?.RegisterCallback<ClickEvent>(_ => playerBaseController.ShowGachaPage());
 
-        if (returnBtn != null) returnBtn.clicked += () => playerBaseController?.HideCardInventoryPage();
-        if (upgradeBtn != null) upgradeBtn.clicked += () => StartCoroutine(OpenUpgradePanelRefresh());
-        if (uptierBtn != null) uptierBtn.clicked += () => StartCoroutine(OpenUptierPanelRefresh());
-        if (giftBtn != null) giftBtn.clicked += () => StartCoroutine(OpenGiftPanelRefresh());
-        if (infobtn != null) infobtn.clicked += OpenInfoPanel;
-        if (closeInfoBtn != null) closeInfoBtn.clicked += CloseInfoPanel;
+        /*──── 监听卡牌升级／获得 ────*/
+        if (PlayerCardBankMgr.I != null)
+            PlayerCardBankMgr.I.onCardChanged += OnCardChanged;
     }
 
-    /*──────── 打开升级面板 ────────*/
-    IEnumerator OpenUpgradePanelRefresh()
+    void OnDisable()
     {
-        if (upgradePanelCtrl == null) yield break;
+        if (PlayerResourceBank.I != null)
+            PlayerResourceBank.I.onBankChanged -= OnBankChanged;
 
-        upgradePanelCtrl.Open();
-        yield return null;        // 等 1 帧布局
+        if (PlayerCardBankMgr.I != null)
+            PlayerCardBankMgr.I.onCardChanged -= OnCardChanged;
+    }
+    void OnCardUpdated(string id)
+    {
+        var root = GetComponent<UIDocument>().rootVisualElement;
+        // 只在当前 Info 面板正展示这张卡时刷新
+        if (currentStatic == null || currentStatic.id != id) return;
+
+        currentDyn = PlayerCardBankMgr.I.Data.Get(id);
+
+        SetInfoPanelData(currentStatic, currentDyn);   // 四维 + 描述
+        CardInventory.RefreshEquipSlots(currentDyn, root);             // 三大槽
+        unitGiftLevel.SetData(currentStatic, currentDyn);
+        unitGiftLevel.RefreshUI();
+    }
+
+    /*========================================
+     * 面板切换 / 弹窗
+     *========================================*/
+    IEnumerator OpenPanel(IUIPanelController ctrl)
+    {
+        if (ctrl == null) yield break;
+        ctrl.Open(currentStatic, currentDyn);   // 让子面板自己决定需要哪些数据
+        yield return null;                      // 等 1 帧确保布局
         vhSizer?.Apply();
     }
-    IEnumerator OpenUptierPanelRefresh()
-    {
-        if (uptierPanelCtrl == null) yield break;
 
-        uptierPanelCtrl.Open();
-        yield return null;        // 等 1 帧布局
-        vhSizer?.Apply();
-    }
-
-    IEnumerator OpenGiftPanelRefresh()
-    {
-        if (giftPanelCtrl == null) yield break;
-
-        giftPanelCtrl.Open();
-        yield return null;        // 等 1 帧布局
-        vhSizer?.Apply();
-    }
-
-    /*──────── Info 面板切换 ────────*/
     void OpenInfoPanel()
     {
-        if (cardsVe == null || infoVe == null) return;
         cardsVe.style.display = DisplayStyle.None;
         infoVe.style.display = DisplayStyle.Flex;
-        UnitGiftLevel.RefreshUI();
+        unitGiftLevel.RefreshUI();
         vhSizer?.Apply();
     }
     void CloseInfoPanel()
     {
-        if (cardsVe == null || infoVe == null) return;
         infoVe.style.display = DisplayStyle.None;
         cardsVe.style.display = DisplayStyle.Flex;
         vhSizer?.Apply();
     }
 
-    public CardInfo CurrentCard { get; private set; }   // 给 GiftPanel 用
-
-    CardInfo currentCard;   // 记录当前选中，用来解绑
-    public static event Action<CardInfo> OnCardSelected;
-    public void OnCardClicked(CardInfo card)
+    /*========================================
+     * 外部调用：点击卡片
+     *========================================*/
+    public void OnCardClicked(CardInfoStatic info, PlayerCard dyn)
     {
-        OnCardSelected?.Invoke(card);
-        /* 1. 先把旧的解绑 */
-        if (currentCard != null)
-            currentCard.OnStatsChanged -= OnCardStatChanged;
+        // 1) 记录当前选中
+        currentStatic = info;
+        currentDyn = dyn;
 
-        /* 2. 新卡订阅 */
-        currentCard = card;
-        currentCard.OnStatsChanged += OnCardStatChanged;
+        // 2) 立刻把数据塞进左侧 Info 面板
 
-        /* 3. 原本就有的逻辑保持不变 */
-        UnitGiftLevel.data = card;
-        upgradePanelCtrl.SetData(card);        // 建议直接 Open，内部会 SetData & 刷 UI
-        UnitGiftLevel.RefreshUI();
-        UnitGiftLevel.RefreshEquipSlots();
+
+        // 3) 预加载升级 / 突破面板的数据（只是准备，不弹窗）
+        upgradePanelCtrl.SetData(info, dyn);
+        unitGiftLevel.SetData(info, dyn);
+        unitGiftLevel.RefreshUI();
+
+        // 4) 根据“是否已拥有”启用 / 禁用按钮
+        bool owned = dyn != null;
+        upgradeBtn.SetEnabled(owned);
+        uptierBtn.SetEnabled(owned);
+        giftBtn.SetEnabled(owned);
+        SetInfoPanelData(info, dyn);
+
+        // 5) 如果 Info 子页当前正在显示，可能要根据新数据重新排版
+        vhSizer?.Apply();
     }
 
-    /* 事件回调：这张卡属性（如等级）变时触发 */
-    void OnCardStatChanged(CardInfo card)
+    /// <summary>
+    /// 把卡片静态 + 动态数据填进 Info 面板左侧 4 维和描述
+    /// </summary>
+    void SetInfoPanelData(CardInfoStatic info, PlayerCard dyn)
     {
-        // 让 Gift 面板 & 其它 UI 立即同步
-        UnitGiftLevel.RefreshUI();
-        UnitGiftLevel.RefreshEquipSlots();
+        if (info == null) return;   // 安全兜底
+        Debug.Log($"[SetInfoPanelData] {info?.id}  atk={LevelStatCalculator.CalculateStats(info, dyn).Atk}");
+
+        RefreshStars(dyn);
+
+        /*── 1. 计算当前四维 ─────────────────────*/
+        Stats4 stats = LevelStatCalculator.CalculateStats(info, dyn);
+
+
+        /*── 2. 抓 UI 节点（或换成已缓存字段）─────*/
+        var root = GetComponent<UIDocument>().rootVisualElement;
+
+        var atkLbl = root.Q<Label>("InfoAtkStatsLbl");
+        var defLbl = root.Q<Label>("InfoDefStatLbl");
+        var intLbl = root.Q<Label>("InfoIntStatLbl");
+        var cmdLbl = root.Q<Label>("InfoCmdStatLbl");
+
+        var descLbl = root.Q<Label>("HeroDescription");
+        var cardLvLbl = root.Q<Label>("CardLvLbl");
+        var herofragmentLbl = root.Q<Label>("HeroFragmentsLbl");
+
+        /*── 3. 填数值 ───────────────────────────*/
+        if (atkLbl != null) atkLbl.text = stats.Atk.ToString();
+        if (defLbl != null) defLbl.text = stats.Def.ToString();
+        if (intLbl != null) intLbl.text = stats.Int.ToString();
+        if (cmdLbl != null) cmdLbl.text = stats.Cmd.ToString();
+
+        /*── 4. 填描述（字段名按你的静态库来改）────*/
+        if (descLbl != null)
+            descLbl.text = info.description;   // 若是 info.desc / info.flavor，改字段名
+
+        if (cardLvLbl != null)
+        {
+            if (dyn != null)
+                cardLvLbl.text = $"等级 {dyn.level}";
+            else
+                cardLvLbl.text = "未拥有";
+        }
+
+        if (herofragmentLbl != null)
+        {
+            // 显示当前碎片数量
+            herofragmentLbl.text = $"武将碎片 x {dyn?.copies ?? 0}";
+        }
+        CardInventory.RefreshEquipSlots(dyn, root);
+
     }
 
-    void OnDisable()
+
+
+    /*========================================
+     * 事件回调
+     *========================================*/
+    void OnCardChanged(string id)
     {
-        // ④ 解绑，防止多次加载重复回调
-        if (PlayerBank.I != null)
-            PlayerBank.I.onBankChanged -= OnBankChanged;
+        // 只在左侧正展示这张卡时才刷新
+        if (currentStatic != null && currentStatic.id == id)
+        {
+            // 取最新动态数据
+            currentDyn = PlayerCardBankMgr.I.Data.Get(id);
+
+            // 把静态 + 最新动态一起塞进去
+            unitGiftLevel.SetData(currentStatic, currentDyn);
+
+            // 刷新面板（如果 SetData 内部已自动刷新，可省掉这一行）
+            unitGiftLevel.RefreshUI();
+        }
     }
 
-    /* ===== 回调 & 刷新 ===== */
     void OnBankChanged(ResourceType type)
     {
-        if (type == ResourceType.HeroMat2)
-            Refresh();
-        if (type == ResourceType.HeroExp)
-            Refresh();
+        if (type == ResourceType.HeroMat2 || type == ResourceType.HeroExp)
+            RefreshResource();
     }
 
-    void Refresh()
+    void RefreshResource()
     {
-        mat2valueLbl.text = PlayerBank.I[ResourceType.HeroMat2].ToString("N0");
-        expvalueLbl.text = PlayerBank.I[ResourceType.HeroExp].ToString("N0");
+        mat2valueLbl.text = PlayerResourceBank.I[ResourceType.HeroMat2].ToString("N0");
+        expvalueLbl.text = PlayerResourceBank.I[ResourceType.HeroExp].ToString("N0");
     }
-    
+    void RefreshStars(PlayerCard dyn)
+    {
+        int rank = Mathf.Clamp(dyn?.star ?? 0, 0, 5);
+        Debug.Log($"[RefreshStars] {currentStatic?.id} rank={rank}");
+
+        for (int i = 0; i < 5; i++)
+        {
+            var slot = starSlots[i];
+            if (slot == null) continue;
+
+            bool filled = i < rank;
+            slot.style.backgroundImage = new StyleBackground(
+                filled ? cardInv.FilledStarSprite
+                    : cardInv.EmptyStarSprite);
+        }
+    }
 }
+
+

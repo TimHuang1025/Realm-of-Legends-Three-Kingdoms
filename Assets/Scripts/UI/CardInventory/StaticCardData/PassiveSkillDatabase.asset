@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4fbab67902ec914baa2d386e2068f8c, type: 3}
+  m_Name: PassiveSkillDatabase
+  m_EditorClassIdentifier: 
+  skills:
+  - id: P1
+    name: Iron Wall
+    cnName: "\u94DC\u5899\u94C1\u58C1"
+    timing: 1
+    description: "\u6765\u81EA\u654C\u65B9\u58EB\u5175\u7684\u4F24\u5BB3\u51CF\u5C11{X}%"
+    baseValue: 0.1
+    iconSprite: {fileID: 0}
+  - id: P2
+    name: General Ward
+    cnName: "\u6297\u5C06\u58C1\u5792"
+    timing: 1
+    description: "\u6765\u81EA\u654C\u65B9\u6B66\u5C06\u7684\u4F24\u5BB3\u51CF\u5C11{X}%"
+    baseValue: 0.08
+    iconSprite: {fileID: 0}
+  - id: P3
+    name: Soldier's Resolve
+    cnName: "\u58EB\u6C14\u5982\u8679"
+    timing: 1
+    description: "\u6211\u65B9\u58EB\u5175\u9020\u6210\u7684\u4F24\u5BB3\u63D0\u9AD8{X}%"
+    baseValue: 0.166
+    iconSprite: {fileID: 0}
+  - id: P4
+    name: Commander's Wrath
+    cnName: "\u5C06\u5A01\u5982\u5C71"
+    timing: 1
+    description: "\u6211\u65B9\u6B66\u5C06\u9020\u6210\u7684\u4F24\u5BB3\u63D0\u9AD8{X}%"
+    baseValue: 0.12
+    iconSprite: {fileID: 0}
+  - id: P5
+    name: Cavalry Shield
+    cnName: "\u5FA1\u9A6C\u94C1\u536B"
+    timing: 1
+    description: "\u6211\u65B9\u9A91\u5175\u53D7\u5230\u4F24\u5BB3\u51CF\u5C11{X}%"
+    baseValue: 0.12
+    iconSprite: {fileID: 0}
+  - id: P6
+    name: Melee Guard
+    cnName: "\u8089\u640F\u58C1\u5792"
+    timing: 1
+    description: "\u6211\u65B9\u8FD1\u6218\u58EB\u5175\u53D7\u5230\u4F24\u5BB3\u51CF\u5C11{X}%"
+    baseValue: 0.12
+    iconSprite: {fileID: 0}
+  - id: P7
+    name: Ranged Shelter
+    cnName: "\u7BAD\u96E8\u5E87\u62A4"
+    timing: 1
+    description: "\u6211\u65B9\u8FDC\u7A0B\u58EB\u5175\u53D7\u5230\u4F24\u5BB3\u51CF\u5C11{X}%"
+    baseValue: 0.12
+    iconSprite: {fileID: 0}
+  - id: P8
+    name: Cavalry Onslaught
+    cnName: "\u94C1\u9A91\u51B2\u950B"
+    timing: 1
+    description: "\u6211\u65B9\u9A91\u5175\u9020\u6210\u7684\u4F24\u5BB3\u63D0\u9AD8{X}%"
+    baseValue: 0.23
+    iconSprite: {fileID: 0}
+  - id: P9
+    name: Blade Surge
+    cnName: "\u950B\u5203\u7A81\u88AD"
+    timing: 1
+    description: "\u6211\u65B9\u8FD1\u6218\u58EB\u5175\u9020\u6210\u7684\u4F24\u5BB3\u63D0\u9AD8{X}%"
+    baseValue: 0.23
+    iconSprite: {fileID: 0}
+  - id: P10
+    name: Precision Volley
+    cnName: "\u767E\u6B65\u7A7F\u6768"
+    timing: 1
+    description: "\u6211\u65B9\u8FDC\u7A0B\u58EB\u5175\u9020\u6210\u7684\u4F24\u5BB3\u63D0\u9AD8{X}%"
+    baseValue: 0.23
+    iconSprite: {fileID: 0}
+  - id: P11
+    name: Siege Dominance
+    cnName: "\u7834\u57CE\u4E4B\u52BF"
+    timing: 1
+    description: "\u653B\u57CE\u65F6\u9020\u6210\u7684\u4F24\u5BB3\u63D0\u9AD8{X}%"
+    baseValue: 0.1
+    iconSprite: {fileID: 0}
+  - id: P12
+    name: Defender;s Vow
+    cnName: "\u6B7B\u5B88\u4E4B\u5FD7"
+    timing: 1
+    description: "\u5B88\u57CE\u65F6\u9020\u6210\u7684\u4F24\u5BB3\u63D0\u9AD8{X}%"
+    baseValue: 0.1
+    iconSprite: {fileID: 0}
+  - id: P13
+    name: Rapid Orders
+    cnName: "\u75BE\u884C\u4EE4"
+    timing: 0
+    description: "\u63D0\u9AD8{X}%\u79FB\u901F"
+    baseValue: 0.1
+    iconSprite: {fileID: 0}
+  - id: P14
+    name: Overwhelming Edge
+    cnName: "\u538B\u5236\u4E4B\u950B"
+    timing: 2
+    description: "\u5175\u529B\u9AD8\u4E8E80%\u65F6\uFF0C\u589E\u52A0{X}%\u4F24\u5BB3"
+    baseValue: 0.2
+    iconSprite: {fileID: 0}
+  - id: P15
+    name: Desperation Fury
+    cnName: "\u80CC\u6C34\u4E4B\u6012"
+    timing: 2
+    description: "\u5175\u529B\u4F4E\u4E8E70%\u65F6\uFF0C\u589E\u52A0{X}%\u4F24\u5BB3"
+    baseValue: 0.15
+    iconSprite: {fileID: 0}
+  - id: P16
+    name: Preemptive Ambush
+    cnName: "\u5148\u5236\u5947\u88AD"
+    timing: 1
+    description: "\u6218\u6597\u5F00\u59CB\u65F6\uFF0C\u6709\u6982\u7387\u4F7F\u654C\u65B9\u76F4\u63A5\u5931\u53BB\u90E8\u5206\u5175\u529B\uFF0C\u5931\u53BB\u5175\u529B\u7B49\u540C\u4E8E\u6211\u65B9\u5175\u529B\u76848%"
+    baseValue: 0.08
+    iconSprite: {fileID: 0}

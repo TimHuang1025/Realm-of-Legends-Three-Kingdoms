@@ -3,7 +3,6 @@ using Kamgam.UIToolkitScrollViewPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-
 public enum LineupSlot
 {
     Main,
@@ -13,36 +12,39 @@ public enum LineupSlot
 }
 
 [RequireComponent(typeof(UIDocument))]
-
 public class HeroSelectionPanel : MonoBehaviour
 {
-    /* ───────── Inspector ───────── */
+    /*──────── Inspector ────────*/
     [Header("引用")]
-    [SerializeField] private CardInventory cardFactory;  // “工厂”空物体
-    [SerializeField] private CardDatabase  cardDB;       // 武将库
-    [SerializeField] private UIDocument    uiDoc;        // 本面板 UIDocument
+    [SerializeField] CardInventory      cardFactory;   // 负责生成单张卡 UI
+    [SerializeField] CardDatabaseStatic cardDBStatic;  // 全部静态卡
+    [SerializeField] PlayerCardBank     cardBank;      // 玩家已拥有
+
+    [SerializeField] UIDocument uiDoc;
 
     [Header("卡片与间距")]
-    [SerializeField] private float cardWidth = 210f;     // 估算：卡片含留白宽
-    [SerializeField] private float colGap    = 8f;
-    [SerializeField] private float rowGap    = 12f;
+    [SerializeField] float cardWidth = 210f;   // 估算：卡片含留白宽
+    [SerializeField] float colGap    = 8f;
+    [SerializeField] float rowGap    = 12f;
 
-    /* ───────── 运行时 ───────── */
-    private ScrollViewPro  heroPool;         // ScrollViewPro 组件
-    private VisualElement  root;             // contentContainer
-    private int            cachedColumns = -1;
-    private bool           isBuilt       = false;
-    private Action<CardInfo> onSelected;    // 选中回调
-    
-    private LineupSlot currentSlot;
-    private Label titleLabel;             // 标题标签
+    /*──────── 运行时 ────────*/
+    ScrollViewPro heroPool;
+    VisualElement root;
+    Label         titleLabel;
 
+    int  cachedColumns = -1;
+    bool isBuilt       = false;
 
-    /* ===== 公共接口 ===== */
-    public void Open(LineupSlot slot, Action<CardInfo> callback)
+    LineupSlot currentSlot;
+
+    // 选中回调：返回 (静态, 动态)
+    Action<CardInfoStatic, PlayerCard> onSelected;
+
+    /*──────────────── 公共接口 ─────────────────*/
+    public void Open(LineupSlot slot, Action<CardInfoStatic, PlayerCard> callback)
     {
-        currentSlot = slot;            // 记录“谁”在召唤
-        onSelected = callback;
+        currentSlot = slot;
+        onSelected  = callback;
 
         gameObject.SetActive(true);
 
@@ -52,35 +54,22 @@ public class HeroSelectionPanel : MonoBehaviour
 
     public void Close() => gameObject.SetActive(false);
 
-    /* ===== 生命周期 ===== */
-    private void OnEnable()
+    /*──────────────── 生命周期 ─────────────────*/
+    void OnEnable()
     {
         heroPool = uiDoc.rootVisualElement.Q<ScrollViewPro>("HeroSelectionPool");
         if (heroPool == null)
         {
-            Debug.LogError("未找到 ScrollViewPro：HeroSelectionPool");
+            Debug.LogError("未找到 ScrollViewPro: HeroSelectionPool");
             return;
         }
-        titleLabel = uiDoc.rootVisualElement.Q<Label>("SlotPickedTitle");
 
-        // 根据槽位改标题
-        if (titleLabel != null)
-        {
-            switch (currentSlot)
-            {
-                case LineupSlot.Main:        titleLabel.text = "选择主将";        break;
-                case LineupSlot.Sub1:        titleLabel.text = "选择副将1";     break;
-                case LineupSlot.Sub2:        titleLabel.text = "选择副将2";     break;
-                case LineupSlot.Strategist:  titleLabel.text = "选择军师";        break;
-                default:                     titleLabel.text = "选择武将";        break;
-            }
-        }
+        titleLabel = uiDoc.rootVisualElement.Q<Label>("SlotPickedTitle");
+        SetTitleBySlot();
 
         root = heroPool.contentContainer;
-
-        /* ScrollView 基础设置 */
-        heroPool.mode                       = ScrollViewMode.Vertical;
-        heroPool.infinite                   = false;
+        heroPool.mode                         = ScrollViewMode.Vertical;
+        heroPool.infinite                     = false;
         heroPool.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
         heroPool.verticalScrollerVisibility   = ScrollerVisibility.Hidden;
 
@@ -88,13 +77,27 @@ public class HeroSelectionPanel : MonoBehaviour
         root.style.paddingTop    = 20;
         root.style.flexDirection = FlexDirection.Column;
 
-        /* 监听窗口尺寸变化，列数改变时重建 */
         heroPool.RegisterCallback<GeometryChangedEvent>(_ => TryRebuild());
-        TryRebuild();   // 进场先构建一次
+        TryRebuild();
     }
 
-    /* ===== 自适应列数 ===== */
-    private void TryRebuild()
+    /*──────────────── 标题 ─────────────────*/
+    void SetTitleBySlot()
+    {
+        if (titleLabel == null) return;
+
+        titleLabel.text = currentSlot switch
+        {
+            LineupSlot.Main       => "选择主将",
+            LineupSlot.Sub1       => "选择副将 1",
+            LineupSlot.Sub2       => "选择副将 2",
+            LineupSlot.Strategist => "选择军师",
+            _                     => "选择武将"
+        };
+    }
+
+    /*──────────────── 自适应列数 ────────────*/
+    void TryRebuild()
     {
         int cols = CalcColumns();
         if (cols == cachedColumns) return;
@@ -103,23 +106,26 @@ public class HeroSelectionPanel : MonoBehaviour
         BuildGrid(cols);
     }
 
-    private int CalcColumns()
+    int CalcColumns()
     {
         float available = heroPool.worldBound.width
                         - root.resolvedStyle.paddingLeft
                         - root.resolvedStyle.paddingRight;
 
         int cols = Mathf.FloorToInt(available / cardWidth);
-        return Mathf.Max(cols, 1);   // 至少 1 列
+        return Mathf.Max(cols, 1);
     }
 
-    /* ===== 构建卡片网格 ===== */
-    private void BuildGrid(int columns)
+    /*──────────────── 构建网格 ───────────────*/
+    void BuildGrid(int columns)
     {
         root.Clear();
         int idx = 0;
 
-        while (idx < cardDB.cards.Count)
+        // 只遍历玩家已经拥有的卡
+        var owned = cardBank.cards;
+
+        while (idx < owned.Count)
         {
             var row = new VisualElement
             {
@@ -132,24 +138,25 @@ public class HeroSelectionPanel : MonoBehaviour
                 }
             };
 
-            for (int c = 0; c < columns && idx < cardDB.cards.Count; c++)
+            for (int c = 0; c < columns && idx < owned.Count; c++)
             {
-                var cardInfo = cardDB.cards[idx];
-                var cardVe   = cardFactory.BuildCard(cardInfo);
+                PlayerCard dyn = owned[idx];
+                CardInfoStatic info = cardDBStatic.Get(dyn.id);
+                if (info == null) { idx++; continue; } // 若静态缺失
 
-                /* 行内左右间距 */
-                if (c > 0) cardVe.style.marginLeft = colGap;
+                // 工厂生成卡片 UI
+                var cardVe = cardFactory.BuildCard(info);
 
-                /* 点击：回调 & 关闭面板 */
-                var btn = cardVe.Q<Button>("CardRoot");
-                if (btn != null)
-                {
-                    btn.clicked += () =>
-                    {
-                        onSelected?.Invoke(cardInfo);  // 把选中卡返回
-                        Close();
-                    };
-                }
+                if (c > 0)
+                    cardVe.style.marginLeft = colGap;
+
+                // 点击：回调并关闭
+                cardVe.Q<Button>("CardRoot")
+                      ?.RegisterCallback<ClickEvent>(_ =>
+                      {
+                          onSelected?.Invoke(info, dyn);
+                          Close();
+                      });
 
                 row.Add(cardVe);
                 idx++;

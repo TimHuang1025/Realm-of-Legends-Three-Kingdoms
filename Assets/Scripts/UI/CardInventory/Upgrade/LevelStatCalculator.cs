@@ -1,95 +1,88 @@
 using System;
-using UnityEngine;
+using UnityEngine;     // Mathf
+using Game.Core;      // Stats4
 
-/// <summary>
-/// 等级-属性 / 升级消耗 统一计算器
-/// 不挂场景，纯静态工具类
-/// </summary>
 public static class LevelStatCalculator
 {
-    /* ───────── 常量 ───────── */
+    /*──────────── 常量 ───────────*/
+    public const int MaxLevel = 200;   // 若有上限，外部可用
 
-    // 三维倍率顺序：Atk / Def / Int
-    private static readonly float[] BaseValueMultiplier = { 1.4f, 1.3f, 0.3f };
-
-    /* ───────── 私有工具 ───────── */
-
-    private static float GetTierMultiplier(string quality)
+    /*──────────── 内部工具 ───────*/
+    static float GetTierMultiplier(Tier tier) => tier switch
     {
-        switch (quality)
-        {
-            case "S": return 1f;
-            case "A": return 0.8f;
-            case "B": return 0.5f;
-            default : return 1f;      // 未知品质，默认 1 倍
-        }
-    }
+        Tier.S => 1f,
+        Tier.A => 0.8f,
+        Tier.B => 0.5f,
+        _      => 1f
+    };
 
-    /* ───────── 属性计算 ───────── */
-
-    /// <summary>直接从 <paramref name="card"/> 计算三围</summary>
-    public static (int atk, int def, int intel) CalculateStats(CardInfo card)
-    {
-        if (card == null) throw new ArgumentNullException(nameof(card));
-        return CalculateStatsAtLevel(card.level, card.quality);
-    }
-
-    /// <summary>按 <paramref name="level"/> + <paramref name="quality"/> 计算三围</summary>
-    public static (int atk, int def, int intel) CalculateStatsAtLevel(int level, string quality)
+    /// <summary>真正的曲线计算核心</summary>
+    static Stats4 CalcStatsCore(int level, Tier tier, float[] mul)
     {
         level = Mathf.Max(level, 1);
-        double baseVal;
 
-        // ① 基础值
-        if (level <= 100)
-            baseVal = Math.Ceiling(0.2 * Math.Pow(level, 3));
-        else
-            baseVal = 200_000 +
-                      Math.Ceiling(650 * level + 81_250 - 7_984_980 * Math.Exp(-0.04 * level));
+        // ▸ (1) 等级 → 基础值：
+        //    ≤100 走立方曲线，>100 走指数衰减段
+        double baseVal = level <= 100
+            ? Math.Ceiling(0.2 * Math.Pow(level, 3))
+            : 200_000 + Math.Ceiling(650 * level + 81_250
+                       - 7_984_980 * Math.Exp(-0.04 * level));
 
-        // ② 品质倍率
-        baseVal *= GetTierMultiplier(quality);
+        baseVal *= GetTierMultiplier(tier);
 
-        // ③ 三围
-        int atk   = Mathf.CeilToInt((float)(baseVal * BaseValueMultiplier[0]));
-        int def   = Mathf.CeilToInt((float)(baseVal * BaseValueMultiplier[1]));
-        int intel = Mathf.CeilToInt((float)(baseVal * BaseValueMultiplier[2]));
+        // ▸ (2) 专属倍率（数组不足时补 1）
+        float mAtk = mul.Length > 0 ? mul[0] : 1f;
+        float mDef = mul.Length > 1 ? mul[1] : 1f;
+        float mInt = mul.Length > 2 ? mul[2] : 1f;
+        float mCmd = mul.Length > 3 ? mul[3] : 1f;
 
-        return (atk, def, intel);
+        return new Stats4(
+            Mathf.CeilToInt((float)(baseVal * mAtk)),
+            Mathf.CeilToInt((float)(baseVal * mDef)),
+            Mathf.CeilToInt((float)(baseVal * mInt)),
+            Mathf.CeilToInt((float)(baseVal * mCmd))
+        );
     }
 
-    /// <summary>返回“下一级 − 当前级”三围差值</summary>
-    public static (int dAtk, int dDef, int dIntel) CalculateDeltaNextLevel(CardInfo card)
+    /*──────────── 公共 API ───────*/
+
+    /// <summary>当前等级四维属性</summary>
+    public static Stats4 CalculateStats(CardInfoStatic info, PlayerCard dyn)
     {
-        if (card == null) throw new ArgumentNullException(nameof(card));
+        if (info == null) throw new ArgumentNullException(nameof(info));
 
-        var now  = CalculateStatsAtLevel(card.level,     card.quality);
-        var next = CalculateStatsAtLevel(card.level + 1, card.quality);
-
-        return (next.atk   - now.atk,
-                next.def   - now.def,
-                next.intel - now.intel);
+        int level = dyn?.level ?? 1;
+        return CalcStatsCore(level, info.tier, info.base_value_multiplier);
     }
 
-    /* ───────── 升级消耗 ───────── */
+    /// <summary>下一等级 − 当前等级 的增量</summary>
+    public static Stats4 CalculateDeltaNextLevel(CardInfoStatic info, PlayerCard dyn)
+    {
+        if (info == null) throw new ArgumentNullException(nameof(info));
 
-    /// <summary>
-    /// 返回升级到下一级所需 (exp, extraMat)。<br/>
-    /// · exp     : 经验值<br/>
-    /// · extraMat: 当等级为偶数时=1000，否则 0
-    /// </summary>
+        int level = dyn?.level ?? 1;
+
+        var cur  = CalcStatsCore(level,     info.tier, info.base_value_multiplier);
+        var next = CalcStatsCore(level + 1, info.tier, info.base_value_multiplier);
+
+        return new Stats4(
+            next.Atk - cur.Atk,
+            next.Def - cur.Def,
+            next.Int - cur.Int,
+            next.Cmd - cur.Cmd
+        );
+    }
+
+    /// <summary>升级到 <paramref name="level"/> → <c>level + 1</c> 所需 (exp, extraMat)</summary>
     public static (int exp, int extraMat) GetUpgradeCost(int level)
     {
         if (level < 1) throw new ArgumentException("等级必须 ≥ 1");
 
-        // 经验值
-        int expNeeded = (level <= 99)
-            ? Mathf.CeilToInt(0.6f * level * level)
+        int expNeeded = level <= 99
+            ? Mathf.CeilToInt(0.6f * level * level)   // 前 99 级：二次曲线
             : 60_000 + Mathf.CeilToInt((level - 100) / 10f) * 5_000;
 
-        // 偶数等级额外材料
-        int extraMaterial = (level % 2 == 0) ? 1_000 : 0;
-
+        int extraMaterial = (level % 2 == 0) ? 1_000 : 0;    // 偶数级需额外材料
         return (expNeeded, extraMaterial);
     }
 }

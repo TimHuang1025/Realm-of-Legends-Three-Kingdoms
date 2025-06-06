@@ -450,7 +450,7 @@ MonoBehaviour:
   heroSelectionPanel: {fileID: 904759561}
   uiDocument: {fileID: 727382614}
   minPercentage: 0
-  cardDB: {fileID: 11400000, guid: 899c48a3ccd99804abf8967b75fb7a00, type: 2}
+  cardDB: {fileID: 11400000, guid: 194b4ea67c7b6bd4d9d285197114bef5, type: 2}
   playerBaseController: {fileID: 1844380995}
   lineupDB: {fileID: 11400000, guid: d2db380b7148dc64a8e446256bb7521c, type: 2}
   activeLineupIndex: 0
@@ -592,7 +592,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardFactory: {fileID: 1742337809}
-  cardDB: {fileID: 11400000, guid: 899c48a3ccd99804abf8967b75fb7a00, type: 2}
+  cardDBStatic: {fileID: 11400000, guid: 194b4ea67c7b6bd4d9d285197114bef5, type: 2}
+  cardBank: {fileID: 11400000, guid: be59ddf035bab0f4bbb3deb44aad95f6, type: 2}
   uiDoc: {fileID: 904759562}
   cardWidth: 210
   colGap: 12
@@ -669,6 +670,7 @@ GameObject:
   m_Component:
   - component: {fileID: 922049120}
   - component: {fileID: 922049121}
+  - component: {fileID: 922049122}
   m_Layer: 0
   m_Name: PlayerBank
   m_TagString: Untagged
@@ -704,6 +706,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: c0df4765f6ba5444593e18cf9fd96fcd, type: 2}
+--- !u!114 &922049122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922049119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593e39c9c3f2b954aaffbdbcc3133706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: be59ddf035bab0f4bbb3deb44aad95f6, type: 2}
 --- !u!1 &1063526867
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,13 +767,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f0c916a4fc7a84b899a9e1521e2424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradePanelCtrl: {fileID: 1064857533}
   uptierPanelCtrl: {fileID: 1671468812}
   giftPanelCtrl: {fileID: 805805661}
-  vhSizer: {fileID: 1064857534}
-  playerBaseController: {fileID: 1844380995}
-  UnitGiftLevel: {fileID: 1063526874}
   gachaPanelCtrl: {fileID: 105621721}
+  playerBaseController: {fileID: 1844380995}
+  unitGiftLevel: {fileID: 1063526874}
+  upgradePanelCtrl: {fileID: 1064857533}
+  vhSizer: {fileID: 1064857534}
+  cardInv: {fileID: 1063526871}
 --- !u!114 &1063526871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,7 +788,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardTemplate: {fileID: 9197481963319205126, guid: ce7ec8992aedf614db80452685e736c3, type: 3}
-  cardDatabase: {fileID: 11400000, guid: 899c48a3ccd99804abf8967b75fb7a00, type: 2}
+  cardDatabase: {fileID: 11400000, guid: 194b4ea67c7b6bd4d9d285197114bef5, type: 2}
+  cardBank: {fileID: 11400000, guid: be59ddf035bab0f4bbb3deb44aad95f6, type: 2}
+  unitGiftLevel: {fileID: 1063526874}
+  upgradePanelCtrl: {fileID: 1064857533}
   filledStarSprite: {fileID: -8980388821408755452, guid: 225758a5b9c5ff348bffc048eddfe6c0, type: 3}
   emptyStarSprite: {fileID: -7591466717229274091, guid: 8504f353272c0784dad404ea941450f7, type: 3}
   raritySpriteS: {fileID: 9156046936503501570, guid: 359d1ec66d067254384d312a7fff7c2c, type: 3}
@@ -834,20 +853,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670375d4341cb2b4eb90f2dd2ca8395f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    cardId: 
-    cardName: 
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
-    quality: 
-    rank: 0
-    level: 0
-    giftLv: 1
-    giftExp: 0
-    equip:
-      weaponUnlocked: 0
-      armorUnlocked: 0
-      mountUnlocked: 0
 --- !u!1 &1064857531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,7 +1160,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardTemplate: {fileID: 9197481963319205126, guid: ce7ec8992aedf614db80452685e736c3, type: 3}
-  cardDatabase: {fileID: 11400000, guid: 899c48a3ccd99804abf8967b75fb7a00, type: 2}
+  cardDatabase: {fileID: 11400000, guid: 194b4ea67c7b6bd4d9d285197114bef5, type: 2}
+  cardBank: {fileID: 11400000, guid: be59ddf035bab0f4bbb3deb44aad95f6, type: 2}
+  unitGiftLevel: {fileID: 0}
+  upgradePanelCtrl: {fileID: 0}
   filledStarSprite: {fileID: -8980388821408755452, guid: 225758a5b9c5ff348bffc048eddfe6c0, type: 3}
   emptyStarSprite: {fileID: -7591466717229274091, guid: 8504f353272c0784dad404ea941450f7, type: 3}
   raritySpriteS: {fileID: 9156046936503501570, guid: 359d1ec66d067254384d312a7fff7c2c, type: 3}

@@ -2,40 +2,34 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 /// <summary>
-/// 礼物经验 & 等级显示（ProgressBar 版）
-/// Lv 1 → 2 需要 10 000 EXP；Lv 2 → 3 需要 30 000 EXP；Lv 3 = 赐骑（顶级）
+/// 玩家礼物经验 & 等级显示（ProgressBar 版）
+/// giftLv: 1→2 需要 10 000 EXP，2→3 需要 30 000 EXP，3→4 需要 50 000 EXP
+/// 静态信息来自 CardInfoStatic，动态进度来自 PlayerCard
 /// </summary>
 public class UnitGiftLevel : MonoBehaviour
 {
-    /*──────── 运行时数据 ────────*/
-    [HideInInspector] public CardInfo data;   // 点击卡片时由外部脚本赋值
+    /*──────── 传入数据 ────────*/
+    private CardInfoStatic info;  // 静态：名字、品质等
+    private PlayerCard     dyn;   // 动态：giftLv / giftExp / equip
 
-    /*──────── UI 引用 ────────*/
-    private Label        levelLabel;
-    private ProgressBar  expBar;
-    private VisualElement weaponslot;  // 武器槽
-    private VisualElement armorslot;   // 盔甲槽       
-    private VisualElement horseslot;   // 坐骑槽
+    public void SetData(CardInfoStatic staticInfo, PlayerCard dynamicInfo)
+    {
+        info = staticInfo;
+        dyn  = dynamicInfo;
+    }
+
+    /*──────── UI 元素 ────────*/
+    Label         levelLabel;
+    ProgressBar   expBar;
+    VisualElement weaponslot, armorslot, horseslot;
 
     /*──────── 常量表 ────────*/
-    public static readonly int[] Need = { 0, 10000, 30000, 50000 };          // 1→2, 2→3
-    public static readonly string[] LvNames = { "", "拜将", "授甲", "赐骑", "赐骑" };   // 下标 = giftLv
-    private const int MaxLv = 4;
+    public static readonly int[] Need    = { 0, 10000, 30000, 50000 };    // idx = 当前 giftLv
+    public static readonly string[] LvTxt= { "", "拜将", "授甲", "赐骑", "封侯" };
+    const int MaxLv = 4;
 
     /*──────── 生命周期 ────────*/
     void OnEnable()
-    {
-        var root = GetComponent<UIDocument>().rootVisualElement;
-
-        // 下一帧再抓元素，确保树已 attach 到 Panel
-        root.schedule.Execute(() =>
-        {
-            CacheElements();
-            RefreshUI();
-        }).ExecuteLater(0);
-    }
-
-    private void CacheElements()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
         levelLabel = root.Q<Label>("HeroGiftLv");
@@ -45,64 +39,68 @@ public class UnitGiftLevel : MonoBehaviour
         horseslot = root.Q<VisualElement>("horseslot");
     }
 
-    /*──────── 主要接口 ────────*/
-    /*──────── AddExp 改进版 ────────*/
+
+
+    /*──────── 对外接口 ────────*/
     public void AddExp(int amount)
     {
-        if (data == null || data.giftLv >= MaxLv) return;
+        if (dyn == null || amount <= 0) return;
 
-        data.giftExp += amount;
+        // ① 记录升级前的等级
+        int oldLv = dyn.giftLv;
 
-        while (data.giftLv < MaxLv && data.giftExp >= Need[data.giftLv])
-        {
-            data.giftExp -= Need[data.giftLv];
-            data.giftLv++;
+        // ② 交给 BankMgr 统一加经验（会自动升级、存档、广播）
+        PlayerCardBankMgr.I.AddGiftExp(dyn.id, amount);
 
-            /* 升到每一级都触发一次 */
-            PlayUpgradeFX(data.giftLv);
-        }
+        // ③ 取回最新动态数据，确保本地同步
+        dyn = PlayerCardBankMgr.I.Data.Get(dyn.id);
 
+        // ④ 前后等级差 > 0 时，依次播放 FX
+        for (int lv = oldLv + 1; lv <= dyn.giftLv; lv++)
+            PlayUpgradeFX(lv);
+
+        // ⑤ 刷新本面板 UI（经验条、槽位）
         RefreshUI();
     }
 
-    /*──────── 按等级播放特效 ────────*/
-void PlayUpgradeFX(int newLv)
+    public void RefreshUI()
     {
-        if (data == null) return;               // 双保险
+        if (info == null || levelLabel == null || expBar == null) return;
 
-        switch (newLv)
-        {
-            case 2:   // 拜将 → 授甲：解锁武器槽
-                data.equip.weaponUnlocked = true;          // ① 改数据
-                BindEquipSlot(weaponslot, true);           // ② 刷 UI
-                PopupManager.Show("恭喜！","完成拜将仪式。解锁武器槽！"); // ③ 弹窗提示
-                break;
+        int lv   = dyn?.giftLv  ?? 1;
+        int exp  = dyn?.giftExp ?? 0;
 
-            case 3:   // 授甲 → 赐骑：解锁盔甲槽
-                data.equip.armorUnlocked  = true;
-                BindEquipSlot(armorslot, true);
-                PopupManager.Show("恭喜！","完成授甲仪式。解锁盔甲槽！"); // ③ 弹窗提示
-                break;
+        /* 等级文字 */
+        levelLabel.text = $"封赏等级：{LvTxt[lv]}";
+        levelLabel.MarkDirtyRepaint();
 
-            case 4:   // 赐骑 → 封侯：解锁坐骑槽
-                data.equip.mountUnlocked  = true;
-                BindEquipSlot(horseslot, true);
-                PopupManager.Show("恭喜！","完成赐骑仪式。解锁坐骑槽！"); // ③ 弹窗提示
-                break;
-        }
+        /* 经验条 */
+        float pct = lv >= MaxLv ? 1f : (float)exp / Need[lv];
+        expBar.lowValue  = 0;
+        expBar.highValue = 100;
+        expBar.value     = pct * 100f;
+        expBar.title     = lv >= MaxLv ? "MAX" : $"{(int)(pct * 100)}%";
+        expBar.MarkDirtyRepaint();
+
+        RefreshEquipSlots();
     }
 
-    /* 把之前的通用函数放在脚本里，供任何地方复用 */
+    /*──────── 装备槽刷新 ────────*/
     public void RefreshEquipSlots()
     {
-        if (data == null) return;
+        if (dyn == null) return;
+        var eq = dyn.equip;
 
-        BindEquipSlot(weaponslot, data.equip.weaponUnlocked);
-        BindEquipSlot(armorslot, data.equip.armorUnlocked);
-        BindEquipSlot(horseslot, data.equip.mountUnlocked);
+        bool w = eq != null && (eq.weaponUnlocked  || !string.IsNullOrEmpty(eq.weaponId));
+        bool a = eq != null && (eq.armorUnlocked   || !string.IsNullOrEmpty(eq.armorId));
+        bool h = eq != null && (eq.mountUnlocked   || !string.IsNullOrEmpty(eq.accessoryId));
+
+        BindEquipSlot(weaponslot, w);
+        BindEquipSlot(armorslot,  a);
+        BindEquipSlot(horseslot,  h);
     }
-// 复用同名工具
-    void BindEquipSlot(VisualElement slot, bool unlocked)
+
+    static void BindEquipSlot(VisualElement slot, bool unlocked)
     {
         if (slot == null) return;
         slot.RemoveFromClassList("equipmentlocked");
@@ -110,31 +108,44 @@ void PlayUpgradeFX(int newLv)
         slot.AddToClassList(unlocked ? "equipmentunlocked" : "equipmentlocked");
     }
 
-    public void RefreshUI()
+    /*──────── 晋级解锁 FX + 自动刷新 ────────*/
+    void PlayUpgradeFX(int newLv)
     {
-        if (data == null || levelLabel == null || expBar == null)
-            return;
+        if (dyn == null) return;
 
-        /*── 1. 等级文字 ──*/
-        levelLabel.text = $"封赏等级：{LvNames[data.giftLv]}";
-        levelLabel.MarkDirtyRepaint();
+        switch (newLv)
+        {
+            case 2:
+                PopupManager.Show("恭喜！", "完成拜将仪式，解锁武器槽！");
+                dyn.equip.weaponUnlocked = true;    // 标记已解锁
+                break;
+            case 3:
+                PopupManager.Show("恭喜！", "完成授甲仪式，解锁盔甲槽！");
+                dyn.equip.armorUnlocked = true;
+                break;
+            case 4:
+                PopupManager.Show("恭喜！", "完成赐骑仪式，解锁坐骑槽！");
+                dyn.equip.mountUnlocked = true;
+                break;
+        }
 
-        /*── 2. 经验条 ──*/
-        float pct = data.giftLv >= MaxLv
-                  ? 1f
-                  : (float)data.giftExp / Need[data.giftLv];
-
-        expBar.lowValue  = 0;
-        expBar.highValue = 100;
-        expBar.value     = pct * 100f;
-        expBar.title     = data.giftLv >= MaxLv ? "MAX"
-                           : $"{(int)(pct * 100)}%";
-        expBar.MarkDirtyRepaint();
+        // 升阶弹窗后立即刷新 3 个槽位视觉
+        RefreshEquipSlots();
     }
 
-    /*──────── 提供给其他脚本调用的只读接口 ────────*/
-    public string GetLvText()     => data == null ? "封赏等级：" : $"封赏等级：{LvNames[data.giftLv]}";
-    public float  GetExpPercent() => data == null ? 0 :
-                                     data.giftLv >= MaxLv ? 100f :
-                                     100f * data.giftExp / Need[data.giftLv];
+    /*──────── 只读辅助接口 ────────*/
+    public string GetLvText()     => dyn == null ? "封赏等级：" : $"封赏等级：{LvTxt[dyn.giftLv]}";
+    public float GetExpPercent()
+    {
+        if (dyn == null)               return 0f;    // 未拥有
+        if (dyn.giftLv >= MaxLv)       return 100f;  // 满级
+
+        int need = Need[dyn.giftLv];
+
+        // 防止分母为 0 或负；同时把异常值钳到 0-100
+        if (need <= 0) return 0f;
+
+        float pct = 100f * dyn.giftExp / need;
+        return Mathf.Clamp(pct, 0f, 100f);
+    }
 }

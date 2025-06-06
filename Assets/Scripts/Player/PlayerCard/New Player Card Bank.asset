@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0ca6595f8137f409596db10864a4d6, type: 3}
+  m_Name: New Player Card Bank
+  m_EditorClassIdentifier: 
+  cards:
+  - id: A5
+    level: 6
+    star: 2
+    copies: 0
+    giftLv: 1
+    giftExp: 0
+    equip:
+      weaponId: 
+      armorId: 
+      accessoryId: 
+      weaponUnlocked: 0
+      armorUnlocked: 0
+      mountUnlocked: 0
+  - id: S2
+    level: 9
+    star: 1
+    copies: 10
+    giftLv: 1
+    giftExp: 0
+    equip:
+      weaponId: 
+      armorId: 
+      accessoryId: 
+      weaponUnlocked: 0
+      armorUnlocked: 0
+      mountUnlocked: 0
+  - id: S4
+    level: 7
+    star: 1
+    copies: 99
+    giftLv: 1
+    giftExp: 0
+    equip:
+      weaponId: 
+      armorId: 
+      accessoryId: 
+      weaponUnlocked: 0
+      armorUnlocked: 0
+      mountUnlocked: 0
+  - id: S12
+    level: 2
+    star: 1
+    copies: 0
+    giftLv: 1
+    giftExp: 0
+    equip:
+      weaponId: 
+      armorId: 
+      accessoryId: 
+      weaponUnlocked: 0
+      armorUnlocked: 0
+      mountUnlocked: 0
+  - id: B2
+    level: 4
+    star: 1
+    copies: 0
+    giftLv: 2
+    giftExp: 0
+    equip:
+      weaponId: 
+      armorId: 
+      accessoryId: 
+      weaponUnlocked: 1
+      armorUnlocked: 0
+      mountUnlocked: 0
+  - id: B3
+    level: 2
+    star: 1
+    copies: 0
+    giftLv: 1
+    giftExp: 0
+    equip:
+      weaponId: 
+      armorId: 
+      accessoryId: 
+      weaponUnlocked: 0
+      armorUnlocked: 0
+      mountUnlocked: 0
+  - id: S17
+    level: 1
+    star: 0
+    copies: 0
+    giftLv: 1
+    giftExp: 0
+    equip:
+      weaponId: 
+      armorId: 
+      accessoryId: 
+      weaponUnlocked: 0
+      armorUnlocked: 0
+      mountUnlocked: 0
+  - id: S18
+    level: 1
+    star: 0
+    copies: 0
+    giftLv: 1
+    giftExp: 0
+    equip:
+      weaponId: 
+      armorId: 
+      accessoryId: 
+      weaponUnlocked: 0
+      armorUnlocked: 0
+      mountUnlocked: 0
+  - id: S5
+    level: 1
+    star: 0
+    copies: 0
+    giftLv: 1
+    giftExp: 0
+    equip:
+      weaponId: 
+      armorId: 
+      accessoryId: 
+      weaponUnlocked: 0
+      armorUnlocked: 0
+      mountUnlocked: 0
+  - id: S3
+    level: 1
+    star: 0
+    copies: 0
+    giftLv: 1
+    giftExp: 0
+    equip:
+      weaponId: 
+      armorId: 
+      accessoryId: 
+      weaponUnlocked: 0
+      armorUnlocked: 0
+      mountUnlocked: 0
+  - id: S1
+    level: 1
+    star: 0
+    copies: 0
+    giftLv: 1
+    giftExp: 0
+    equip:
+      weaponId: 
+      armorId: 
+      accessoryId: 
+      weaponUnlocked: 0
+      armorUnlocked: 0
+      mountUnlocked: 0

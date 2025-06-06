@@ -1,0 +1,736 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f44702795eb422d4f9064602837d0979, type: 3}
+  m_Name: CardDatabaseStatic
+  m_EditorClassIdentifier: 
+  cards:
+  - id: S1
+    displayName: "\u5415\u5E03"
+    tier: 0
+    faction: 3
+    iconSprite: {fileID: 1725589617098948740, guid: a38d578ebdcc7bb4588b1fcdee5392ea, type: 3}
+    fullBodySprite: {fileID: -2733068137183976511, guid: de2bc40e4dac6414f9fa453fd9e7da99, type: 3}
+    activeSkillId: A1
+    passiveOneId: P11
+    passiveTwoId: P14
+    trait: "\u8FDE\u73AF\u8BA1"
+    description: "\u4EBA\u4E2D\u5415\u5E03\u3001\u9A6C\u4E2D\u8D64\u5154\u201D\uFF0C\u6B66\u52C7\u65E0\u53CC\u5374\u53CD\u590D\u65E0\u5E38\uFF1B\u66FE\u5F11\u8463\u5353\uFF0C\u7EC8\u56E0\u5931\u4F17\u5FC3\u8D25\u6B7B\u767D\u95E8\u697C\u3002"
+    base_value_multiplier:
+    - 1.4
+    - 1.3
+    - 0.3
+    - 1
+  - id: S2
+    displayName: "\u8C82\u8749"
+    tier: 0
+    faction: 3
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A4
+    passiveOneId: P13
+    passiveTwoId: P16
+    trait: "\u8FDE\u73AF\u8BA1"
+    description: "\u56DB\u5927\u7F8E\u4EBA\u4E4B\u4E00\uFF0C\u8FDE\u73AF\u8BA1\u79BB\u95F4\u8463\u5353\u5415\u5E03\uFF1B\u7EA2\u989C\u8584\u547D\u7684\u4F20\u5947\u4EE3\u8868\uFF0C\u53F2\u5B9E\u4E0E\u4F20\u8BF4\u4EA4\u7EC7\u3002"
+    base_value_multiplier:
+    - 0.4
+    - 0.4
+    - 1.6
+    - 1.3
+  - id: S3
+    displayName: "\u8463\u5353"
+    tier: 0
+    faction: 3
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A7
+    passiveOneId: P7
+    passiveTwoId: P5
+    trait: "\u8FDE\u73AF\u8BA1"
+    description: "\u897F\u51C9\u519B\u9600\uFF0C\u631F\u5929\u5B50\u4EE5\u4EE4\u8BF8\u4FAF\uFF0C\u6B8B\u66B4\u7EB5\u6B32\u800C\u6743\u503E\u671D\u91CE\uFF1B\u711A\u6D1B\u9633\u3001\u5E9F\u5C11\u5E1D\uFF0C\u5F15\u53D1\u7FA4\u96C4\u8BA8\u4F10\uFF0C\u7EC8\u906D\u5415\u5E03\u53CD\u6208\u8EAB\u6B7B\u767D\u95E8\u697C\u3002"
+    base_value_multiplier:
+    - 1.2
+    - 1.5
+    - 0.3
+    - 1
+  - id: S4
+    displayName: "\u8881\u7ECD"
+    tier: 0
+    faction: 3
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A8
+    passiveOneId: P14
+    passiveTwoId: P3
+    trait: "\u8881\u6C0F\u53CC\u58C1"
+    description: "\u6CB3\u5317\u8881\u6C0F\u5B97\u5BA4\u9886\u8896\uFF0C\u201C\u56DB\u4E16\u4E09\u516C\u201D\u95E8\u9600\u671B\u65CF\u62E5\u6234\u800C\u8D77\uFF0C\u9EBE\u4E0B\u767E\u4E07\u7CBE\u5175\u3001\u66FE\u631F\u5929\u5B50\u4EE4\u8BF8\u4FAF\uFF1B\u7136\u5B98\u6E21\u4E4B\u6218\u4F18\u67D4\u5BE1\u65AD\u9519\u5931\u5148\u673A\uFF0C\u7EC8\u88AB\u66F9\u64CD\u9006\u8F6C\uFF0C\u5317\u65B9\u9738\u4E3B\u4E4B\u68A6\u968F\u4E4B\u7834\u788E\u3002"
+    base_value_multiplier:
+    - 1.2
+    - 1.3
+    - 0.5
+    - 1
+  - id: S5
+    displayName: "\u5F20\u89D2"
+    tier: 0
+    faction: 3
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A6
+    passiveOneId: P10
+    passiveTwoId: P15
+    trait: "\u9EC4\u5DFE\u4E71\u4E16"
+    description: "\u592A\u5E73\u9053\u521B\u59CB\u4EBA\u3001\u9EC4\u5DFE\u519B\u9886\u8896\uFF0C\u53F7\u79F0\u201C\u5929\u516C\u5C06\u519B\u201D\uFF1B\u9AD8\u547C\u201C\u82CD\u5929\u5DF2\u6B7B\uFF0C\u9EC4\u5929\u5F53\u7ACB\u201D\u6380\u8D77\u4E1C\u6C49\u672B\u5E74\u6700\u5927\u519C\u6C11\u8D77\u4E49\u3002"
+    base_value_multiplier:
+    - 0.8
+    - 0.7
+    - 1.5
+    - 1
+  - id: S6
+    displayName: "\u5B5F\u83B7"
+    tier: 0
+    faction: 3
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A3
+    passiveOneId: P6
+    passiveTwoId: P15
+    trait: "\u5357\u4E2D\u738B\u5EAD"
+    description: "\u5357\u4E2D\u86EE\u738B\uFF0C\u4E03\u64D2\u4E03\u7EB5\u6298\u670D\u4E8E\u8BF8\u845B\u4EAE\uFF1B\u8C6A\u653E\u91CD\u60C5\uFF0C\u8C61\u5F81\u8700\u6C49\u5E73\u5B9A\u5357\u4E2D\u3001\u5B89\u629A\u5F02\u65CF\u7684\u4F20\u5947\u3002"
+    base_value_multiplier:
+    - 1.3
+    - 1.4
+    - 0.3
+    - 1
+  - id: S7
+    displayName: "\u5F20\u98DE"
+    tier: 0
+    faction: 1
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A3
+    passiveOneId: P9
+    passiveTwoId: P16
+    trait: "\u6843\u56ED\u7ED3\u4E49"
+    description: "\u8700\u6C49\u540D\u5C06\uFF0C\u52C7\u731B\u521A\u70C8\uFF0C\u64C5\u957F\u51B2\u950B\u9677\u9635\uFF1B\u957F\u5742\u6865\u4E00\u58F0\u6012\u543C\u9707\u9000\u66F9\u519B\uFF0C\u662F\u4E09\u56FD\u6700\u5177\u4F20\u5947\u8272\u5F69\u7684\u731B\u5C06\u4E4B\u4E00\u3002"
+    base_value_multiplier:
+    - 1.4
+    - 1.3
+    - 0.3
+    - 1
+  - id: S8
+    displayName: "\u8D75\u4E91"
+    tier: 0
+    faction: 1
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A5
+    passiveOneId: P13
+    passiveTwoId: P3
+    trait: "\u8700\u6C49\u731B\u5C06"
+    description: "\u5B57\u5B50\u9F99\uFF0C\u667A\u52C7\u53CC\u5168\u3001\u5FE0\u5FC3\u803F\u803F\uFF1B\u957F\u5742\u5761\u5355\u9A91\u6551\u4E3B\u3001\u5317\u4F10\u594B\u52C7\u5F53\u5148\uFF0C\u88AB\u8A89\u4E3A\u201C\u767D\u9A6C\u5C06\u519B\u201D\u3002"
+    base_value_multiplier:
+    - 1.3
+    - 1.3
+    - 0.6
+    - 0.9
+  - id: S9
+    displayName: "\u5173\u7FBD"
+    tier: 0
+    faction: 1
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A2
+    passiveOneId: P8
+    passiveTwoId: P1
+    trait: "\u6843\u56ED\u7ED3\u4E49"
+    description: "\u5B57\u4E91\u957F\uFF0C\u4EE5\u5FE0\u4E49\u95FB\u540D\uFF0C\u9752\u9F99\u5043\u6708\u5200\u5A01\u9707\u534E\u590F\uFF1B\u8FC7\u4E94\u5173\u65A9\u516D\u5C06\u3001\u5343\u91CC\u8D70\u5355\u9A91\u7684\u4E8B\u8FF9\u6D41\u4F20\u5343\u53E4\u3002"
+    base_value_multiplier:
+    - 1.4
+    - 1.3
+    - 0.3
+    - 1
+  - id: S10
+    displayName: "\u5218\u5907"
+    tier: 0
+    faction: 1
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A6
+    passiveOneId: P2
+    passiveTwoId: P12
+    trait: "\u6843\u56ED\u7ED3\u4E49"
+    description: "\u8700\u6C49\u5F00\u56FD\u7687\u5E1D\uFF0C\u4EC1\u5FB7\u4E3A\u672C\uFF0C\u5E7F\u7ED3\u8D24\u58EB\uFF1B\u5386\u7ECF\u98A0\u6C9B\u6D41\u79BB\u4ECD\u4E0D\u6539\u521D\u5FC3\uFF0C\u4EE5\u6843\u56ED\u7ED3\u4E49\u3001\u4E09\u987E\u8305\u5E90\u7B49\u5178\u6545\u4F20\u9882\u5343\u53E4\u3002"
+    base_value_multiplier:
+    - 1.1
+    - 1.1
+    - 0.8
+    - 1
+  - id: S11
+    displayName: "\u9A6C\u8D85"
+    tier: 0
+    faction: 1
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A7
+    passiveOneId: P5
+    passiveTwoId: P8
+    trait: "\u8700\u6C49\u731B\u5C06"
+    description: "\u201C\u897F\u51C9\u9526\u9A6C\u8D85\u201D\uFF0C\u9A81\u9A91\u6A2A\u626B\u5173\u4E2D\uFF0C\u4E0E\u66F9\u64CD\u6E2D\u6C34\u4E89\u950B\uFF1B\u540E\u5F52\u8700\u6C49\uFF0C\u4ECD\u4EE5\u52C7\u6B66\u8457\u79F0\u3002"
+    base_value_multiplier:
+    - 1.4
+    - 1.4
+    - 0.4
+    - 0.9
+  - id: S12
+    displayName: "\u8BF8\u845B\u4EAE"
+    tier: 0
+    faction: 1
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A9
+    passiveOneId: P4
+    passiveTwoId: P3
+    trait: "\u5367\u9F99\u51E4\u96CF"
+    description: "\u8700\u6C49\u4E1E\u76F8\uFF0C\u97A0\u8EAC\u5C3D\u7601\u516D\u51FA\u7941\u5C71\uFF0C\u624D\u8BC6\u8C0B\u7565\u4E3E\u4E16\u65E0\u53CC\uFF1B\u53D1\u660E\u5B54\u660E\u706F\uFF0C\u7559\u4E0B\u201C\u6B7B\u800C\u540E\u5DF2\u201D\u7684\u5343\u53E4\u5FE0\u9B42\u3002"
+    base_value_multiplier:
+    - 0.6
+    - 0.4
+    - 2
+    - 1.1
+  - id: S13
+    displayName: "\u90ED\u5609"
+    tier: 0
+    faction: 0
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A9
+    passiveOneId: P13
+    passiveTwoId: P10
+    trait: "\u9B4F\u4E4B\u667A\u56CA"
+    description: "\u66F9\u64CD\u6700\u501A\u91CD\u7684\u201C\u9B3C\u624D\u201D\u8C0B\u58EB\uFF0C\u6599\u4E8B\u5982\u795E\uFF0C\u5B98\u6E21\u3001\u8D64\u58C1\u524D\u591A\u732E\u5947\u7B56\uFF1B\u82F1\u5E74\u65E9\u901D\uFF0C\u7559\u201C\u9057\u5609\u5341\u80DC\u201D\u4E4B\u8BC4\u3002"
+    base_value_multiplier:
+    - 0.8
+    - 0.7
+    - 1.5
+    - 1
+  - id: S14
+    displayName: "\u5F90\u6643"
+    tier: 0
+    faction: 0
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A5
+    passiveOneId: P7
+    passiveTwoId: P11
+    trait: "\u826F\u5C06\u4E4B\u5A01"
+    description: "\u66F9\u9B4F\u540D\u5C06\uFF0C\u6C89\u7A33\u8C28\u614E\uFF0C\u66FE\u4EE5\u201C\u65AD\u6C34\u653B\u654C\u201D\u5B88\u8303\u9633\u632B\u8D25\u5173\u7FBD\u3002\u4EE5\u5584\u5B88\u95FB\u540D\uFF0C\u5374\u4EA6\u80FD\u6025\u884C\u5947\u88AD\uFF0C\u4E3A\u9B4F\u56FD\u5DE9\u56FA\u8346\u8C6B\u8981\u5730\u7ACB\u4E0B\u5927\u529F\u3002"
+    base_value_multiplier:
+    - 1.3
+    - 1.4
+    - 0.3
+    - 1
+  - id: S15
+    displayName: "\u5178\u97E6"
+    tier: 0
+    faction: 0
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A1
+    passiveOneId: P6
+    passiveTwoId: P9
+    trait: "\u9B4F\u6B66\u62A4\u536B"
+    description: "\u66F9\u64CD\u9EBE\u4E0B\u731B\u5C06\uFF0C\u4EBA\u79F0\u201C\u864E\u75F4\u201D\uFF1B\u5B9B\u57CE\u8840\u6218\u53CC\u621F\u62A4\u4E3B\uFF0C\u4EE5\u4E00\u8EAB\u608D\u52C7\u5199\u5C31\u5FE0\u70C8\u3002"
+    base_value_multiplier:
+    - 1.5
+    - 1.3
+    - 0.2
+    - 0.9
+  - id: S16
+    displayName: "\u5F20\u8FBD"
+    tier: 0
+    faction: 0
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A8
+    passiveOneId: P6
+    passiveTwoId: P9
+    trait: "\u826F\u5C06\u4E4B\u5A01"
+    description: "\u539F\u5415\u5E03\u90E8\u5C06\u8F6C\u6295\u66F9\u9B4F\uFF0C\u5408\u80A5\u516B\u767E\u7834\u5341\u4E07\u5A01\u9707\u6C5F\u4E1C\uFF1B\u6C89\u7A33\u679C\u6562\uFF0C\u58EB\u5352\u503E\u5FC3\u3002"
+    base_value_multiplier:
+    - 1.4
+    - 1.4
+    - 0.4
+    - 0.9
+  - id: S17
+    displayName: "\u66F9\u64CD"
+    tier: 0
+    faction: 0
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A7
+    passiveOneId: P8
+    passiveTwoId: P4
+    trait: "\u9B4F\u6B66\u62A4\u536B"
+    description: "\u9B4F\u6B66\u5E1D\uFF0C\u96C4\u624D\u5927\u7565\uFF0C\u7EDF\u4E00\u5317\u65B9\u5960\u5B9A\u4E09\u56FD\u9F0E\u8DB3\uFF1B\u201C\u5B81\u6559\u6211\u8D1F\u5929\u4E0B\u4EBA\uFF0C\u4F11\u6559\u5929\u4E0B\u4EBA\u8D1F\u6211\u201D\u5F70\u663E\u67AD\u96C4\u672C\u8272."
+    base_value_multiplier:
+    - 1.3
+    - 1.2
+    - 0.5
+    - 1
+  - id: S18
+    displayName: "\u53F8\u9A6C\u61FF"
+    tier: 0
+    faction: 0
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A4
+    passiveOneId: P2
+    passiveTwoId: P12
+    trait: "\u9B4F\u4E4B\u667A\u56CA"
+    description: "\u9B4F\u56FD\u6743\u81E3\uFF0C\u6DF1\u6C89\u5FCD\u8010\uFF0C\u5C61\u632B\u8BF8\u845B\u5317\u4F10\uFF1B\u6700\u7EC8\u638C\u63E1\u9B4F\u653F\uFF0C\u5960\u57FA\u664B\u5BA4\u3002"
+    base_value_multiplier:
+    - 0.4
+    - 0.6
+    - 2
+    - 1.1
+  - id: S19
+    displayName: "\u5468\u745C"
+    tier: 0
+    faction: 2
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A8
+    passiveOneId: P7
+    passiveTwoId: P6
+    trait: "\u6C5F\u4E1C\u53CC\u74A7"
+    description: "\u4E1C\u5434\u5927\u90FD\u7763\uFF0C\u5E05\u6C14\u591A\u667A\uFF0C\u51B3\u80DC\u8D64\u58C1\u706B\u70E7\u66F9\u8425\uFF1B\u4EA6\u64C5\u97F3\u5F8B\uFF0C\u201C\u66F2\u6709\u8BEF\uFF0C\u5468\u90CE\u987E\u201D\u5343\u53E4\u6D41\u82B3\u3002"
+    base_value_multiplier:
+    - 1.2
+    - 1.1
+    - 0.7
+    - 1
+  - id: S20
+    displayName: "\u592A\u53F2\u6148"
+    tier: 0
+    faction: 2
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A9
+    passiveOneId: P7
+    passiveTwoId: P10
+    trait: "\u6C5F\u4E1C\u731B\u5C06"
+    description: "\u4E1C\u5434\u5F13\u9A6C\u540D\u5C06\uFF0C\u5355\u9A91\u6551\u5317\u6D77\u8FDC\u626C\u540D\u58F0\uFF1B\u968F\u5B59\u7B56\u7ACB\u529F\u6C5F\u4E1C\uFF0C\u4EBA\u79F0\u201C\u6148\u513F\u201D\u8C6A\u4FA0\u3002"
+    base_value_multiplier:
+    - 1.4
+    - 1.4
+    - 0.4
+    - 1.1
+  - id: S21
+    displayName: "\u7518\u5B81"
+    tier: 0
+    faction: 2
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A2
+    passiveOneId: P13
+    passiveTwoId: P9
+    trait: "\u6C5F\u4E1C\u731B\u5C06"
+    description: "\u66FE\u4E3A\u201C\u9526\u5E06\u8D3C\u201D\uFF0C\u540E\u6548\u5B59\u6743\uFF0C\u4F69\u94C3\u7532\u5954\u88AD\u95FB\u540D\uFF1B\u7ACB\u529F\u8D64\u58C1\u3001\u5937\u9675\uFF0C\u591A\u5947\u88AD\u6C34\u6218\u3002"
+    base_value_multiplier:
+    - 1.4
+    - 1.2
+    - 0.4
+    - 1
+  - id: S22
+    displayName: "\u5415\u8499"
+    tier: 0
+    faction: 2
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A4
+    passiveOneId: P5
+    passiveTwoId: P12
+    trait: "\u6C5F\u4E1C\u731B\u5C06"
+    description: "\u201C\u58EB\u522B\u4E09\u65E5\uFF0C\u5F53\u522E\u76EE\u76F8\u770B\u201D\uFF0C\u4ECE\u767D\u8863\u90FD\u7763\u6210\u957F\u4E3A\u5434\u56FD\u540D\u5C06\uFF1B\u667A\u64D2\u5173\u7FBD\uFF0C\u4E00\u4E3E\u5B9A\u8346\u5DDE\u3002"
+    base_value_multiplier:
+    - 1.3
+    - 1.3
+    - 0.4
+    - 1
+  - id: S23
+    displayName: "\u5B59\u6743"
+    tier: 0
+    faction: 2
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A6
+    passiveOneId: P2
+    passiveTwoId: P4
+    trait: "\u53CC\u5B59\u96C4\u98CE"
+    description: "\u4E1C\u5434\u5927\u5E1D\uFF0C\u7A33\u91CD\u5584\u4EFB\uFF0C\u8054\u5408\u5218\u5907\u7834\u66F9\u4E8E\u8D64\u58C1\uFF1B\u6DF1\u8015\u6C5F\u4E1C\uFF0C\u7F14\u9020\u6C5F\u5357\u653F\u6743\u3002"
+    base_value_multiplier:
+    - 0.5
+    - 0.5
+    - 2
+    - 1.1
+  - id: S24
+    displayName: "\u5B59\u7B56"
+    tier: 0
+    faction: 2
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A2
+    passiveOneId: P3
+    passiveTwoId: P14
+    trait: "\u53CC\u5B59\u96C4\u98CE"
+    description: "\u201C\u6C5F\u4E1C\u5C0F\u9738\u738B\u201D\uFF0C\u80C6\u7565\u8FC7\u4EBA\u3001\u7528\u5175\u5982\u795E\uFF1B\u6570\u5E74\u95F4\u6A2A\u626B\u6C5F\u4E1C\u7ACB\u57FA\u4E1A\uFF0C\u4E3A\u5B59\u6743\u5EFA\u56FD\u5960\u5B9A\u6839\u57FA\uFF0C\u5374\u82F1\u5E74
+      26 \u5C81\u6B92\u547D\u3002"
+    base_value_multiplier:
+    - 1.2
+    - 0.8
+    - 1.2
+    - 0.9
+  - id: A1
+    displayName: "\u5E9E\u7EDF"
+    tier: 1
+    faction: 1
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A4
+    passiveOneId: P2
+    passiveTwoId: P16
+    trait: "\u5367\u9F99\u51E4\u96CF"
+    description: "\u5B57\u58EB\u5143\uFF0C\u53F7\u201C\u51E4\u96CF\u201D\uFF0C\u624D\u667A\u4E0E\u5B54\u660E\u9F50\u540D\uFF1B\u52A9\u5218\u5907\u5165\u8700\uFF0C\u5374\u6B92\u547D\u843D\u51E4\u5761\uFF0C\u62B1\u8D1F\u672A\u5C55\u3002"
+    base_value_multiplier:
+    - 0.8
+    - 0.7
+    - 1.5
+    - 1
+  - id: A2
+    displayName: "\u9EC4\u5FE0"
+    tier: 1
+    faction: 1
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A9
+    passiveOneId: P14
+    passiveTwoId: P10
+    trait: "\u8700\u6C49\u731B\u5C06"
+    description: "\u8700\u6C49\u8001\u5C06\uFF0C\u767D\u53D1\u4E0D\u51CF\u950B\u8292\uFF1B\u5B9A\u519B\u5C71\u4E00\u7BAD\u5C04\u6740\u590F\u4FAF\u6E0A\u6210\u540D\uFF0C\u201C\u8001\u5F53\u76CA\u58EE\u201D\u6210\u4E3A\u540E\u4E16\u52C7\u6B66\u5178\u8303\u3002"
+    base_value_multiplier:
+    - 1.3
+    - 1.2
+    - 0.5
+    - 1
+  - id: A3
+    displayName: "\u7A0B\u6631"
+    tier: 1
+    faction: 0
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A8
+    passiveOneId: P2
+    passiveTwoId: P12
+    trait: "\u9B4F\u4E4B\u667A\u56CA"
+    description: "\u66F9\u64CD\u6838\u5FC3\u8C0B\u81E3\u4E4B\u4E00\uFF0C\u6DF1\u8C19\u5175\u6CD5\u8C0B\u7565\uFF0C\u5C61\u732E\u5947\u7B56\u4FDD\u4F4F\u5156\u5DDE\u4E0E\u5B98\u6E21\u6839\u57FA\u3002\u4EE5\u5FE0\u76F4\u679C\u6562\u8457\u79F0\uFF0C\u88AB\u79F0\u4E3A\u201C\u66F9\u6C0F\u5B97\u5E99\u4E4B\u81E3\u201D\u3002"
+    base_value_multiplier:
+    - 0.9
+    - 1
+    - 1.1
+    - 1
+  - id: A4
+    displayName: "\u9B4F\u5EF6"
+    tier: 1
+    faction: 1
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A1
+    passiveOneId: P9
+    passiveTwoId: P4
+    trait: "\u8700\u6C49\u731B\u5C06"
+    description: "\u8700\u6C49\u9A81\u5C06\uFF0C\u52C7\u800C\u591A\u8C0B\uFF0C\u5C61\u5EFA\u5317\u4F10\u6218\u529F\u5E76\u63D0\u51FA\u5947\u88AD\u5B50\u5348\u8C37\u3002\u6027\u683C\u6840\u9A9C\uFF0C\u7EC8\u56E0\u731C\u5FCC\u4E0E\u6743\u6597\u88AB\u9A6C\u5CB1\u5949\u8BCF\u65A9\u6740\u3002"
+    base_value_multiplier:
+    - 1.4
+    - 1.2
+    - 0.4
+    - 1
+  - id: A5
+    displayName: "\u795D\u878D"
+    tier: 1
+    faction: 3
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A9
+    passiveOneId: P13
+    passiveTwoId: P10
+    trait: "\u5357\u4E2D\u738B\u5EAD"
+    description: "\u5B5F\u83B7\u4E4B\u59BB\uFF0C\u4E09\u56FD\u6F14\u4E49\u4E2D\u5357\u4E2D\u5973\u5C06\uFF0C\u64C5\u7528\u98DE\u5200\u4E0E\u706B\u653B\u3002\u82F1\u59FF\u98D2\u723D\u3001\u52C7\u70C8\u4E0D\u8BA9\u987B\u7709\uFF0C\u5C61\u632B\u8700\u519B\u540D\u5C06\u3002"
+    base_value_multiplier:
+    - 1.2
+    - 1.1
+    - 0.7
+    - 1
+  - id: A6
+    displayName: "\u4E8E\u7981"
+    tier: 1
+    faction: 0
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A8
+    passiveOneId: P7
+    passiveTwoId: P1
+    trait: "\u826F\u5C06\u4E4B\u5A01"
+    description: "\u66F9\u9B4F\u201C\u4E94\u5B50\u826F\u5C06\u201D\u4E4B\u4E00\uFF0C\u4EE5\u519B\u7EAA\u4E25\u660E\u8457\u79F0\u3002\u56E0\u6A0A\u57CE\u6D2A\u6C34\u88AB\u5173\u7FBD\u6240\u64D2\uFF0C\u540E\u5F52\u9B4F\u7F9E\u6127\u800C\u7EC8\uFF0C\u65E0\u6127\u6709\u6127\u6210\u4E00\u751F\u53F9\u606F\u3002"
+    base_value_multiplier:
+    - 1.2
+    - 1.4
+    - 0.4
+    - 1
+  - id: A7
+    displayName: "\u534E\u96C4"
+    tier: 1
+    faction: 0
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A1
+    passiveOneId: P6
+    passiveTwoId: P14
+    trait: "\u9EC4\u5DFE\u4E71\u4E16"
+    description: "\u8463\u5353\u9EBE\u4E0B\u731B\u5C06\uFF0C\u864E\u7262\u5173\u524D\u8FDE\u65A9\u6570\u8DEF\u8BF8\u4FAF\u9A81\u52C7\u3002\u7EC8\u88AB\u5173\u7FBD\u6E29\u9152\u65A9\u9996\uFF0C\u4E00\u6218\u6210\u5C31\u5176\u201C\u6D41\u661F\u5F0F\u201D\u540D\u58F0\u3002"
+    base_value_multiplier:
+    - 1.5
+    - 1.2
+    - 0.3
+    - 1
+  - id: A8
+    displayName: "\u9A6C\u5CB1"
+    tier: 1
+    faction: 1
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A6
+    passiveOneId: P8
+    passiveTwoId: P15
+    trait: "\u8700\u6C49\u540E\u55E3"
+    description: "\u201C\u9526\u9A6C\u8D85\u201D\u5802\u5F1F\uFF0C\u968F\u8700\u519B\u5357\u5F81\u5317\u6218\uFF1B\u9075\u9057\u4EE4\u65A9\u9B4F\u5EF6\uFF0C\u7A33\u4F4F\u5317\u4F10\u519B\u5FC3\uFF0C\u88AB\u8A89\u4E3A\u8700\u6C49\u5FE0\u52C7\u4E4B\u58EB\u3002"
+    base_value_multiplier:
+    - 1.3
+    - 1.3
+    - 0.4
+    - 1
+  - id: A9
+    displayName: "\u9C81\u8083"
+    tier: 1
+    faction: 2
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A3
+    passiveOneId: P13
+    passiveTwoId: P3
+    trait: "\u6C5F\u4E1C\u53CC\u74A7"
+    description: "\u4E1C\u5434\u5916\u4EA4\u4E0E\u6218\u7565\u9AA8\u5E72\uFF0C\u529B\u4E3B\u5B59\u5218\u8054\u76DF\u3001\u5EF6\u7EED\u8D64\u58C1\u6210\u679C\u3002\u895F\u6000\u5BBD\u5E7F\uFF0C\u4EE5\u8C03\u505C\u8346\u5DDE\u7EB7\u4E89\u3001\u56FA\u6C5F\u4E1C\u57FA\u4E1A\u4E3A\u4E00\u751F\u5199\u7167\u3002"
+    base_value_multiplier:
+    - 0.9
+    - 1
+    - 1.1
+    - 1
+  - id: A10
+    displayName: "\u8521\u6587\u59EC"
+    tier: 1
+    faction: 3
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A4
+    passiveOneId: P13
+    passiveTwoId: P16
+    trait: "\u624D\u60C5\u7EDD\u8273"
+    description: "\u624D\u5973\u517C\u7434\u5E08\uFF0C\u6D41\u843D\u80E1\u5730\u5341\u4E8C\u8F7D\u540E\u88AB\u66F9\u64CD\u91CD\u91D1\u8FCE\u56DE\u3002\u8BD7\u6587\u300A\u80E1\u7B33\u5341\u516B\u62CD\u300B\u9053\u5C3D\u79BB\u4E71\u60B2\u601D\uFF0C\u4EA6\u5C55\u4E09\u56FD\u4E71\u4E16\u5973\u6027\u624D\u60C5\u3002"
+    base_value_multiplier:
+    - 0.8
+    - 0.7
+    - 1.5
+    - 1
+  - id: A11
+    displayName: "\u8340\u5F67"
+    tier: 1
+    faction: 0
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A8
+    passiveOneId: P4
+    passiveTwoId: P12
+    trait: "\u9B4F\u4E4B\u667A\u56CA"
+    description: "\u66F9\u64CD\u9996\u5E2D\u8C0B\u81E3\uFF0C\u201C\u738B\u4F50\u4E4B\u624D\u201D\u6276\u6301\u6C49\u732E\u5E1D\u4EE5\u631F\u5929\u5B50\u4EE4\u8BF8\u4FAF\u3002\u6E05\u96C5\u8C26\u548C\uFF0C\u4F46\u4E0E\u66F9\u64CD\u6743\u6B32\u6E10\u751F\u9F83\u9F89\uFF0C\u90C1\u90C1\u800C\u7EC8\u3002"
+    base_value_multiplier:
+    - 0.9
+    - 0.9
+    - 1.2
+    - 1
+  - id: A12
+    displayName: "\u8D3E\u8BE9"
+    tier: 1
+    faction: 0
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A4
+    passiveOneId: P15
+    passiveTwoId: P9
+    trait: "\u6BD2\u58EB\u6743\u8C0B"
+    description: "\u4E71\u4E16\u6BD2\u58EB\uFF0C\u6D1E\u6089\u4EBA\u5FC3\uFF0C\u5148\u540E\u8F85\u4F50\u674E\u5095\u3001\u5F20\u7EE3\u3001\u66F9\u64CD\u3002\u4EE5\u201C\u4E0D\u6218\u800C\u5C48\u4EBA\u4E4B\u5175\u201D\u8457\u79F0\uFF0C\u9547\u538B\u9A6C\u8D85\u3001\u97E9\u9042\uFF0C\u5C61\u6551\u4E3B\u4E8E\u5371\u5C40\u3002"
+    base_value_multiplier:
+    - 1
+    - 0.9
+    - 1.1
+    - 1
+  - id: A13
+    displayName: "\u7A0B\u666E"
+    tier: 1
+    faction: 2
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A5
+    passiveOneId: P1
+    passiveTwoId: P11
+    trait: "\u4E1C\u5434\u62A4\u536B"
+    description: "\u6C5F\u4E1C\u5BBF\u5C06\uFF0C\u201C\u6C5F\u4E1C\u4E09\u8001\u201D\u4E4B\u9996\uFF0C\u6C34\u9646\u653B\u9632\u4FF1\u7CBE\uFF1B\u52AB\u6C5F\u590F\u3001\u9547\u5B88\u8346\u5DDE\uFF0C\u4E3A\u5B59\u6C0F\u5960\u5B9A\u57FA\u4E1A\u3002"
+    base_value_multiplier:
+    - 1.3
+    - 1.4
+    - 0.3
+    - 1
+  - id: A14
+    displayName: "\u97E9\u5F53"
+    tier: 1
+    faction: 2
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A2
+    passiveOneId: P7
+    passiveTwoId: P5
+    trait: "\u4E1C\u5434\u62A4\u536B"
+    description: "\u968F\u5B59\u575A\u3001\u5B59\u7B56\u3001\u5B59\u6743\u4E09\u4EE3\u5F81\u6218\uFF0C\u5F13\u672F\u7CBE\u6E5B\uFF0C\u5C61\u4EFB\u5148\u767B\uFF1B\u8D64\u58C1\u7EB5\u706B\u3001\u5357\u90E1\u7834\u57CE\u7686\u6709\u5176\u529F\u3002"
+    base_value_multiplier:
+    - 1.3
+    - 1.2
+    - 0.5
+    - 1
+  - id: A15
+    displayName: "\u5468\u6CF0"
+    tier: 1
+    faction: 2
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A7
+    passiveOneId: P11
+    passiveTwoId: P3
+    trait: "\u4E1C\u5434\u62A4\u536B"
+    description: "\u672C\u4E3A\u6C5F\u590F\u6C34\u5BC7\uFF0C\u5F52\u987A\u5B59\u6743\u540E\u5C61\u7ACB\u6218\u529F\uFF0C\u591A\u6B21\u4EE5\u8EAB\u62A4\u4E3B\uFF0C\u904D\u4F53\u4F24\u75D5\u4ECD\u4E0D\u9000\uFF0C\u4E1C\u5434\u201C\u94C1\u536B\u201D\u540D\u53F7\u7531\u6B64\u800C\u6765\u3002"
+    base_value_multiplier:
+    - 1.3
+    - 1.4
+    - 0.3
+    - 1
+  - id: B1
+    displayName: "\u6587\u4E11"
+    tier: 2
+    faction: 3
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A2
+    passiveOneId: P1
+    passiveTwoId: P4
+    trait: "\u8881\u6C0F\u53CC\u58C1"
+    description: "\u8881\u7ECD\u9EBE\u4E0B\u731B\u5C06\uFF0C\u4E0E\u989C\u826F\u5E76\u79F0\u201C\u53CC\u58C1\u201D\uFF0C\u52C7\u51A0\u6CB3\u5317\uFF1B\u5B98\u6E21\u524D\u54E8\u6218\u88AB\u5173\u7FBD\u591C\u88AD\u65A9\u6740\uFF0C\u82F1\u540D\u65E9\u901D\u3002"
+    base_value_multiplier:
+    - 1.3
+    - 1.3
+    - 0.4
+    - 1
+  - id: B2
+    displayName: "\u66F9\u6D2A"
+    tier: 2
+    faction: 0
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A9
+    passiveOneId: P11
+    passiveTwoId: P6
+    trait: "\u826F\u5C06\u4E4B\u5A01"
+    description: "\u66F9\u64CD\u65CF\u5F1F\uFF0C\u8D64\u80C6\u5FE0\u5FC3\uFF0C\u591A\u6B21\u820D\u547D\u62A4\u4E3B\uFF1B\u8D64\u58C1\u64A4\u9000\u65F6\u529B\u4FDD\u66F9\u64CD\u7A81\u56F4\uFF0C\u7EC8\u53D7\u5C01\u5F81\u5357\u5C06\u519B\u3002"
+    base_value_multiplier:
+    - 1.2
+    - 1.4
+    - 0.4
+    - 1
+  - id: B3
+    displayName: "\u5173\u5E73"
+    tier: 2
+    faction: 1
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A1
+    passiveOneId: P3
+    passiveTwoId: P8
+    trait: "\u8700\u6C49\u540E\u55E3"
+    description: "\u5173\u7FBD\u957F\u5B50\uFF0C\u968F\u7236\u9547\u5B88\u8346\u5DDE\uFF0C\u52C7\u6BC5\u4E0D\u900A\uFF1B\u8944\u6A0A\u6218\u8D25\u88AB\u64D2\uFF0C\u4E0E\u7236\u540C\u8D74\u56FD\u96BE\u6210\u5C31\u5FE0\u70C8\u4E4B\u540D\u3002"
+    base_value_multiplier:
+    - 1.4
+    - 1.2
+    - 0.4
+    - 1
+  - id: B4
+    displayName: "\u4E01\u5949"
+    tier: 2
+    faction: 2
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A5
+    passiveOneId: P10
+    passiveTwoId: P7
+    trait: "\u6C5F\u4E1C\u731B\u5C06"
+    description: "\u4E1C\u5434\u5BBF\u5C06\uFF0C\u201C\u96EA\u4E2D\u594B\u77ED\u5175\u201D\u4E00\u6218\u540D\u626C\uFF1B\u8001\u800C\u5F25\u52C7\uFF0C\u5408\u80A5\u65B0\u57CE\u7A81\u88AD\u7ACB\u5947\u529F\u3002"
+    base_value_multiplier:
+    - 1.3
+    - 1.2
+    - 0.5
+    - 1
+  - id: B5
+    displayName: "\u9648\u5BAB"
+    tier: 2
+    faction: 3
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A5
+    passiveOneId: P5
+    passiveTwoId: P2
+    trait: "\u6BD2\u58EB\u6743\u8C0B"
+    description: "\u65E9\u8F85\u66F9\u64CD\u540E\u8F6C\u6295\u5415\u5E03\uFF0C\u8C0B\u7565\u8FC7\u4EBA\u6FEE\u9633\u8BBE\u4F0F\u70E7\u66F9\u8425\uFF1B\u5415\u5E03\u8D25\u4EA1\u767D\u95E8\u697C\u65F6\u4E0E\u4E3B\u540C\u6B7B\uFF0C\u6177\u6168\u8D74\u4E49\u3002"
+    base_value_multiplier:
+    - 1.1
+    - 1
+    - 0.9
+    - 1
+  - id: B6
+    displayName: "\u5218\u7985"
+    tier: 2
+    faction: 1
+    iconSprite: {fileID: 0}
+    fullBodySprite: {fileID: 0}
+    activeSkillId: A6
+    passiveOneId: P12
+    passiveTwoId: P9
+    trait: "\u8700\u6C49\u540E\u55E3"
+    description: "\u8700\u6C49\u540E\u4E3B\uFF0C\u5E7C\u5E74\u5373\u4F4D\uFF0C\u4EF0\u8D56\u8BF8\u845B\u4EAE\u8F85\u653F\uFF1B\u665A\u5E74\u5B89\u9038\u5931\u653F\uFF0C\u8700\u706D\u540E\u964D\u664B\uFF0C\u81EA\u5632\u201C\u6B64\u95F4\u4E50\uFF0C\u4E0D\u601D\u8700\u201D\u3002"
+    base_value_multiplier:
+    - 0.8
+    - 1
+    - 1.2
+    - 1

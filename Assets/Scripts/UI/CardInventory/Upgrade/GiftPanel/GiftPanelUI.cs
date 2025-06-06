@@ -6,8 +6,9 @@ using Kamgam.UIToolkitScrollViewPro;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(UIDocument))]
-public class GiftPanelController : MonoBehaviour
+public class GiftPanelController : MonoBehaviour, IUIPanelController
 {
+    CardInfoStatic info; PlayerCard dyn;
     [SerializeField] private CardInventoryUI inventoryUI;   // 取当前武将
     [SerializeField] private UnitGiftLevel giftLevelUI;   // 同一个组件实例
 
@@ -47,6 +48,13 @@ public class GiftPanelController : MonoBehaviour
 
 
     /*──────── 生命周期 ────────*/
+    public void Open(CardInfoStatic info, PlayerCard dyn)
+    {
+        this.info = info;
+        this.dyn  = dyn;
+        gameObject.SetActive(true);
+        //RefreshUI();
+    }
     private void Awake()
     {
         doc = GetComponent<UIDocument>();
@@ -93,7 +101,25 @@ public class GiftPanelController : MonoBehaviour
         confirmBtn = root.Q<Button>("SendGiftBtn");
 
         if (confirmBtn != null) confirmBtn.clicked += OnConfirmGift;
+        StartCoroutine(AfterEnableRoutine());
+        PlayerCardBankMgr.I.onCardUpdated += OnCardUpdated;
 
+    }
+    void OnDisable()
+    {
+        if (PlayerCardBankMgr.I != null)
+            PlayerCardBankMgr.I.onCardUpdated -= OnCardUpdated;
+    }
+    void OnCardUpdated(string id)
+    {
+        // 若当前展示的就是这张武将
+        if (dyn != null && dyn.id == id)
+        {
+            dyn = PlayerCardBankMgr.I.Data.Get(id); // 取最新动态数据
+            giftLevelUI.SetData(info, dyn);
+            RefreshHeroGiftUI();                     // 等级/经验条
+            giftLevelUI.RefreshEquipSlots();         // 三槽可能解锁
+        }
     }
 
     /*──────── 外部接口 ────────*/
@@ -110,6 +136,15 @@ public class GiftPanelController : MonoBehaviour
         BuildGiftOptions();
         if (vhSizer != null) vhSizer.Apply();
     }
+    public void SetData(CardInfoStatic info, PlayerCard dyn)
+{
+    this.info = info;
+    this.dyn  = dyn;
+
+    // 把武将信息交给 giftLevelUI
+    giftLevelUI.SetData(info, dyn);   // 你自己组件里的函数
+    RefreshHeroGiftUI();              // 立刻更新等级/经验条
+}
 
     /*──────── 生成列表 ────────*/
 
@@ -225,42 +260,31 @@ public class GiftPanelController : MonoBehaviour
     {
         if (selectedEntry == null) return;
         GiftData gift = selectedEntry.data;
-
-        // 1) 库存校验
         if (gift.stock < sendCount) return;
 
-        // 2) 扣库存
         gift.stock -= sendCount;
-
-        // 3) 计算总经验
         int totalExp = gift.value * sendCount;
 
-        // 4) 给当前武将加经验（自动升级）
+        // ★ 用 BankMgr 写数据 + 广播
         giftLevelUI.AddExp(totalExp);
+
+        // 本面板立即刷新
         RefreshHeroGiftUI();
-
-        // 5) 刷礼物列表数字 & 重置选择
-        selectedEntry.root.Q<Label>("GiftStockNum")
-                  .text = gift.stock.ToString();
-        
-
-        if (gift.stock == 0)
-        {
-            selectedEntry.mask.style.display = DisplayStyle.Flex;
-            SetMaskAlpha(selectedEntry.mask, 0.70f);
-            selectedEntry.root.pickingMode = PickingMode.Ignore;
-        }
+        UpdateMasks();
     }
+
     void RefreshHeroGiftUI()
     {
         if (heroGiftLvLbl == null || heroGiftExpBar == null) return;
 
-        heroGiftLvLbl.text = giftLevelUI.GetLvText();        // ← 直接用文字接口
+        float pct = giftLevelUI.GetExpPercent();
+        if (float.IsNaN(pct) || float.IsInfinity(pct)) pct = 0f;   // 双保险
+
+        heroGiftLvLbl.text     = giftLevelUI.GetLvText();
         heroGiftExpBar.lowValue  = 0;
         heroGiftExpBar.highValue = 100;
-        heroGiftExpBar.value     = giftLevelUI.GetExpPercent();
-        heroGiftExpBar.title     = giftLevelUI.GetExpPercent() >= 100 ? "MAX"
-                                : $"{(int)giftLevelUI.GetExpPercent()}%";
+        heroGiftExpBar.value     = pct;
+        heroGiftExpBar.title     = pct >= 100f ? "MAX" : $"{(int)pct}%";
         heroGiftExpBar.MarkDirtyRepaint();
     }
 

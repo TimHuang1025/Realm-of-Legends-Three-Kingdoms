@@ -3,12 +3,20 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(UIDocument))]
-public class UptierPanelController : MonoBehaviour
+public class UptierPanelController : MonoBehaviour, IUIPanelController
 {
+    CardInfoStatic info; PlayerCard dyn;
     [SerializeField] VhSizer vhSizer;
 
     UIDocument doc;
-
+    
+    public void Open(CardInfoStatic info, PlayerCard dyn)
+    {
+        this.info = info;
+        this.dyn = dyn;
+        gameObject.SetActive(true);
+        //RefreshUI();
+    }
     void Awake()
     {
         doc = GetComponent<UIDocument>();

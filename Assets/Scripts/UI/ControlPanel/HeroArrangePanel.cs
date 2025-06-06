@@ -13,7 +13,7 @@ public class HeroArrangePanel : MonoBehaviour
     private VisualElement infantry, cavalry, archer;
     private Label infantryLabel, cavalryLabel, archerLabel;
     private VisualElement splitter1, splitter2;
-    [SerializeField] private CardDatabase cardDB; 
+    [SerializeField] private CardDatabaseStatic cardDB; 
     [SerializeField] private PlayerBaseController playerBaseController;
     
 
@@ -224,48 +224,50 @@ public class HeroArrangePanel : MonoBehaviour
         Debug.Log($"阵容 {activeLineupIndex} 已完全重置（武将 & 兵种）");
     }
 
-    void OnHeroChosen(CardInfo chosen)
+    void OnHeroChosen(CardInfoStatic chosenStatic, PlayerCard chosenDyn)
     {
         if (lineupDB == null || lineupDB.lineups.Count == 0) return;
 
         LineupInfo info = lineupDB.lineups[activeLineupIndex];
 
-        // ① 如果别的槽位已经选了这张卡 → 清空
-        if (info.mainGeneral   == chosen.cardName && pendingSlot != LineupSlot.Main)
+        string chosenName = chosenStatic.displayName;   // 原来用的 cardName
+
+        /* ① 别的槽位已选这张 → 清空 */
+        if (info.mainGeneral   == chosenName && pendingSlot != LineupSlot.Main)
             ClearSlot(LineupSlot.Main,       ref info.mainGeneral);
 
-        if (info.subGeneral1   == chosen.cardName && pendingSlot != LineupSlot.Sub1)
+        if (info.subGeneral1   == chosenName && pendingSlot != LineupSlot.Sub1)
             ClearSlot(LineupSlot.Sub1,       ref info.subGeneral1);
 
-        if (info.subGeneral2   == chosen.cardName && pendingSlot != LineupSlot.Sub2)
+        if (info.subGeneral2   == chosenName && pendingSlot != LineupSlot.Sub2)
             ClearSlot(LineupSlot.Sub2,       ref info.subGeneral2);
 
-        if (info.strategist    == chosen.cardName && pendingSlot != LineupSlot.Strategist)
+        if (info.strategist    == chosenName && pendingSlot != LineupSlot.Strategist)
             ClearSlot(LineupSlot.Strategist, ref info.strategist);
 
-        // ② 把新选择写进当前槽位
+        /* ② 写入当前槽位 */
         switch (pendingSlot)
         {
-            case LineupSlot.Main:       info.mainGeneral   = chosen.cardName; break;
-            case LineupSlot.Sub1:       info.subGeneral1   = chosen.cardName; break;
-            case LineupSlot.Sub2:       info.subGeneral2   = chosen.cardName; break;
-            case LineupSlot.Strategist: info.strategist    = chosen.cardName; break;
+            case LineupSlot.Main:       info.mainGeneral   = chosenName; break;
+            case LineupSlot.Sub1:       info.subGeneral1   = chosenName; break;
+            case LineupSlot.Sub2:       info.subGeneral2   = chosenName; break;
+            case LineupSlot.Strategist: info.strategist    = chosenName; break;
         }
 
-        // ③ 写回数据库并保存
+        /* ③ 保存 */
         lineupDB.lineups[activeLineupIndex] = info;
     #if UNITY_EDITOR
         UnityEditor.EditorUtility.SetDirty(lineupDB);
     #endif
 
-        // ④ 刷按钮外观
-        SetHeroVisual(null,  slotBtnMap[pendingSlot]);     // 清旧图
-        SetHeroName  (null,  slotNameLblMap[pendingSlot]); // 清旧名
+        /* ④ 刷按钮外观与名字 */
+        SetHeroVisual(null,      slotBtnMap[pendingSlot]);      // 清旧图
+        SetHeroName  (null,      slotNameLblMap[pendingSlot]);  // 清旧名
 
-        SetHeroVisual(chosen, slotBtnMap[pendingSlot]);    // 贴新图
-        SetHeroName  (chosen, slotNameLblMap[pendingSlot]); // 写新名
+        SetHeroVisual(chosenStatic, slotBtnMap[pendingSlot]);   // 新图
+        SetHeroName  (chosenStatic, slotNameLblMap[pendingSlot]);
 
-        Debug.Log($"[{pendingSlot}] 设为 {chosen.cardName}");
+        Debug.Log($"[{pendingSlot}] 设为 {chosenName}");
     }
     void ClearSlot(LineupSlot slot, ref string fieldRef)
     {
@@ -273,34 +275,38 @@ public class HeroArrangePanel : MonoBehaviour
         SetHeroVisual(null, slotBtnMap[slot]);              // 清按钮背景
         SetHeroName(null, slotNameLblMap[slot]);
     }
-    void SetHeroVisual(CardInfo card, Button btn)
+    void SetHeroVisual(CardInfoStatic info, Button btn)
     {
         if (btn == null) return;
 
-        if (card != null && (card.fullBodySprite != null || card.iconSprite != null))
+        if (info != null && (info.fullBodySprite != null || info.iconSprite != null))
         {
-            Sprite pic = card.fullBodySprite != null ? card.fullBodySprite : card.iconSprite;
+            Sprite pic = info.fullBodySprite != null ? info.fullBodySprite : info.iconSprite;
             btn.style.backgroundImage        = new StyleBackground(pic);
             btn.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
         }
         else
         {
-            // card == null 或没有图片 → 还原默认
+            // 未选择或无图 → 还原默认
             btn.style.backgroundImage = StyleKeyword.None;
         }
     }
-    void SetHeroName(CardInfo card, Label lbl)
+
+    /*─────────────────────────────────────────────*
+    *  卡片姓名
+    *─────────────────────────────────────────────*/
+    void SetHeroName(CardInfoStatic info, Label lbl)
     {
         if (lbl == null) return;
 
-        if (card == null)
+        if (info == null)
         {
-            lbl.text = "";
+            lbl.text       = "";
             lbl.style.color = Color.gray;
         }
         else
         {
-            lbl.text = card.cardName;
+            lbl.text       = info.displayName;   // 若字段名不同请对应修改
             lbl.style.color = Color.white;
         }
     }
@@ -346,22 +352,22 @@ public class HeroArrangePanel : MonoBehaviour
         LineupInfo info = lineupDB.lineups[activeLineupIndex];
 
         // 主将
-        CardInfo mainCard = cardDB.FindByName(info.mainGeneral);
+        CardInfoStatic mainCard = cardDB.Get(info.mainGeneral);
         SetHeroVisual(mainCard, uiDocument.rootVisualElement.Q<Button>("MainHeroSelectBtn"));
         SetHeroName  (mainCard, slotNameLblMap[LineupSlot.Main]);
 
         // 副将①
-        CardInfo sub1Card = cardDB.FindByName(info.subGeneral1);
+        CardInfoStatic sub1Card = cardDB.Get(info.subGeneral1);
         SetHeroVisual(sub1Card, uiDocument.rootVisualElement.Q<Button>("SubHero1SelectBtn"));
         SetHeroName  (sub1Card, slotNameLblMap[LineupSlot.Sub1]);
 
         // 副将②
-        CardInfo sub2Card = cardDB.FindByName(info.subGeneral2);
+        CardInfoStatic sub2Card = cardDB.Get(info.subGeneral2);
         SetHeroVisual(sub2Card, uiDocument.rootVisualElement.Q<Button>("SubHero2SelectBtn"));
         SetHeroName  (sub2Card, slotNameLblMap[LineupSlot.Sub2]);
 
         // 军师
-        CardInfo stratCard = cardDB.FindByName(info.strategist);
+        CardInfoStatic stratCard = cardDB.Get(info.strategist);
         SetHeroVisual(stratCard, uiDocument.rootVisualElement.Q<Button>("StrategistSelectBtn"));
         SetHeroName  (stratCard, slotNameLblMap[LineupSlot.Strategist]);
 

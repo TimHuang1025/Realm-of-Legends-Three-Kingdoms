@@ -202,3 +202,12 @@ MonoBehaviour:
     aspectWidth: 0
     addWidthVw: 0
     widthVw: 0
+  - queryType: 0
+    queryValue: HeroGiftLvBar
+    widthVh: 35
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0

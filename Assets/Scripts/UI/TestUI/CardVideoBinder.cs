@@ -41,12 +41,12 @@ public class CardVideoBinder : MonoBehaviour
         cardVe.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
 
         // 订阅事件
-        CardInventoryUI.OnCardSelected += PlayCardVideo;
+        //CardInventoryUI.OnCardSelected += PlayCardVideo;
     }
 
     void OnDisable()
     {
-        CardInventoryUI.OnCardSelected -= PlayCardVideo;
+        //CardInventoryUI.OnCardSelected -= PlayCardVideo;
     }
 
     /* ----------------- 切换视频 ----------------- */

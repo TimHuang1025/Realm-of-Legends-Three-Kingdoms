@@ -5,9 +5,9 @@ using UnityEngine;
 /// <summary>
 /// 统一管理玩家资源（单例 + JSON 存档）
 /// </summary>
-public class PlayerBank : MonoBehaviour
+public class PlayerResourceBank  : MonoBehaviour
 {
-    public static PlayerBank I { get; private set; }
+    public static PlayerResourceBank  I { get; private set; }
 
     [SerializeField] private PlayerResources data;   // Inspector 拖 ScriptableObject
     private const string SaveFile = "player_bank.json";

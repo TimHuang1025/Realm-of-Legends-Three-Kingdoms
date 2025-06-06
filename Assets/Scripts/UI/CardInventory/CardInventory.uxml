@@ -18,7 +18,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="RightSidePanel" style="flex-grow: 1;">
-                <ui:VisualElement name="Cards" style="flex-grow: 1; height: 100%; top: 0%; position: relative; width: 100%; display: flex;">
+                <ui:VisualElement name="Cards" style="flex-grow: 1; height: 100%; top: 0%; position: relative; width: 100%; display: none;">
                     <ui:VisualElement name="OrderContainer" style="align-items: center; height: 12%; flex-direction: row-reverse; justify-content: space-between; flex-shrink: 0;">
                         <ui:Button name="OrderButton" text="排序" class="smallbtns" style="width: 20%; height: 80%; margin-right: 10%; margin-top: 1%; letter-spacing: 0;" />
                         <ui:VisualElement name="Mat2Bar" class="smallbtns" style="flex-grow: 0; height: 45%; flex-direction: row; flex-shrink: 0; width: 251px; letter-spacing: 0;">
@@ -40,22 +40,22 @@
                         <ui:Button name="InfoBtn" text="详情&#x9;" class="bigBtn" style="width: 42.5%; height: 60%; right: auto;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Info" style="flex-grow: 0; width: 100%; height: 100%; display: none;">
+                <ui:VisualElement name="Info" style="flex-grow: 0; width: 100%; height: 100%; display: flex;">
                     <ui:VisualElement name="InfoBar" style="flex-grow: 0; height: 12%; display: flex;" />
                     <ui:VisualElement name="InfoPanel" style="flex-grow: 1; background-color: rgb(177, 160, 138); margin-left: 0; margin-top: 10px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); padding-top: 30px; padding-right: 30px; padding-bottom: 30px; padding-left: 30px; border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; display: flex;">
                         <ui:VisualElement name="LevelStats" style="flex-grow: 0; flex-direction: row;">
                             <ui:VisualElement name="Level" style="flex-grow: 0;">
-                                <ui:Label text="等级34" class="title" />
+                                <ui:Label text="等级34" name="CardLvLbl" class="title" />
                             </ui:VisualElement>
                             <ui:VisualElement name="StarLevel" style="flex-grow: 0; flex-direction: row; flex-shrink: 0; width: 25%;">
-                                <ui:VisualElement name="Star1" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
-                                <ui:VisualElement name="Star2" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
-                                <ui:VisualElement name="Star3" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
-                                <ui:VisualElement name="Star4" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
-                                <ui:VisualElement name="Star5" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newnostar1.png?fileID=2800000&amp;guid=8504f353272c0784dad404ea941450f7&amp;type=3#newnostar1&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
+                                <ui:VisualElement name="DynStar1" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
+                                <ui:VisualElement name="DynStar2" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
+                                <ui:VisualElement name="DynStar3" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
+                                <ui:VisualElement name="DynStar4" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
+                                <ui:VisualElement name="DynStar5" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newnostar1.png?fileID=2800000&amp;guid=8504f353272c0784dad404ea941450f7&amp;type=3#newnostar1&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Strength" style="flex-grow: 1;">
-                                <ui:Label text="战力62321" class="title" style="flex-grow: 1; -unity-text-align: upper-right;" />
+                                <ui:Label text="战力" class="title" style="flex-grow: 1; -unity-text-align: upper-right;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="InfoStatsPanel" style="flex-grow: 0; flex-direction: row; align-self: center; justify-content: space-between; align-items: stretch; flex-shrink: 0; align-content: center;">
@@ -65,21 +65,21 @@
                                         <ui:VisualElement style="flex-grow: 1; height: 100%; justify-content: space-evenly;">
                                             <ui:VisualElement name="InfoAtkPanel" class="skilltextinfo" style="flex-grow: 0; flex-direction: row;">
                                                 <ui:Label text="攻击" name="InfoAtkTitle" />
-                                                <ui:Label text="4731" name="InfoAtkStats" emoji-fallback-support="true" />
+                                                <ui:Label text="4731" name="InfoAtkStatsLbl" emoji-fallback-support="true" />
                                             </ui:VisualElement>
-                                            <ui:VisualElement name="InfoIQPanel" class="skilltextinfo" style="flex-grow: 0; flex-direction: row;">
-                                                <ui:Label text="防御" name="InfoIQTitle" />
-                                                <ui:Label text="5343" name="InfoIQStats" />
+                                            <ui:VisualElement name="InfoIntPanel" class="skilltextinfo" style="flex-grow: 0; flex-direction: row;">
+                                                <ui:Label text="智力" name="InfoIQTitle" />
+                                                <ui:Label text="5343" name="InfoIntStatLbl" />
                                             </ui:VisualElement>
                                         </ui:VisualElement>
                                         <ui:VisualElement style="flex-grow: 1; justify-content: space-evenly;">
                                             <ui:VisualElement name="InfoDefPanel" class="skilltextinfo" style="flex-grow: 0; flex-direction: row;">
-                                                <ui:Label text="智力" name="InfoDefTitle" />
-                                                <ui:Label text="4365" name="InfoDefStats" />
+                                                <ui:Label text="防御" name="InfoDefTitle" />
+                                                <ui:Label text="4365" name="InfoDefStatLbl" />
                                             </ui:VisualElement>
-                                            <ui:VisualElement name="InfoLeaderPanel" class="skilltextinfo" style="flex-grow: 0; flex-direction: row;">
-                                                <ui:Label text="统御" name="InfoLedTitle" />
-                                                <ui:Label text="4365" name="InfoLedStats" />
+                                            <ui:VisualElement name="InfoCmdPanel" class="skilltextinfo" style="flex-grow: 0; flex-direction: row;">
+                                                <ui:Label text="统御" name="InfoCmdTitle" />
+                                                <ui:Label text="4365" name="InfoCmdStatLbl" />
                                             </ui:VisualElement>
                                         </ui:VisualElement>
                                     </ui:VisualElement>
@@ -90,20 +90,20 @@
                                     </ui:VisualElement>
                                 </ui:VisualElement>
                                 <ui:VisualElement style="flex-grow: 1; width: 65%; height: 60%; flex-shrink: 0; justify-content: center;">
-                                    <ui:Label text="武将碎片 x10" name="HeroFragments" style="font-size: 37px; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;);" />
+                                    <ui:Label text="武将碎片 x10" name="HeroFragmentsLbl" style="font-size: 37px; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;);" />
                                     <ui:VisualElement name="GiftHero" style="flex-grow: 1; flex-direction: row; width: 128%; align-items: center; margin-top: 0%; margin-bottom: 0%; flex-shrink: 0;">
                                         <ui:Label text="拜将" name="HeroGiftLv" style="-unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); font-size: 37px; color: rgb(155, 0, 0); -unity-font-style: normal;" />
                                         <ui:ProgressBar value="61" enabled="true" focusable="false" name="HeroGiftProgress" style="width: auto; align-self: center; flex-grow: 1; background-color: rgba(0, 0, 0, 0); font-size: 31px;" />
                                     </ui:VisualElement>
                                     <ui:VisualElement name="InfoTextContainer" style="flex-grow: 0; height: 106px; flex-wrap: wrap; background-color: rgb(217, 217, 217); flex-shrink: 0; width: 536px; -unity-text-align: middle-left; align-items: center; justify-content: center; margin-bottom: 9%; margin-right: 0%; margin-top: 0%;">
-                                        <ui:Label text="张飞，蜀汉名将，性格刚烈勇猛，曾于长坂桥怒吼退敌、以万夫不当之勇威震三国。" style="flex-wrap: wrap; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); font-size: 26px; white-space: normal; -unity-text-align: middle-left;" />
+                                        <ui:Label text="张飞，蜀汉名将，性格刚烈勇猛，曾于长坂桥怒吼退敌、以万夫不当之勇威震三国。" name="HeroDescription" style="flex-wrap: wrap; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); font-size: 26px; white-space: normal; -unity-text-align: middle-left;" />
                                     </ui:VisualElement>
                                 </ui:VisualElement>
                             </ui:VisualElement>
                             <ui:VisualElement name="EquipmentPanel" style="flex-grow: 0; flex-direction: column; height: 206px; flex-shrink: 0; width: 98px; align-self: flex-start; align-items: center; justify-content: space-evenly; margin-right: 0%;">
-                                <ui:VisualElement name="weaponslot" class="equipmentlocked" style="flex-grow: 0;" />
-                                <ui:VisualElement name="armorslot" class="equipmentlocked" style="flex-grow: 0;" />
-                                <ui:VisualElement name="horseslot" class="equipmentlocked" style="flex-grow: 0;" />
+                                <ui:VisualElement name="weaponslot" style="flex-grow: 0;" />
+                                <ui:VisualElement name="armorslot" style="flex-grow: 0;" />
+                                <ui:VisualElement name="horseslot" style="flex-grow: 0;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="BtnPanel" style="flex-grow: 0; flex-direction: row; justify-content: space-between; align-items: stretch; align-self: center; flex-shrink: 0; align-content: center;">
