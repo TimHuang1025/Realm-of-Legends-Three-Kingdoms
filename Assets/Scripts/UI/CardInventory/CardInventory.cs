@@ -524,7 +524,7 @@ public class CardInventory : MonoBehaviour
         bool hasWeapon = equip != null && !string.IsNullOrEmpty(equip.weaponId);
         bool hasArmor  = equip != null && !string.IsNullOrEmpty(equip.armorId);
         bool hasMount  = equip != null && !string.IsNullOrEmpty(equip.accessoryId);
-        Debug.Log(hasWeapon + " " + hasArmor + " " + hasMount);
+        //Debug.Log(hasWeapon + " " + hasArmor + " " + hasMount);
 
         BindEquipSlot(weapon, hasWeapon);
         BindEquipSlot(armor,  hasArmor);

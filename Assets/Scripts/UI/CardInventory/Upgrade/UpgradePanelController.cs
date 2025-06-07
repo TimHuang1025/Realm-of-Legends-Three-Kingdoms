@@ -171,7 +171,7 @@ public class UpgradePanelController : MonoBehaviour, IUIPanelController
         //afterCmdLbl.text  = (cmd + dCmd).ToString();
 
         addAtkLbl.text = $"+{dAtk}";
-        Debug.Log($"UpgradePanel: {info} Lv{lvNow} -> Lv{lvNext}, Atk {atk} -> {atk + dAtk}");
+        //Debug.Log($"UpgradePanel: {info} Lv{lvNow} -> Lv{lvNext}, Atk {atk} -> {atk + dAtk}");
         addDefLbl.text = $"+{dDef}";
         addIntLbl.text = $"+{dInt}";
         //addCmdLbl.text = $"+{dCmd}";

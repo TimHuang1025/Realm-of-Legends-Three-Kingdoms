@@ -447,13 +447,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ef2995a5655844f97435319a529907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroSelectionPanel: {fileID: 904759561}
   uiDocument: {fileID: 727382614}
-  minPercentage: 0
+  heroSelectionPanel: {fileID: 904759561}
   cardDB: {fileID: 11400000, guid: 194b4ea67c7b6bd4d9d285197114bef5, type: 2}
-  playerBaseController: {fileID: 1844380995}
   lineupDB: {fileID: 11400000, guid: d2db380b7148dc64a8e446256bb7521c, type: 2}
-  activeLineupIndex: 0
+  playerBaseController: {fileID: 1844380995}
+  minPercentage: 0
 --- !u!114 &727382614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,6 +774,8 @@ MonoBehaviour:
   upgradePanelCtrl: {fileID: 1064857533}
   vhSizer: {fileID: 1064857534}
   cardInv: {fileID: 1063526871}
+  activeSkillDB: {fileID: 11400000, guid: 00cf314ffbc8eb740992c68892b4fc66, type: 2}
+  passiveSkillDB: {fileID: 11400000, guid: d742edebbbf1bbb45b2b0959b6d19462, type: 2}
 --- !u!114 &1063526871
 MonoBehaviour:
   m_ObjectHideFlags: 0

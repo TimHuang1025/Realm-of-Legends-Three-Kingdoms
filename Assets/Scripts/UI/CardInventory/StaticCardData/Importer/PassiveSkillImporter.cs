@@ -1,78 +1,113 @@
+// Assets/Editor/PassiveSkillImporter.cs
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Game.Core;
+#endif
 
 public static class PassiveSkillImporter
 {
-    [MenuItem("Tools/SkillDB/Import Passive Skill JSON")]
+#if UNITY_EDITOR
+    [MenuItem("Tools/Import PassiveSkill JSON")]
     public static void Import()
     {
-        var path = EditorUtility.OpenFilePanel("选择 passive_skill.json", Application.dataPath, "json");
-        if (string.IsNullOrEmpty(path)) return;
+        /*── A. 让用户选 JSON ─────────────────────*/
+        string jsonPath = EditorUtility.OpenFilePanel("选择被动技能 JSON", "Assets", "json");
+        if (string.IsNullOrEmpty(jsonPath)) return;
+        string jsonText = File.ReadAllText(jsonPath);
+        var root = JObject.Parse(jsonText);
 
-        // 1) 反序列化为字典
-        var root = JsonConvert.DeserializeObject<Dictionary<string, object>>(File.ReadAllText(path));
-        if (root == null) { Debug.LogError("解析失败"); return; }
-
-        // 2) 全局字段
-        root.TryGetValue("image_path", out var imgObj);
-        var imagePath = ((string)imgObj)?.TrimEnd('/', '\\') + "/";
-
-        // 3) 技能条目解析
-        var list = new List<PassiveSkillInfo>();
-        foreach (var (key, val) in root)
+        /*── B. 找目标 PassiveSkillDatabase ───────*/
+        PassiveSkillDatabase db = Selection.activeObject as PassiveSkillDatabase;
+        if (db == null)
         {
-            if (!key.StartsWith("P")) continue;           // 只处理编号 P1~Pn
+            // 没有选中：询问是否创建
+            if (EditorUtility.DisplayDialog("未选中 Database",
+                "你没有在 Project 面板选中 PassiveSkillDatabase 资源。\n\n" +
+                "要在 Resources 目录自动创建新的 DB 吗？",
+                "创建新的", "取消") == false)
+                return;
 
-            var raw = JsonConvert.DeserializeObject<RawSkill>(val.ToString());
+            const string dirPath   = "Assets/Resources";
+            const string assetPath = "Assets/Resources/PassiveSkillDB.asset";
 
-            var info = new PassiveSkillInfo
+            if (!AssetDatabase.IsValidFolder(dirPath))
+                AssetDatabase.CreateFolder("Assets", "Resources");
+
+            db = AssetDatabase.LoadAssetAtPath<PassiveSkillDatabase>(assetPath);
+            if (db == null)
             {
-                id          = key,
-                name        = raw.name,
-                cnName      = raw.cn_name,
-                timing      = (SkillTiming)int.Parse(raw.type),
-                description = raw.Description,
-                baseValue   = raw.value
-            };
-
-            // 4) 自动装载图标（可选）
-            var iconPath = $"{imagePath}{key}.png";       // 建议命名：P1.png …
-            info.iconSprite = AssetDatabase.LoadAssetAtPath<Sprite>(iconPath);
-
-            list.Add(info);
+                db = ScriptableObject.CreateInstance<PassiveSkillDatabase>();
+                AssetDatabase.CreateAsset(db, assetPath);
+            }
         }
 
-        if (list.Count == 0)
+        /*── C. 解析倍率表 ────────────────────────*/
+        var tierDict  = ParseFloatDict(root["tier_multiplier"]  as JObject);
+        var levelDict = ParseIntFloatDict(root["level_multiplier"] as JObject);
+
+        /*── D. 解析技能条目 ──────────────────────*/
+        string imgPrefix = root["image_path"]?.Value<string>() ?? "";
+        var skills = new List<PassiveSkillInfo>();
+        foreach (var prop in root.Properties())
         {
-            Debug.LogError("⚠️ 未找到任何 P 编号技能，检查 JSON");
-            return;
+            if (!prop.Name.StartsWith("P")) continue;
+            var s = (JObject)prop.Value;
+
+            skills.Add(new PassiveSkillInfo
+            {
+                id          = prop.Name,
+                name        = s["name"]?.Value<string>(),
+                cnName      = s["cn_name"]?.Value<string>(),
+                timing      = (SkillTiming)(s["type"]?.Value<int>() ?? 0),
+                description = s["Description"]?.Value<string>(),
+                baseValue   = s["value"]?.Value<float>() ?? 0f,
+                iconSprite  = LoadSprite(imgPrefix, prop.Name)
+            });
         }
 
-        // 5) 写入 ScriptableObject
-        if (!(Selection.activeObject is PassiveSkillDatabase db))
-        {
-            Debug.LogError("请先选中 PassiveSkillDatabase.asset 再导入");
-            return;
-        }
-
-        typeof(PassiveSkillDatabase)
-            .GetField("skills", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-            .SetValue(db, list);
+        /*── E. 写入并保存 ───────────────────────*/
+        db.SetTierTable(tierDict);
+        db.SetLevelTable(levelDict);
+        db.SetSkillList(skills);
 
         EditorUtility.SetDirty(db);
         AssetDatabase.SaveAssets();
-        Debug.Log($"✅ 被动技能导入完成：{list.Count} 条；图标目录：{imagePath}");
+        AssetDatabase.Refresh();
+
+        Debug.Log($"已导入 {skills.Count} 条技能到 {AssetDatabase.GetAssetPath(db)}");
     }
 
-    private class RawSkill
+    /*──────── 辅助函数 ────────*/
+    static Dictionary<string,float> ParseFloatDict(JObject obj)
     {
-        public string name;
-        public string cn_name;
-        public string type;
-        public string Description;
-        public float  value;
+        var dict = new Dictionary<string,float>();
+        if (obj != null)
+            foreach (var kv in obj)
+                dict[kv.Key] = kv.Value.Value<float>();
+        return dict;
     }
+    static Dictionary<int,float> ParseIntFloatDict(JObject obj)
+    {
+        var dict = new Dictionary<int,float>();
+        if (obj != null)
+            foreach (var kv in obj)
+                dict[int.Parse(kv.Key)] = kv.Value.Value<float>();
+        return dict;
+    }
+    static Sprite LoadSprite(string dir, string id)
+    {
+        if (string.IsNullOrEmpty(dir)) return null;
+        string assetPath = Path.Combine(dir, $"{id}.png")
+                             .Replace(Application.dataPath, "Assets")
+                             .Replace("\\", "/");
+        var tex = AssetDatabase.LoadAssetAtPath<Texture2D>(assetPath);
+        return tex ? Sprite.Create(tex,
+                new Rect(0,0,tex.width,tex.height),
+                new Vector2(0.5f,0.5f), 100) : null;
+    }
+#endif
 }

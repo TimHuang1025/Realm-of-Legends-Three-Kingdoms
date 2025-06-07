@@ -18,7 +18,14 @@ public class CardInventoryUI : MonoBehaviour
     [SerializeField] UpgradePanelController upgradePanelCtrl;
     [SerializeField] VhSizer vhSizer;
     [SerializeField] private CardInventory cardInv;
-    private VisualElement[] starSlots;  
+    [SerializeField] private ActiveSkillDatabase activeSkillDB;
+    [SerializeField] private PassiveSkillDatabase passiveSkillDB;
+    private VisualElement[] starSlots;
+    VisualElement mainSkillImg;
+    Label mainSkillNameLbl, mainSkillDescLbl;
+    VisualElement passive1Img, passive2Img;
+    Label passive1NameLbl, passive1DescLbl;
+    Label passive2NameLbl, passive2DescLbl;
 
     /*──────── 私有 UI 元素 ────────*/
     VisualElement cardsVe, infoVe;
@@ -77,6 +84,19 @@ public class CardInventoryUI : MonoBehaviour
         closeInfoBtn?.RegisterCallback<ClickEvent>(_ => CloseInfoPanel());
         gachaBtn?.RegisterCallback<ClickEvent>(_ => playerBaseController.ShowGachaPage());
 
+        /*──── 卡牌技能 ────*/
+        mainSkillImg = root.Q<VisualElement>("MainSkillImage");
+        mainSkillNameLbl = root.Q<Label>("MainSkillNameLbl");
+        mainSkillDescLbl = root.Q<Label>("MainSkillDescriptionLbl");
+        /* 主动技能节点已缓存，下面只缓存被动 */
+        passive1Img      = root.Q<VisualElement>("Passive1Image");
+        passive1NameLbl  = root.Q<Label>("Passive1NameLbl");
+        passive1DescLbl  = root.Q<Label>("Passive1DescLbl");
+
+        passive2Img      = root.Q<VisualElement>("Passive2Image");
+        passive2NameLbl  = root.Q<Label>("Passive2NameLbl");
+        passive2DescLbl  = root.Q<Label>("Passive2DescLbl");
+
         /*──── 监听卡牌升级／获得 ────*/
         if (PlayerCardBankMgr.I != null)
             PlayerCardBankMgr.I.onCardChanged += OnCardChanged;
@@ -102,6 +122,7 @@ public class CardInventoryUI : MonoBehaviour
         CardInventory.RefreshEquipSlots(currentDyn, root);             // 三大槽
         unitGiftLevel.SetData(currentStatic, currentDyn);
         unitGiftLevel.RefreshUI();
+        RefreshPassiveSkillUI(currentStatic, currentDyn);
     }
 
     /*========================================
@@ -153,6 +174,9 @@ public class CardInventoryUI : MonoBehaviour
         giftBtn.SetEnabled(owned);
         SetInfoPanelData(info, dyn);
 
+        RefreshActiveSkillUI(info);
+        RefreshPassiveSkillUI(info, dyn);
+
         // 5) 如果 Info 子页当前正在显示，可能要根据新数据重新排版
         vhSizer?.Apply();
     }
@@ -163,7 +187,7 @@ public class CardInventoryUI : MonoBehaviour
     void SetInfoPanelData(CardInfoStatic info, PlayerCard dyn)
     {
         if (info == null) return;   // 安全兜底
-        Debug.Log($"[SetInfoPanelData] {info?.id}  atk={LevelStatCalculator.CalculateStats(info, dyn).Atk}");
+        //Debug.Log($"[SetInfoPanelData] {info?.id}  atk={LevelStatCalculator.CalculateStats(info, dyn).Atk}");
 
         RefreshStars(dyn);
 
@@ -245,7 +269,7 @@ public class CardInventoryUI : MonoBehaviour
     void RefreshStars(PlayerCard dyn)
     {
         int rank = Mathf.Clamp(dyn?.star ?? 0, 0, 5);
-        Debug.Log($"[RefreshStars] {currentStatic?.id} rank={rank}");
+        //Debug.Log($"[RefreshStars] {currentStatic?.id} rank={rank}");
 
         for (int i = 0; i < 5; i++)
         {
@@ -258,6 +282,70 @@ public class CardInventoryUI : MonoBehaviour
                     : cardInv.EmptyStarSprite);
         }
     }
+
+    void RefreshActiveSkillUI(CardInfoStatic info)
+    {
+        if (activeSkillDB == null || info == null) return;
+
+        // 直接取静态表里的主动技能 ID
+        var skill = activeSkillDB.Get(info.activeSkillId);
+        if (skill == null) return;
+
+        /* 图标 */
+        mainSkillImg.style.backgroundImage = new StyleBackground(skill.iconSprite);
+
+        /* 名称 */
+        mainSkillNameLbl.text = skill.cnName;
+
+        /* 描述 */
+        mainSkillDescLbl.text = skill.description;
+    }
+    void RefreshPassiveSkillUI(CardInfoStatic info, PlayerCard dyn)
+    {
+        if (passiveSkillDB == null || info == null) return;
+
+        // ▸ 被动 1
+        ApplyPassive(
+            info.passiveOneId,
+            passive1Img, passive1NameLbl, passive1DescLbl,
+            info, dyn);
+
+        // ▸ 被动 2（可选）
+        ApplyPassive(
+            info.passiveTwoId,
+            passive2Img, passive2NameLbl, passive2DescLbl,
+            info, dyn);
+    }
+
+    void ApplyPassive(
+        string id,
+        VisualElement img, Label nameLbl, Label descLbl,
+        CardInfoStatic info, PlayerCard dyn)
+    {
+        var ps = passiveSkillDB.Get(id);
+        if (ps == null)
+        {
+            img.style.backgroundImage = null;
+            nameLbl.text = "—";
+            descLbl.text = "";
+            return;
+        }
+
+        /* 1) 图标 */
+        img.style.backgroundImage = new StyleBackground(ps.iconSprite);
+
+        /* 2) 名称 */
+        nameLbl.text = ps.cnName;
+
+        /* 3) 描述（{X}→百分比） */
+        float pct = SkillValueCalculator.CalcPercent(
+                        ps.baseValue, info, dyn, passiveSkillDB);
+        string desc = ps.description.Replace("{X}", pct.ToString("0.#"));
+        descLbl.text = desc;
+    }
+
+
+
 }
 
 
