@@ -147,4 +147,8 @@ public class PlayerCardBankMgr : MonoBehaviour
         if (File.Exists(path))
             JsonUtility.FromJsonOverwrite(File.ReadAllText(path), data);
     }
+    public void BroadcastCardUpdated(string id)
+    {
+        onCardUpdated?.Invoke(id);
+    }
 }

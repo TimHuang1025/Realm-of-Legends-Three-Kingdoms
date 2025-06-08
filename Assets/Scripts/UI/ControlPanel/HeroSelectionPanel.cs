@@ -145,19 +145,15 @@ public class HeroSelectionPanel : MonoBehaviour
                 if (info == null) { idx++; continue; } // 若静态缺失
 
                 // 工厂生成卡片 UI
-                var cardVe = cardFactory.BuildCard(info);
+                var cardVe = cardFactory.BuildCard(info, (stat, dyn) =>
+                {
+                    // 这里可以添加卡片点击时的额外逻辑
+                    onSelected?.Invoke(info, dyn);
+                          Close();
+                });
 
                 if (c > 0)
                     cardVe.style.marginLeft = colGap;
-
-                // 点击：回调并关闭
-                cardVe.Q<Button>("CardRoot")
-                      ?.RegisterCallback<ClickEvent>(_ =>
-                      {
-                          onSelected?.Invoke(info, dyn);
-                          Close();
-                      });
-
                 row.Add(cardVe);
                 idx++;
             }

@@ -33,14 +33,14 @@ MonoBehaviour:
     timing: 1
     description: "\u6211\u65B9\u58EB\u5175\u9020\u6210\u7684\u4F24\u5BB3\u63D0\u9AD8{X}%"
     baseValue: 0.166
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: 8765016074337506079, guid: bb9fb456df9702b48a282a5262349e6e, type: 3}
   - id: P4
     name: Commander's Wrath
     cnName: "\u5C06\u5A01\u5982\u5C71"
     timing: 1
     description: "\u6211\u65B9\u6B66\u5C06\u9020\u6210\u7684\u4F24\u5BB3\u63D0\u9AD8{X}%"
     baseValue: 0.12
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: -7135256032413534146, guid: 6976e5b0f612a964fa28c3d5267cef3a, type: 3}
   - id: P5
     name: Cavalry Shield
     cnName: "\u5FA1\u9A6C\u94C1\u536B"
@@ -61,35 +61,35 @@ MonoBehaviour:
     timing: 1
     description: "\u6211\u65B9\u8FDC\u7A0B\u58EB\u5175\u53D7\u5230\u4F24\u5BB3\u51CF\u5C11{X}%"
     baseValue: 0.12
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: 2481720202338741449, guid: ac3b77f4d9b1d2b40909dc19d120adbd, type: 3}
   - id: P8
     name: Cavalry Onslaught
     cnName: "\u94C1\u9A91\u51B2\u950B"
     timing: 1
     description: "\u6211\u65B9\u9A91\u5175\u9020\u6210\u7684\u4F24\u5BB3\u63D0\u9AD8{X}%"
     baseValue: 0.23
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: -5688936185963363097, guid: 06cecfe644cfb6943adab82dbb8a2931, type: 3}
   - id: P9
     name: Blade Surge
     cnName: "\u950B\u5203\u7A81\u88AD"
     timing: 1
     description: "\u6211\u65B9\u8FD1\u6218\u58EB\u5175\u9020\u6210\u7684\u4F24\u5BB3\u63D0\u9AD8{X}%"
     baseValue: 0.23
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: 393795715671983221, guid: 262d587e024edcf43848505aba921dce, type: 3}
   - id: P10
     name: Precision Volley
     cnName: "\u767E\u6B65\u7A7F\u6768"
     timing: 1
     description: "\u6211\u65B9\u8FDC\u7A0B\u58EB\u5175\u9020\u6210\u7684\u4F24\u5BB3\u63D0\u9AD8{X}%"
     baseValue: 0.23
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: 272331419278525259, guid: af31595271d0d1b4cb49c340c4a1a7ca, type: 3}
   - id: P11
     name: Siege Dominance
     cnName: "\u7834\u57CE\u4E4B\u52BF"
     timing: 1
     description: "\u653B\u57CE\u65F6\u9020\u6210\u7684\u4F24\u5BB3\u63D0\u9AD8{X}%"
     baseValue: 0.1
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: -58588317123409735, guid: 2981180002338ca478a62641878784bd, type: 3}
   - id: P12
     name: Defender;s Vow
     cnName: "\u6B7B\u5B88\u4E4B\u5FD7"
@@ -103,7 +103,7 @@ MonoBehaviour:
     timing: 0
     description: "\u63D0\u9AD8{X}%\u79FB\u901F"
     baseValue: 0.1
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: 6987865350413798740, guid: 2395d3981a8556c4fba1af21c7f84ce8, type: 3}
   - id: P14
     name: Overwhelming Edge
     cnName: "\u538B\u5236\u4E4B\u950B"

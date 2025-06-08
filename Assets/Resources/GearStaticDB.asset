@@ -1,0 +1,247 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b386791b616b384da2ed76920d2bf91, type: 3}
+  m_Name: GearStaticDB
+  m_EditorClassIdentifier: 
+  gears:
+  - id: weapon_1
+    name: "\u9752\u9F99\u5043\u6708\u5200"
+    kind: 0
+    tier: 1
+    valueMultiplier:
+    - 0.9
+    - 0.5
+    iconSprite: {fileID: 0}
+  - id: weapon_2
+    name: "\u96CC\u96C4\u53CC\u5251"
+    kind: 0
+    tier: 1
+    valueMultiplier:
+    - 0.8
+    - 0.6
+    iconSprite: {fileID: 0}
+  - id: weapon_3
+    name: "\u65B9\u5929\u753B\u621F"
+    kind: 0
+    tier: 1
+    valueMultiplier:
+    - 1
+    - 0.4
+    iconSprite: {fileID: 0}
+  - id: weapon_4
+    name: "\u4E03\u661F\u5B9D\u5200"
+    kind: 0
+    tier: 0
+    valueMultiplier:
+    - 1
+    - 0
+    iconSprite: {fileID: 0}
+  - id: weapon_5
+    name: "\u8D64\u9704\u5B9D\u5251"
+    kind: 0
+    tier: 0
+    valueMultiplier:
+    - 0
+    - 1
+    iconSprite: {fileID: 0}
+  - id: weapon_6
+    name: "\u864E\u7FFC\u94C1\u5200"
+    kind: 0
+    tier: 6
+    valueMultiplier:
+    - 0.7
+    - 0.6
+    iconSprite: {fileID: 0}
+  - id: weapon_7
+    name: "\u6D41\u661F\u9524"
+    kind: 0
+    tier: 6
+    valueMultiplier:
+    - 0.8
+    - 0.5
+    iconSprite: {fileID: 0}
+  - id: weapon_8
+    name: "\u79CB\u6C34\u5BD2\u67AA"
+    kind: 0
+    tier: 6
+    valueMultiplier:
+    - 0.9
+    - 0.4
+    iconSprite: {fileID: 0}
+  - id: weapon_9
+    name: "\u4E09\u94A9\u53C9"
+    kind: 0
+    tier: 5
+    valueMultiplier:
+    - 1
+    - 0
+    iconSprite: {fileID: 0}
+  - id: weapon_10
+    name: "\u73AF\u9996\u5200"
+    kind: 0
+    tier: 5
+    valueMultiplier:
+    - 0
+    - 1
+    iconSprite: {fileID: 0}
+  - id: weapon_11
+    name: "\u94C1\u5934\u67AA"
+    kind: 0
+    tier: 10
+    valueMultiplier:
+    - 1
+    - 0
+    iconSprite: {fileID: 0}
+  - id: weapon_12
+    name: "\u94F8\u94DC\u73AF\u5200"
+    kind: 0
+    tier: 10
+    valueMultiplier:
+    - 0
+    - 1
+    iconSprite: {fileID: 0}
+  - id: armor_1
+    name: "\u9F99\u80C6\u5723\u94E0"
+    kind: 1
+    tier: 1
+    valueMultiplier:
+    - 0.5
+    - 0.9
+    iconSprite: {fileID: 0}
+  - id: armor_2
+    name: "\u9752\u7EF8\u795E\u8863"
+    kind: 1
+    tier: 1
+    valueMultiplier:
+    - 0.4
+    - 1
+    iconSprite: {fileID: 0}
+  - id: armor_3
+    name: "\u9E92\u9E9F\u91D1\u94E0"
+    kind: 1
+    tier: 1
+    valueMultiplier:
+    - 0.6
+    - 0.8
+    iconSprite: {fileID: 0}
+  - id: armor_4
+    name: "\u864E\u536B\u94C1\u7532"
+    kind: 1
+    tier: 0
+    valueMultiplier:
+    - 1
+    - 0
+    iconSprite: {fileID: 0}
+  - id: armor_5
+    name: "\u51E4\u7FBD\u9526\u94E0"
+    kind: 1
+    tier: 0
+    valueMultiplier:
+    - 0
+    - 1
+    iconSprite: {fileID: 0}
+  - id: armor_6
+    name: "\u7384\u6B66\u91CD\u80C4"
+    kind: 1
+    tier: 6
+    valueMultiplier:
+    - 0.6
+    - 0.7
+    iconSprite: {fileID: 0}
+  - id: armor_7
+    name: "\u8D64\u4E4C\u62A4\u7532"
+    kind: 1
+    tier: 6
+    valueMultiplier:
+    - 0.5
+    - 0.8
+    iconSprite: {fileID: 0}
+  - id: armor_8
+    name: "\u82CD\u72FC\u6218\u94E0"
+    kind: 1
+    tier: 6
+    valueMultiplier:
+    - 0.4
+    - 0.9
+    iconSprite: {fileID: 0}
+  - id: armor_9
+    name: "\u9752\u5E03\u6B66\u888D"
+    kind: 1
+    tier: 5
+    valueMultiplier:
+    - 1
+    - 0
+    iconSprite: {fileID: 0}
+  - id: armor_10
+    name: "\u94C1\u76AE\u675F\u7532"
+    kind: 1
+    tier: 5
+    valueMultiplier:
+    - 0
+    - 1
+    iconSprite: {fileID: 0}
+  - id: armor_11
+    name: "\u94DC\u76AE\u7532"
+    kind: 1
+    tier: 10
+    valueMultiplier:
+    - 1
+    - 0
+    iconSprite: {fileID: 0}
+  - id: armor_12
+    name: "\u85E4\u7F16\u62A4\u8EAB"
+    kind: 1
+    tier: 10
+    valueMultiplier:
+    - 0
+    - 1
+    iconSprite: {fileID: 0}
+  valueCoeArr:
+  - tier: 1
+    value: 3.7
+  - tier: 0
+    value: 3.7
+  - tier: 6
+    value: 8
+  - tier: 5
+    value: 7.2
+  valuePowArr:
+  - tier: 1
+    value: 3
+  - tier: 0
+    value: 3
+  - tier: 6
+    value: 2.5
+  - tier: 5
+    value: 2.6
+  ironCostCoeArr:
+  - tier: 1
+    value: 5.4
+  - tier: 0
+    value: 5.3
+  - tier: 6
+    value: 4.8
+  - tier: 5
+    value: 4.8
+  ironCostPowArr:
+  - tier: 1
+    value: 1.8
+  - tier: 0
+    value: 1.5
+  - tier: 6
+    value: 1.55
+  - tier: 5
+    value: 1.55
+  fineWoodCoeArr: []
+  fineWoodPowArr: []
+  steelCoeArr: []
+  steelPowArr: []

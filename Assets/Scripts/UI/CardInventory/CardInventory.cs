@@ -3,6 +3,8 @@ using UnityEngine.UIElements;
 using Kamgam.UIToolkitScrollViewPro;
 using System.Collections.Generic;
 using System.Linq;
+using System; 
+using Game.Core;                      // CardDatabaseStatic, CardInfoStatic
 
 [RequireComponent(typeof(UIDocument))]
 public class CardInventory : MonoBehaviour
@@ -288,7 +290,7 @@ public class CardInventory : MonoBehaviour
     /// <summary>
     /// 生成单张武将卡的 UI（已兼容“未拥有”灰显、四维星级等）
     /// </summary>
-    public VisualElement BuildCard(CardInfoStatic info)
+    public VisualElement BuildCard(CardInfoStatic info,Action<CardInfoStatic, PlayerCard> onClickOverride = null)
     {
         /*── 1. 实例化模板 ───────────────────────*/
         var container = cardTemplate.Instantiate();
@@ -306,12 +308,25 @@ public class CardInventory : MonoBehaviour
 
         cardBtn.userData = info;              // 静态放进 userData
         cardBtnMap[info.id] = cardBtn;        // 记录映射
+        var cardRoot = new Button
+        {
+            name  = "CardRoot"          // 供 Q<Button>("CardRoot") 使用
+        };
+        cardRoot.AddToClassList("cardroot"); // 让 USS 宽高、边框等样式生效
+
+        // 如果模板 USS 被删，依然兜底 210×210
+        cardRoot.style.width  = 210;
+        cardRoot.style.height = 210;
+
+        // 可聚焦，方便 ScrollViewPro 定位
+        cardRoot.focusable = true;
+        cardRoot.tabIndex  = 0;
 
         /*── 3. 静态视觉（头像 / 边框）──────────*/
         if (info.iconSprite != null)
         {
-            cardBtn.style.backgroundImage           = new StyleBackground(info.iconSprite);
-            cardBtn.style.unityBackgroundScaleMode  = ScaleMode.ScaleToFit;
+            cardBtn.style.backgroundImage = new StyleBackground(info.iconSprite);
+            cardBtn.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
         }
 
         Color borderCol = info.tier switch
@@ -336,6 +351,25 @@ public class CardInventory : MonoBehaviour
             lvlLabel.text = pCard.level.ToString();
             FillStars(starPanel, pCard.star);
             RefreshEquipSlots(pCard, container);
+            var weaponSlot = container.Q<Button>("weaponslot");
+            var armorSlot  = container.Q<Button>("armorslot");
+            var mountSlot  = container.Q<Button>("horseslot");
+
+            if (weaponSlot != null)
+                weaponSlot.RegisterCallback<ClickEvent>(
+                    //_ => inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Weapon));
+                    _ =>Debug.Log("weapon click"));
+
+
+            if (armorSlot != null)
+                armorSlot.RegisterCallback<ClickEvent>(
+                    _ => inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Armor));
+
+/*
+            if (mountSlot != null)
+                mountSlot.RegisterCallback<ClickEvent>(
+                    _ => inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Mount));
+*/      
         }
         else
         {
@@ -367,14 +401,21 @@ public class CardInventory : MonoBehaviour
         /*── 6. 点击 / 聚焦 行为 ───────────────*/
         cardBtn.clicked += () =>
         {
+            if (onClickOverride != null)
+            {
+                onClickOverride(info, pCard);
+            }
+            else
+            {
             currentSelectedStatic = info;   // 更新当前选中
             currentSelectedDyn = pCard;  // 可能为 null
 
             ShowSelected(info, pCard);
             inventoryUI?.OnCardClicked(info, pCard);
             BroadcastSelection(info, pCard);
-            
+            }
         };
+        
         cardBtn.RegisterCallback<FocusInEvent>(_ =>
         {
             BroadcastSelection(info, pCard);
@@ -487,6 +528,7 @@ public class CardInventory : MonoBehaviour
     void ShowSelected(CardInfoStatic info, PlayerCard pCard)
     {
         // 静态内容
+        //Debug.Log($"info == {(info == null)} | selectedCardVE == {(selectedCardVE == null)} | cardNameLabel == {(cardNameLabel == null)}");
         selectedCardVE.style.backgroundImage = new StyleBackground(
             info.fullBodySprite ?? info.iconSprite);
         cardNameLabel.text = info.displayName;
@@ -516,19 +558,21 @@ public class CardInventory : MonoBehaviour
 
         // 1) 在 Info 面板里是 "WeaponSlot_L"，在卡片里可能是 "weaponslot"
         //    如果命名一致，就用同一个；不一致就传不同 name
-        var weapon = root.Q<VisualElement>("weaponslot");
-        var armor  = root.Q<VisualElement>("armorslot");
-        var mount  = root.Q<VisualElement>("horseslot");
+        var weapon = root.Q<Button>("weaponslot");
+        var armor  = root.Q<Button>("armorslot");
+        var mount  = root.Q<Button>("horseslot");
         
 
         bool hasWeapon = equip != null && !string.IsNullOrEmpty(equip.weaponId);
         bool hasArmor  = equip != null && !string.IsNullOrEmpty(equip.armorId);
         bool hasMount  = equip != null && !string.IsNullOrEmpty(equip.accessoryId);
         //Debug.Log(hasWeapon + " " + hasArmor + " " + hasMount);
+    
 
         BindEquipSlot(weapon, hasWeapon);
         BindEquipSlot(armor,  hasArmor);
         BindEquipSlot(mount,  hasMount);
+
     }
 
 }

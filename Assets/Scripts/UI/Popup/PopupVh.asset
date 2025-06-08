@@ -51,18 +51,9 @@ MonoBehaviour:
     widthVw: 0
   - queryType: 1
     queryValue: upgradeBtn
-    widthVh: 12
+    widthVh: 25
     heightVh: 7
-    fontVh: 3
-    applyScale: 0
-    aspectWidth: 0
-    addWidthVw: 0
-    widthVw: 0
-  - queryType: 1
-    queryValue: upgradeBtn
-    widthVh: 12
-    heightVh: 7
-    fontVh: 3
+    fontVh: 4
     applyScale: 0
     aspectWidth: 0
     addWidthVw: 0

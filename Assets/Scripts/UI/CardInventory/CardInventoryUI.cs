@@ -11,6 +11,8 @@ public class CardInventoryUI : MonoBehaviour
     [Header("面板控制器")]
 
     [SerializeField] UptierPanelController uptierPanelCtrl;
+    [SerializeField] private GearSelectionPanel gearPanel;
+
     [SerializeField] GiftPanelController giftPanelCtrl;
     [SerializeField] GachaPanelController gachaPanelCtrl;
     [SerializeField] PlayerBaseController playerBaseController;
@@ -76,6 +78,20 @@ public class CardInventoryUI : MonoBehaviour
         closeInfoBtn = root.Q<Button>("ClosePanelForInfo");
         gachaBtn = root.Q<Button>("GachaBtn");
 
+        var weaponL = root.Q<Button>("weaponslot");
+        var armorL  = root.Q<Button>("armorslot");
+        var mountL  = root.Q<Button>("horseslot");
+
+        if (weaponL != null)
+            weaponL.RegisterCallback<ClickEvent>(
+                _ => HandleSlotClick(currentStatic, currentDyn, EquipSlotType.Weapon),
+                TrickleDown.TrickleDown);   // 捕获阶段，避免被父节点挡住
+
+        if (armorL != null)
+            armorL.RegisterCallback<ClickEvent>(
+                _ => HandleSlotClick(currentStatic, currentDyn, EquipSlotType.Armor),
+                TrickleDown.TrickleDown);
+
         returnBtn?.RegisterCallback<ClickEvent>(_ => playerBaseController.HideCardInventoryPage());
         upgradeBtn?.RegisterCallback<ClickEvent>(_ => StartCoroutine(OpenPanel(upgradePanelCtrl)));
         uptierBtn?.RegisterCallback<ClickEvent>(_ => StartCoroutine(OpenPanel(uptierPanelCtrl)));
@@ -89,13 +105,13 @@ public class CardInventoryUI : MonoBehaviour
         mainSkillNameLbl = root.Q<Label>("MainSkillNameLbl");
         mainSkillDescLbl = root.Q<Label>("MainSkillDescriptionLbl");
         /* 主动技能节点已缓存，下面只缓存被动 */
-        passive1Img      = root.Q<VisualElement>("Passive1Image");
-        passive1NameLbl  = root.Q<Label>("Passive1NameLbl");
-        passive1DescLbl  = root.Q<Label>("Passive1DescLbl");
+        passive1Img = root.Q<VisualElement>("Passive1Image");
+        passive1NameLbl = root.Q<Label>("Passive1NameLbl");
+        passive1DescLbl = root.Q<Label>("Passive1DescLbl");
 
-        passive2Img      = root.Q<VisualElement>("Passive2Image");
-        passive2NameLbl  = root.Q<Label>("Passive2NameLbl");
-        passive2DescLbl  = root.Q<Label>("Passive2DescLbl");
+        passive2Img = root.Q<VisualElement>("Passive2Image");
+        passive2NameLbl = root.Q<Label>("Passive2NameLbl");
+        passive2DescLbl = root.Q<Label>("Passive2DescLbl");
 
         /*──── 监听卡牌升级／获得 ────*/
         if (PlayerCardBankMgr.I != null)
@@ -342,6 +358,15 @@ public class CardInventoryUI : MonoBehaviour
                         ps.baseValue, info, dyn, passiveSkillDB);
         string desc = ps.description.Replace("{X}", pct.ToString("0.#"));
         descLbl.text = desc;
+    }
+
+    public void HandleSlotClick(CardInfoStatic info, PlayerCard dyn, EquipSlotType slot)
+    {
+        if (dyn == null) {
+            PopupManager.Show("提示", "尚未拥有该武将");
+            return;
+        }
+        gearPanel.Open(dyn, slot);   // 这里才有 gearPanel 引用
     }
 
 

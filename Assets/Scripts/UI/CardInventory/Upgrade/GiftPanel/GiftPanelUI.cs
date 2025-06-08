@@ -292,10 +292,3 @@ public class GiftPanelController : MonoBehaviour, IUIPanelController
 }
 
 /*──────── Label 擴展 ────────*/
-public static class UITKExt
-{
-    public static void SetTextSafe(this Label lbl, string txt)
-    {
-        if (lbl != null) lbl.text = txt;
-    }
-}

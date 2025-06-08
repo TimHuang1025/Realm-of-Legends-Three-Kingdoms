@@ -34,9 +34,9 @@ public class UnitGiftLevel : MonoBehaviour
         var root = GetComponent<UIDocument>().rootVisualElement;
         levelLabel = root.Q<Label>("HeroGiftLv");
         expBar = root.Q<ProgressBar>("HeroGiftProgress");
-        weaponslot = root.Q<VisualElement>("weaponslot");
-        armorslot = root.Q<VisualElement>("armorslot");
-        horseslot = root.Q<VisualElement>("horseslot");
+        weaponslot = root.Q<Button>("weaponslot");
+        armorslot = root.Q<Button>("armorslot");
+        horseslot = root.Q<Button>("horseslot");
     }
 
 

@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cf3741383c24e4e8e1a0343e811986, type: 3}
+  m_Name: GearVhSizerConfig
+  m_EditorClassIdentifier: 
+  rules:
+  - queryType: 0
+    queryValue: ItemPanelContainer
+    widthVh: 100
+    heightVh: 70
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 1
+    widthVw: 18
+  - queryType: 0
+    queryValue: ItemPanel
+    widthVh: 100
+    heightVh: 70
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 1
+    widthVw: 18
+  - queryType: 0
+    queryValue: BlackPanel
+    widthVh: 0
+    heightVh: 100
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: ItemList
+    widthVh: 80
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 1
+    widthVw: 10

@@ -1,0 +1,16 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3#CardInventory" />
+    <ui:Button name="GearOption" class="option" style="height: 100%; flex-direction: row; background-color: rgb(201, 184, 162); border-left-color: rgb(119, 104, 88); border-right-color: rgb(119, 104, 88); border-top-color: rgb(119, 104, 88); border-bottom-color: rgb(119, 104, 88); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; width: 100%; flex-grow: 1; align-content: auto; align-self: stretch; justify-content: space-around;">
+        <ui:VisualElement name="GearIcon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E7%B2%AE%E8%8D%89.png?fileID=2800000&amp;guid=9be2dd49093bc5447baa696235d89d4d&amp;type=3#粮草&quot;); -unity-background-scale-mode: scale-to-fit; flex-shrink: 0; max-width: 30%;" />
+        <ui:VisualElement name="GiftAdd" style="flex-grow: 0; flex-direction: column; justify-content: space-around; width: 25%; flex-shrink: 0;">
+            <ui:Label text="物品名" name="GearName" class="giftbtntext" />
+            <ui:Label text="攻击+500" name="GearAtkStat" class="giftbtntext" />
+            <ui:Label text="防御+500&#10;" name="GearDefStat" class="giftbtntext" />
+            <ui:Label text="赏赐值" name="GearIntStat" class="giftbtntext" style="display: none;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Head" style="flex-grow: 0; flex-direction: row; justify-content: flex-start; align-items: stretch; width: 25%; flex-shrink: 0;">
+            <ui:VisualElement name="IfEquiped" style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="DimMask" picking-mode="Ignore" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.63); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-top-color: rgba(0, 0, 0, 0); border-bottom-color: rgba(0, 0, 0, 0); display: none;" />
+    </ui:Button>
+</ui:UXML>

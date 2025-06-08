@@ -8,7 +8,7 @@
                 <ui:VisualElement name="Popuptextcontainer" style="flex-grow: 1; justify-content: center; align-items: center; flex-shrink: 0; max-height: 70%;">
                     <Kamgam.UIToolkitScrollViewPro.ScrollViewPro name="TextScroll" touch-scroll-type="Elastic" scroller-buttons="false" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" focus-snap="false" snap-edge-clamp-y="true" snap="false" snap-align-y="Center" snap-align-x="Center" snap-ease="BackOut" snap-edge-clamp-x="false" focusable-scrollbars="false" drag-threshold="10" elasticity="0.2" snap-margin="0,0,0,0" snap-include-margin="false" style="max-height: 90%; flex-shrink: 0; flex-grow: 1; padding-top: 0%; padding-right: 0%; padding-bottom: 0%; padding-left: 0%;">
                         <ui:VisualElement name="VisualElement" class="space" style="flex-grow: 1; height: 29px; flex-shrink: 0;" />
-                        <ui:Label text="测试" name="Popuptext" class="skilltextinfo" style="flex-grow: 1; max-height: 55%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;" />
+                        <ui:Label text="测试" name="Popuptext" class="skilltextinfo" style="flex-grow: 1; max-height: 55%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; align-items: center; align-self: center; justify-content: center;" />
                         <ui:VisualElement class="space" style="flex-grow: 0; height: 30px;" />
                     </Kamgam.UIToolkitScrollViewPro.ScrollViewPro>
                 </ui:VisualElement>
@@ -18,9 +18,9 @@
                             <ui:Button text="确定" name="CloseBtn2" class="upgradeBtn" style="display: flex; flex-grow: 1;" />
                         </ui:VisualElement>
                     </Kamgam.UIToolkitGlow.Shadow>
-                    <Kamgam.UIToolkitGlow.Shadow inner-color="#00000098" scale-x="0.95" scale-y="0.9" offset-y="10" blur-width="5" picking-mode="Ignore" layout-first-child="true" offset-x="0.05" class="upgradeBtnShadow" style="flex-grow: 0; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; display: none;">
+                    <Kamgam.UIToolkitGlow.Shadow inner-color="#00000098" scale-x="0.95" scale-y="0.9" offset-y="10" blur-width="5" picking-mode="Ignore" layout-first-child="true" offset-x="0.05" name="YesBtnShadow" class="upgradeBtnShadow" style="flex-grow: 0; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; display: flex;">
                         <ui:VisualElement style="flex-grow: 0;">
-                            <ui:Button text="升级" name="Button" class="upgradeBtn" style="display: flex; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; flex-grow: 1;" />
+                            <ui:Button text="升级" name="YesBtn" class="upgradeBtn" style="display: flex; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; flex-grow: 1;" />
                         </ui:VisualElement>
                     </Kamgam.UIToolkitGlow.Shadow>
                 </ui:VisualElement>

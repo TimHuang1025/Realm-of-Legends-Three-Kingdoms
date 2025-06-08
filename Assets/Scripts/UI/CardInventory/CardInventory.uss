@@ -59,6 +59,10 @@
     border-bottom-color: rgb(0, 0, 0);
     flex-shrink: 0;
     background-image: url("project://database/Assets/Assets/UI/CardInventory/skills1.png?fileID=2800000&guid=1c1dc803b4a32304b847c7705db2df37&type=3#skills1");
+    border-top-left-radius: 855px;
+    border-top-right-radius: 855px;
+    border-bottom-right-radius: 855px;
+    border-bottom-left-radius: 855px;
 }
 
 .smallbtns {
@@ -272,6 +276,7 @@
     flex-shrink: 0;
     width: 25%;
     height: 21%;
+    background-size: 125% 125%;
 }
 
 .gachabigBtn {
@@ -326,4 +331,7 @@
     color: rgb(255, 255, 255);
     font-size: 38px;
     -unity-text-align: upper-left;
+}
+
+.option {
 }

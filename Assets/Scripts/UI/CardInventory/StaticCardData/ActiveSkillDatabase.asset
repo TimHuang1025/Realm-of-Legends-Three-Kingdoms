@@ -18,19 +18,19 @@ MonoBehaviour:
     cnName: "\u5927\u6740\u56DB\u65B9"
     description: "\u51FB\u6740\u654C\u65B9\u58EB\u5175"
     coefficient: 100
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: 5872419585750127135, guid: 6aef6a20dc76e8f4aabe0ef1d39c06b5, type: 3}
   - id: A2
     name: Critical Slash
     cnName: "\u66B4\u98CE\u4E00\u51FB"
     description: "\u51FB\u6740\u654C\u65B9\u58EB\u5175,20%\u66B4\u51FB"
     coefficient: 85
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: -6053780069247430306, guid: 9d9784dd8a6528a49ae99857d29f26ef, type: 3}
   - id: A3
     name: Last Stand Slash
     cnName: "\u80CC\u6C34\u4E00\u6218"
     description: "\u51FB\u6740\u654C\u65B9\u58EB\u5175,\u5DF1\u65B9\u5175\u529B\u4F4E\u4E8E50%\u65F6\u66B4\u51FB"
     coefficient: 90
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: -1796420107148289907, guid: 360fcb0a6e20e61488278ff9ca5cc853, type: 3}
   - id: A4
     name: Chain Slash
     cnName: "\u8FDE\u9501\u6253\u51FB"
@@ -48,7 +48,7 @@ MonoBehaviour:
     cnName: "\u7EDD\u5883\u53CD\u51FB"
     description: "\u51FB\u6740\u654C\u65B9\u58EB\u5175,\u6211\u65B9\u6BCF\u635F\u593120w\u58EB\u5175,\u4F24\u5BB3\u63D0\u534710%,\u6700\u591A\u53E0\u52A05\u6B21"
     coefficient: 70
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: -6507966837958744252, guid: 8db626c4e8873ce4f8eb2795ae66e6c3, type: 3}
   - id: A7
     name: Cavalry Might Slash
     cnName: "\u9A91\u5A01\u65A9"
@@ -60,7 +60,7 @@ MonoBehaviour:
     cnName: "\u94C1\u8840\u7A81\u51FB"
     description: "\u51FB\u6740\u654C\u65B9\u58EB\u5175,\u6211\u65B9\u8FD1\u6218\u5175\u6570\u91CF\u536040%\u65F6,\u4F24\u5BB3\u63D0\u534710%,\u6BCF\u591A10%,\u989D\u5916\u589E\u52A05%"
     coefficient: 90
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: 996773821596262083, guid: ea3bc622dfa218a4db02bf8c986b5639, type: 3}
   - id: A9
     name: Ranged Assault Slash
     cnName: "\u8FDC\u88AD\u65A9"

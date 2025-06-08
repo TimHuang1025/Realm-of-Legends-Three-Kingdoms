@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="Root" style="flex-direction: column; padding: 12; background-color: rgb(255, 255, 255); width: 799px;">
+        <ui:Label name="StatusLabel" text="未连接" style="unity-font-style: bold;" />
+        <ui:Button name="ConnectBtn" text="Connect" />
+        <ui:Button name="DisconnectBtn" text="Disconnect" style="margin-top: 4;" />
+        <ui:Label text="All Players:" style="margin-top: 8; unity-font-style: bold;" />
+        <ui:ListView name="PlayerList" style="height: 160;" />
+        <ui:Label text="Send Position:" style="margin-top: 8;" />
+        <ui:VisualElement style="flex-direction: row;">
+            <ui:IntegerField name="XField" label="X" style="flex-grow: 1;" />
+            <ui:IntegerField name="YField" label="Y" style="flex-grow: 1; margin-left: 4;" />
+        </ui:VisualElement>
+        <ui:Button name="SendBtn" text="Update Position" style="margin-top: 4;" />
+    </ui:VisualElement>
+</ui:UXML>

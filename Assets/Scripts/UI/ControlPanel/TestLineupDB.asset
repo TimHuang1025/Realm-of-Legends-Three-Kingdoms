@@ -13,43 +13,43 @@ MonoBehaviour:
   m_Name: TestLineupDB
   m_EditorClassIdentifier: 
   lineups:
-  - mainGeneral: 
-    subGeneral1: "\u53F8\u9A6C\u61FF"
-    subGeneral2: 
-    strategist: 
+  - mainId: S1
+    subId1: S8
+    subId2: S5
+    strategistId: B1
     ratio:
-      infantry: -2147483648
-      cavalry: -2147483648
-      archer: -2147483648
-  - mainGeneral: 
-    subGeneral1: 
-    subGeneral2: 
-    strategist: 
+      infantry: 10
+      cavalry: 37
+      archer: 53
+  - mainId: 
+    subId1: 
+    subId2: 
+    strategistId: 
     ratio:
-      infantry: 30
-      cavalry: 40
-      archer: 30
-  - mainGeneral: 
-    subGeneral1: 
-    subGeneral2: 
-    strategist: 
+      infantry: 33
+      cavalry: 33
+      archer: 34
+  - mainId: 
+    subId1: 
+    subId2: 
+    strategistId: 
     ratio:
-      infantry: 30
-      cavalry: 40
-      archer: 30
-  - mainGeneral: 
-    subGeneral1: 
-    subGeneral2: 
-    strategist: 
+      infantry: 33
+      cavalry: 33
+      archer: 34
+  - mainId: 
+    subId1: 
+    subId2: 
+    strategistId: 
     ratio:
-      infantry: 30
-      cavalry: 40
-      archer: 30
-  - mainGeneral: 
-    subGeneral1: 
-    subGeneral2: 
-    strategist: 
+      infantry: 33
+      cavalry: 33
+      archer: 34
+  - mainId: 
+    subId1: 
+    subId2: 
+    strategistId: 
     ratio:
-      infantry: 30
-      cavalry: 22
-      archer: 48
+      infantry: 32
+      cavalry: 39
+      archer: 29
