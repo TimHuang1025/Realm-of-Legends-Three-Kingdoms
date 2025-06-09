@@ -20,7 +20,7 @@ MonoBehaviour:
     valueMultiplier:
     - 0.9
     - 0.5
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: -2480499124604103135, guid: 6466b4386b29779469e9c5609f387018, type: 3}
   - id: weapon_2
     name: "\u96CC\u96C4\u53CC\u5251"
     kind: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
     valueMultiplier:
     - 0.8
     - 0.6
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: -9070984493026517172, guid: 90e129f96e5388e45b937f6af70cf6ec, type: 3}
   - id: weapon_3
     name: "\u65B9\u5929\u753B\u621F"
     kind: 0
@@ -36,7 +36,7 @@ MonoBehaviour:
     valueMultiplier:
     - 1
     - 0.4
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: -2235024325406870526, guid: 446c4bb707c9bf842a2c808088c5278d, type: 3}
   - id: weapon_4
     name: "\u4E03\u661F\u5B9D\u5200"
     kind: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
     valueMultiplier:
     - 1
     - 0
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: 313233364484565449, guid: d7ea77f9baf86f14e82b81d2c50d680c, type: 3}
   - id: weapon_5
     name: "\u8D64\u9704\u5B9D\u5251"
     kind: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
     valueMultiplier:
     - 0.5
     - 0.9
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: -7760010110941797297, guid: a040931efe2fcf142948a21d5157c2a4, type: 3}
   - id: armor_2
     name: "\u9752\u7EF8\u795E\u8863"
     kind: 1
@@ -140,7 +140,7 @@ MonoBehaviour:
     valueMultiplier:
     - 1
     - 0
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: 5033581746163187866, guid: 89ed6e5ae89d70e4493fb93b561e6bd5, type: 3}
   - id: armor_5
     name: "\u51E4\u7FBD\u9526\u94E0"
     kind: 1

@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3#CardInventory" />
+    <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3" />
     <ui:VisualElement name="Container" enabled="true" style="flex-grow: 1; background-color: rgba(148, 112, 71, 0.87); align-self: auto; align-content: flex-start; flex-direction: column;">
         <ui:VisualElement name="Top" style="flex-grow: 4; flex-direction: row; height: 80%; margin-top: 0%;">
             <ui:VisualElement name="SelectedCard" style="flex-grow: 0; width: 40%; flex-shrink: 0; flex-direction: column; justify-content: flex-start; align-items: auto;">
@@ -54,15 +54,14 @@
                                 <ui:VisualElement name="DynStar4" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
                                 <ui:VisualElement name="DynStar5" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newnostar1.png?fileID=2800000&amp;guid=8504f353272c0784dad404ea941450f7&amp;type=3#newnostar1&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
                             </ui:VisualElement>
-                            <ui:VisualElement name="Strength" style="flex-grow: 1;">
-                                <ui:Label text="战力" class="title" style="flex-grow: 1; -unity-text-align: upper-right;" />
-                            </ui:VisualElement>
+                            <ui:Label text="战力" class="title" style="flex-grow: 1; -unity-text-align: upper-right;" />
+                            <ui:VisualElement name="Strength" style="flex-grow: 1;" />
                         </ui:VisualElement>
                         <ui:VisualElement name="InfoStatsPanel" style="flex-grow: 0; flex-direction: row; align-self: center; justify-content: space-between; align-items: stretch; flex-shrink: 0; align-content: center;">
-                            <ui:VisualElement name="InfoStatsPanelSub" style="flex-grow: 0; align-items: stretch; justify-content: space-evenly; flex-direction: column;">
+                            <ui:VisualElement name="InfoStatsPanelSub" style="flex-grow: 0; align-items: stretch; justify-content: space-evenly; flex-direction: column; width: auto; max-width: none;">
                                 <ui:VisualElement style="flex-grow: 1; flex-direction: row; height: 50%; flex-shrink: 0;">
-                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; flex-shrink: 0; height: 86%; width: 66%;">
-                                        <ui:VisualElement style="flex-grow: 1; height: 100%; justify-content: space-evenly;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; flex-shrink: 0; height: 86%; width: 100%;">
+                                        <ui:VisualElement style="flex-grow: 1; height: 100%; justify-content: space-evenly; max-width: none;">
                                             <ui:VisualElement name="InfoAtkPanel" class="skilltextinfo" style="flex-grow: 0; flex-direction: row;">
                                                 <ui:Label text="攻击" name="InfoAtkTitle" />
                                                 <ui:Label text="4731" name="InfoAtkStatsLbl" emoji-fallback-support="true" />
@@ -84,7 +83,7 @@
                                         </ui:VisualElement>
                                     </ui:VisualElement>
                                     <ui:VisualElement name="Relation" style="flex-grow: 0; height: 45%; margin-top: 0%; margin-right: 0%; margin-bottom: 0%; margin-left: 0%; flex-shrink: 0; width: 30%; align-items: stretch; justify-content: center;">
-                                        <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/%E7%BE%81%E7%BB%8A.png?fileID=2800000&amp;guid=883b7ac2f23016b41a3efebf025de275&amp;type=3#羁绊&quot;); -unity-background-scale-mode: scale-to-fit; width: 60%; margin-top: 10%; flex-shrink: 0; align-self: flex-start;" />
+                                        <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/%E7%BE%81%E7%BB%8A.png?fileID=2800000&amp;guid=883b7ac2f23016b41a3efebf025de275&amp;type=3#羁绊&quot;); -unity-background-scale-mode: scale-to-fit; width: 60%; margin-top: 10%; flex-shrink: 0; align-self: flex-start; display: none;" />
                                         <ui:VisualElement style="flex-grow: 1;" />
                                         <ui:VisualElement style="flex-grow: 1;" />
                                     </ui:VisualElement>
@@ -100,10 +99,16 @@
                                     </ui:VisualElement>
                                 </ui:VisualElement>
                             </ui:VisualElement>
-                            <ui:VisualElement name="EquipmentPanel" style="flex-grow: 0; flex-direction: column; height: 206px; flex-shrink: 0; width: 98px; align-self: flex-start; align-items: center; justify-content: space-evenly; margin-right: 0%;">
-                                <ui:Button name="weaponslot" style="flex-grow: 0;" />
-                                <ui:Button name="armorslot" style="flex-grow: 0;" />
-                                <ui:Button name="horseslot" style="flex-grow: 0;" />
+                            <ui:VisualElement name="EquipmentPanel" style="flex-grow: 0; flex-direction: column; height: 206px; flex-shrink: 0; width: auto; align-self: flex-start; align-items: center; justify-content: space-evenly; margin-right: 0%; min-width: 20%;">
+                                <ui:Button name="weaponslot" style="flex-grow: 0; align-self: center; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; justify-content: center; align-items: stretch; align-content: flex-end; min-width: auto; min-height: auto;">
+                                    <ui:VisualElement name="EquipIcon" style="flex-grow: 1; max-width: 80%; max-height: 80%; align-items: auto; justify-content: flex-start; align-self: center; flex-shrink: 0; min-width: 80%; min-height: 80%;" />
+                                </ui:Button>
+                                <ui:Button name="armorslot" style="flex-grow: 0; align-self: center; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; justify-content: center; min-width: auto; min-height: auto;">
+                                    <ui:VisualElement name="EquipIcon" style="flex-grow: 1; max-width: 80%; max-height: 80%; align-items: auto; justify-content: flex-start; align-self: center; min-width: 80%; min-height: 80%; flex-shrink: 0;" />
+                                </ui:Button>
+                                <ui:Button name="horseslot" style="flex-grow: 0; align-self: center; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; justify-content: center; min-width: auto; min-height: auto;">
+                                    <ui:VisualElement name="EquipIcon" style="flex-grow: 1; max-width: 80%; max-height: 80%; align-items: auto; flex-shrink: 0; align-self: center; min-width: 80%; min-height: 80%;" />
+                                </ui:Button>
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="BtnPanel" style="flex-grow: 0; flex-direction: row; justify-content: space-between; align-items: stretch; align-self: center; flex-shrink: 0; align-content: center;">
@@ -119,7 +124,7 @@
         <ui:VisualElement name="Bottom" style="flex-grow: 1; align-items: center; justify-content: center; height: 20%; margin-left: 1.5%; margin-right: 1.5%; margin-bottom: 1.5%;">
             <ui:VisualElement name="SkillBox" style="flex-grow: 0; width: 100%; height: 90%; flex-shrink: 0; justify-content: center; border-left-color: rgb(210, 164, 85); border-right-color: rgb(210, 164, 85); border-top-color: rgb(210, 164, 85); border-bottom-color: rgb(210, 164, 85); border-top-width: 5px; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 30px; border-top-right-radius: 30px; border-bottom-right-radius: 30px; border-bottom-left-radius: 30px; flex-direction: row;">
                 <ui:VisualElement name="MainSkillImage" class="skillimg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); -unity-background-scale-mode: stretch-to-fill;" />
-                <ui:VisualElement name="MainSkillContainer" class="skillboxcontainer" style="flex-grow: 0; flex-shrink: 0; max-width: 33.3%; width: 25%;">
+                <ui:VisualElement name="MainSkillContainer" class="skillboxcontainer" style="flex-grow: 0; flex-shrink: 1; max-width: 33.3%; width: 25%;">
                     <ui:VisualElement name="MainSkillNameContainer" class="skillnamecontainer" style="flex-grow: 0; flex-shrink: 0;">
                         <ui:Label text="主动技能" name="MainSkillNameLbl" class="skillname" />
                     </ui:VisualElement>
@@ -128,7 +133,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Passive1Image" class="skillimg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);" />
-                <ui:VisualElement name="Passive1Container" class="skillboxcontainer" style="flex-grow: 0; flex-shrink: 0; width: 25%;">
+                <ui:VisualElement name="Passive1Container" class="skillboxcontainer" style="flex-grow: 0; flex-shrink: 1; width: 25%;">
                     <ui:VisualElement name="Passive1NameContainer" class="skillnamecontainer" style="flex-grow: 0; flex-shrink: 0;">
                         <ui:Label text="被动技能" name="Passive1NameLbl" class="skillname" />
                     </ui:VisualElement>
@@ -137,7 +142,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Passive2Image" class="skillimg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);" />
-                <ui:VisualElement name="Passive2Container" class="skillboxcontainer" style="flex-grow: 0; flex-shrink: 0; width: 25%;">
+                <ui:VisualElement name="Passive2Container" class="skillboxcontainer" style="flex-grow: 0; flex-shrink: 1; width: 25%;">
                     <ui:VisualElement name="Passive2NameContainer" class="skillnamecontainer" style="flex-grow: 0; flex-shrink: 0;">
                         <ui:Label text="被动技能" name="Passive2NameLbl" class="skillname" />
                     </ui:VisualElement>

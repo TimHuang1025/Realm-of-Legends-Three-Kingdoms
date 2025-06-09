@@ -139,7 +139,7 @@ MonoBehaviour:
     aspectWidth: 0
     addWidthVw: 0
     widthVw: 30
-  - queryType: 0
+  - queryType: 1
     queryValue: equipmentunlocked
     widthVh: 13
     heightVh: 13

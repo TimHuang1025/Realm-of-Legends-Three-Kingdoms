@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 3b151870bdc2ba6489b359a2c0207449
+guid: a0cc84f375f5c814682b11e13a80856a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2805307772308712102
-    second: unlockedslot_0
-  - first:
-      213: -8642214753872152112
-    second: unlockedslot_1
-  - first:
-      213: -4562954074889782333
-    second: unlockedslot_2
-  - first:
-      213: -8726472462130995265
-    second: unlockedslot_3
+      213: 3326103058536227812
+    second: unlocked_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: unlockedslot_0
+      name: unlocked_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 43
         y: 0
-        width: 1021
-        height: 1024
+        width: 979
+        height: 1019
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,74 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6aa6a164e847ee620800000000000000
-      internalID: 2805307772308712102
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unlockedslot_1
-      rect:
-        serializedVersion: 2
-        x: 980
-        y: 818
-        width: 9
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0d97fc2487fa01880800000000000000
-      internalID: -8642214753872152112
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unlockedslot_2
-      rect:
-        serializedVersion: 2
-        x: 980
-        y: 450
-        width: 8
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3cbf5c7c1712da0c0800000000000000
-      internalID: -4562954074889782333
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unlockedslot_3
-      rect:
-        serializedVersion: 2
-        x: 982
-        y: 314
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fbf1470d78755e680800000000000000
-      internalID: -8726472462130995265
+      spriteID: 4e3646afb11b82e20800000000000000
+      internalID: 3326103058536227812
       vertices: []
       indices: 
       edges: []
@@ -222,11 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      unlockedslot_0: 2805307772308712102
-      unlockedslot_1: -8642214753872152112
-      unlockedslot_2: -4562954074889782333
-      unlockedslot_3: -8726472462130995265
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

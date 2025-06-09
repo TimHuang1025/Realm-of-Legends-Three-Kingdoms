@@ -13,30 +13,48 @@ MonoBehaviour:
   m_Name: New Player Gear Bank
   m_EditorClassIdentifier: 
   gears:
-  - staticId: weapon_1
-    level: 1
+  - uuid: ef2b6f8b0e02483d88cea9562d9a1225
+    staticId: weapon_1
+    level: 12
     unlocked: 1
-  - staticId: weapon_2
-    level: 1
+    equippedById: S6
+  - uuid: cddaa1e303fa491ea4b126dcdf9bfad3
+    staticId: weapon_2
+    level: 33
     unlocked: 1
-  - staticId: armor_4
-    level: 1
+    equippedById: 
+  - uuid: d87b1f6fce1c435f88f726b7b576a92d
+    staticId: armor_4
+    level: 5
     unlocked: 1
-  - staticId: armor_4
+    equippedById: 
+  - uuid: dff9d894b6dd43179929c6b49620e8e8
+    staticId: armor_4
+    level: 16
+    unlocked: 1
+    equippedById: S6
+  - uuid: 7b5dd169f2a04ad2877734f3e2cf3e29
+    staticId: armor_3
     level: 2
     unlocked: 1
-  - staticId: armor_3
+    equippedById: 
+  - uuid: dfbf8968bec949c68c3a2dd5dcee9c34
+    staticId: armor_1
     level: 2
     unlocked: 1
-  - staticId: armor_1
-    level: 2
-    unlocked: 1
-  - staticId: weapon_4
+    equippedById: S6
+  - uuid: 962a018c1dae4abbaa2ce840470924af
+    staticId: weapon_4
     level: 24
     unlocked: 1
-  - staticId: weapon_4
+    equippedById: 
+  - uuid: 532fdbca2c0e466d9fc3dc841eb47c67
+    staticId: weapon_4
     level: 2
     unlocked: 1
-  - staticId: weapon_6
+    equippedById: 
+  - uuid: 3ff6d2757f4c4df2a2d9adab6893e6f5
+    staticId: weapon_6
     level: 2
     unlocked: 1
+    equippedById: S6

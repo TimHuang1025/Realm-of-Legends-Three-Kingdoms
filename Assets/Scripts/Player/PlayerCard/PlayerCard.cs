@@ -28,9 +28,9 @@ public class PlayerCard
 [Serializable]
 public class EquipStatus
 {
-    public string weaponId     = "";
-    public string armorId      = "";
-    public string accessoryId  = "";
+    public string weaponUuid     = "";
+    public string armorUuid      = "";
+    public string accessoryUuid  = "";
 
     public bool   weaponUnlocked = false;
     public bool   armorUnlocked  = false;

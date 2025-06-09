@@ -91,9 +91,9 @@ public class UnitGiftLevel : MonoBehaviour
         if (dyn == null) return;
         var eq = dyn.equip;
 
-        bool w = eq != null && (eq.weaponUnlocked  || !string.IsNullOrEmpty(eq.weaponId));
-        bool a = eq != null && (eq.armorUnlocked   || !string.IsNullOrEmpty(eq.armorId));
-        bool h = eq != null && (eq.mountUnlocked   || !string.IsNullOrEmpty(eq.accessoryId));
+        bool w = eq != null && (eq.weaponUnlocked  || !string.IsNullOrEmpty(eq.weaponUuid));
+        bool a = eq != null && (eq.armorUnlocked   || !string.IsNullOrEmpty(eq.armorUuid));
+        bool h = eq != null && (eq.mountUnlocked   || !string.IsNullOrEmpty(eq.accessoryUuid));
 
         BindEquipSlot(weaponslot, w);
         BindEquipSlot(armorslot,  a);

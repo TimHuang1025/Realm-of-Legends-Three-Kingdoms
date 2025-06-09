@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Game.Core;                      // EquipSystem, EquipSlotType
-using Game.Data;                      // GearDatabaseStatic, PlayerGearBank
-using Kamgam.UIToolkitScrollViewPro;  // ScrollViewPro
+using Game.Core;                      // EquipmentManager, EquipSlotType
+using Game.Data;                     // GearDatabaseStatic, PlayerGearBank
+using Kamgam.UIToolkitScrollViewPro; // ScrollViewPro
 using UnityEngine;
+using UIExt;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(UIDocument))]
@@ -16,6 +17,7 @@ public class GearSelectionPanel : MonoBehaviour
     [SerializeField] private VisualTreeAsset    gearItemTpl;     // 单条装备模板
     [SerializeField] private PlayerGearBank     playerGearBank;  // 玩家背包
     [SerializeField] private GearDatabaseStatic gearDB;          // 可选：直接拖 GearStaticDB
+    [SerializeField] private CardDatabaseStatic cardDatabase;    // 武将静态表，用于取头像
 
     [Header("ScrollViewPro 名称")]
     [SerializeField] private string optionContainerName = "ItemList";
@@ -27,16 +29,22 @@ public class GearSelectionPanel : MonoBehaviour
     [SerializeField] private float rowGap      = 12f; // 行间距
 
     /*───────── ② 运行时字段 ─────────*/
-    private UIDocument     doc;
-    private ScrollViewPro  optionContainer;
-    private Button         closeBtn, cancelBtn, equipBtn, sortBtn;
+    private VisualElement currentItem;
+    private Button lastShownEquipBtn;
+    private UIDocument doc;
+    private ScrollViewPro optionContainer;
+    private Button        closeBtn, cancelBtn, equipBtn, sortBtn;
 
-    private EquipSlotType  currentSlot;     // Weapon / Armor
-    private PlayerCard     currentCard;     // 选中武将
-    private string         selectedGearId;  // 当前选择的装备 id
+    private EquipSlotType currentSlot;          // Weapon / Armor
+    private PlayerCard    currentCard;          // 选中武将
+    private string        selectedGearUuid;     // 当前选择的装备 uuid
 
     private readonly string[] orderModes = { "品阶↓", "稀有度↓" };
     private int orderIdx = 0;
+
+    /* ★ 保存条目信息（根节点 + DimMask） */
+    class Entry { public VisualElement root; public VisualElement mask; }
+    private readonly List<Entry> entries = new();
 
     /*───────── ③ 生命周期 ─────────*/
     private void Awake()
@@ -85,9 +93,9 @@ public class GearSelectionPanel : MonoBehaviour
             return;
         }
 
-        currentCard    = card;
-        currentSlot    = slot;
-        selectedGearId = string.Empty;
+        currentCard      = card;
+        currentSlot      = slot;
+        selectedGearUuid = string.Empty;
 
         gameObject.SetActive(true);
         StartCoroutine(AfterEnableRoutine());
@@ -97,186 +105,173 @@ public class GearSelectionPanel : MonoBehaviour
 
     private IEnumerator AfterEnableRoutine()
     {
-        yield return null;   // 第 1 帧：元素实例化
-        yield return null;   // 第 2 帧：布局完成，才能拿到宽度
+        yield return null;
+        yield return null;   // 第 2 帧：布局完成
         BuildGearOptions();
     }
 
     /*───────── ⑤ 生成网格 ─────────*/
-    /*───────────────────────────── 新版 BuildGearOptions ─────────────────────────────*/
     private void BuildGearOptions()
     {
-        if (gearItemTpl == null || optionContainer == null || playerGearBank == null)
-        {
-            Debug.LogWarning("[GearPanel] 资源未绑定完整");
-            return;
-        }
+        if (gearItemTpl == null || optionContainer == null || playerGearBank == null) return;
 
         optionContainer.Clear();
-        equipBtn.SetEnabled(false);
+        entries.Clear();
 
         var db = gearDB != null ? gearDB : GearDatabaseStatic.Instance;
-        if (db == null)
+        if (db == null) { Debug.LogError("[GearPanel] GearStaticDB 缺失！"); return; }
+
+        var list = playerGearBank.All
+                  .Select(pg => (pg, st: db.Get(pg.staticId)))
+                  .Where(t => t.st != null &&
+                              (currentSlot == EquipSlotType.Weapon
+                                 ? t.st.kind == GearKind.Weapon
+                                 : t.st.kind == GearKind.Armor))
+                  .ToList();
+
+        list = orderIdx == 1
+             ? list.OrderBy(t => t.st.tier).ToList()
+             : list.OrderBy(t => (int)t.st.tier).ToList();
+
+        if (list.Count == 0)
         {
-            Debug.LogError("[GearPanel] GearStaticDB 缺失！");
-            return;
-        }
-
-        /*── 过滤 ─*/
-        var source = playerGearBank.All
-                    .Select(pg => (pg, st: db.Get(pg.staticId)))
-                    .Where(t => t.st != null &&
-                                (currentSlot == EquipSlotType.Weapon
-                                    ? t.st.kind == GearKind.Weapon
-                                    : t.st.kind == GearKind.Armor));
-
-        /*── 排序 ─*/
-        var ordered = orderIdx == 1
-            ? source.OrderBy(t => t.st.tier)            // 稀有度
-            : source.OrderBy(t => (int)t.st.tier);      // 品阶
-
-        var pairList = ordered.ToList();
-        if (pairList.Count == 0)
-        {
-            optionContainer.Add(new Label("（暂无符合条件的装备）")
-            {
-                style =
-                {
-                    unityTextAlign = TextAnchor.MiddleCenter,
-                    height         = 60,
-                    color          = Color.gray
-                }
-            });
+            optionContainer.Add(new Label("（暂无符合条件的装备）") { style = { unityTextAlign = TextAnchor.MiddleCenter,height = 60,color = Color.gray } });
             optionContainer.RefreshAfterHierarchyChange();
             return;
         }
 
-        /*── 计算列数：itemsPerRow = 0 时自动计算 ─*/
         int cols = itemsPerRow > 0 ? itemsPerRow : CalcAutoColumns();
         cols = Mathf.Max(1, cols);
 
-        /*── 按行生成 ─*/
         int idx = 0;
-        while (idx < pairList.Count)
+        while (idx < list.Count)
         {
-            var row = new VisualElement
-            {
-                style =
-                {
-                    flexDirection = FlexDirection.Row,
-                    marginBottom  = rowGap,
-                    flexShrink    = 0,
-                    flexGrow      = 0,
-                    alignItems      = Align.Center,
-                    justifyContent  = Justify.SpaceEvenly,
-                }
-            };
+            var row = new VisualElement { style = { flexDirection = FlexDirection.Row, marginBottom = rowGap, flexShrink = 0 } };
 
-            for (int c = 0; c < cols && idx < pairList.Count; c++, idx++)
+            for (int c = 0; c < cols && idx < list.Count; c++, idx++)
             {
-                var pg = pairList[idx].pg;
-                var st = pairList[idx].st;
+                var pg = list[idx].pg;
+                var st = list[idx].st;
 
                 var ve = gearItemTpl.Instantiate();
-                ve.name         = $"Gear_{st.id}";
+                ve.name = $"Gear_{pg.uuid}";
                 ve.style.width  = gearSize;
                 ve.style.height = 140;
                 if (c > 0) ve.style.marginLeft = colGap;
 
-                /* 图标 */
+                /* icon 与文本 */
                 var icon = ve.Q<VisualElement>("GearIcon");
                 if (icon != null && st.iconSprite != null)
                 {
-                    icon.style.backgroundImage        = new StyleBackground(st.iconSprite);
+                    icon.style.backgroundImage = new StyleBackground(st.iconSprite);
                     icon.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
                 }
                 var (atk, def) = st.CalcStats(pg.level);
-                /* 文本 */
-                ve.Q<Label>("GearName")   ?.SetTextSafe(st.name);
+                ve.Q<Label>("GearName")   ?.SetTextSafe($"{st.name}");
+                ve.Q<Label>("GearLv")     ?.SetTextSafe($"{pg.level}");
                 ve.Q<Label>("GearAtkStat")?.SetTextSafe($"攻击 +{atk:N0}");
                 ve.Q<Label>("GearDefStat")?.SetTextSafe($"防御 +{def:N0}");
 
-                /* 已装备 */
-                bool isEquipped = currentCard != null &&
-                                ((currentSlot == EquipSlotType.Weapon && currentCard.equip.weaponId == st.id) ||
-                                (currentSlot == EquipSlotType.Armor  && currentCard.equip.armorId  == st.id));
-                ve.Q<VisualElement>("IfEquiped")?.SetDisplay(isEquipped);
+                /* 已装备角标 */
+                var equipFlag = ve.Q<VisualElement>("IfEquiped");
+                if (!string.IsNullOrEmpty(pg.equippedById))
+                {
+                    var heroStatic = cardDatabase.Get(pg.equippedById);
+                    if (heroStatic?.iconSprite != null)
+                    {
+                        equipFlag.style.display = DisplayStyle.Flex;
+                        equipFlag.style.backgroundImage = new StyleBackground(heroStatic.iconSprite);
+                        equipFlag.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
+                    }
+                }
 
-                /* 点击选中 —— 两行写法 */
-                var clickTarget = (VisualElement)(ve.Q<Button>("GearOption") ?? (VisualElement)ve);
+                /* 记录 DimMask */
+                var mask = ve.Q<VisualElement>("DimMask");
+                if (mask == null) Debug.LogError("模板缺少 DimMask");
+
+                bool equippedByOther =
+                    !string.IsNullOrEmpty(pg.equippedById) && pg.equippedById != currentCard.id;
+                mask.style.display = equippedByOther ? DisplayStyle.Flex : DisplayStyle.None;
+
+                entries.Add(new Entry { root = ve, mask = mask });
+                var rowEquipBtn = ve.Q<Button>("EquipBtn");
+                rowEquipBtn.style.display = DisplayStyle.None;      // 默认隐藏
+                rowEquipBtn.clicked += () =>
+                {
+                    selectedGearUuid = pg.uuid;   // 先记录
+                    OnEquipClicked();             
+                };
+
+                /* 点击选中 —— 两行保持原写法 */
+                var clickTarget = (VisualElement)(ve.Q<Button>("GearOption") 
+                                      ?? (VisualElement)ve);
+                clickTarget.Bounce(ve, 0.9f, 0.08f);
                 clickTarget.RegisterCallback<ClickEvent>(_ =>
                 {
-                    selectedGearId = st.id;
-                    equipBtn.SetEnabled(true);
-                    Highlight(ve);
+                    // 隐旧按钮
+                    if (lastShownEquipBtn != null)
+                        lastShownEquipBtn.style.display = DisplayStyle.None;
+
+                    // 显新按钮
+                    rowEquipBtn.style.display = DisplayStyle.Flex;
+                    lastShownEquipBtn = rowEquipBtn;
+
+                    // 选中逻辑（高亮类名可留）
+                    selectedGearUuid = pg.uuid;
+                    Highlight(ve);          // 让它只加选中样式；别再管 mask
                 });
 
                 row.Add(ve);
             }
-
             optionContainer.Add(row);
         }
-
         optionContainer.RefreshAfterHierarchyChange();
     }
 
-/*──────────────────────── 计算自动列数 ────────────────────────*/
-private int CalcAutoColumns()
-{
-    // 有时 resolvedStyle.width 在第一帧是 0，保险起见也试 worldBound
-    float width = optionContainer.resolvedStyle.width;
-    if (width < 1f) width = optionContainer.worldBound.width;
+    /*──────── 自动列数 ────────*/
+    private int CalcAutoColumns()
+    {
+        float w = optionContainer.resolvedStyle.width;
+        if (w < 1f) w = optionContainer.worldBound.width;
+        if (w < 1f) return 1;
+        return Mathf.Max(1, Mathf.FloorToInt((w + colGap) / (gearSize + colGap)));
+    }
 
-    if (width < 1f) return 1; // 依然拿不到宽度就退回 1 列
-
-    // (总宽 + 间距) / (卡宽 + 间距) → 能放多少个
-    return Mathf.Max(1,
-        Mathf.FloorToInt((width + colGap) / (gearSize + colGap)));
-}
-
-/*──────── 修改 AfterEnableRoutine：多等待 1 帧布局 ────────*/
-
-
-
-    /*───────── ⑥ 装备按钮 ─────────*/
+    /*──────── 装备按钮 ────────*/
     private void OnEquipClicked()
     {
-        if (string.IsNullOrEmpty(selectedGearId)) return;
+        if (string.IsNullOrEmpty(selectedGearUuid)) return;
 
-        var db   = gearDB != null ? gearDB : GearDatabaseStatic.Instance;
-        var gear = db.Get(selectedGearId);
+        var pGear = playerGearBank.Get(selectedGearUuid);
+        if (pGear == null) { PopupManager.Show("提示", "找不到装备数据"); return; }
 
-        if (EquipSystem.EquipGear(currentCard, gear))
-        {
-            PlayerCardBankMgr.I.BroadcastCardUpdated(currentCard.id);
-            Close();
-        }
-        else
-        {
-            PopupManager.Show("提示", "槽位未解锁或装备失败");
-        }
+        EquipmentManager.Equip(currentCard, pGear, currentSlot,
+                               PlayerCardBankMgr.I.Data, playerGearBank);
+
+        BuildGearOptions();
+        Close();
     }
 
-    /*───────── ⑦ 高亮条目 ─────────*/
-    private void Highlight(VisualElement ve)
+    /*──────── 高亮条目 + DimMask ────────*/
+    private void Highlight(VisualElement selected)
     {
-        foreach (var child in optionContainer.Query<VisualElement>().ToList())
-            child.RemoveFromClassList("selected");
-        ve.AddToClassList("selected");
+        foreach (var e in entries)
+        {
+            bool sel = e.root == selected;
+
+            // ★ 只处理选中样式，不再隐藏 / 显示 DimMask
+            if (sel)   e.root.AddToClassList("selected");
+            else       e.root.RemoveFromClassList("selected");
+        }
     }
+
 }
 
-/*──────── 工具扩展 ────────*/
+/*──────── Label 扩展 ────────*/
 static class UILabelGearExt
 {
     public static void SetTextSafe(this Label lbl, string txt)
     {
         if (lbl != null) lbl.text = txt;
-    }
-
-    public static void SetDisplay(this VisualElement ve, bool show)
-    {
-        if (ve != null)
-            ve.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
     }
 }

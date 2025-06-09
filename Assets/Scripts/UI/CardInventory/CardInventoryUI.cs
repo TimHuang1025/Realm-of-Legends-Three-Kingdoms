@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Game.Core;
+using Game.Data;
 
 [RequireComponent(typeof(UIDocument))]
 public class CardInventoryUI : MonoBehaviour
@@ -12,6 +13,9 @@ public class CardInventoryUI : MonoBehaviour
 
     [SerializeField] UptierPanelController uptierPanelCtrl;
     [SerializeField] private GearSelectionPanel gearPanel;
+
+    [SerializeField] private PlayerGearBank playerGearBank;   // 玩家所有动态装备
+    [SerializeField] private GearDatabaseStatic gearDB;       // 静态装备库
 
     [SerializeField] GiftPanelController giftPanelCtrl;
     [SerializeField] GachaPanelController gachaPanelCtrl;
@@ -79,18 +83,30 @@ public class CardInventoryUI : MonoBehaviour
         gachaBtn = root.Q<Button>("GachaBtn");
 
         var weaponL = root.Q<Button>("weaponslot");
-        var armorL  = root.Q<Button>("armorslot");
-        var mountL  = root.Q<Button>("horseslot");
+        var armorL = root.Q<Button>("armorslot");
+        var mountL = root.Q<Button>("horseslot");
 
-        if (weaponL != null)
-            weaponL.RegisterCallback<ClickEvent>(
-                _ => HandleSlotClick(currentStatic, currentDyn, EquipSlotType.Weapon),
-                TrickleDown.TrickleDown);   // 捕获阶段，避免被父节点挡住
+        weaponL?.RegisterCallback<ClickEvent>(evt =>
+        {
+            if (!(bool)weaponL.userData)
+            {
+                PopupManager.Show("提示", "武器槽未解锁");
+                evt.StopPropagation();
+                return;
+            }
+            HandleSlotClick(currentStatic, currentDyn, EquipSlotType.Weapon);
+        }, TrickleDown.TrickleDown);
 
-        if (armorL != null)
-            armorL.RegisterCallback<ClickEvent>(
-                _ => HandleSlotClick(currentStatic, currentDyn, EquipSlotType.Armor),
-                TrickleDown.TrickleDown);
+        armorL?.RegisterCallback<ClickEvent>(evt =>
+        {
+            if (!(bool)armorL.userData)
+            {
+                PopupManager.Show("提示", "防具槽未解锁");
+                evt.StopPropagation();
+                return;
+            }
+            HandleSlotClick(currentStatic, currentDyn, EquipSlotType.Armor);
+        }, TrickleDown.TrickleDown);
 
         returnBtn?.RegisterCallback<ClickEvent>(_ => playerBaseController.HideCardInventoryPage());
         upgradeBtn?.RegisterCallback<ClickEvent>(_ => StartCoroutine(OpenPanel(upgradePanelCtrl)));
@@ -135,7 +151,7 @@ public class CardInventoryUI : MonoBehaviour
         currentDyn = PlayerCardBankMgr.I.Data.Get(id);
 
         SetInfoPanelData(currentStatic, currentDyn);   // 四维 + 描述
-        CardInventory.RefreshEquipSlots(currentDyn, root);             // 三大槽
+        cardInv.RefreshEquipSlots(currentDyn, root);             // 三大槽
         unitGiftLevel.SetData(currentStatic, currentDyn);
         unitGiftLevel.RefreshUI();
         RefreshPassiveSkillUI(currentStatic, currentDyn);
@@ -209,6 +225,9 @@ public class CardInventoryUI : MonoBehaviour
 
         /*── 1. 计算当前四维 ─────────────────────*/
         Stats4 stats = LevelStatCalculator.CalculateStats(info, dyn);
+        var (equipAtk, equipDef) = CalcEquipBonus(dyn);   // ★ 新增这一行
+        //stats.Atk += equipAtk;
+        //stats.Def += equipDef;
 
 
         /*── 2. 抓 UI 节点（或换成已缓存字段）─────*/
@@ -222,10 +241,16 @@ public class CardInventoryUI : MonoBehaviour
         var descLbl = root.Q<Label>("HeroDescription");
         var cardLvLbl = root.Q<Label>("CardLvLbl");
         var herofragmentLbl = root.Q<Label>("HeroFragmentsLbl");
+        atkLbl.enableRichText   = true;                 // 允许 <color> 标签
+        atkLbl.style.whiteSpace = WhiteSpace.NoWrap;    // 防止数值换行
 
         /*── 3. 填数值 ───────────────────────────*/
-        if (atkLbl != null) atkLbl.text = stats.Atk.ToString();
-        if (defLbl != null) defLbl.text = stats.Def.ToString();
+        if (atkLbl != null)
+        {
+            atkLbl.text = $"{stats.Atk}+{equipAtk}";
+        }
+        if (defLbl != null)
+            defLbl.text = $"{stats.Def}+{equipDef}";//  ()
         if (intLbl != null) intLbl.text = stats.Int.ToString();
         if (cmdLbl != null) cmdLbl.text = stats.Cmd.ToString();
 
@@ -246,7 +271,7 @@ public class CardInventoryUI : MonoBehaviour
             // 显示当前碎片数量
             herofragmentLbl.text = $"武将碎片 x {dyn?.copies ?? 0}";
         }
-        CardInventory.RefreshEquipSlots(dyn, root);
+        cardInv.RefreshEquipSlots(dyn, root);
 
     }
 
@@ -362,12 +387,49 @@ public class CardInventoryUI : MonoBehaviour
 
     public void HandleSlotClick(CardInfoStatic info, PlayerCard dyn, EquipSlotType slot)
     {
-        if (dyn == null) {
+        if (dyn == null)
+        {
             PopupManager.Show("提示", "尚未拥有该武将");
             return;
         }
         gearPanel.Open(dyn, slot);   // 这里才有 gearPanel 引用
     }
+
+    /// <summary>统计这张卡当前装备提供的额外 Atk / Def</summary>
+    private (int atk, int def) CalcEquipBonus(PlayerCard dyn)
+    {
+        if (dyn == null) return (0, 0);
+
+        int bonusAtk = 0, bonusDef = 0;
+
+        string[] equipUuids =
+        {
+            dyn.equip.weaponUuid,
+            dyn.equip.armorUuid,
+            dyn.equip.accessoryUuid
+        };
+
+        foreach (var uuid in equipUuids)
+        {
+            if (string.IsNullOrEmpty(uuid)) continue;
+
+            // PlayerGearBank.Get() 也是按 uuid 查
+            var pg = playerGearBank.Get(uuid);
+            if (pg == null) continue;
+
+            var gs = gearDB.Get(pg.staticId);   // 取静态条目
+            if (gs == null) continue;
+
+            // ★ 直接用你已经写好的公式
+            var (atkF, defF) = gs.CalcStats(pg.level);
+
+            bonusAtk += Mathf.RoundToInt(atkF);
+            bonusDef += Mathf.RoundToInt(defF);
+        }
+
+        return (bonusAtk, bonusDef);
+    }
+
 
 
 

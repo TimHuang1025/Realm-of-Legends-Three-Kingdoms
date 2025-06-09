@@ -71,9 +71,17 @@ namespace Game.Data
     [Serializable]
     public class PlayerGear
     {
+        public string uuid = "";
         public string staticId;
         public int    level = 1;
-        public bool   unlocked = true;
+        public bool unlocked = true;
+
+        public string equippedById = "";
+        public void EnsureUuid()
+        {
+            if (string.IsNullOrEmpty(uuid))
+                uuid = Guid.NewGuid().ToString("N"); // 32位无横杠
+        }
 
         public GearStatic Static => GearDatabaseStatic.Instance.Get(staticId);
     }

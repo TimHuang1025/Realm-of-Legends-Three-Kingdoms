@@ -4,7 +4,8 @@ using Kamgam.UIToolkitScrollViewPro;
 using System.Collections.Generic;
 using System.Linq;
 using System; 
-using Game.Core;                      // CardDatabaseStatic, CardInfoStatic
+using Game.Core;
+using Game.Data;                      // CardDatabaseStatic, CardInfoStatic
 
 [RequireComponent(typeof(UIDocument))]
 public class CardInventory : MonoBehaviour
@@ -14,8 +15,11 @@ public class CardInventory : MonoBehaviour
     [SerializeField] private VisualTreeAsset cardTemplate;
     [SerializeField] private CardDatabaseStatic cardDatabase;
     [SerializeField] private PlayerCardBank cardBank;
-    
-    [SerializeField] UnitGiftLevel           unitGiftLevel;
+    [SerializeField] private PlayerGearBank     gearBank;
+    [SerializeField] private GearDatabaseStatic gearStaticDB;
+
+
+    [SerializeField] UnitGiftLevel unitGiftLevel;
     [SerializeField] UpgradePanelController upgradePanelCtrl;
 
 
@@ -23,7 +27,7 @@ public class CardInventory : MonoBehaviour
     [SerializeField] private Sprite filledStarSprite;
     [SerializeField] private Sprite emptyStarSprite;
     public Sprite FilledStarSprite => filledStarSprite;
-    public Sprite EmptyStarSprite  => emptyStarSprite;
+    public Sprite EmptyStarSprite => emptyStarSprite;
 
     [Header("稀有度贴图 (S / A / B)")]
     [SerializeField] private Sprite raritySpriteS;
@@ -54,9 +58,9 @@ public class CardInventory : MonoBehaviour
     private CardInfo currentSelected;
     Dictionary<string, Button> cardBtnMap = new();  // 卡片 ↔ 按钮
     private CardInfoStatic currentSelectedStatic;
-    private PlayerCard     currentSelectedDyn;
-    
-    
+    private PlayerCard currentSelectedDyn;
+
+
 
     // ★★★ 新增：排序按钮与状态 ★★★
     private Button orderButton;               // #OrderButton
@@ -130,7 +134,7 @@ public class CardInventory : MonoBehaviour
             /* 1. 拥有优先 */
             bool ownedA = cardBank.Get(a.id) != null;
             bool ownedB = cardBank.Get(b.id) != null;
-            int  ownCmp = ownedB.CompareTo(ownedA);   // true > false
+            int ownCmp = ownedB.CompareTo(ownedA);   // true > false
             if (ownCmp != 0) return ownCmp;
 
             /* 2. 稀有度：S(0) < A(1) < B(2)…   用 a.tier.CompareTo(b.tier) */
@@ -138,8 +142,8 @@ public class CardInventory : MonoBehaviour
             if (tierCmp != 0) return tierCmp;
 
             /* 3. 星级 */
-            int starA = cardBank.Get(a.id)?.star  ?? -1;
-            int starB = cardBank.Get(b.id)?.star  ?? -1;
+            int starA = cardBank.Get(a.id)?.star ?? -1;
+            int starB = cardBank.Get(b.id)?.star ?? -1;
             int starCmp = starB.CompareTo(starA);      // 星多的在前
             if (starCmp != 0) return starCmp;
 
@@ -270,7 +274,7 @@ public class CardInventory : MonoBehaviour
             cardBtn.Focus();
             scroll.ScrollTo(cardBtn);
         }).ExecuteLater(1);
-        
+
     }
     public void BroadcastSelection(CardInfoStatic info, PlayerCard dyn)
     {
@@ -290,37 +294,37 @@ public class CardInventory : MonoBehaviour
     /// <summary>
     /// 生成单张武将卡的 UI（已兼容“未拥有”灰显、四维星级等）
     /// </summary>
-    public VisualElement BuildCard(CardInfoStatic info,Action<CardInfoStatic, PlayerCard> onClickOverride = null)
+    public VisualElement BuildCard(CardInfoStatic info, Action<CardInfoStatic, PlayerCard> onClickOverride = null)
     {
         /*── 1. 实例化模板 ───────────────────────*/
         var container = cardTemplate.Instantiate();
-        container.style.width       = cardSize;
-        container.style.height      = cardSize;
+        container.style.width = cardSize;
+        container.style.height = cardSize;
         container.style.marginRight = colGap;
-        container.style.flexShrink  = 0;
+        container.style.flexShrink = 0;
 
         /*── 2. 抓子元素 ────────────────────────*/
-        var cardBtn   = container.Q<Button>("CardRoot");
-        var lvlLabel  = container.Q<Label>("Level");
+        var cardBtn = container.Q<Button>("CardRoot");
+        var lvlLabel = container.Q<Label>("Level");
         var starPanel = container.Q<VisualElement>("StarPanel");
-        var rarityVe  = container.Q<VisualElement>("CardRarity");
-        var dim       = container.Q<VisualElement>("DimOverlay");
+        var rarityVe = container.Q<VisualElement>("CardRarity");
+        var dim = container.Q<VisualElement>("DimOverlay");
 
         cardBtn.userData = info;              // 静态放进 userData
         cardBtnMap[info.id] = cardBtn;        // 记录映射
         var cardRoot = new Button
         {
-            name  = "CardRoot"          // 供 Q<Button>("CardRoot") 使用
+            name = "CardRoot"          // 供 Q<Button>("CardRoot") 使用
         };
         cardRoot.AddToClassList("cardroot"); // 让 USS 宽高、边框等样式生效
 
         // 如果模板 USS 被删，依然兜底 210×210
-        cardRoot.style.width  = 210;
+        cardRoot.style.width = 210;
         cardRoot.style.height = 210;
 
         // 可聚焦，方便 ScrollViewPro 定位
         cardRoot.focusable = true;
-        cardRoot.tabIndex  = 0;
+        cardRoot.tabIndex = 0;
 
         /*── 3. 静态视觉（头像 / 边框）──────────*/
         if (info.iconSprite != null)
@@ -334,17 +338,17 @@ public class CardInventory : MonoBehaviour
             Tier.S => colorS,
             Tier.A => colorA,
             Tier.B => colorB,
-            _      => defaultBorder
+            _ => defaultBorder
         };
         cardBtn.style.borderTopColor =
         cardBtn.style.borderRightColor =
         cardBtn.style.borderBottomColor =
-        cardBtn.style.borderLeftColor  = borderCol;
+        cardBtn.style.borderLeftColor = borderCol;
         lvlLabel.style.color = borderCol;
 
         /*── 4. 动态数据：玩家是否拥有 ──────────*/
         PlayerCard pCard = cardBank.Get(info.id);   // null = 未拥有
-        bool owned       = pCard != null;
+        bool owned = pCard != null;
 
         if (owned)
         {
@@ -352,29 +356,29 @@ public class CardInventory : MonoBehaviour
             FillStars(starPanel, pCard.star);
             RefreshEquipSlots(pCard, container);
             var weaponSlot = container.Q<Button>("weaponslot");
-            var armorSlot  = container.Q<Button>("armorslot");
-            var mountSlot  = container.Q<Button>("horseslot");
+            var armorSlot = container.Q<Button>("armorslot");
+            var mountSlot = container.Q<Button>("horseslot");
 
             if (weaponSlot != null)
                 weaponSlot.RegisterCallback<ClickEvent>(
                     //_ => inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Weapon));
-                    _ =>Debug.Log("weapon click"));
+                    _ => Debug.Log("weapon click"));
 
 
             if (armorSlot != null)
                 armorSlot.RegisterCallback<ClickEvent>(
                     _ => inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Armor));
 
-/*
-            if (mountSlot != null)
-                mountSlot.RegisterCallback<ClickEvent>(
-                    _ => inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Mount));
-*/      
+            /*
+                        if (mountSlot != null)
+                            mountSlot.RegisterCallback<ClickEvent>(
+                                _ => inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Mount));
+            */
         }
         else
         {
             dim.style.display = DisplayStyle.Flex;  // 灰幕
-            lvlLabel.text     = "";
+            lvlLabel.text = "";
             FillStars(starPanel, 0);
             RefreshEquipSlots(null, container);     // 三槽锁住
             rarityVe.style.display = DisplayStyle.None;
@@ -388,12 +392,12 @@ public class CardInventory : MonoBehaviour
                 Tier.S => raritySpriteS,
                 Tier.A => raritySpriteA,
                 Tier.B => raritySpriteB,
-                _      => null
+                _ => null
             };
             if (badge != null)
             {
-                rarityVe.style.display               = DisplayStyle.Flex;
-                rarityVe.style.backgroundImage       = new StyleBackground(badge);
+                rarityVe.style.display = DisplayStyle.Flex;
+                rarityVe.style.backgroundImage = new StyleBackground(badge);
                 rarityVe.style.unityBackgroundScaleMode = ScaleMode.StretchToFill;
             }
         }
@@ -407,29 +411,29 @@ public class CardInventory : MonoBehaviour
             }
             else
             {
-            currentSelectedStatic = info;   // 更新当前选中
-            currentSelectedDyn = pCard;  // 可能为 null
+                currentSelectedStatic = info;   // 更新当前选中
+                currentSelectedDyn = pCard;  // 可能为 null
 
-            ShowSelected(info, pCard);
-            inventoryUI?.OnCardClicked(info, pCard);
-            BroadcastSelection(info, pCard);
+                ShowSelected(info, pCard);
+                inventoryUI?.OnCardClicked(info, pCard);
+                BroadcastSelection(info, pCard);
             }
         };
-        
+
         cardBtn.RegisterCallback<FocusInEvent>(_ =>
         {
             BroadcastSelection(info, pCard);
         });
 
         /* 获焦/失焦 动画 */
-        var normalScale  = new Scale(new Vector3(1f, 1f, 1f));
+        var normalScale = new Scale(new Vector3(1f, 1f, 1f));
         var pressedScale = new Scale(new Vector3(1.10f, 1.10f, 1f));
-        var overlay      = container.Q<VisualElement>("FocusOverlay");
-        var glowS        = container.Q<VisualElement>("Glow_S");
-        var glowA        = container.Q<VisualElement>("Glow_A");
-        var glowB        = container.Q<VisualElement>("Glow_B");
+        var overlay = container.Q<VisualElement>("FocusOverlay");
+        var glowS = container.Q<VisualElement>("Glow_S");
+        var glowA = container.Q<VisualElement>("Glow_A");
+        var glowB = container.Q<VisualElement>("Glow_B");
 
-        float normalBorder  = 4f;
+        float normalBorder = 4f;
         float focusedBorder = 8f;
 
         void ShowGlow(Tier tier)
@@ -440,7 +444,7 @@ public class CardInventory : MonoBehaviour
                 Tier.S => glowS,
                 Tier.A => glowA,
                 Tier.B => glowB,
-                _      => null
+                _ => null
             };
             if (target == null) return;
 
@@ -453,8 +457,8 @@ public class CardInventory : MonoBehaviour
 
         cardBtn.RegisterCallback<FocusInEvent>(_ =>
         {
-            cardBtn.style.scale   = pressedScale;
-            rarityVe.style.scale  = pressedScale;
+            cardBtn.style.scale = pressedScale;
+            rarityVe.style.scale = pressedScale;
             overlay.style.display = DisplayStyle.Flex;
 
             ShowGlow(info.tier);                   // ← 用枚举
@@ -468,11 +472,11 @@ public class CardInventory : MonoBehaviour
 
         cardBtn.RegisterCallback<FocusOutEvent>(_ =>
         {
-            cardBtn.style.scale   = normalScale;
-            rarityVe.style.scale  = normalScale;
+            cardBtn.style.scale = normalScale;
+            rarityVe.style.scale = normalScale;
             overlay.style.display = DisplayStyle.None;
-            glowS.style.display   = glowA.style.display =
-            glowB.style.display   = DisplayStyle.None;
+            glowS.style.display = glowA.style.display =
+            glowB.style.display = DisplayStyle.None;
 
             cardBtn.style.borderTopWidth =
             cardBtn.style.borderRightWidth =
@@ -497,7 +501,7 @@ public class CardInventory : MonoBehaviour
 
         /* 2. 若正选中，刷新左侧大图 / 名字 */
         if (currentSelectedStatic != null && currentSelectedStatic.id == id)
-        ShowSelected(currentSelectedStatic, pCard);
+            ShowSelected(currentSelectedStatic, pCard);
 
         /* 3. 如果当前是“等级排序”，需要重排一次 */
         if (sortModes[modeIdx] == "等级排序")
@@ -537,20 +541,24 @@ public class CardInventory : MonoBehaviour
         //levelLabel.text = pCard != null ? $"Lv.{pCard.level}" : "—";
         //FillStars(starPanel, pCard?.star ?? 0);
     }
-    public static void BindEquipSlot(VisualElement slot, bool unlocked)
+    public static void BindEquipSlot(
+            Button slot,
+            bool unlocked,
+            string tipWhenLocked = "该槽位未解锁")
     {
         if (slot == null) return;
 
-        // 先去掉两种 class，保证互斥
-        slot.RemoveFromClassList("equipmentlocked");
-        slot.RemoveFromClassList("equipmentunlocked");
+        /*── 视觉 ───────────────────────────*/
+        slot.EnableInClassList("equipmentlocked", !unlocked);
+        slot.EnableInClassList("equipmentunlocked", unlocked);
 
-        // 再根据布尔值添加正确的那一个
-        slot.AddToClassList(unlocked ? "equipmentunlocked"
-                                    : "equipmentlocked");
+        /*── 保存状态 + 提示 ────────────────*/
+        slot.userData = unlocked;          // 用来给点击回调判断
+        slot.tooltip = unlocked ? null : tipWhenLocked;
     }
 
-    public static void RefreshEquipSlots(PlayerCard dyn, VisualElement root)
+
+    public void RefreshEquipSlots(PlayerCard dyn, VisualElement root)
     {
         if (root == null) return;
 
@@ -559,20 +567,52 @@ public class CardInventory : MonoBehaviour
         // 1) 在 Info 面板里是 "WeaponSlot_L"，在卡片里可能是 "weaponslot"
         //    如果命名一致，就用同一个；不一致就传不同 name
         var weapon = root.Q<Button>("weaponslot");
-        var armor  = root.Q<Button>("armorslot");
-        var mount  = root.Q<Button>("horseslot");
-        
+        var armor = root.Q<Button>("armorslot");
+        var mount = root.Q<Button>("horseslot");
 
-        bool hasWeapon = equip != null && !string.IsNullOrEmpty(equip.weaponId);
-        bool hasArmor  = equip != null && !string.IsNullOrEmpty(equip.armorId);
-        bool hasMount  = equip != null && !string.IsNullOrEmpty(equip.accessoryId);
-        //Debug.Log(hasWeapon + " " + hasArmor + " " + hasMount);
-    
 
-        BindEquipSlot(weapon, hasWeapon);
-        BindEquipSlot(armor,  hasArmor);
-        BindEquipSlot(mount,  hasMount);
+        bool unlockedWeapon = dyn != null && dyn.equip.weaponUnlocked;
+        bool unlockedArmor = dyn != null && dyn.equip.armorUnlocked;
+        bool unlockedMount = dyn != null && dyn.equip.mountUnlocked;
 
+        BindEquipSlot(weapon, unlockedWeapon, "武器槽未解锁");
+        BindEquipSlot(armor, unlockedArmor, "防具槽未解锁");
+        BindEquipSlot(mount, unlockedMount, "坐骑槽未解锁");
+
+        ApplySlotIcon(weapon, equip?.weaponUuid);
+        ApplySlotIcon(armor,  equip?.armorUuid);
+        ApplySlotIcon(mount,  equip?.accessoryUuid);
+    }
+    private void ApplySlotIcon(Button slot, string gearUuid)
+    {
+        var iconVe = slot?.Q<VisualElement>("EquipIcon");
+        if (iconVe == null) return;
+
+        if (string.IsNullOrEmpty(gearUuid))
+        {
+            iconVe.style.display = DisplayStyle.None;
+            return;
+        }
+
+        // ① 直接用 Inspector 拖进来的 gearBank
+        var pGear = gearBank.Get(gearUuid);
+        if (pGear == null)
+        {
+            iconVe.style.display = DisplayStyle.None;
+            return;
+        }
+
+        // ② 用 gearStaticDB 拿静态表
+        var st = gearStaticDB.Get(pGear.staticId);
+        if (st?.iconSprite != null)
+        {
+            iconVe.style.display = DisplayStyle.Flex;
+            iconVe.style.backgroundImage = new StyleBackground(st.iconSprite);
+        }
+        else
+        {
+            iconVe.style.display = DisplayStyle.None;
+        }
     }
 
 }

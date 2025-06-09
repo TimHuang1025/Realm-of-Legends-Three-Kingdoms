@@ -14,12 +14,12 @@ namespace Game.Core
         {
             if (gear.kind == GearKind.Weapon && card.equip.weaponUnlocked)
             {
-                card.equip.weaponId = gear.id;
+                card.equip.weaponUuid = gear.id;
                 return true;
             }
             if (gear.kind == GearKind.Armor && card.equip.armorUnlocked)
             {
-                card.equip.armorId = gear.id;
+                card.equip.armorUuid = gear.id;
                 return true;
             }
             return false;

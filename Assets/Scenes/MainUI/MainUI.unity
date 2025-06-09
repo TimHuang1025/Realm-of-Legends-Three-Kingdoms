@@ -768,6 +768,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uptierPanelCtrl: {fileID: 1671468812}
   gearPanel: {fileID: 1114503224}
+  playerGearBank: {fileID: 11400000, guid: cab5df3b62eaf4741985e2d3bf6ed6f5, type: 2}
+  gearDB: {fileID: 11400000, guid: 3f9c523cf55610340bf2fe4f5f18f37b, type: 2}
   giftPanelCtrl: {fileID: 805805661}
   gachaPanelCtrl: {fileID: 105621721}
   playerBaseController: {fileID: 1844380995}
@@ -792,6 +794,8 @@ MonoBehaviour:
   cardTemplate: {fileID: 9197481963319205126, guid: ce7ec8992aedf614db80452685e736c3, type: 3}
   cardDatabase: {fileID: 11400000, guid: 194b4ea67c7b6bd4d9d285197114bef5, type: 2}
   cardBank: {fileID: 11400000, guid: be59ddf035bab0f4bbb3deb44aad95f6, type: 2}
+  gearBank: {fileID: 11400000, guid: cab5df3b62eaf4741985e2d3bf6ed6f5, type: 2}
+  gearStaticDB: {fileID: 11400000, guid: 3f9c523cf55610340bf2fe4f5f18f37b, type: 2}
   unitGiftLevel: {fileID: 1063526874}
   upgradePanelCtrl: {fileID: 1064857533}
   filledStarSprite: {fileID: -8980388821408755452, guid: 225758a5b9c5ff348bffc048eddfe6c0, type: 3}
@@ -985,10 +989,11 @@ MonoBehaviour:
   gearItemTpl: {fileID: 9197481963319205126, guid: d1d529e6037bbcf44b4248ce25e5851a, type: 3}
   playerGearBank: {fileID: 11400000, guid: cab5df3b62eaf4741985e2d3bf6ed6f5, type: 2}
   gearDB: {fileID: 11400000, guid: 3f9c523cf55610340bf2fe4f5f18f37b, type: 2}
+  cardDatabase: {fileID: 11400000, guid: 194b4ea67c7b6bd4d9d285197114bef5, type: 2}
   optionContainerName: ItemList
   itemsPerRow: 0
-  gearSize: 450
-  colGap: 8
+  gearSize: 550
+  colGap: 12
   rowGap: 12
 --- !u!114 &1114503225
 MonoBehaviour:
@@ -1252,6 +1257,8 @@ MonoBehaviour:
   cardTemplate: {fileID: 9197481963319205126, guid: ce7ec8992aedf614db80452685e736c3, type: 3}
   cardDatabase: {fileID: 11400000, guid: 194b4ea67c7b6bd4d9d285197114bef5, type: 2}
   cardBank: {fileID: 11400000, guid: be59ddf035bab0f4bbb3deb44aad95f6, type: 2}
+  gearBank: {fileID: 0}
+  gearStaticDB: {fileID: 0}
   unitGiftLevel: {fileID: 1063526874}
   upgradePanelCtrl: {fileID: 1064857533}
   filledStarSprite: {fileID: -8980388821408755452, guid: 225758a5b9c5ff348bffc048eddfe6c0, type: 3}

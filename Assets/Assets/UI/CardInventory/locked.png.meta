@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 659cf5f7fe64c1647b97890089d077a2
+guid: af8b94ef02d673d47b270b5dc9ff5f8e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3387617976898175952
-    second: lockedslot_0
+      213: -3846330120125846787
+    second: locked_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: lockedslot_0
+      name: locked_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 0
-        width: 1003
-        height: 1019
+        x: 43
+        y: 32
+        width: 979
+        height: 987
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0d34eb30a9c330f20800000000000000
-      internalID: 3387617976898175952
+      spriteID: dfa630d62271f9ac0800000000000000
+      internalID: -3846330120125846787
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      lockedslot_0: 3387617976898175952
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

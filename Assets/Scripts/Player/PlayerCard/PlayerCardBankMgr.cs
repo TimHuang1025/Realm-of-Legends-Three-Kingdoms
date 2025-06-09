@@ -58,7 +58,7 @@ public class PlayerCardBankMgr : MonoBehaviour
         var pc = data.Get(id);
         if (pc == null) return;
 
-        pc.equip.weaponId     = weaponId;
+        pc.equip.weaponUuid     = weaponId;
         pc.equip.weaponUnlocked = !string.IsNullOrEmpty(weaponId);
         NotifyUpdated(id);
     }
@@ -68,7 +68,7 @@ public class PlayerCardBankMgr : MonoBehaviour
         var pc = data.Get(id);
         if (pc == null) return;
 
-        pc.equip.armorId     = armorId;
+        pc.equip.armorUuid     = armorId;
         pc.equip.armorUnlocked = !string.IsNullOrEmpty(armorId);
         NotifyUpdated(id);
     }
@@ -78,7 +78,7 @@ public class PlayerCardBankMgr : MonoBehaviour
         var pc = data.Get(id);
         if (pc == null) return;
 
-        pc.equip.accessoryId   = mountId;
+        pc.equip.accessoryUuid   = mountId;
         pc.equip.mountUnlocked = !string.IsNullOrEmpty(mountId);
         NotifyUpdated(id);
     }
@@ -148,6 +148,10 @@ public class PlayerCardBankMgr : MonoBehaviour
             JsonUtility.FromJsonOverwrite(File.ReadAllText(path), data);
     }
     public void BroadcastCardUpdated(string id)
+    {
+        onCardUpdated?.Invoke(id);
+    }
+    public void RaiseCardUpdated(string id)
     {
         onCardUpdated?.Invoke(id);
     }

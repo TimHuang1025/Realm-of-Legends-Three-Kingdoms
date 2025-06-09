@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3#CardInventory" />
+    <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3" />
     <ui:VisualElement name="BlackPanel" style="flex-grow: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.71); justify-content: center; align-self: auto; align-items: center; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; flex-shrink: 0;">
         <ui:VisualElement name="BlackSpace" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;">
             <ui:Label text="Label" />
@@ -19,13 +19,13 @@
                         <ui:VisualElement name="BorderLine" style="flex-grow: 0; height: 1px; background-color: rgb(0, 0, 0); flex-shrink: 0;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="GiftListPanel" style="flex-grow: 1; flex-direction: row; flex-shrink: 0; width: 100%; height: 80%; justify-content: center; align-self: center; align-content: center;">
-                        <Kamgam.UIToolkitScrollViewPro.ScrollViewPro name="ItemList" snap-edge-clamp-y="true" touch-scroll-type="Elastic" scroller-buttons="false" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" snap-ease="BackOut" picking-mode="Ignore" style="flex-grow: 1; flex-shrink: 0; width: 100%; align-items: stretch; justify-content: space-evenly; align-self: stretch; height: 100%; align-content: auto;" />
+                        <Kamgam.UIToolkitScrollViewPro.ScrollViewPro name="ItemList" snap-edge-clamp-y="true" touch-scroll-type="Elastic" scroller-buttons="false" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" snap-ease="BackOut" picking-mode="Ignore" style="flex-grow: 1; flex-shrink: 0; width: 100%; align-items: center; justify-content: center; align-self: stretch; height: 100%; align-content: center;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="Border" style="flex-grow: 0; flex-direction: column-reverse; height: 12%; background-size: 100% 1%; flex-shrink: 0;">
                         <ui:VisualElement name="BorderLine" style="flex-grow: 0; height: 1px; background-color: rgb(0, 0, 0); flex-shrink: 0;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="BtnRow" style="flex-grow: 0; flex-direction: row; align-items: flex-end; justify-content: space-around; height: 15%; margin-left: 4%; margin-bottom: 2%; margin-right: 4%; flex-shrink: 0; align-self: auto;">
+                <ui:VisualElement name="BtnRow" style="flex-grow: 0; flex-direction: row; align-items: flex-end; justify-content: space-around; height: 15%; margin-left: 4%; margin-bottom: 2%; margin-right: 4%; flex-shrink: 0; align-self: auto; display: none;">
                     <Kamgam.UIToolkitGlow.Shadow inner-color="#00000098" scale-x="0.95" scale-y="0.9" offset-y="10" blur-width="5" picking-mode="Ignore" layout-first-child="true" class="upgradeBtnShadow" style="flex-grow: 0; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;">
                         <ui:VisualElement style="flex-grow: 1;">
                             <ui:Button text="取消" name="CloseBtn2" class="upgradeBtn" style="display: flex; flex-grow: 1;" />
@@ -33,7 +33,7 @@
                     </Kamgam.UIToolkitGlow.Shadow>
                     <Kamgam.UIToolkitGlow.Shadow inner-color="#00000098" scale-x="0.95" scale-y="0.9" offset-y="10" blur-width="5" picking-mode="Ignore" layout-first-child="true" offset-x="0.05" class="upgradeBtnShadow" style="flex-grow: 0; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px;">
                         <ui:VisualElement style="flex-grow: 1;">
-                            <ui:Button text="装备" name="EquipBtn" class="upgradeBtn" style="display: flex; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; flex-grow: 1;" />
+                            <ui:Button text="装备" name="EquipBtnOld" class="upgradeBtn" style="display: flex; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; flex-grow: 1;" />
                         </ui:VisualElement>
                     </Kamgam.UIToolkitGlow.Shadow>
                 </ui:VisualElement>

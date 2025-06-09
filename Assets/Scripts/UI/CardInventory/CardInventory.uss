@@ -252,31 +252,36 @@
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
-    background-color: rgb(111, 111, 111);
-    width: 25%;
-    height: 21%;
+    background-color: rgba(111, 111, 111, 0);
+    width: auto;
+    height: auto;
     border-left-color: rgb(55, 55, 55);
     border-right-color: rgb(55, 55, 55);
     border-top-color: rgb(55, 55, 55);
     border-bottom-color: rgb(55, 55, 55);
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
     flex-shrink: 0;
     align-items: auto;
     align-self: flex-end;
-    background-image: url("project://database/Assets/Assets/UI/CardInventory/lockedslot.png?fileID=2800000&guid=659cf5f7fe64c1647b97890089d077a2&type=3#lockedslot");
+    background-image: url("project://database/Assets/Assets/UI/CardInventory/locked.png?fileID=2800000&guid=af8b94ef02d673d47b270b5dc9ff5f8e&type=3#locked");
     -unity-background-scale-mode: stretch-to-fill;
-    background-size: 108% 108%;
+    background-size: 110% 110%;
 }
 
 .equipmentunlocked {
-    background-image: url("project://database/Assets/Assets/UI/CardInventory/unlockedslot.png?fileID=2800000&guid=3b151870bdc2ba6489b359a2c0207449&type=3#unlockedslot");
+    background-image: url("project://database/Assets/Assets/UI/CardInventory/unlocked.png?fileID=2800000&guid=a0cc84f375f5c814682b11e13a80856a&type=3#unlocked");
     flex-shrink: 0;
-    width: 25%;
-    height: 21%;
-    background-size: 125% 125%;
+    width: auto;
+    height: auto;
+    background-size: 110% 110%;
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
 }
 
 .gachabigBtn {
@@ -334,4 +339,9 @@
 }
 
 .option {
+}
+
+.headicon {
+    width: 24%;
+    aspect-ratio: 1;
 }
