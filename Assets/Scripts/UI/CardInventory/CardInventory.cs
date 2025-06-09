@@ -294,42 +294,33 @@ public class CardInventory : MonoBehaviour
     /// <summary>
     /// 生成单张武将卡的 UI（已兼容“未拥有”灰显、四维星级等）
     /// </summary>
-    public VisualElement BuildCard(CardInfoStatic info, Action<CardInfoStatic, PlayerCard> onClickOverride = null)
+    // CardInventory.cs  —— BuildCard（完整版）
+    public VisualElement BuildCard(
+            CardInfoStatic info,
+            Action<CardInfoStatic, PlayerCard> onClickOverride = null,
+            bool broadcastSelection = true)   // ← 新增：是否广播到 InfoPanel
     {
         /*── 1. 实例化模板 ───────────────────────*/
         var container = cardTemplate.Instantiate();
-        container.style.width = cardSize;
-        container.style.height = cardSize;
+        container.style.width       = cardSize;
+        container.style.height      = cardSize;
         container.style.marginRight = colGap;
-        container.style.flexShrink = 0;
+        container.style.flexShrink  = 0;
 
         /*── 2. 抓子元素 ────────────────────────*/
-        var cardBtn = container.Q<Button>("CardRoot");
-        var lvlLabel = container.Q<Label>("Level");
+        var cardBtn   = container.Q<Button>("CardRoot");
+        var lvlLabel  = container.Q<Label>("Level");
         var starPanel = container.Q<VisualElement>("StarPanel");
-        var rarityVe = container.Q<VisualElement>("CardRarity");
-        var dim = container.Q<VisualElement>("DimOverlay");
+        var rarityVe  = container.Q<VisualElement>("CardRarity");
+        var dim       = container.Q<VisualElement>("DimOverlay");
 
-        cardBtn.userData = info;              // 静态放进 userData
-        cardBtnMap[info.id] = cardBtn;        // 记录映射
-        var cardRoot = new Button
-        {
-            name = "CardRoot"          // 供 Q<Button>("CardRoot") 使用
-        };
-        cardRoot.AddToClassList("cardroot"); // 让 USS 宽高、边框等样式生效
-
-        // 如果模板 USS 被删，依然兜底 210×210
-        cardRoot.style.width = 210;
-        cardRoot.style.height = 210;
-
-        // 可聚焦，方便 ScrollViewPro 定位
-        cardRoot.focusable = true;
-        cardRoot.tabIndex = 0;
+        cardBtn.userData    = info;
+        cardBtnMap[info.id] = cardBtn;
 
         /*── 3. 静态视觉（头像 / 边框）──────────*/
         if (info.iconSprite != null)
         {
-            cardBtn.style.backgroundImage = new StyleBackground(info.iconSprite);
+            cardBtn.style.backgroundImage          = new StyleBackground(info.iconSprite);
             cardBtn.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
         }
 
@@ -338,16 +329,16 @@ public class CardInventory : MonoBehaviour
             Tier.S => colorS,
             Tier.A => colorA,
             Tier.B => colorB,
-            _ => defaultBorder
+            _      => defaultBorder
         };
         cardBtn.style.borderTopColor =
         cardBtn.style.borderRightColor =
         cardBtn.style.borderBottomColor =
         cardBtn.style.borderLeftColor = borderCol;
-        lvlLabel.style.color = borderCol;
+        lvlLabel.style.color          = borderCol;
 
         /*── 4. 动态数据：玩家是否拥有 ──────────*/
-        PlayerCard pCard = cardBank.Get(info.id);   // null = 未拥有
+        PlayerCard pCard = cardBank.Get(info.id);       // null = 未拥有
         bool owned = pCard != null;
 
         if (owned)
@@ -355,36 +346,50 @@ public class CardInventory : MonoBehaviour
             lvlLabel.text = pCard.level.ToString();
             FillStars(starPanel, pCard.star);
             RefreshEquipSlots(pCard, container);
+
+            // ── 装备槽点击（保持你原来的写法） ──
             var weaponSlot = container.Q<Button>("weaponslot");
-            var armorSlot = container.Q<Button>("armorslot");
-            var mountSlot = container.Q<Button>("horseslot");
+            var armorSlot  = container.Q<Button>("armorslot");
+            var mountSlot  = container.Q<Button>("horseslot");
 
             if (weaponSlot != null)
                 weaponSlot.RegisterCallback<ClickEvent>(
-                    //_ => inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Weapon));
-                    _ => Debug.Log("weapon click"));
-
+                    _ =>
+                    {
+                        if (broadcastSelection)        // 仅背包界面需要
+                            inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Weapon);
+                        else
+                            Debug.Log("weapon click");
+                    });
 
             if (armorSlot != null)
                 armorSlot.RegisterCallback<ClickEvent>(
-                    _ => inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Armor));
+                    _ =>
+                    {
+                        if (broadcastSelection)
+                            inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Armor);
+                    });
 
             /*
-                        if (mountSlot != null)
-                            mountSlot.RegisterCallback<ClickEvent>(
-                                _ => inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Mount));
+            if (mountSlot != null)
+                mountSlot.RegisterCallback<ClickEvent>(
+                    _ =>
+                    {
+                        if (broadcastSelection)
+                            inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Mount);
+                    });
             */
         }
         else
         {
-            dim.style.display = DisplayStyle.Flex;  // 灰幕
-            lvlLabel.text = "";
+            dim.style.display = DisplayStyle.Flex;
+            lvlLabel.text     = string.Empty;
             FillStars(starPanel, 0);
-            RefreshEquipSlots(null, container);     // 三槽锁住
+            RefreshEquipSlots(null, container);
             rarityVe.style.display = DisplayStyle.None;
         }
 
-        /*── 5. 稀有度角标 (仅拥有时显示) ───────*/
+        /*── 5. 稀有度角标 ──────────────────────*/
         if (owned && rarityVe != null)
         {
             Sprite badge = info.tier switch
@@ -392,77 +397,70 @@ public class CardInventory : MonoBehaviour
                 Tier.S => raritySpriteS,
                 Tier.A => raritySpriteA,
                 Tier.B => raritySpriteB,
-                _ => null
+                _      => null
             };
             if (badge != null)
             {
-                rarityVe.style.display = DisplayStyle.Flex;
-                rarityVe.style.backgroundImage = new StyleBackground(badge);
+                rarityVe.style.display                 = DisplayStyle.Flex;
+                rarityVe.style.backgroundImage         = new StyleBackground(badge);
                 rarityVe.style.unityBackgroundScaleMode = ScaleMode.StretchToFill;
             }
         }
 
-        /*── 6. 点击 / 聚焦 行为 ───────────────*/
+        /*── 6. 点击行为 ───────────────────────*/
         cardBtn.clicked += () =>
         {
             if (onClickOverride != null)
             {
-                onClickOverride(info, pCard);
+                onClickOverride(info, pCard);          // 弹窗模式走这里
             }
             else
             {
-                currentSelectedStatic = info;   // 更新当前选中
-                currentSelectedDyn = pCard;  // 可能为 null
+                currentSelectedStatic = info;
+                currentSelectedDyn    = pCard;
 
-                ShowSelected(info, pCard);
-                inventoryUI?.OnCardClicked(info, pCard);
-                BroadcastSelection(info, pCard);
+                if (broadcastSelection)
+                {
+                    ShowSelected(info, pCard);         // 更新 InfoPanel
+                    inventoryUI?.OnCardClicked(info, pCard);
+                    BroadcastSelection(info, pCard);
+                }
             }
         };
 
-        cardBtn.RegisterCallback<FocusInEvent>(_ =>
-        {
-            BroadcastSelection(info, pCard);
-        });
-
-        /* 获焦/失焦 动画 */
-        var normalScale = new Scale(new Vector3(1f, 1f, 1f));
+        /*── 7. 焦点动画 ───────────────────────*/
+        var normalScale  = new Scale(Vector3.one);
         var pressedScale = new Scale(new Vector3(1.10f, 1.10f, 1f));
-        var overlay = container.Q<VisualElement>("FocusOverlay");
-        var glowS = container.Q<VisualElement>("Glow_S");
-        var glowA = container.Q<VisualElement>("Glow_A");
-        var glowB = container.Q<VisualElement>("Glow_B");
-
-        float normalBorder = 4f;
+        var overlay      = container.Q<VisualElement>("FocusOverlay");
+        var glowS        = container.Q<VisualElement>("Glow_S");
+        var glowA        = container.Q<VisualElement>("Glow_A");
+        var glowB        = container.Q<VisualElement>("Glow_B");
+        float normalBorder  = 4f;
         float focusedBorder = 8f;
 
-        void ShowGlow(Tier tier)
+        void ShowGlow(Tier t)
         {
             glowS.style.display = glowA.style.display = glowB.style.display = DisplayStyle.None;
-            VisualElement target = tier switch
+            var target = t switch
             {
                 Tier.S => glowS,
                 Tier.A => glowA,
                 Tier.B => glowB,
                 _ => null
             };
-            if (target == null) return;
-
-            target.RemoveFromClassList("rarity-s");
-            target.RemoveFromClassList("rarity-a");
-            target.RemoveFromClassList("rarity-b");
-            target.AddToClassList($"rarity-{tier.ToString().ToLower()}");
-            target.style.display = DisplayStyle.Flex;
+            if (target != null)
+                target.style.display = DisplayStyle.Flex;
         }
 
         cardBtn.RegisterCallback<FocusInEvent>(_ =>
         {
-            cardBtn.style.scale = pressedScale;
-            rarityVe.style.scale = pressedScale;
+            cardBtn.style.scale   = pressedScale;
+            rarityVe.style.scale  = pressedScale;
             overlay.style.display = DisplayStyle.Flex;
+            ShowGlow(info.tier);
 
-            ShowGlow(info.tier);                   // ← 用枚举
-            ShowSelected(info, pCard);             // ← 传静态+动态
+            if (broadcastSelection)                // 只在背包界面更新 InfoPanel
+                ShowSelected(info, pCard);
 
             cardBtn.style.borderTopWidth =
             cardBtn.style.borderRightWidth =
@@ -472,11 +470,10 @@ public class CardInventory : MonoBehaviour
 
         cardBtn.RegisterCallback<FocusOutEvent>(_ =>
         {
-            cardBtn.style.scale = normalScale;
-            rarityVe.style.scale = normalScale;
+            cardBtn.style.scale   = normalScale;
+            rarityVe.style.scale  = normalScale;
             overlay.style.display = DisplayStyle.None;
-            glowS.style.display = glowA.style.display =
-            glowB.style.display = DisplayStyle.None;
+            glowS.style.display = glowA.style.display = glowB.style.display = DisplayStyle.None;
 
             cardBtn.style.borderTopWidth =
             cardBtn.style.borderRightWidth =
@@ -484,9 +481,14 @@ public class CardInventory : MonoBehaviour
             cardBtn.style.borderLeftWidth = normalBorder;
         });
 
+        /*── 8. 焦点广播（仅背包需要） ───────────*/
+        if (broadcastSelection)
+            cardBtn.RegisterCallback<FocusInEvent>(_ => BroadcastSelection(info, pCard));
 
         return container;
     }
+
+
 
 
 

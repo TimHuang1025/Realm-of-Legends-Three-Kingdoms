@@ -594,7 +594,9 @@ MonoBehaviour:
   cardDBStatic: {fileID: 11400000, guid: 194b4ea67c7b6bd4d9d285197114bef5, type: 2}
   cardBank: {fileID: 11400000, guid: be59ddf035bab0f4bbb3deb44aad95f6, type: 2}
   uiDoc: {fileID: 904759562}
-  cardWidth: 120
+  heroPoolName: HeroSelectionPool
+  itemsPerRow: 0
+  cardWidth: 180
   colGap: 12
   rowGap: 12
 --- !u!114 &904759562
@@ -1257,8 +1259,8 @@ MonoBehaviour:
   cardTemplate: {fileID: 9197481963319205126, guid: ce7ec8992aedf614db80452685e736c3, type: 3}
   cardDatabase: {fileID: 11400000, guid: 194b4ea67c7b6bd4d9d285197114bef5, type: 2}
   cardBank: {fileID: 11400000, guid: be59ddf035bab0f4bbb3deb44aad95f6, type: 2}
-  gearBank: {fileID: 0}
-  gearStaticDB: {fileID: 0}
+  gearBank: {fileID: 11400000, guid: cab5df3b62eaf4741985e2d3bf6ed6f5, type: 2}
+  gearStaticDB: {fileID: 11400000, guid: 3f9c523cf55610340bf2fe4f5f18f37b, type: 2}
   unitGiftLevel: {fileID: 1063526874}
   upgradePanelCtrl: {fileID: 1064857533}
   filledStarSprite: {fileID: -8980388821408755452, guid: 225758a5b9c5ff348bffc048eddfe6c0, type: 3}
@@ -1322,6 +1324,7 @@ GameObject:
   - component: {fileID: 1844380992}
   - component: {fileID: 1844380994}
   - component: {fileID: 1844380995}
+  - component: {fileID: 1844380996}
   m_Layer: 5
   m_Name: PlayerBaseMap
   m_TagString: Untagged
@@ -1343,7 +1346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: ec82b75b40ce9814a9a6a6f10c644840, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 50f3338c2aa926e4db3350c917e3286a, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: 3ce331ea7a00a974da2abbdd25e94c11, type: 3}
   m_SortingOrder: 0
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
@@ -1375,7 +1378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31c886648ae0b64886f7a6a2936c78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollViewName: CampScroll
+  scrollViewName: PlayerCampMap
+  hotZoneClass: hot-zone
 --- !u!114 &1844380995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1393,6 +1397,21 @@ MonoBehaviour:
   cardInventoryPage: {fileID: 1063526867}
   gachaPage: {fileID: 105621718}
   armyControlPage: {fileID: 727382610}
+--- !u!114 &1844380996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844380991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73c2f2cf251ef7042877417eeac9d96c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: cc0846d9f9a7dc447a4967bf9fbaab0b, type: 2}
+  referenceShort: 1179
+  minScale: 0.6
 --- !u!1 &1852069950
 GameObject:
   m_ObjectHideFlags: 0

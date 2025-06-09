@@ -132,7 +132,7 @@ MonoBehaviour:
     widthVw: 18
   - queryType: 0
     queryValue: HeroSelectionPool
-    widthVh: 100
+    widthVh: 90
     heightVh: 0
     fontVh: 0
     applyScale: 0

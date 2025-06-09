@@ -1,84 +1,55 @@
+// Assets/Scripts/Game/UI/ScrollViewPan.cs
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// 给 ScrollView 加“按住拖动画布”能力，并在页面隐藏 / 再显示时
+/// 自动保存并恢复 scrollOffset（相当于记住镜头位置）。<br/>
+/// ① 不抢 Button / 热区（class = "hot-zone"）的事件。<br/>
+/// ② 自动 Clamp，不会拖出边界。<br/>
+/// ③ 隐掉滚动条。<br/>
+/// 用法：把脚本挂在带 UIDocument 的 GameObject 上，设置 scrollViewName。<br/>
+/// </summary>
 [RequireComponent(typeof(UIDocument))]
-public class ScrollDragPan : MonoBehaviour
+public sealed class ScrollViewPan : MonoBehaviour
 {
-    [SerializeField] private string scrollViewName = "CampScroll";
+    [SerializeField] string scrollViewName = "PlayerBaseScroll";
+    [SerializeField] string hotZoneClass   = "hot-zone";
 
+    ScrollView sv;
+
+    // —— 静态：同名 ScrollView 共享一份偏移缓存 —— //
     static readonly Dictionary<string, Vector2> SavedOffset = new();
-
-    ScrollView    sv;
-    VisualElement vp;
-    int           dragId = -1;
-    Vector2       lastPos;
 
     void OnEnable()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        sv = root.Q<ScrollView>(scrollViewName);
-        if (sv == null) { Debug.LogError($"找不到 ScrollView: {scrollViewName}"); return; }
+        sv = GetComponent<UIDocument>().rootVisualElement.Q<ScrollView>(scrollViewName);
+        if (sv == null) { Debug.LogError($"[ScrollViewPan] 找不到 ScrollView: {scrollViewName}"); return; }
 
-        // ←─────────① 推迟 1 帧恢复 ─────────→
-        if (SavedOffset.TryGetValue(scrollViewName, out var off))
-            sv.schedule.Execute(() => sv.scrollOffset = off).ExecuteLater(1);
-        // --------------------------------------
+        // 1. 隐掉滚动条（千万别 display:none，会让布局失效）
+        sv.verticalScrollerVisibility   = ScrollerVisibility.Hidden;
+        sv.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
+        sv.verticalScroller.style.opacity   = 0;
+        sv.horizontalScroller.style.opacity = 0;
 
-        sv.verticalScroller.style.display   = DisplayStyle.None;
-        sv.horizontalScroller.style.display = DisplayStyle.None;
-
-        vp     = sv.contentContainer;
-        dragId = -1;
-
-        vp.RegisterCallback<PointerDownEvent>(OnPointerDown,  TrickleDown.TrickleDown);
-        vp.RegisterCallback<PointerMoveEvent>(OnPointerMove,  TrickleDown.TrickleDown);
-        vp.RegisterCallback<PointerUpEvent>(  OnPointerUp,    TrickleDown.TrickleDown);
-        vp.RegisterCallback<PointerCaptureOutEvent>(OnPointerCaptureOut);
-    }
-
-    void OnDisable()
-    {
-        // ←─────────② 保存当前位置 ─────────→
-        if (sv != null) SavedOffset[scrollViewName] = sv.scrollOffset;
-        // --------------------------------------
-
-        if (vp != null)
+        // 2. 恢复上一次保存的偏移
+        if (SavedOffset.TryGetValue(scrollViewName, out var offset))
         {
-            if (dragId != -1) vp.ReleasePointer(dragId);
-
-            vp.UnregisterCallback<PointerDownEvent>(OnPointerDown,  TrickleDown.TrickleDown);
-            vp.UnregisterCallback<PointerMoveEvent>(OnPointerMove,  TrickleDown.TrickleDown);
-            vp.UnregisterCallback<PointerUpEvent>(  OnPointerUp,    TrickleDown.TrickleDown);
-            vp.UnregisterCallback<PointerCaptureOutEvent>(OnPointerCaptureOut);
+            // 必须等到下一帧（布局已完成）再设置，否则 0,0 尺寸时会被 UI Toolkit 覆盖
+            sv.schedule.Execute(() => sv.scrollOffset = offset).ExecuteLater(0);
         }
 
-        sv = null; vp = null; dragId = -1;
+        // 3. 给 contentContainer 添加拖拽 Manipulator
+        sv.contentContainer.AddManipulator(new PanManipulator(sv, hotZoneClass));
     }
 
-    /*──────── Pointer 事件保持不变 ────────*/
-    void OnPointerDown(PointerDownEvent e)
+    // 当 GameObject 被 SetActive(false) 或脚本被关闭时触发
+    void OnDisable()
     {
-        if (e.button != 0) return;
-        dragId  = e.pointerId;
-        lastPos = (Vector2)e.position;
-        vp.CapturePointer(dragId);
+        if (sv != null)
+        {
+            SavedOffset[scrollViewName] = sv.scrollOffset; // 记录当前镜头
+        }
     }
-
-    void OnPointerMove(PointerMoveEvent e)
-    {
-        if (e.pointerId != dragId) return;
-        Vector2 delta = (Vector2)e.position - lastPos;
-        lastPos = (Vector2)e.position;
-        sv.scrollOffset -= delta;
-    }
-
-    void OnPointerUp(PointerUpEvent e)
-    {
-        if (e.pointerId != dragId) return;
-        vp.ReleasePointer(dragId);
-        dragId = -1;
-    }
-
-    void OnPointerCaptureOut(PointerCaptureOutEvent _) => dragId = -1;
 }

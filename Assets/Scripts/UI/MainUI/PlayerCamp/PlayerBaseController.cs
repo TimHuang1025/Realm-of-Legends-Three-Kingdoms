@@ -1,14 +1,8 @@
+// Assets/Scripts/Game/UI/PlayerBaseController.cs
 using UnityEngine;
 using UnityEngine.UIElements;
+using UIExt;  // 你的 Bounce 扩展方法所在命名空间
 
-/// <summary>
-/// 玩家大本营 / 主界面控制器：
-/// 1. 进入游戏时隐藏 CardInventoryPage，显示 MainUI & PlayerBaseMap.
-/// 2. 点击 “CardInventoryBuilding” 按钮时：
-///    - 关闭 MainUI & PlayerBaseMap
-///    - 打开 CardInventoryPage
-/// 3. CardInventoryPage 里点击 “返回” 时，调用 HideCardInventoryPage() 恢复主界面。
-/// </summary>
 [RequireComponent(typeof(UIDocument))]
 public class PlayerBaseController : MonoBehaviour
 {
@@ -19,43 +13,64 @@ public class PlayerBaseController : MonoBehaviour
     [SerializeField] private GameObject gachaPage;
     [SerializeField] private GameObject armyControlPage;
 
-
     private Button cardInventoryBtn;
     private Button armyControlBtn;
 
-    /*———— 启动时默认状态 ————*/
     void Awake()
     {
+        // 默认只开主界面
         cardInventoryPage.SetActive(false);
-        mainUIPanel.SetActive(true);
-        playerBaseMap.SetActive(true);
         gachaPage.SetActive(false);
         armyControlPage.SetActive(false);
+        mainUIPanel.SetActive(true);
+        playerBaseMap.SetActive(true);
     }
 
-    /*———— 每次重新启用时重新取 root 并绑定事件 ————*/
     void OnEnable()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
+
+        // ——— 卡牌仓库 ———
         cardInventoryBtn = root.Q<Button>("CardInventoryBuilding");
-        cardInventoryBtn.clicked += ShowCardInventoryPage;
+        if (cardInventoryBtn != null)
+        {
+            PrepareBuildingButton(cardInventoryBtn);
+            cardInventoryBtn.clicked += ShowCardInventoryPage;
+        }
+        else Debug.LogError("找不到 CardInventoryBuilding 按钮");
 
+        // ——— 军团指挥 ———
         armyControlBtn = root.Q<Button>("ArmyControlBuilding");
-        armyControlBtn.clicked += ShowArmyControlPage;
-
+        if (armyControlBtn != null)
+        {
+            PrepareBuildingButton(armyControlBtn);
+            armyControlBtn.clicked += ShowArmyControlPage;
+        }
+        else Debug.LogError("找不到 ArmyControlBuilding 按钮");
     }
 
-    /*———— 对应卸载，避免重复绑定 ————*/
     void OnDisable()
     {
         if (cardInventoryBtn != null)
             cardInventoryBtn.clicked -= ShowCardInventoryPage;
+        if (armyControlBtn != null)
+            armyControlBtn.clicked -= ShowArmyControlPage;
     }
 
-    /*———— 打开 / 关闭 逻辑保持不变 ————*/
+    /* ——— 公用：给建筑按钮做统一设置 ——— */
+    void PrepareBuildingButton(Button btn)
+    {
+        btn.pickingMode = PickingMode.Position;                         // 整块区域可点
+        btn.style.backgroundColor = new StyleColor(new Color(0,0,0,0)); // 透明背景，拦截点击
+        btn.Bounce(0.9f, 0.08f);                                        // 动效
+    }
+
+    /* ——— 页面切换逻辑 ——— */
     void ShowCardInventoryPage()
     {
         cardInventoryPage.SetActive(true);
+        gachaPage.SetActive(false);
+        armyControlPage.SetActive(false);
         mainUIPanel.SetActive(false);
         playerBaseMap.SetActive(false);
     }
@@ -66,10 +81,12 @@ public class PlayerBaseController : MonoBehaviour
         mainUIPanel.SetActive(true);
         playerBaseMap.SetActive(true);
     }
+
     public void ShowGachaPage()
     {
         gachaPage.SetActive(true);
         cardInventoryPage.SetActive(false);
+        armyControlPage.SetActive(false);
         mainUIPanel.SetActive(false);
         playerBaseMap.SetActive(false);
     }
@@ -77,24 +94,24 @@ public class PlayerBaseController : MonoBehaviour
     public void HideGachaPage()
     {
         gachaPage.SetActive(false);
-        cardInventoryPage.SetActive(true);   // 或 mainUIPanel，看你的返回逻辑
         mainUIPanel.SetActive(false);
         playerBaseMap.SetActive(false);
+        cardInventoryPage.SetActive(true); // 或 mainUIPanel，看需求
     }
 
     public void ShowArmyControlPage()
     {
+        armyControlPage.SetActive(true);
         cardInventoryPage.SetActive(false);
+        gachaPage.SetActive(false);
         mainUIPanel.SetActive(false);
         playerBaseMap.SetActive(false);
-        armyControlPage.SetActive(true);
     }
+
     public void HideArmyControlPage()
     {
         armyControlPage.SetActive(false);
         mainUIPanel.SetActive(true);
         playerBaseMap.SetActive(true);
-        cardInventoryPage.SetActive(false);
     }
 }
-

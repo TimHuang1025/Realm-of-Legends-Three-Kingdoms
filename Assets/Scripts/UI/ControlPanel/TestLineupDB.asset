@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineups:
   - mainId: S1
-    subId1: S8
-    subId2: S5
-    strategistId: B1
+    subId1: S2
+    subId2: S6
+    strategistId: S5
     ratio:
       infantry: 10
       cavalry: 37
