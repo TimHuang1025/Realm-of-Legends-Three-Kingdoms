@@ -27,6 +27,10 @@
                                 <ui:Label text="智力" name="IQTitle" class="upgradeskilltext" />
                                 <ui:Label text="3124" name="BeforeUpgradeIQStat" parse-escape-sequences="true" class="statnum" />
                             </ui:VisualElement>
+                            <ui:VisualElement name="BeforeUpgradeCmdPanel" style="flex-grow: 1; flex-direction: row;">
+                                <ui:Label text="统御&#10;" name="CmdTitle" class="upgradeskilltext" />
+                                <ui:Label text="4316" name="BeforeUpgradeCmdStat" class="statnum" />
+                            </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="ArrowPanel" style="flex-grow: 1; align-self: center; justify-content: space-around; height: 100%; align-items: center;">
                             <ui:VisualElement name="Arrow" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/arrow.png?fileID=-765150924802650856&amp;guid=1d9184f2da4e59541ae8e88e3836f541&amp;type=3#arrow_0&quot;); flex-shrink: 0; width: 25%; height: 22%; max-width: 70px; left: -6%;" />
@@ -46,6 +50,11 @@
                                 <ui:Label text="智力" name="IQTitle" class="upgradeskilltext" />
                                 <ui:Label text="3124" name="AfterOrgIQStat" parse-escape-sequences="true" class="statnum" />
                                 <ui:Label text="+100" name="UpgradeAddIQ" enable-rich-text="false" emoji-fallback-support="false" class="stataddnum" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="AfterUpgradeCmdPanel" style="flex-grow: 1; flex-direction: row;">
+                                <ui:Label text="统御&#10;" name="CmdTitle" class="upgradeskilltext" />
+                                <ui:Label text="4316" name="AfterOrgCmdStat" class="statnum" />
+                                <ui:Label text="+100" name="UpgradeAddCmd" enable-rich-text="false" emoji-fallback-support="false" class="stataddnum" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>

@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Kamgam.UIToolkitScrollViewPro;
 using UnityEngine.UIElements;
+using UIExt;
 
 [RequireComponent(typeof(UIDocument))]
 public class GiftPanelController : MonoBehaviour, IUIPanelController

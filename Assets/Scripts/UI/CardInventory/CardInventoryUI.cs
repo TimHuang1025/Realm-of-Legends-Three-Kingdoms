@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Game.Core;
 using Game.Data;
+using Game.Utils;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(UIDocument))]
 public class CardInventoryUI : MonoBehaviour
@@ -13,9 +15,13 @@ public class CardInventoryUI : MonoBehaviour
 
     [SerializeField] UptierPanelController uptierPanelCtrl;
     [SerializeField] private GearSelectionPanel gearPanel;
+    [SerializeField] private HorseSelectionPanel horsePanel;
 
     [SerializeField] private PlayerGearBank playerGearBank;   // 玩家所有动态装备
     [SerializeField] private GearDatabaseStatic gearDB;       // 静态装备库
+    [SerializeField] private PlayerHorseBank horseBank;
+    [SerializeField] private HorseDatabaseStatic horseDB;
+
 
     [SerializeField] GiftPanelController giftPanelCtrl;
     [SerializeField] GachaPanelController gachaPanelCtrl;
@@ -32,10 +38,15 @@ public class CardInventoryUI : MonoBehaviour
     VisualElement passive1Img, passive2Img;
     Label passive1NameLbl, passive1DescLbl;
     Label passive2NameLbl, passive2DescLbl;
+    // ── 私有 UI 元素 ────────────────────────────────
+    Button weaponRemoveBtn, armorRemoveBtn, mountRemoveBtn;
+    VisualElement atkTip;        // 当前悬浮气泡（null = 没弹）
+    bool atkTipHooked;
+
 
     /*──────── 私有 UI 元素 ────────*/
     VisualElement cardsVe, infoVe;
-    Button returnBtn, upgradeBtn, uptierBtn, giftBtn, infoBtn, closeInfoBtn, gachaBtn;
+    Button returnBtn, returnBtnforInfo, upgradeBtn, uptierBtn, giftBtn, infoBtn, closeInfoBtn, gachaBtn;
     Label mat2valueLbl, expvalueLbl;
 
     /*──────── 当前选中数据 ────────*/
@@ -60,6 +71,10 @@ public class CardInventoryUI : MonoBehaviour
             // 旧的：只在抽到 / 移除卡牌时用来重排网格
             bank.onCardChanged += OnCardChanged;
         }
+        BindStatButton(root.Q<Button>("AtkStatBtn"), StatType.Atk);
+        BindStatButton(root.Q<Button>("DefStatBtn"), StatType.Def);
+        BindStatButton(root.Q<Button>("IntStatBtn"), StatType.Int);
+        BindStatButton(root.Q<Button>("CmdStatBtn"), StatType.Cmd);
 
         /*──── 左侧 & Info 面板 ────*/
         cardsVe = root.Q<VisualElement>("Cards");
@@ -75,6 +90,7 @@ public class CardInventoryUI : MonoBehaviour
 
         /*──── 按钮 ────*/
         returnBtn = root.Q<Button>("ReturnBtn");
+        returnBtnforInfo = root.Q<Button>("ReturnBtnForInfo");
         upgradeBtn = root.Q<Button>("InfoUpgradeBtn");
         uptierBtn = root.Q<Button>("InfoUptierBtn");
         giftBtn = root.Q<Button>("InfoGiftBtn");
@@ -85,6 +101,11 @@ public class CardInventoryUI : MonoBehaviour
         var weaponL = root.Q<Button>("weaponslot");
         var armorL = root.Q<Button>("armorslot");
         var mountL = root.Q<Button>("horseslot");
+        //卸下按钮
+        weaponRemoveBtn = root.Q<Button>("WeaponRemoveBtn");
+        armorRemoveBtn = root.Q<Button>("ArmorRemoveBtn");
+        mountRemoveBtn = root.Q<Button>("MountRemoveBtn");
+
 
         weaponL?.RegisterCallback<ClickEvent>(evt =>
         {
@@ -95,7 +116,7 @@ public class CardInventoryUI : MonoBehaviour
                 return;
             }
             HandleSlotClick(currentStatic, currentDyn, EquipSlotType.Weapon);
-        }, TrickleDown.TrickleDown);
+        });
 
         armorL?.RegisterCallback<ClickEvent>(evt =>
         {
@@ -106,6 +127,35 @@ public class CardInventoryUI : MonoBehaviour
                 return;
             }
             HandleSlotClick(currentStatic, currentDyn, EquipSlotType.Armor);
+        });
+
+        mountL?.RegisterCallback<ClickEvent>(evt =>
+        {
+            if (!(bool)mountL.userData)
+            {
+                PopupManager.Show("提示", "坐骑槽未解锁");
+                evt.StopPropagation();
+                return;
+            }
+            HandleSlotClick(currentStatic, currentDyn, EquipSlotType.Mount); // ★
+        });
+
+
+        weaponRemoveBtn?.RegisterCallback<ClickEvent>(evt =>
+        {
+            AttemptUnequip(EquipSlotType.Weapon);
+            evt.StopImmediatePropagation();     // 关键
+        }, TrickleDown.TrickleDown);
+        armorRemoveBtn?.RegisterCallback<ClickEvent>(evt =>
+        {
+            AttemptUnequip(EquipSlotType.Armor);   // 复用同一个卸下函数
+            evt.StopImmediatePropagation();        // 关键：截断捕获 + 冒泡
+        }, TrickleDown.TrickleDown);
+
+        mountRemoveBtn?.RegisterCallback<ClickEvent>(evt =>
+        {
+            AttemptUnequip(EquipSlotType.Mount);
+            evt.StopImmediatePropagation();
         }, TrickleDown.TrickleDown);
 
         returnBtn?.RegisterCallback<ClickEvent>(_ => playerBaseController.HideCardInventoryPage());
@@ -113,6 +163,7 @@ public class CardInventoryUI : MonoBehaviour
         uptierBtn?.RegisterCallback<ClickEvent>(_ => StartCoroutine(OpenPanel(uptierPanelCtrl)));
         giftBtn?.RegisterCallback<ClickEvent>(_ => StartCoroutine(OpenPanel(giftPanelCtrl)));
         infoBtn?.RegisterCallback<ClickEvent>(_ => OpenInfoPanel());
+        returnBtnforInfo?.RegisterCallback<ClickEvent>(_ => CloseInfoPanel());
         closeInfoBtn?.RegisterCallback<ClickEvent>(_ => CloseInfoPanel());
         gachaBtn?.RegisterCallback<ClickEvent>(_ => playerBaseController.ShowGachaPage());
 
@@ -129,9 +180,11 @@ public class CardInventoryUI : MonoBehaviour
         passive2NameLbl = root.Q<Label>("Passive2NameLbl");
         passive2DescLbl = root.Q<Label>("Passive2DescLbl");
 
+        StatBreakdownPanel.OnPanelShown = () => vhSizer?.Apply();
         /*──── 监听卡牌升级／获得 ────*/
         if (PlayerCardBankMgr.I != null)
             PlayerCardBankMgr.I.onCardChanged += OnCardChanged;
+
     }
 
     void OnDisable()
@@ -141,6 +194,7 @@ public class CardInventoryUI : MonoBehaviour
 
         if (PlayerCardBankMgr.I != null)
             PlayerCardBankMgr.I.onCardChanged -= OnCardChanged;
+        PlayerCardBankMgr.I.onCardUpdated -= OnCardUpdated;
     }
     void OnCardUpdated(string id)
     {
@@ -172,13 +226,16 @@ public class CardInventoryUI : MonoBehaviour
     {
         cardsVe.style.display = DisplayStyle.None;
         infoVe.style.display = DisplayStyle.Flex;
+        returnBtnforInfo.style.display = DisplayStyle.Flex;
         unitGiftLevel.RefreshUI();
         vhSizer?.Apply();
+
     }
     void CloseInfoPanel()
     {
         infoVe.style.display = DisplayStyle.None;
         cardsVe.style.display = DisplayStyle.Flex;
+        returnBtnforInfo.style.display = DisplayStyle.None;
         vhSizer?.Apply();
     }
 
@@ -218,8 +275,7 @@ public class CardInventoryUI : MonoBehaviour
     /// </summary>
     void SetInfoPanelData(CardInfoStatic info, PlayerCard dyn)
     {
-        if (info == null) return;   // 安全兜底
-        //Debug.Log($"[SetInfoPanelData] {info?.id}  atk={LevelStatCalculator.CalculateStats(info, dyn).Atk}");
+        if (info == null) return;
 
         RefreshStars(dyn);
 
@@ -241,17 +297,26 @@ public class CardInventoryUI : MonoBehaviour
         var descLbl = root.Q<Label>("HeroDescription");
         var cardLvLbl = root.Q<Label>("CardLvLbl");
         var herofragmentLbl = root.Q<Label>("HeroFragmentsLbl");
-        atkLbl.enableRichText   = true;                 // 允许 <color> 标签
+        atkLbl.enableRichText = true;                 // 允许 <color> 标签
         atkLbl.style.whiteSpace = WhiteSpace.NoWrap;    // 防止数值换行
 
         /*── 3. 填数值 ───────────────────────────*/
         if (atkLbl != null)
         {
-            atkLbl.text = $"{stats.Atk}+{equipAtk}";
+
+            int totalAtk = stats.Atk + equipAtk;          // ① 求和
+            atkLbl.text = totalAtk.ToString();
         }
         if (defLbl != null)
-            defLbl.text = $"{stats.Def}+{equipDef}";//  ()
-        if (intLbl != null) intLbl.text = stats.Int.ToString();
+        {
+            int totalDef = stats.Atk + equipDef;
+            defLbl.text = totalDef.ToString();
+        }
+        if (intLbl != null)
+        {
+            //int totalLbl = stats.Atk + equipInt;
+            intLbl.text = stats.Int.ToString();
+        }
         if (cmdLbl != null) cmdLbl.text = stats.Cmd.ToString();
 
         /*── 4. 填描述（字段名按你的静态库来改）────*/
@@ -271,6 +336,7 @@ public class CardInventoryUI : MonoBehaviour
             // 显示当前碎片数量
             herofragmentLbl.text = $"武将碎片 x {dyn?.copies ?? 0}";
         }
+
         cardInv.RefreshEquipSlots(dyn, root);
 
     }
@@ -304,8 +370,12 @@ public class CardInventoryUI : MonoBehaviour
 
     void RefreshResource()
     {
-        mat2valueLbl.text = PlayerResourceBank.I[ResourceType.HeroMat2].ToString("N0");
-        expvalueLbl.text = PlayerResourceBank.I[ResourceType.HeroExp].ToString("N0");
+        long mat2 = PlayerResourceBank.I[ResourceType.HeroMat2];
+        long exp = PlayerResourceBank.I[ResourceType.HeroExp];
+
+        // 1 行搞定数字缩写（默认保留 1 位小数，可传第二个参数改小数位）
+        mat2valueLbl.text = NumberAbbreviator.Format(mat2, 2); // 例：23.0K
+        expvalueLbl.text = NumberAbbreviator.Format(exp, 2);
     }
     void RefreshStars(PlayerCard dyn)
     {
@@ -392,44 +462,230 @@ public class CardInventoryUI : MonoBehaviour
             PopupManager.Show("提示", "尚未拥有该武将");
             return;
         }
-        gearPanel.Open(dyn, slot);   // 这里才有 gearPanel 引用
+
+        if (slot == EquipSlotType.Mount)           // ★ 坐骑槽
+        {
+            horsePanel.Open(dyn);                  //   → 打开 HorseSelectionPanel
+        }
+        else                                        // ★ 武器 / 防具槽
+        {
+            gearPanel.Open(dyn, slot);             //   → 继续用 GearSelectionPanel
+        }
     }
 
+
     /// <summary>统计这张卡当前装备提供的额外 Atk / Def</summary>
+    /// <summary>
+    /// 统计当前装备提供的额外 Atk / Def（含战马百分比折算）
+    /// </summary>
     private (int atk, int def) CalcEquipBonus(PlayerCard dyn)
     {
         if (dyn == null) return (0, 0);
 
         int bonusAtk = 0, bonusDef = 0;
 
-        string[] equipUuids =
-        {
-            dyn.equip.weaponUuid,
-            dyn.equip.armorUuid,
-            dyn.equip.accessoryUuid
-        };
+        /*──────── 武器 / 防具：固定数值 ────────*/
+        string[] gearUuids = { dyn.equip.weaponUuid, dyn.equip.armorUuid };
 
-        foreach (var uuid in equipUuids)
+        foreach (var uuid in gearUuids)
         {
             if (string.IsNullOrEmpty(uuid)) continue;
 
-            // PlayerGearBank.Get() 也是按 uuid 查
             var pg = playerGearBank.Get(uuid);
             if (pg == null) continue;
 
-            var gs = gearDB.Get(pg.staticId);   // 取静态条目
+            var gs = gearDB.Get(pg.staticId);
             if (gs == null) continue;
 
-            // ★ 直接用你已经写好的公式
-            var (atkF, defF) = gs.CalcStats(pg.level);
-
+            var (atkF, defF) = gs.CalcStats(pg.level);  // 固定值
             bonusAtk += Mathf.RoundToInt(atkF);
             bonusDef += Mathf.RoundToInt(defF);
         }
 
+        /*──────── 坐骑：百分比 → 实际数值 ────────
+        string horseUuid = dyn.equip.accessoryUuid;
+        if (!string.IsNullOrEmpty(horseUuid))
+        {
+            var ph = horseBank.Get(horseUuid);
+            var hs = horseDB.Get(ph?.staticId);
+            if (hs != null)
+            {
+                var (atkPct, defPct, _) = hs.CalcStats(ph.level);  // 0.1536 = +15.36 %
+
+                // 先算武将不含装备的基础四维
+                Stats4 baseStats = LevelStatCalculator.CalculateStats(currentStatic, dyn);
+
+                bonusAtk += Mathf.RoundToInt(baseStats.Atk * atkPct);
+                bonusDef += Mathf.RoundToInt(baseStats.Def * defPct);
+            }
+        }*/
+
         return (bonusAtk, bonusDef);
     }
 
+
+    /// <summary>点击小 X 时调用；若该槽有装备就卸下</summary>
+    void AttemptUnequip(EquipSlotType slot)
+    {
+        if (currentDyn == null)
+        {
+            PopupManager.Show("提示", "尚未拥有该武将");
+            return;
+        }
+
+        // 1) 取得 uuid
+        string uuid = slot switch
+        {
+            EquipSlotType.Weapon => currentDyn.equip.weaponUuid,
+            EquipSlotType.Armor => currentDyn.equip.armorUuid,
+            EquipSlotType.Mount => currentDyn.equip.accessoryUuid,
+            _ => ""
+        };
+
+        if (string.IsNullOrEmpty(uuid))
+        {
+            PopupManager.Show("提示", "当前槽位没有装备");
+            return;
+        }
+
+        // 2) 取出 PlayerGear，清掉 equip 关系
+        var pg = playerGearBank.Get(uuid);
+        if (pg != null) pg.equippedById = "";
+
+        switch (slot)                 // 清武将身上的 uuid
+        {
+            case EquipSlotType.Weapon: currentDyn.equip.weaponUuid = ""; break;
+            case EquipSlotType.Armor: currentDyn.equip.armorUuid = ""; break;
+        }
+        if (slot == EquipSlotType.Mount)
+        {
+            var ph = horseBank.Get(uuid);
+            if (ph != null) { ph.equippedById = ""; horseBank.MarkDirty(uuid); }
+            currentDyn.equip.accessoryUuid = "";
+        }
+        else
+        {
+            if (pg != null) { pg.equippedById = ""; playerGearBank.MarkDirty(uuid); }
+
+            if (slot == EquipSlotType.Weapon) currentDyn.equip.weaponUuid = "";
+            if (slot == EquipSlotType.Armor) currentDyn.equip.armorUuid = "";
+        }
+
+
+        // 3) 保存并刷新 UI
+        PlayerCardBankMgr.I.MarkDirty(currentDyn.id);   // ← 你的存档/脏标记逻辑
+        RefreshAfterEquipChanged();
+
+        PopupManager.Show("提示", "已卸下装备");
+    }
+
+    /// <summary>卸下/换装后集中刷新界面</summary>
+    void RefreshAfterEquipChanged()
+    {
+        var root = GetComponent<UIDocument>().rootVisualElement;
+
+        cardInv.RefreshEquipSlots(currentDyn, root);        // 刷 3 个槽
+        SetInfoPanelData(currentStatic, currentDyn);        // 刷 4 维
+        unitGiftLevel.SetData(currentStatic, currentDyn);   // 奖励
+        unitGiftLevel.RefreshUI();
+
+        vhSizer?.Apply();                                   // 重新排版
+    }
+
+    void BindStatButton(Button btn, StatType type)
+    {
+        if (btn == null) return;
+
+        btn.pickingMode = PickingMode.Position;
+        btn.userData = type;                                    // 存标识
+        btn.RegisterCallback<ClickEvent>(OnStatClicked,            // 共用回调
+                                        TrickleDown.TrickleDown);
+    }
+    enum StatType { Atk, Def, Int, Cmd }
+    void OnStatClicked(ClickEvent evt)
+    {
+        if (currentStatic == null) return;
+
+        var btn = (VisualElement)evt.currentTarget;
+        var type = (StatType)btn.userData;                         // 取标识
+
+        // ① 基础 & 装备
+        var stats = LevelStatCalculator.CalculateStats(currentStatic, currentDyn);
+        int baseVal = type switch
+        {
+            StatType.Atk => stats.Atk,
+            StatType.Def => stats.Def,
+            StatType.Int => stats.Int,
+            StatType.Cmd => stats.Cmd,
+            _ => 0
+        };
+
+        var (equipAtk, equipDef) = CalcEquipBonus(currentDyn);
+        int equipVal = type switch
+        {
+            StatType.Atk => equipAtk,
+            StatType.Def => equipDef,
+            _ => 0          // Int/Cmd 暂无装备加成
+        };
+
+        // ② 战马 & Buff（仅 Atk/Def 有战马；Buff 按需实现）
+        int horseVal = CalcHorseBonus(currentDyn, type); 
+        int buffVal = CalcBuffBonus(type);     // 如果没有 Buff 系统可直接返回 0
+
+        // ③ 组织列表
+        var parts = new List<(string, int)>
+        {
+            ("基础",  baseVal)
+            
+        };
+        if (equipVal != 0) parts.Add(("装备", equipVal));
+        if (horseVal != 0) parts.Add(("战马", horseVal));
+        if (buffVal != 0) parts.Add(("Buff", buffVal));
+
+        string title = type switch
+        {
+            StatType.Atk => "攻击组成",
+            StatType.Def => "防御组成",
+            StatType.Int => "谋略组成",
+            StatType.Cmd => "统率组成",
+            _ => "属性组成"
+        };
+
+        // ④ 弹窗
+        StatBreakdownPanel.Show(title, parts, evt.position);
+    }
+    
+    int CalcHorseBonus(PlayerCard dyn, StatType type)
+    {
+        if (dyn == null) return 0;
+
+        string uuid = dyn.equip.accessoryUuid;
+        if (string.IsNullOrEmpty(uuid)) return 0;
+
+        var ph = horseBank.Get(uuid);
+        var hs = horseDB.Get(ph?.staticId);
+        if (hs == null) return 0;
+
+        // 假设 CalcStats 现在返回 (atk%, def%, int%)
+        var (atkPct, defPct, intPct) = hs.CalcStats(ph.level);
+
+        var stats = LevelStatCalculator.CalculateStats(currentStatic, dyn);
+
+        return type switch
+        {
+            StatType.Atk => Mathf.RoundToInt(stats.Atk * atkPct),
+            StatType.Def => Mathf.RoundToInt(stats.Def * defPct),
+            StatType.Int => Mathf.RoundToInt(stats.Int * intPct),  // ← 只这行生效
+            _            => 0
+        };
+    }
+
+
+    int CalcBuffBonus(StatType type)
+    {
+        // 还没做 Buff 系统 → 直接返回 0
+        return 0;
+    }
 
 
 

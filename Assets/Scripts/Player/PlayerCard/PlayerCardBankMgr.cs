@@ -10,7 +10,7 @@ public class PlayerCardBankMgr : MonoBehaviour
 
     /*──────── 数据资产 ───────*/
     [SerializeField] private PlayerCardBank data;         // 拖 PlayerCardBank.asset
-    public  PlayerCardBank Data => data;
+    public PlayerCardBank Data => data;
 
     const string SaveFile = "player_cardbank.json";
 
@@ -58,7 +58,7 @@ public class PlayerCardBankMgr : MonoBehaviour
         var pc = data.Get(id);
         if (pc == null) return;
 
-        pc.equip.weaponUuid     = weaponId;
+        pc.equip.weaponUuid = weaponId;
         pc.equip.weaponUnlocked = !string.IsNullOrEmpty(weaponId);
         NotifyUpdated(id);
     }
@@ -68,7 +68,7 @@ public class PlayerCardBankMgr : MonoBehaviour
         var pc = data.Get(id);
         if (pc == null) return;
 
-        pc.equip.armorUuid     = armorId;
+        pc.equip.armorUuid = armorId;
         pc.equip.armorUnlocked = !string.IsNullOrEmpty(armorId);
         NotifyUpdated(id);
     }
@@ -78,7 +78,7 @@ public class PlayerCardBankMgr : MonoBehaviour
         var pc = data.Get(id);
         if (pc == null) return;
 
-        pc.equip.accessoryUuid   = mountId;
+        pc.equip.accessoryUuid = mountId;
         pc.equip.mountUnlocked = !string.IsNullOrEmpty(mountId);
         NotifyUpdated(id);
     }
@@ -98,9 +98,9 @@ public class PlayerCardBankMgr : MonoBehaviour
         {
             pc.giftExp -= Need[pc.giftLv];
             pc.giftLv++;
-            if (pc.giftLv == 2) pc.equip.weaponUnlocked  = true;
-            if (pc.giftLv == 3) pc.equip.armorUnlocked   = true;
-            if (pc.giftLv == 4) pc.equip.mountUnlocked   = true;
+            if (pc.giftLv == 2) pc.equip.weaponUnlocked = true;
+            if (pc.giftLv == 3) pc.equip.armorUnlocked = true;
+            if (pc.giftLv == 4) pc.equip.mountUnlocked = true;
         }
 
         NotifyUpdated(id);   // 广播 onCardUpdated + Save()
@@ -155,4 +155,10 @@ public class PlayerCardBankMgr : MonoBehaviour
     {
         onCardUpdated?.Invoke(id);
     }
+    // 加在 PlayerCardBankMgr 类里，位置随意（比如其他 public 方法下方）
+    public void MarkDirty(string id)
+    {
+        NotifyUpdated(id);  // 复用内部私有方法，顺带 Save()
+    }
+
 }

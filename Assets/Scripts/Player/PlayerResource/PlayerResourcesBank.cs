@@ -22,7 +22,7 @@ public class PlayerResourceBank  : MonoBehaviour
     }
 
     /* ───── 查询接口 ───── */
-    public int this[ResourceType type] => type switch
+    public long this[ResourceType type] => type switch
     {
         ResourceType.Gold        => data.gold,
         ResourceType.Silver      => data.silver,
@@ -70,11 +70,11 @@ public class PlayerResourceBank  : MonoBehaviour
     /* ───── 存档 (JSON) ───── */
     [Serializable] class SaveStruct
     {
-        public int gold;
-        public int silver;
-        public int copper;
-        public int heroexp;
-        public int heromat2;
+        public long gold;
+        public long silver;
+        public long copper;
+        public long heroexp;
+        public long heromat2;
         public int gachaTicket;
     }
 

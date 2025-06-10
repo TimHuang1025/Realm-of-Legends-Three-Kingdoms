@@ -211,3 +211,12 @@ MonoBehaviour:
     aspectWidth: 0
     addWidthVw: 0
     widthVw: 30
+  - queryType: 1
+    queryValue: slot-remove
+    widthVh: 5
+    heightVh: 5
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 30

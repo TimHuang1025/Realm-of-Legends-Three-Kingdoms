@@ -84,10 +84,11 @@ public class HeroSelectionPanel : MonoBehaviour
         heroPool.verticalScrollerVisibility = ScrollerVisibility.Hidden;
 
         root = heroPool.contentContainer;
-        root.style.paddingLeft = 10;
+        //root.style.paddingLeft = 5;
         root.style.paddingTop = 15;
         root.style.flexDirection = FlexDirection.Column;
         root.style.alignSelf = Align.Center;
+        root.style.alignContent = Align.Center;
     }
 
     private void SetTitleBySlot()
@@ -159,12 +160,19 @@ public class HeroSelectionPanel : MonoBehaviour
     }
 
     /*───────── ⑦ 自动列数 ─────────*/
-    private int CalcAutoColumns()
-    {
-        float width = heroPool.contentViewport.layout.width;
-        if (width < 1f) width = heroPool.contentViewport.worldBound.width;
-        if (width < 1f) return 1;
+/// <summary>根据 viewport 宽度自动计算列数（cardWidth 不含间距时用本函数）</summary>
+        /// <summary>根据 viewport 宽度自动计算列数（双倍列间距）</summary>/// <summary>根据 viewport 宽度自动计算列数（双倍列间距）</summary>
+private int CalcAutoColumns()
+{
+    float width = heroPool.contentViewport.resolvedStyle.width;
+    if (width < 1f) return 1;
 
-        return Mathf.Max(1, Mathf.FloorToInt((width + colGap) / (cardWidth + colGap)));
-    }
+    float gapH    = colGap * 2f;            // ← 列间距 ×2
+    float colSpan = cardWidth + gapH;       // 一列真正占用的宽
+    int   cols    = Mathf.FloorToInt((width + gapH) / colSpan);
+    return Mathf.Max(cols, 1);
+}
+
+
+
 }

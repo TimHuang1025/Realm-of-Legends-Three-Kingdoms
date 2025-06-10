@@ -49,3 +49,12 @@ MonoBehaviour:
     aspectWidth: 0
     addWidthVw: 1
     widthVw: 10
+  - queryType: 0
+    queryValue: ClosePanel
+    widthVh: 7
+    heightVh: 7
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 10

@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="RootPopup" style="position: absolute; background-color: rgba(0, 0, 0, 0.85); border-radius: 6px; padding: 6px 10px; flex-direction: column; unity-font-size: 14px; color: white; width: 70%; height: auto;">
+        <ui:Label name="TitleLbl" style="unity-font-style: bold; margin-bottom: 4px; font-size: 35px; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;);" />
+        <ui:VisualElement name="Split" style="height: 1px; background-color: rgba(255, 255, 255, 0.25); margin-bottom: 4px;" />
+        <ui:VisualElement name="ListRoot" style="flex-direction: column; font-size: 30px; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;);" />
+    </ui:VisualElement>
+</ui:UXML>

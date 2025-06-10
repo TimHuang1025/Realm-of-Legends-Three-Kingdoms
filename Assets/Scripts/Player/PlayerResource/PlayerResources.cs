@@ -16,10 +16,10 @@ public enum ResourceType
 public class PlayerResources : ScriptableObject
 {
     [Header("玩家资源")]
-    public int gold         = 0;
-    public int silver       = 0;
-    public int copper       = 0;
-    public int heroexp      = 0;
-    public int heromat2     = 0;
+    public long gold         = 0;
+    public long silver       = 0;
+    public long copper       = 0;
+    public long heroexp      = 0;
+    public long heromat2     = 0;
     public int gachaTicket  = 0;
 }

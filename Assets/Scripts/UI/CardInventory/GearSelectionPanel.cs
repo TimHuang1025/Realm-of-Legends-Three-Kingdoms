@@ -59,7 +59,6 @@ public class GearSelectionPanel : MonoBehaviour
 
         optionContainer = root.Q<ScrollViewPro>(optionContainerName);
         closeBtn   = root.Q<Button>("ClosePanel");
-        cancelBtn  = root.Q<Button>("CloseBtn2");
         equipBtn   = root.Q<Button>("EquipBtn");
         sortBtn    = root.Q<Button>("ItemOrderSort");
 
@@ -68,7 +67,9 @@ public class GearSelectionPanel : MonoBehaviour
         optionContainer.verticalScrollerVisibility   = ScrollerVisibility.Hidden;
 
         closeBtn?.RegisterCallback<ClickEvent>(_ => Close());
-        cancelBtn?.RegisterCallback<ClickEvent>(_ => Close());
+        VisualElement blk = root.Q<VisualElement>("BlackSpace");
+        if (blk != null)
+            blk.RegisterCallback<ClickEvent>(_ => Close());
 
         if (sortBtn != null)
         {
@@ -87,11 +88,6 @@ public class GearSelectionPanel : MonoBehaviour
     /*───────── ④ 对外接口 ─────────*/
     public void Open(PlayerCard card, EquipSlotType slot)
     {
-        if (slot == EquipSlotType.Mount)
-        {
-            Debug.LogWarning("当前版本未实现坐骑槽，忽略打开请求");
-            return;
-        }
 
         currentCard      = card;
         currentSlot      = slot;

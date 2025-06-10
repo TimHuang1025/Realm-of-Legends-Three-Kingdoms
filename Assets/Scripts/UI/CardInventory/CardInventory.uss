@@ -269,6 +269,7 @@
     background-image: url("project://database/Assets/Assets/UI/CardInventory/locked.png?fileID=2800000&guid=af8b94ef02d673d47b270b5dc9ff5f8e&type=3#locked");
     -unity-background-scale-mode: stretch-to-fill;
     background-size: 110% 110%;
+    overflow: visible;
 }
 
 .equipmentunlocked {
@@ -282,6 +283,7 @@
     border-right-width: 0;
     border-bottom-width: 0;
     border-left-width: 0;
+    overflow: visible;
 }
 
 .gachabigBtn {
@@ -344,4 +346,20 @@
 .headicon {
     width: 24%;
     aspect-ratio: 1;
+}
+
+.slot-remove {
+    position: absolute;
+    right: -15%;
+    top: -12%;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 0, 0, 0.55);
+    color: rgb(255, 255, 255);
+    border-radius: 50%;
+    -unity-font-style: bold;
+    font-size: 12px;
+    text-align: center;
+    line-height: 20px;
+    pointer-events: all;
 }

@@ -69,6 +69,18 @@ public class VhSizer : MonoBehaviour
 
     /*──────── 对外 API ────────*/
     public void Apply() => ApplyInternal();
+    public float VhToPx(float vhValue)
+    {
+        float shortEdge = Mathf.Min(Screen.width, Screen.height);
+        float rawScale = referenceShort / shortEdge;
+        float globalScale = Mathf.Clamp(rawScale, minScale, 1f);
+
+        if (doc == null || doc.rootVisualElement == null)
+            return 0f;
+
+        float oneVh = doc.rootVisualElement.layout.height / 100f;
+        return vhValue * oneVh * globalScale;
+    }
 
     /*──────── 主逻辑（与之前一致） ────────*/
     void ApplyInternal()

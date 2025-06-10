@@ -163,18 +163,18 @@ public class UpgradePanelController : MonoBehaviour, IUIPanelController
         beforeAtkLbl.text = atk.ToString();
         beforeDefLbl.text = def.ToString();
         beforeIntLbl.text = intel.ToString();
-        //beforeCmdLbl.text = cmd.ToString();
+        beforeCmdLbl.text = cmd.ToString();
 
         afterAtkLbl.text  = (atk + dAtk).ToString();
         afterDefLbl.text  = (def + dDef).ToString();
         afterIntLbl.text  = (intel + dInt).ToString();
-        //afterCmdLbl.text  = (cmd + dCmd).ToString();
+        afterCmdLbl.text  = (cmd + dCmd).ToString();
 
         addAtkLbl.text = $"+{dAtk}";
         //Debug.Log($"UpgradePanel: {info} Lv{lvNow} -> Lv{lvNext}, Atk {atk} -> {atk + dAtk}");
         addDefLbl.text = $"+{dDef}";
         addIntLbl.text = $"+{dInt}";
-        //addCmdLbl.text = $"+{dCmd}";
+        addCmdLbl.text = $"+{dCmd}";
 
         /* 材料 */
         var (expNeed, matNeed) = LevelStatCalculator.GetUpgradeCost(lvNow);
@@ -191,8 +191,8 @@ public class UpgradePanelController : MonoBehaviour, IUIPanelController
         }
 
         /* 玩家持有 */
-        int expHave  = PlayerResourceBank.I[ResourceType.HeroExp];
-        int mat2Have = PlayerResourceBank.I[ResourceType.HeroMat2];
+        long expHave  = PlayerResourceBank.I[ResourceType.HeroExp];
+        long mat2Have = PlayerResourceBank.I[ResourceType.HeroMat2];
         expHaveLbl.text = expHave.ToString();
         matHaveLbl.text = mat2Have.ToString();
 

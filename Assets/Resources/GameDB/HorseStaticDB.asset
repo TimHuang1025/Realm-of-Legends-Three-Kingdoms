@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f51e490dbf64f0f46a776755da11d098, type: 3}
+  m_Name: HorseStaticDB
+  m_EditorClassIdentifier: 
+  horses:
+  - id: horse_1
+    name: "\u8D64\u5154"
+    tier: 0
+    valueMultiplier:
+    - 1.2
+    - 0.9
+    - 0.9
+    iconSprite: {fileID: 6987865350413798740, guid: 2395d3981a8556c4fba1af21c7f84ce8, type: 3}
+  - id: horse_2
+    name: "\u7684\u5362"
+    tier: 0
+    valueMultiplier:
+    - 0.9
+    - 1.2
+    - 0.9
+    iconSprite: {fileID: 996773821596262083, guid: ea3bc622dfa218a4db02bf8c986b5639, type: 3}
+  - id: horse_3
+    name: "\u7EDD\u5F71"
+    tier: 0
+    valueMultiplier:
+    - 0.9
+    - 0.9
+    - 1.2
+    iconSprite: {fileID: 5872419585750127135, guid: 6aef6a20dc76e8f4aabe0ef1d39c06b5, type: 3}
+  - id: horse_4
+    name: "\u7389\u5170\u767D\u9F99\u9A79"
+    tier: 1
+    valueMultiplier:
+    - 1.2
+    - 0.9
+    - 0.9
+    iconSprite: {fileID: -1796420107148289907, guid: 360fcb0a6e20e61488278ff9ca5cc853, type: 3}
+  - id: horse_5
+    name: "\u98DE\u7535"
+    tier: 1
+    valueMultiplier:
+    - 0.9
+    - 1.2
+    - 0.9
+    iconSprite: {fileID: 272331419278525259, guid: af31595271d0d1b4cb49c340c4a1a7ca, type: 3}
+  - id: horse_6
+    name: "\u8E0F\u96EA"
+    tier: 1
+    valueMultiplier:
+    - 0.9
+    - 0.9
+    - 1.2
+    iconSprite: {fileID: -5688936185963363097, guid: 06cecfe644cfb6943adab82dbb8a2931, type: 3}
+  - id: horse_7
+    name: "\u5FEB\u822A"
+    tier: 2
+    valueMultiplier:
+    - 1.2
+    - 0.9
+    - 0.9
+    iconSprite: {fileID: 5872419585750127135, guid: 6aef6a20dc76e8f4aabe0ef1d39c06b5, type: 3}
+  - id: horse_8
+    name: "\u6C57\u8840"
+    tier: 2
+    valueMultiplier:
+    - 0.9
+    - 1.2
+    - 0.9
+    iconSprite: {fileID: -3737445405749163365, guid: c9bbed941dd947c4d980cb3e64a7f3a5, type: 3}
+  - id: horse_9
+    name: "\u9752\u98CE"
+    tier: 2
+    valueMultiplier:
+    - 0.9
+    - 0.9
+    - 1.2
+    iconSprite: {fileID: -7135256032413534146, guid: 6976e5b0f612a964fa28c3d5267cef3a, type: 3}
+  valueCoeArr:
+  - tier: 0
+    value: 0.00008
+  - tier: 1
+    value: 0.00004
+  - tier: 2
+    value: 0.00002
+  valuePowArr:
+  - tier: 0
+    value: 2
+  - tier: 1
+    value: 2
+  - tier: 2
+    value: 2
+  costCoeArr:
+  - tier: 0
+    value: 8.5
+  - tier: 1
+    value: 4.25
+  - tier: 2
+    value: 2.125
+  costPowArr:
+  - tier: 0
+    value: 2
+  - tier: 1
+    value: 2
+  - tier: 2
+    value: 2

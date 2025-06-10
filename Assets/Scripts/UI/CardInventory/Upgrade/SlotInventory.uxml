@@ -2,7 +2,6 @@
     <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3#CardInventory" />
     <ui:VisualElement name="BlackPanel" style="flex-grow: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.71); justify-content: center; align-self: auto; align-items: center; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; flex-shrink: 0;">
         <ui:VisualElement name="BlackSpace" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;">
-            <ui:Label text="Label" />
             <ui:VisualElement style="flex-grow: 1; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;" />
         </ui:VisualElement>
         <ui:VisualElement name="ItemPanelContainer" style="flex-grow: 0; width: 50%; height: 55%; flex-shrink: 0; flex-direction: row;">
@@ -38,7 +37,7 @@
                     </Kamgam.UIToolkitGlow.Shadow>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:Button text="X" name="ClosePanel" class="closepanel" style="white-space: normal; align-self: flex-end; position: absolute; top: -6%; right: -6%; background-color: rgb(90, 62, 43); border-left-color: rgb(201, 158, 83); border-right-color: rgb(201, 158, 83); border-top-color: rgb(201, 158, 83); border-bottom-color: rgb(201, 158, 83); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; border-top-left-radius: 33px; border-top-right-radius: 33px; border-bottom-right-radius: 33px; border-bottom-left-radius: 33px; width: 54px; -unity-font-definition: url(&quot;project://database/Library/unity%20default%20resources?fileID=10102&amp;guid=0000000000000000e000000000000000&amp;type=0#LegacyRuntime&quot;); -unity-font-style: bold; font-size: 22px; color: rgb(255, 201, 159);" />
+            <ui:Button text="X" name="ClosePanel" class="closepanel" style="white-space: normal; align-self: flex-end; position: absolute; top: -4%; right: -4%; background-color: rgb(90, 62, 43); border-left-color: rgb(201, 158, 83); border-right-color: rgb(201, 158, 83); border-top-color: rgb(201, 158, 83); border-bottom-color: rgb(201, 158, 83); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; border-top-left-radius: 33px; border-top-right-radius: 33px; border-bottom-right-radius: 33px; border-bottom-left-radius: 33px; width: 54px; -unity-font-definition: url(&quot;project://database/Library/unity%20default%20resources?fileID=10102&amp;guid=0000000000000000e000000000000000&amp;type=0#LegacyRuntime&quot;); -unity-font-style: bold; font-size: 22px; color: rgb(255, 201, 159);" />
             <ui:VisualElement tabindex="1" name="CardOnTop" style="flex-grow: 0; flex-shrink: 0; width: 10%; position: absolute; top: -10%; height: 15%; left: 40%; align-self: center; align-items: center; justify-content: center;" />
         </ui:VisualElement>
     </ui:VisualElement>

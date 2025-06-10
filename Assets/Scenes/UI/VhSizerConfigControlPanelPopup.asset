@@ -132,13 +132,13 @@ MonoBehaviour:
     widthVw: 18
   - queryType: 0
     queryValue: HeroSelectionPool
-    widthVh: 90
+    widthVh: 80
     heightVh: 0
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
     addWidthVw: 1
-    widthVw: 18
+    widthVw: 20
   - queryType: 1
     queryValue: smallbtnforgift
     widthVh: 15

@@ -3,8 +3,9 @@ using UnityEngine.UIElements;
 using Kamgam.UIToolkitScrollViewPro;
 using System.Collections.Generic;
 using System.Linq;
-using System; 
+using System;
 using Game.Core;
+using UIExt;
 using Game.Data;                      // CardDatabaseStatic, CardInfoStatic
 
 [RequireComponent(typeof(UIDocument))]
@@ -17,6 +18,9 @@ public class CardInventory : MonoBehaviour
     [SerializeField] private PlayerCardBank cardBank;
     [SerializeField] private PlayerGearBank     gearBank;
     [SerializeField] private GearDatabaseStatic gearStaticDB;
+    [SerializeField] private PlayerHorseBank     horseBank;      
+    [SerializeField] private HorseDatabaseStatic horseStaticDB;  
+
 
 
     [SerializeField] UnitGiftLevel unitGiftLevel;
@@ -370,7 +374,7 @@ public class CardInventory : MonoBehaviour
                             inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Armor);
                     });
 
-            /*
+            
             if (mountSlot != null)
                 mountSlot.RegisterCallback<ClickEvent>(
                     _ =>
@@ -378,7 +382,7 @@ public class CardInventory : MonoBehaviour
                         if (broadcastSelection)
                             inventoryUI.HandleSlotClick(info, pCard, EquipSlotType.Mount);
                     });
-            */
+            
         }
         else
         {
@@ -581,35 +585,48 @@ public class CardInventory : MonoBehaviour
         BindEquipSlot(armor, unlockedArmor, "防具槽未解锁");
         BindEquipSlot(mount, unlockedMount, "坐骑槽未解锁");
 
-        ApplySlotIcon(weapon, equip?.weaponUuid);
-        ApplySlotIcon(armor,  equip?.armorUuid);
-        ApplySlotIcon(mount,  equip?.accessoryUuid);
+        ApplySlotIcon(weapon, equip?.weaponUuid,   false);
+        ApplySlotIcon(armor,  equip?.armorUuid,    false);
+        ApplySlotIcon(mount,  equip?.accessoryUuid, true);
     }
-    private void ApplySlotIcon(Button slot, string gearUuid)
+
+
+    void ApplySlotIcon(Button slot, string uuid, bool isMount)
     {
-        var iconVe = slot?.Q<VisualElement>("EquipIcon");
+        if (slot == null) return;
+
+        var iconVe = slot.Q<VisualElement>("EquipIcon");
         if (iconVe == null) return;
 
-        if (string.IsNullOrEmpty(gearUuid))
+        // ------ 1) 槽为空：隐藏图标 ------
+        if (string.IsNullOrEmpty(uuid))
         {
             iconVe.style.display = DisplayStyle.None;
             return;
         }
 
-        // ① 直接用 Inspector 拖进来的 gearBank
-        var pGear = gearBank.Get(gearUuid);
-        if (pGear == null)
+        // ------ 2) 取动态条目 + 静态条目 ------
+        Sprite iconSprite = null;
+
+        if (isMount)
         {
-            iconVe.style.display = DisplayStyle.None;
-            return;
+            var pHorse = horseBank.Get(uuid);
+            var hStat  = horseStaticDB.Get(pHorse?.staticId);
+            iconSprite = hStat?.iconSprite;
+        }
+        else
+        {
+            var pGear  = gearBank.Get(uuid);
+            var gStat  = gearStaticDB.Get(pGear?.staticId);
+            iconSprite = gStat?.iconSprite;
         }
 
-        // ② 用 gearStaticDB 拿静态表
-        var st = gearStaticDB.Get(pGear.staticId);
-        if (st?.iconSprite != null)
+        // ------ 3) 设置或隐藏 ------
+        if (iconSprite != null)
         {
-            iconVe.style.display = DisplayStyle.Flex;
-            iconVe.style.backgroundImage = new StyleBackground(st.iconSprite);
+            iconVe.style.backgroundImage = new StyleBackground(iconSprite);
+            iconVe.style.display         = DisplayStyle.Flex;
+            iconVe.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
         }
         else
         {

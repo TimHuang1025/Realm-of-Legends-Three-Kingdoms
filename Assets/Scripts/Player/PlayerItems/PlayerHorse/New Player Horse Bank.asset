@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba0618a5dc9a0842840253c7d7da59a, type: 3}
+  m_Name: New Player Horse Bank
+  m_EditorClassIdentifier: 
+  horses:
+  - uuid: 3fd3f0d911584fb1a9064b63179fa2c9
+    staticId: horse_1
+    level: 50
+    unlocked: 1
+    equippedById: 
+  - uuid: b19bb0f3ba544e5082af648775b3a649
+    staticId: horse_4
+    level: 25
+    unlocked: 1
+    equippedById: 
+  - uuid: b76987cfb02b47578962cfa6de3c6aa4
+    staticId: horse_5
+    level: 25
+    unlocked: 1
+    equippedById: S8
+  - uuid: 9e480f9f2b384af6b91e6391b1cb5f93
+    staticId: horse_2
+    level: 25
+    unlocked: 1
+    equippedById: S5
+  - uuid: b45e77d669be43ec8840e78e51cca615
+    staticId: horse_7
+    level: 25
+    unlocked: 1
+    equippedById: 
+  - uuid: e9200865ddf44026b6e58a676d0c14e8
+    staticId: horse_9
+    level: 1
+    unlocked: 1
+    equippedById: 

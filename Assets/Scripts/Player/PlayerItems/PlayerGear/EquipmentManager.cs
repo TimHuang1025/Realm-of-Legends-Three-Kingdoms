@@ -3,26 +3,24 @@ using Game.Data;
 namespace Game.Core
 {
     /// <summary>
-    /// 负责「穿 / 卸」装备的一切边界情况处理：
-    /// 1) 一件装备只能属于一名武将 → 新主人穿上时自动把旧主人卸下  
-    /// 2) 一名武将同一槽位只能有一件 → 换新装备时自动把旧装备解绑  
-    /// 3) 更新两个 Bank（Card & Gear），并触发 onCardUpdated
+    /// 穿 / 卸 任何装备（武器、防具、战马）的统一入口。<br />
+    /// 约定：Mount 槽既可装 Horse，也可装其它 Accessory —— 这里只演示战马。
     /// </summary>
     public static class EquipmentManager
     {
-        /// <param name="hero">要穿装备的武将</param>
-        /// <param name="gear">目标装备（PlayerGear 数据）</param>
-        /// <param name="slot">Weapon / Armor / Mount</param>
+        /*───────────────────────────────────────────────────────────*
+         *  ① 原有「武器/防具」方法 (PlayerGear) —— 保持不动
+         *───────────────────────────────────────────────────────────*/
         public static void Equip(
-            PlayerCard hero,
-            PlayerGear gear,
+            PlayerCard    hero,
+            PlayerGear    gear,
             EquipSlotType slot,
             PlayerCardBank cardBank,
             PlayerGearBank gearBank)
         {
             if (hero == null || gear == null) return;
 
-            /*──────── 1) 若这件装备原本在别人身上 → 先卸下 ────────*/
+            /* 1) 这件装备原本在别人身上 → 先卸下 */
             if (!string.IsNullOrEmpty(gear.equippedById) &&
                 gear.equippedById != hero.id)
             {
@@ -31,29 +29,69 @@ namespace Game.Core
                     ClearSlot(oldHero, slot, gearBank);
             }
 
-            /*──────── 2) 如果该槽已有旧装备 → 卸下 ────────*/
+            /* 2) 如果该槽已有旧装备 → 卸下 */
             ClearSlot(hero, slot, gearBank);
 
-            /*──────── 3) 穿新装备 (写入 uuid) ────────*/
+            /* 3) 穿上新装备 */
             switch (slot)
             {
-                case EquipSlotType.Weapon: hero.equip.weaponUuid = gear.uuid; break;
-                case EquipSlotType.Armor: hero.equip.armorUuid = gear.uuid; break;
-                case EquipSlotType.Mount: hero.equip.accessoryUuid = gear.uuid; break;
+                case EquipSlotType.Weapon: hero.equip.weaponUuid     = gear.uuid; break;
+                case EquipSlotType.Armor:  hero.equip.armorUuid      = gear.uuid; break;
+                case EquipSlotType.Mount:  hero.equip.accessoryUuid  = gear.uuid; break;
             }
             gear.equippedById = hero.id;
 
-            /*──────── 4) 标记脏数据 ────────*/
+            /* 4) 标记脏并存档 */
             cardBank.MarkDirty(hero.id);
             gearBank.MarkDirty(gear.uuid);
+            cardBank.Save();
+            gearBank.Save();
 
-            /*──────── 5) 触发刷新事件 ────────*/
+            /* 5) 通知 UI */
             PlayerCardBankMgr.I?.RaiseCardUpdated(hero.id);
-            cardBank.Save();   // 把 PlayerCardBank 写到 json
-            gearBank.Save();   // 把 PlayerGearBank 写到 json
         }
 
-        /// <summary>把指定槽清空；若 gearBank!=null 同时把旧装备归为闲置并打脏标</summary>
+        /*───────────────────────────────────────────────────────────*
+         *  ② 新增「战马」重载 (PlayerHorse) —— 仅 Mount 槽
+         *───────────────────────────────────────────────────────────*/
+        public static void Equip(
+            PlayerCard       hero,
+            PlayerHorse      horse,
+            EquipSlotType    slot,        // 必须传 Mount
+            PlayerCardBank   cardBank,
+            PlayerHorseBank  horseBank)
+        {
+            if (hero == null || horse == null || slot != EquipSlotType.Mount) return;
+
+            /* 1) 把这匹马原先的主人卸下 */
+            if (!string.IsNullOrEmpty(horse.equippedById) &&
+                horse.equippedById != hero.id)
+            {
+                var oldHero = cardBank.Get(horse.equippedById);
+                if (oldHero != null)
+                    ClearMount(oldHero, horseBank);
+            }
+
+            /* 2) 卸下英雄当前坐骑 */
+            ClearMount(hero, horseBank);
+
+            /* 3) 穿上新马 */
+            hero.equip.accessoryUuid = horse.uuid;
+            horse.equippedById       = hero.id;
+
+            /* 4) 标记脏 & 存档 */
+            cardBank.MarkDirty(hero.id);
+            horseBank.MarkDirty(horse.uuid);
+            cardBank.Save();
+            horseBank.Save();
+
+            /* 5) 通知 UI */
+            PlayerCardBankMgr.I?.RaiseCardUpdated(hero.id);
+        }
+
+        /*───────────────────────────────────────────────────────────*
+         *  ③ 通用卸下（旧实现，只处理 Gear）
+         *───────────────────────────────────────────────────────────*/
         public static void ClearSlot(
             PlayerCard      hero,
             EquipSlotType   slot,
@@ -61,32 +99,51 @@ namespace Game.Core
         {
             if (hero == null) return;
 
-            string oldGearUuid = "";
+            string oldUuid = "";
             switch (slot)
             {
                 case EquipSlotType.Weapon:
-                    oldGearUuid        = hero.equip.weaponUuid;
+                    oldUuid = hero.equip.weaponUuid;
                     hero.equip.weaponUuid = "";
                     break;
                 case EquipSlotType.Armor:
-                    oldGearUuid        = hero.equip.armorUuid;
-                    hero.equip.armorUuid  = "";
+                    oldUuid = hero.equip.armorUuid;
+                    hero.equip.armorUuid = "";
                     break;
                 case EquipSlotType.Mount:
-                    oldGearUuid            = hero.equip.accessoryUuid;
+                    oldUuid = hero.equip.accessoryUuid;
                     hero.equip.accessoryUuid = "";
                     break;
             }
 
-            if (gearBank != null && !string.IsNullOrEmpty(oldGearUuid))
+            if (gearBank != null && !string.IsNullOrEmpty(oldUuid))
             {
-                var g = gearBank.Get(oldGearUuid);
+                var g = gearBank.Get(oldUuid);
                 if (g != null)
                 {
                     g.equippedById = "";
-                    gearBank.MarkDirty(oldGearUuid);   // ← 别忘给旧装备打脏标
+                    gearBank.MarkDirty(oldUuid);
                 }
             }
+        }
+
+        /*───────────────────────────────────────────────────────────*
+         *  ④ 专用卸马（只处理 HorseBank）
+         *───────────────────────────────────────────────────────────*/
+        static void ClearMount(PlayerCard hero, PlayerHorseBank horseBank)
+        {
+            if (hero == null || horseBank == null) return;
+
+            string uuid = hero.equip.accessoryUuid;
+            if (string.IsNullOrEmpty(uuid)) return;
+
+            var horse = horseBank.Get(uuid);
+            if (horse != null)
+            {
+                horse.equippedById = "";
+                horseBank.MarkDirty(uuid);
+            }
+            hero.equip.accessoryUuid = "";
         }
     }
 }
