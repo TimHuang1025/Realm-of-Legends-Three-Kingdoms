@@ -119,6 +119,6 @@ public static class CardDatabaseStaticExt
             return null;
 
         // IReadOnlyList 上用 LINQ
-        return db.All.FirstOrDefault(c => c.id == id);
+        return db.AllCards.FirstOrDefault(c => c.id == id);
     }
 }

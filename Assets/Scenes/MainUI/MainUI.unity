@@ -806,12 +806,14 @@ MonoBehaviour:
   horseStaticDB: {fileID: 11400000, guid: 4202c4b327f2d994b813b3933f94c9d0, type: 2}
   unitGiftLevel: {fileID: 1063526874}
   upgradePanelCtrl: {fileID: 1064857533}
-  filledStarSprite: {fileID: -8980388821408755452, guid: 225758a5b9c5ff348bffc048eddfe6c0, type: 3}
-  emptyStarSprite: {fileID: -7591466717229274091, guid: 8504f353272c0784dad404ea941450f7, type: 3}
   raritySpriteS: {fileID: 9156046936503501570, guid: 359d1ec66d067254384d312a7fff7c2c, type: 3}
   raritySpriteA: {fileID: 3954183128216192898, guid: 64f5d6f3b6be4ce4bad264d38864f329, type: 3}
   raritySpriteB: {fileID: 8574901359312092316, guid: 178fdcd8cc6de2c4f8e45f226800968f, type: 3}
-  starSize: 50
+  emptyStarSprite: {fileID: -7435001082846661440, guid: 4c267482cd77b0a489689ad49fc22e23, type: 3}
+  blueStarSprite: {fileID: -175546558445803189, guid: 46d14db2a9e1b334facf98b41d03e059, type: 3}
+  purpleStarSprite: {fileID: 7032790420674070585, guid: affb87e82592ba24580d1b8285819389, type: 3}
+  goldStarSprite: {fileID: 754532942769243892, guid: 7687d4f4ce038454db1820a7a3b96f55, type: 3}
+  starSize: 35
   colorS: {r: 1, g: 0.78, b: 0.28, a: 1}
   colorA: {r: 0.6862745, g: 0.6039216, b: 1, a: 1}
   colorB: {r: 0.22, g: 0.84, b: 1, a: 1}
@@ -1301,6 +1303,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vhSizer: {fileID: 1671468813}
+  emptyStar: {fileID: -7435001082846661440, guid: 4c267482cd77b0a489689ad49fc22e23, type: 3}
+  blueStar: {fileID: -175546558445803189, guid: 46d14db2a9e1b334facf98b41d03e059, type: 3}
+  purpleStar: {fileID: 7032790420674070585, guid: affb87e82592ba24580d1b8285819389, type: 3}
+  goldStar: {fileID: 754532942769243892, guid: 7687d4f4ce038454db1820a7a3b96f55, type: 3}
+  activeSkillDB: {fileID: 11400000, guid: 00cf314ffbc8eb740992c68892b4fc66, type: 2}
+  passiveSkillDB: {fileID: 11400000, guid: d742edebbbf1bbb45b2b0959b6d19462, type: 2}
 --- !u!114 &1671468813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1374,12 +1382,14 @@ MonoBehaviour:
   horseStaticDB: {fileID: 0}
   unitGiftLevel: {fileID: 1063526874}
   upgradePanelCtrl: {fileID: 1064857533}
-  filledStarSprite: {fileID: -8980388821408755452, guid: 225758a5b9c5ff348bffc048eddfe6c0, type: 3}
-  emptyStarSprite: {fileID: -7591466717229274091, guid: 8504f353272c0784dad404ea941450f7, type: 3}
   raritySpriteS: {fileID: 9156046936503501570, guid: 359d1ec66d067254384d312a7fff7c2c, type: 3}
   raritySpriteA: {fileID: 3954183128216192898, guid: 64f5d6f3b6be4ce4bad264d38864f329, type: 3}
   raritySpriteB: {fileID: 8574901359312092316, guid: 178fdcd8cc6de2c4f8e45f226800968f, type: 3}
-  starSize: 22
+  emptyStarSprite: {fileID: -7435001082846661440, guid: 4c267482cd77b0a489689ad49fc22e23, type: 3}
+  blueStarSprite: {fileID: -175546558445803189, guid: 46d14db2a9e1b334facf98b41d03e059, type: 3}
+  purpleStarSprite: {fileID: 7032790420674070585, guid: affb87e82592ba24580d1b8285819389, type: 3}
+  goldStarSprite: {fileID: 754532942769243892, guid: 7687d4f4ce038454db1820a7a3b96f55, type: 3}
+  starSize: 28
   colorS: {r: 1, g: 0.78, b: 0.28, a: 1}
   colorA: {r: 0.64, g: 0.3, b: 1, a: 1}
   colorB: {r: 0.22, g: 0.84, b: 1, a: 1}

@@ -7,7 +7,9 @@ public enum ResourceType
     Copper,
     HeroExp,
     HeroMat2,
-    GachaTicket
+    GachaTicket,
+    upTierMaterial
+    
     // 需要更多资源直接往下加
 }
 
@@ -16,10 +18,11 @@ public enum ResourceType
 public class PlayerResources : ScriptableObject
 {
     [Header("玩家资源")]
-    public long gold         = 0;
-    public long silver       = 0;
-    public long copper       = 0;
-    public long heroexp      = 0;
-    public long heromat2     = 0;
-    public int gachaTicket  = 0;
+    public long gold = 0;
+    public long silver = 0;
+    public long copper = 0;
+    public long heroexp = 0;
+    public long heromat2 = 0;
+    public int gachaTicket = 0;
+    public int upTierMaterial;
 }

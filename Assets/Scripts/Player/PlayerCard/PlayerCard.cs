@@ -10,7 +10,7 @@ public class PlayerCard
     /*──── 基础 ────*/
     public string id;                // 对应静态库里的卡牌 ID（如 "B6"）
     public int    level  = 1;        // 角色等级
-    public int    star   = 0;        // 星级（Rank）
+    public int    star   = 1;        // 星级（Rank）
     public int    copies = 0;        // 额外碎片 / 重复抽到
 
     /*──── 礼物系统 ────*/

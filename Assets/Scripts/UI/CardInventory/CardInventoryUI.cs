@@ -22,6 +22,8 @@ public class CardInventoryUI : MonoBehaviour
     [SerializeField] private PlayerHorseBank horseBank;
     [SerializeField] private HorseDatabaseStatic horseDB;
 
+    
+
 
     [SerializeField] GiftPanelController giftPanelCtrl;
     [SerializeField] GachaPanelController gachaPanelCtrl;
@@ -379,59 +381,108 @@ public class CardInventoryUI : MonoBehaviour
     }
     void RefreshStars(PlayerCard dyn)
     {
-        int rank = Mathf.Clamp(dyn?.star ?? 0, 0, 5);
-        //Debug.Log($"[RefreshStars] {currentStatic?.id} rank={rank}");
+        /* 1) 当前星级条目 */
+        int star = dyn?.star ?? 0;
+        var rule = CardDatabaseStatic.Instance.GetStar(star);
 
+        /* 2) 点亮数量 & 亮星贴图 */
+        int    lit       = rule != null ? rule.starsInFrame               : 0;
+        string colorKey  = rule != null ? rule.frameColor.ToLowerInvariant() : "blue";
+
+        Sprite litSprite = colorKey switch
+        {
+            "purple" => cardInv.purpleStarSprite,
+            "gold"   => cardInv.goldStarSprite,
+            "blue"   => cardInv.blueStarSprite,
+            _        => cardInv.blueStarSprite
+        };
+
+        /* 3) 应用到 5 槽 */
         for (int i = 0; i < 5; i++)
         {
             var slot = starSlots[i];
             if (slot == null) continue;
 
-            bool filled = i < rank;
+            bool filled = i < lit;
             slot.style.backgroundImage = new StyleBackground(
-                filled ? cardInv.FilledStarSprite
-                    : cardInv.EmptyStarSprite);
+                filled ? litSprite : cardInv.emptyStarSprite);
         }
     }
 
+    /*───────────────────────────────────────────────*/
+    /* 主动技能 ─ RefreshActiveSkillUI               */
+    /*───────────────────────────────────────────────*/
     void RefreshActiveSkillUI(CardInfoStatic info)
     {
         if (activeSkillDB == null || info == null) return;
+        /*──────── 调试输出 ────────*/
+        int star = currentDyn?.star ?? 0;
 
-        // 直接取静态表里的主动技能 ID
+        // ① 直接读 Star Table 条目
+        var starRule = Resources
+            .Load<CardDatabaseStatic>("CardDatabaseStatic")
+            .GetStar(star);
+
+        Debug.Log($"★{star} skillLvGain = [{string.Join(",", starRule.skillLvGain)}]");
+
+        // ② 主动技能 idx = 0
+        int activeLv = SkillLevelHelper.GetSkillLevel(star, 0);
+        Debug.Log($"主动技能绝对等级 = {activeLv}");
+        /*──────── 调试结束 ────────*/
+
         var skill = activeSkillDB.Get(info.activeSkillId);
         if (skill == null) return;
 
-        /* 图标 */
+        /* 图标 & 名称 */
         mainSkillImg.style.backgroundImage = new StyleBackground(skill.iconSprite);
-
-        /* 名称 */
         mainSkillNameLbl.text = skill.cnName;
 
+        /* 主动技能绝对等级：idx = 0 */
+        int skillLv = SkillLevelHelper.GetSkillLevel(currentDyn?.star ?? 0, 0);
+
+        /* 等级倍率：从 ActiveSkillDB.LevelMultiplier 里查 */
+        var lvDict = activeSkillDB.LevelMultiplier;
+        float lvMul = lvDict != null && lvDict.TryGetValue(skillLv, out var m) ? m : 1f;
+
+        /* 百分比 */
+        float pct = SkillValueCalculator.CalcPercent(
+                        skill.coefficient,   // baseValue
+                        info,                // 用于品阶倍率
+                        lvMul);              // 等级倍率
+
         /* 描述 */
-        mainSkillDescLbl.text = skill.description;
+        mainSkillDescLbl.text = skill.description.Replace("{X}", pct.ToString("0.#"));
     }
+
+    /*───────────────────────────────────────────────*/
+    /* 被动技能整体刷新 ─ RefreshPassiveSkillUI       */
+    /*───────────────────────────────────────────────*/
     void RefreshPassiveSkillUI(CardInfoStatic info, PlayerCard dyn)
     {
         if (passiveSkillDB == null || info == null) return;
 
-        // ▸ 被动 1
-        ApplyPassive(
-            info.passiveOneId,
-            passive1Img, passive1NameLbl, passive1DescLbl,
-            info, dyn);
+        /* 被动 1 */
+        ApplyPassive(info.passiveOneId,
+                    passive1Img, passive1NameLbl, passive1DescLbl,
+                    info, dyn, 1);
 
-        // ▸ 被动 2（可选）
-        ApplyPassive(
-            info.passiveTwoId,
-            passive2Img, passive2NameLbl, passive2DescLbl,
-            info, dyn);
+        /* 被动 2 */
+        ApplyPassive(info.passiveTwoId,
+                    passive2Img, passive2NameLbl, passive2DescLbl,
+                    info, dyn, 2);
     }
 
+    /*───────────────────────────────────────────────*/
+    /* 单个被动技能刷新 ─ ApplyPassive                */
+    /*───────────────────────────────────────────────*/
     void ApplyPassive(
-        string id,
-        VisualElement img, Label nameLbl, Label descLbl,
-        CardInfoStatic info, PlayerCard dyn)
+        string          id,
+        VisualElement   img,
+        Label           nameLbl,
+        Label           descLbl,
+        CardInfoStatic  info,
+        PlayerCard      dyn,
+        int             skillIdx)     // 1 = 被动1, 2 = 被动2
     {
         var ps = passiveSkillDB.Get(id);
         if (ps == null)
@@ -442,18 +493,29 @@ public class CardInventoryUI : MonoBehaviour
             return;
         }
 
-        /* 1) 图标 */
+        /* 图标 & 名称 */
         img.style.backgroundImage = new StyleBackground(ps.iconSprite);
-
-        /* 2) 名称 */
         nameLbl.text = ps.cnName;
 
-        /* 3) 描述（{X}→百分比） */
+        /* 绝对技能等级 */
+        int   skillLv = SkillLevelHelper.GetSkillLevel(dyn?.star ?? 0, skillIdx);
+
+        /* 等级倍率 */
+        var  prov   = (ISkillMultiplierProvider)passiveSkillDB;
+        var  lvDict = prov.LevelMultiplier;
+        float lvMul = lvDict != null && lvDict.TryGetValue(skillLv, out var m) ? m : 1f;
+
+        /* 百分比 */
         float pct = SkillValueCalculator.CalcPercent(
-                        ps.baseValue, info, dyn, passiveSkillDB);
-        string desc = ps.description.Replace("{X}", pct.ToString("0.#"));
-        descLbl.text = desc;
+                        ps.baseValue,
+                        info,
+                        lvMul);
+
+        /* 描述 */
+        descLbl.text = ps.description.Replace("{X}", pct.ToString("0.#"));
     }
+
+
 
     public void HandleSlotClick(CardInfoStatic info, PlayerCard dyn, EquipSlotType slot)
     {

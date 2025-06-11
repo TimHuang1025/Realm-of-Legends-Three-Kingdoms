@@ -26,20 +26,18 @@ public class CardInventory : MonoBehaviour
     [SerializeField] UnitGiftLevel unitGiftLevel;
     [SerializeField] UpgradePanelController upgradePanelCtrl;
 
-
-    [Header("星星贴图")]
-    [SerializeField] private Sprite filledStarSprite;
-    [SerializeField] private Sprite emptyStarSprite;
-    public Sprite FilledStarSprite => filledStarSprite;
-    public Sprite EmptyStarSprite => emptyStarSprite;
-
     [Header("稀有度贴图 (S / A / B)")]
     [SerializeField] private Sprite raritySpriteS;
     [SerializeField] private Sprite raritySpriteA;
     [SerializeField] private Sprite raritySpriteB;
 
-    [Header("星星大小")]
-    [SerializeField] private float starSize = 22f;
+    [Header("星星贴图")]
+    [SerializeField] public Sprite emptyStarSprite;   // 灰/空星 
+    [SerializeField] public Sprite blueStarSprite;    // 蓝星
+    [SerializeField] public Sprite purpleStarSprite;  // 紫星
+    [SerializeField] public Sprite goldStarSprite;    // 金星
+    [SerializeField] int    starSize = 24;     // 像素或 USS 单位
+
 
     [Header("品质边框颜色")]
     [SerializeField] private Color colorS = new(1f, 0.78f, 0.28f);
@@ -131,34 +129,67 @@ public class CardInventory : MonoBehaviour
     /*──────── 根据当前模式排序并刷新 ──────*/
     void ApplySort()
     {
-        var list = cardDatabase.All.ToList();   // 取所有静态卡
+        var list = cardDatabase.AllCards.ToList();
 
         list.Sort((a, b) =>
         {
-            /* 1. 拥有优先 */
             bool ownedA = cardBank.Get(a.id) != null;
             bool ownedB = cardBank.Get(b.id) != null;
-            int ownCmp = ownedB.CompareTo(ownedA);   // true > false
-            if (ownCmp != 0) return ownCmp;
+            if (ownedA != ownedB) return ownedB.CompareTo(ownedA); // 已拥有在前
 
-            /* 2. 稀有度：S(0) < A(1) < B(2)…   用 a.tier.CompareTo(b.tier) */
-            int tierCmp = a.tier.CompareTo(b.tier);   // 小的在前 → S > A > B
-            if (tierCmp != 0) return tierCmp;
+            /* 玩家动态数据（可能为 null） */
+            var dynA = cardBank.Get(a.id);
+            var dynB = cardBank.Get(b.id);
 
-            /* 3. 星级 */
-            int starA = cardBank.Get(a.id)?.star ?? -1;
-            int starB = cardBank.Get(b.id)?.star ?? -1;
-            int starCmp = starB.CompareTo(starA);      // 星多的在前
-            if (starCmp != 0) return starCmp;
+            int starA = dynA?.star  ?? -1;
+            int starB = dynB?.star  ?? -1;
+            int lvlA  = dynA?.level ?? -1;
+            int lvlB  = dynB?.level ?? -1;
 
-            /* 4. 等级 */
-            int lvA = cardBank.Get(a.id)?.level ?? -1;
-            int lvB = cardBank.Get(b.id)?.level ?? -1;
-            return lvB.CompareTo(lvA);                // 等级高的在前
+            switch (sortModes[modeIdx])
+            {
+                /* ───── 稀有度排序 ───── */
+                case "稀有度排序":
+                {
+                    int tierCmp = a.tier.CompareTo(b.tier);  // S(0) < A(1)…
+                    if (tierCmp != 0) return tierCmp;
+
+                    int starCmp = starB.CompareTo(starA);    // 星多在前
+                    if (starCmp != 0) return starCmp;
+
+                    return lvlB.CompareTo(lvlA);             // 等级高在前
+                }
+
+                /* ───── 星级排序 ───── */
+                case "星级排序":
+                {
+                    int starCmp = starB.CompareTo(starA);    // 星多在前
+                    if (starCmp != 0) return starCmp;
+
+                    int tierCmp = a.tier.CompareTo(b.tier);  // S > A > B
+                    if (tierCmp != 0) return tierCmp;
+
+                    return lvlB.CompareTo(lvlA);             // 等级高在前
+                }
+
+                /* ───── 等级排序 ───── */
+                case "等级排序":
+                default:
+                {
+                    int lvlCmp = lvlB.CompareTo(lvlA);       // 等级高在前
+                    if (lvlCmp != 0) return lvlCmp;
+
+                    int starCmp = starB.CompareTo(starA);    // 星多在前
+                    if (starCmp != 0) return starCmp;
+
+                    return a.tier.CompareTo(b.tier);         // S > A > B
+                }
+            }
         });
 
-        BuildGrid(list);   // 把排好序的列表交给 BuildGrid
+        BuildGrid(list);    // 重新生成网格
     }
+
 
     /*──────── 生成 / 刷新网格 ───────────*/
     public void BuildGrid(IReadOnlyList<CardInfoStatic> cards)
@@ -515,20 +546,42 @@ public class CardInventory : MonoBehaviour
     }
 
     /*──────── 填充星星 ───────────────*/
-    private void FillStars(VisualElement panel, int rank)
+    /*───────────────────────────────────────────*/
+/* A. 旧调用保持不变：FillStars(panel, star) */
+    /*───────────────────────────────────────────*/
+    private void FillStars(VisualElement panel, int star)
+    {
+        var rule = CardDatabaseStatic.Instance.GetStar(star);
+        int lit         = rule != null ? rule.starsInFrame               : 0;
+        string colorKey = rule != null ? rule.frameColor.ToLowerInvariant() : "blue";
+        FillStars(panel, lit, colorKey);          // 调到新版核心
+    }
+
+    /*───────────────────────────────────────────*/
+    /* B. 核心版本：亮星数量 + 颜色               */
+    /*───────────────────────────────────────────*/
+    private void FillStars(VisualElement panel, int lit, string frameColor)
     {
         panel.Clear();
-        rank = Mathf.Clamp(rank, 0, 5);
+        lit = Mathf.Clamp(lit, 0, 5);
+
+        Sprite litSprite = frameColor switch
+        {
+            "purple" => purpleStarSprite,
+            "gold"   => goldStarSprite,
+            "blue"   => blueStarSprite,
+            _        => blueStarSprite
+        };
 
         for (int i = 0; i < 5; i++)
         {
             var img = new Image
             {
-                sprite = i < rank ? filledStarSprite : emptyStarSprite,
+                sprite    = i < lit ? litSprite : emptyStarSprite,
                 scaleMode = ScaleMode.ScaleToFit
             };
-            img.style.width = starSize;
-            img.style.height = starSize;
+            img.style.width       = starSize;
+            img.style.height      = starSize;
             img.style.marginRight = i < 4 ? 2 : 0;
             panel.Add(img);
         }

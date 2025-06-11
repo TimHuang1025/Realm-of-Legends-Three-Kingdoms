@@ -5,7 +5,7 @@
         <ui:VisualElement name="UptierPanelContainer" style="flex-grow: 0; width: 50%; height: 55%; flex-shrink: 0; flex-direction: row;">
             <ui:VisualElement name="UptierPanel" class="panel" style="flex-grow: 1; background-color: rgb(224, 214, 200); flex-shrink: 0; width: 50%; height: 55%; align-self: auto; justify-content: flex-start; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138); flex-direction: column; margin-left: 0; padding-left: 0%;">
                 <ui:VisualElement name="LevelPanel" style="flex-grow: 0; margin-left: 4%; flex-direction: row; margin-right: 4%; flex-shrink: 0; height: 18%;">
-                    <ui:VisualElement name="StarLevel" style="flex-grow: 0; flex-direction: row; flex-shrink: 0; width: 25%;">
+                    <ui:VisualElement name="StarLevelBefore" style="flex-grow: 0; flex-direction: row; flex-shrink: 0; width: 25%;">
                         <ui:VisualElement name="Star1" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
                         <ui:VisualElement name="Star2" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
                         <ui:VisualElement name="Star3" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
@@ -13,12 +13,12 @@
                         <ui:VisualElement name="Star5" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newnostar1.png?fileID=2800000&amp;guid=8504f353272c0784dad404ea941450f7&amp;type=3#newnostar1&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
                     </ui:VisualElement>
                     <ui:VisualElement style="flex-grow: 1;" />
-                    <ui:VisualElement name="StarLevel" style="flex-grow: 0; flex-direction: row; flex-shrink: 0; width: 25%;">
-                        <ui:VisualElement name="Star1" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
-                        <ui:VisualElement name="Star2" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
-                        <ui:VisualElement name="Star3" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
-                        <ui:VisualElement name="Star4" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
-                        <ui:VisualElement name="Star5" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newnostar1.png?fileID=2800000&amp;guid=8504f353272c0784dad404ea941450f7&amp;type=3#newnostar1&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
+                    <ui:VisualElement name="StarLevelAfter" style="flex-grow: 0; flex-direction: row; flex-shrink: 0; width: 25%;">
+                        <ui:VisualElement name="Star1After" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
+                        <ui:VisualElement name="Star2After" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
+                        <ui:VisualElement name="Star3After" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
+                        <ui:VisualElement name="Star4After" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
+                        <ui:VisualElement name="Star5After" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newnostar1.png?fileID=2800000&amp;guid=8504f353272c0784dad404ea941450f7&amp;type=3#newnostar1&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="StatsPanel" style="flex-grow: 0; margin-left: 4%; margin-right: 4%; flex-direction: column; align-self: stretch; height: 40%; flex-shrink: 0;">
@@ -27,13 +27,17 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="Stats" style="flex-grow: 0; flex-direction: row;">
                         <ui:VisualElement name="BeforeUptierStatsPanel" style="flex-grow: 0; flex-shrink: 0; width: 30%;">
+                            <ui:VisualElement name="BeforeUptierPowerPanel" style="flex-grow: 1; flex-direction: row;">
+                                <ui:Label text="战力加成&#10;" name="PowerSlotTitle" class="upgradeskilltext" style="align-items: flex-start; flex-shrink: 0; -unity-text-align: upper-left;" />
+                                <ui:Label text="0&#10;" name="PowerSlotStat" enable-rich-text="true" class="statnum" />
+                            </ui:VisualElement>
                             <ui:VisualElement name="BeforeUptierAtkPanel" style="flex-grow: 1; flex-direction: row;">
                                 <ui:Label text="主动技能等级" name="BeforeUptierSlotTitle1" class="upgradeskilltext" style="align-items: flex-start; flex-shrink: 0; -unity-text-align: upper-left;" />
                                 <ui:Label text="5" name="BeforeUptierSlotStat1" enable-rich-text="true" class="statnum" />
                             </ui:VisualElement>
                             <ui:VisualElement name="BeforeUptierDefPanel" style="flex-grow: 1; flex-direction: row;">
                                 <ui:Label text="被动技能等级" name="BeforeUptierSlotTitle2" class="upgradeskilltext" />
-                                <ui:Label text="6" name="BeforeUptierSlotStat1" class="statnum" />
+                                <ui:Label text="6" name="BeforeUptierSlotStat2" class="statnum" />
                             </ui:VisualElement>
                             <ui:VisualElement name="BeforeUptierIQPanel" style="flex-grow: 1; flex-direction: row;">
                                 <ui:Label text="被动技能等级" name="BeforeUptierSlotTitle3" class="upgradeskilltext" />
@@ -44,6 +48,9 @@
                             <ui:VisualElement name="Arrow" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/arrow.png?fileID=-765150924802650856&amp;guid=1d9184f2da4e59541ae8e88e3836f541&amp;type=3#arrow_0&quot;); flex-shrink: 0; width: 25%; height: 22%; max-width: 70px; left: -6%;" />
                         </ui:VisualElement>
                         <ui:VisualElement name="AfterUptierStatsPanel" style="flex-grow: 0; width: 25%; flex-direction: column; align-self: auto; align-items: flex-end;">
+                            <ui:VisualElement name="AfterUptierPowerPanel" style="flex-grow: 1; flex-direction: row;">
+                                <ui:Label text="7" name="AfterUptierPower" enable-rich-text="false" emoji-fallback-support="false" class="stataddnum" />
+                            </ui:VisualElement>
                             <ui:VisualElement name="AfterUptierAtkPanel" style="flex-grow: 1; flex-direction: row;">
                                 <ui:Label text="7" name="AfterUptierSlotTitle1" enable-rich-text="false" emoji-fallback-support="false" class="stataddnum" />
                             </ui:VisualElement>
@@ -72,7 +79,7 @@
                                 <ui:Label text="1000" name="UpgradeMaterial1Num" class="materialnum" style="-unity-text-align: upper-center;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:VisualElement name="Material2" style="flex-grow: 0; flex-shrink: 0; width: 20%; align-items: center; justify-content: flex-start;">
+                        <ui:VisualElement name="Material2" style="flex-grow: 0; flex-shrink: 0; width: 20%; align-items: center; justify-content: flex-start; display: none;">
                             <ui:VisualElement name="Material2IconContainer" style="flex-grow: 0; flex-shrink: 0; height: 55%; flex-direction: column; justify-content: center; align-items: center; width: 55%;">
                                 <ui:VisualElement name="MaterialIcon2" class="materialicon" style="flex-grow: 1; background-color: rgba(163, 163, 163, 0); background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E9%93%9C%E5%B8%81.png?fileID=2800000&amp;guid=a040931efe2fcf142948a21d5157c2a4&amp;type=3#铜币&quot;);" />
                             </ui:VisualElement>
@@ -82,7 +89,7 @@
                                 <ui:Label text="1000" name="UpgradeMaterial2Num" class="materialnum" style="-unity-text-align: upper-center;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:VisualElement name="Material3" style="flex-grow: 0; flex-shrink: 0; width: 20%; align-items: center; justify-content: flex-start;">
+                        <ui:VisualElement name="Material3" style="flex-grow: 0; flex-shrink: 0; width: 20%; align-items: center; justify-content: flex-start; display: none;">
                             <ui:VisualElement name="Material3IconContainer" style="flex-grow: 0; flex-shrink: 0; height: 55%; flex-direction: column; justify-content: center; align-items: center; width: 55%;">
                                 <ui:VisualElement name="MaterialIcon3" class="materialicon" style="flex-grow: 1; background-color: rgba(163, 163, 163, 0); background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E9%93%9C%E5%B8%81.png?fileID=2800000&amp;guid=a040931efe2fcf142948a21d5157c2a4&amp;type=3#铜币&quot;);" />
                             </ui:VisualElement>
@@ -102,14 +109,14 @@
                     </Kamgam.UIToolkitGlow.Shadow>
                     <Kamgam.UIToolkitGlow.Shadow inner-color="#00000098" scale-x="0.95" scale-y="0.9" offset-y="10" blur-width="5" picking-mode="Ignore" layout-first-child="true" offset-x="0.05" class="upgradeBtnShadow" style="flex-grow: 0; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px;">
                         <ui:VisualElement style="flex-grow: 1;">
-                            <ui:Button text="升级" name="Button" class="upgradeBtn" style="display: flex; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; flex-grow: 1;" />
+                            <ui:Button text="升级" name="RankUp" class="upgradeBtn" style="display: flex; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; flex-grow: 1;" />
                         </ui:VisualElement>
                     </Kamgam.UIToolkitGlow.Shadow>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:Button text="X" name="ClosePanel" class="closepanel" style="white-space: normal; align-self: flex-end; position: absolute; top: -6%; right: -6%; background-color: rgb(90, 62, 43); border-left-color: rgb(201, 158, 83); border-right-color: rgb(201, 158, 83); border-top-color: rgb(201, 158, 83); border-bottom-color: rgb(201, 158, 83); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; border-top-left-radius: 33px; border-top-right-radius: 33px; border-bottom-right-radius: 33px; border-bottom-left-radius: 33px; width: 54px; -unity-font-definition: url(&quot;project://database/Library/unity%20default%20resources?fileID=10102&amp;guid=0000000000000000e000000000000000&amp;type=0#LegacyRuntime&quot;); -unity-font-style: bold; font-size: 22px; color: rgb(255, 201, 159);" />
             <ui:VisualElement tabindex="1" name="CardOnTop" style="flex-grow: 0; flex-shrink: 0; width: 10%; position: absolute; top: -10%; height: 15%; left: 40%; align-self: center; align-items: center; justify-content: center;">
-                <ui:Button name="CardRoot" class="cardroot" style="width: 100%; height: 100%; flex-direction: column-reverse; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/DummySprite/Icon/Dummy4_Icon.png?fileID=2800000&amp;guid=d58cb96e3932f4f43bc2fa61347e508f&amp;type=3#Dummy4_Icon&quot;); border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; border-left-color: rgb(255, 201, 71); border-right-color: rgb(255, 201, 71); border-top-color: rgb(255, 201, 71); border-bottom-color: rgb(255, 201, 71); position: relative; top: -4px; left: -4px; background-color: rgb(188, 188, 188);" />
+                <ui:Button name="CardRoot" class="cardroot" style="width: 100%; height: 100%; flex-direction: column-reverse; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/DummySprite/Icon/Dummy4_Icon.png?fileID=2800000&amp;guid=d58cb96e3932f4f43bc2fa61347e508f&amp;type=3#Dummy4_Icon&quot;); border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; border-left-color: rgb(255, 201, 71); border-right-color: rgb(255, 201, 71); border-top-color: rgb(255, 201, 71); border-bottom-color: rgb(255, 201, 71); position: relative; top: -4px; left: -4px; background-color: rgb(188, 188, 188); display: none;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

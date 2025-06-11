@@ -15,6 +15,7 @@ MonoBehaviour:
   gold: 0
   silver: 0
   copper: 0
-  heroexp: 11264309
-  heromat2: 9999999
-  gachaTicket: 8000
+  heroexp: 11217610
+  heromat2: 9960999
+  gachaTicket: 6200
+  upTierMaterial: 9985499

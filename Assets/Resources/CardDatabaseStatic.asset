@@ -734,3 +734,101 @@ MonoBehaviour:
     - 1
     - 1.2
     - 1
+  starTable:
+  - starLevel: 1
+    shardsRequired: 100
+    battlePowerAdd: 0
+    skillLvGain: 010000000000000000000000
+    frameColor: blue
+    starsInFrame: 1
+  - starLevel: 2
+    shardsRequired: 100
+    battlePowerAdd: 100
+    skillLvGain: 010000000100000000000000
+    frameColor: blue
+    starsInFrame: 2
+  - starLevel: 3
+    shardsRequired: 200
+    battlePowerAdd: 1000
+    skillLvGain: 010000000100000001000000
+    frameColor: blue
+    starsInFrame: 3
+  - starLevel: 4
+    shardsRequired: 200
+    battlePowerAdd: 2000
+    skillLvGain: 010000000100000001000000
+    frameColor: blue
+    starsInFrame: 4
+  - starLevel: 5
+    shardsRequired: 400
+    battlePowerAdd: 3000
+    skillLvGain: 020000000100000001000000
+    frameColor: blue
+    starsInFrame: 5
+  - starLevel: 6
+    shardsRequired: 600
+    battlePowerAdd: 5000
+    skillLvGain: 020000000200000001000000
+    frameColor: purple
+    starsInFrame: 1
+  - starLevel: 7
+    shardsRequired: 800
+    battlePowerAdd: 8000
+    skillLvGain: 020000000200000002000000
+    frameColor: purple
+    starsInFrame: 2
+  - starLevel: 8
+    shardsRequired: 800
+    battlePowerAdd: 13000
+    skillLvGain: 030000000200000002000000
+    frameColor: purple
+    starsInFrame: 3
+  - starLevel: 9
+    shardsRequired: 1000
+    battlePowerAdd: 19000
+    skillLvGain: 030000000300000002000000
+    frameColor: purple
+    starsInFrame: 4
+  - starLevel: 10
+    shardsRequired: 1000
+    battlePowerAdd: 20000
+    skillLvGain: 030000000300000003000000
+    frameColor: purple
+    starsInFrame: 5
+  - starLevel: 11
+    shardsRequired: 1200
+    battlePowerAdd: 21000
+    skillLvGain: 040000000300000003000000
+    frameColor: gold
+    starsInFrame: 1
+  - starLevel: 12
+    shardsRequired: 1200
+    battlePowerAdd: 23000
+    skillLvGain: 040000000400000003000000
+    frameColor: gold
+    starsInFrame: 2
+  - starLevel: 13
+    shardsRequired: 1200
+    battlePowerAdd: 25000
+    skillLvGain: 040000000400000004000000
+    frameColor: gold
+    starsInFrame: 3
+  - starLevel: 14
+    shardsRequired: 1200
+    battlePowerAdd: 35000
+    skillLvGain: 040000000400000004000000
+    frameColor: gold
+    starsInFrame: 4
+  - starLevel: 15
+    shardsRequired: 0
+    battlePowerAdd: 45000
+    skillLvGain: 040000000400000004000000
+    frameColor: gold
+    starsInFrame: 5
+  tierTable:
+  - key: S
+    value: 1
+  - key: A
+    value: 0.8
+  - key: B
+    value: 0.5
