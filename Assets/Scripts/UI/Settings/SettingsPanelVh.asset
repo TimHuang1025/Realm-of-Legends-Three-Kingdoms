@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cf3741383c24e4e8e1a0343e811986, type: 3}
+  m_Name: SettingsPanelVh
+  m_EditorClassIdentifier: 
+  rules:
+  - queryType: 1
+    queryValue: menuBtn
+    widthVh: 33
+    heightVh: 10
+    fontVh: 6
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: avatarBtn
+    widthVh: 30
+    heightVh: 8
+    fontVh: 4
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: InfoCard
+    widthVh: 65
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 1
+    widthVw: 10
+  - queryType: 0
+    queryValue: Avatar
+    widthVh: 50
+    heightVh: 50
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: title
+    widthVh: 0
+    heightVh: 0
+    fontVh: 6
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: label
+    widthVh: 0
+    heightVh: 0
+    fontVh: 4
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0

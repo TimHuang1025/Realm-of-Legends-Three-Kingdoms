@@ -423,11 +423,11 @@ public class CardInventoryUI : MonoBehaviour
             .Load<CardDatabaseStatic>("CardDatabaseStatic")
             .GetStar(star);
 
-        Debug.Log($"★{star} skillLvGain = [{string.Join(",", starRule.skillLvGain)}]");
+        //Debug.Log($"★{star} skillLvGain = [{string.Join(",", starRule.skillLvGain)}]");
 
         // ② 主动技能 idx = 0
         int activeLv = SkillLevelHelper.GetSkillLevel(star, 0);
-        Debug.Log($"主动技能绝对等级 = {activeLv}");
+        //Debug.Log($"主动技能绝对等级 = {activeLv}");
         /*──────── 调试结束 ────────*/
 
         var skill = activeSkillDB.Get(info.activeSkillId);

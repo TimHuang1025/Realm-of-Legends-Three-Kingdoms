@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Realm-of-Legends-Three-Kingdoms.sln"
+    "dotnet.defaultSolution": "ROL3K.sln"
 }

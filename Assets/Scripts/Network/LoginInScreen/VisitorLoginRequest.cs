@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.WSA;
 using static AuthAPI;           // 如果你在 AuthAPI 里有静态常量，可保留
                                 // 若没用到可删掉这行
 

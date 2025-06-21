@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: TestLineupDB
   m_EditorClassIdentifier: 
   lineups:
-  - mainId: S6
-    subId1: S2
-    subId2: S5
+  - mainId: 
+    subId1: S3
+    subId2: S6
     strategistId: S7
     ratio:
       infantry: 9
-      cavalry: 44
-      archer: 47
+      cavalry: 58
+      archer: 33
   - mainId: 
     subId1: 
     subId2: 

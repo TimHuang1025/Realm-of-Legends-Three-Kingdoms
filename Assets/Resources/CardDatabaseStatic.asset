@@ -18,7 +18,7 @@ MonoBehaviour:
     tier: 0
     faction: 3
     iconSprite: {fileID: 7935755237077215745, guid: a38d578ebdcc7bb4588b1fcdee5392ea, type: 3}
-    fullBodySprite: {fileID: -3776544293725769784, guid: de2bc40e4dac6414f9fa453fd9e7da99, type: 3}
+    fullBodySprite: {fileID: -3776544293725769784, guid: f6f39a7f8fa2fd246b86e37b01e184af, type: 3}
     activeSkillId: A1
     passiveOneId: P11
     passiveTwoId: P14
@@ -34,7 +34,7 @@ MonoBehaviour:
     tier: 0
     faction: 3
     iconSprite: {fileID: -1968479189658929411, guid: c51e5875c81b2dd448c7bdca41df538e, type: 3}
-    fullBodySprite: {fileID: 1458823706311988326, guid: 052e4ecd1e3092f4594b0b3533b3ca6b, type: 3}
+    fullBodySprite: {fileID: 1458823706311988326, guid: 9c7022823b7719d4092f226c82655eac, type: 3}
     activeSkillId: A4
     passiveOneId: P13
     passiveTwoId: P16
@@ -50,7 +50,7 @@ MonoBehaviour:
     tier: 0
     faction: 3
     iconSprite: {fileID: 5238290838631172144, guid: 1f5d48e6dfd7f304fa2f412779d07b30, type: 3}
-    fullBodySprite: {fileID: 979269541665742603, guid: 67d5f95cb7aefa44aabd91603fc45eda, type: 3}
+    fullBodySprite: {fileID: 979269541665742603, guid: bf23992098c3b344e913dae9927c75d0, type: 3}
     activeSkillId: A7
     passiveOneId: P7
     passiveTwoId: P5
@@ -66,7 +66,7 @@ MonoBehaviour:
     tier: 0
     faction: 3
     iconSprite: {fileID: 4187050264805839673, guid: 7c78079ac4efb174692211a73d63fd72, type: 3}
-    fullBodySprite: {fileID: -80991454200592719, guid: 36bff5a43f57cb4449c51a76fb810044, type: 3}
+    fullBodySprite: {fileID: -80991454200592719, guid: 2967cb136734b3640b8ce33bcf3612be, type: 3}
     activeSkillId: A8
     passiveOneId: P14
     passiveTwoId: P3
@@ -82,7 +82,7 @@ MonoBehaviour:
     tier: 0
     faction: 3
     iconSprite: {fileID: 2834378114210661765, guid: 7b8dee4ac90c32949ad114d28a64d445, type: 3}
-    fullBodySprite: {fileID: -1114599929028587103, guid: dfc780a7062f4ac4e8e641beb4541eb6, type: 3}
+    fullBodySprite: {fileID: -1114599929028587103, guid: f44678b8e44f8464ba6d8bdeeab7bd21, type: 3}
     activeSkillId: A6
     passiveOneId: P10
     passiveTwoId: P15
@@ -98,7 +98,7 @@ MonoBehaviour:
     tier: 0
     faction: 3
     iconSprite: {fileID: -2003497517538834615, guid: 726ff018f20089c4eb1ae323c8c64437, type: 3}
-    fullBodySprite: {fileID: -8824603315384116899, guid: 862573c4c1dba384099cd9460b0de84d, type: 3}
+    fullBodySprite: {fileID: -8824603315384116899, guid: d78dedf240779584fad235d646293071, type: 3}
     activeSkillId: A3
     passiveOneId: P6
     passiveTwoId: P15
@@ -114,7 +114,7 @@ MonoBehaviour:
     tier: 0
     faction: 1
     iconSprite: {fileID: 8904571832898163179, guid: ba2c42cf09af5d94eae2181750c09bb7, type: 3}
-    fullBodySprite: {fileID: -4949222403726630925, guid: 513d5da8958acb84cb5ce148a89bc550, type: 3}
+    fullBodySprite: {fileID: -4949222403726630925, guid: c1abee4344744f5418c680bf90000805, type: 3}
     activeSkillId: A3
     passiveOneId: P9
     passiveTwoId: P16
@@ -130,7 +130,7 @@ MonoBehaviour:
     tier: 0
     faction: 1
     iconSprite: {fileID: -2122516444481538167, guid: 6b5baedd223f8d146997766cc69436b0, type: 3}
-    fullBodySprite: {fileID: 2628458206358299811, guid: 654b06522f489d042ba916ffeebc4bbc, type: 3}
+    fullBodySprite: {fileID: 2628458206358299811, guid: f90ef9048bde7cf4d936a9639c5ac542, type: 3}
     activeSkillId: A5
     passiveOneId: P13
     passiveTwoId: P3
@@ -146,7 +146,7 @@ MonoBehaviour:
     tier: 0
     faction: 1
     iconSprite: {fileID: 4223340007201289432, guid: 8b575a908c6a0db4cbf16de8ad4823cd, type: 3}
-    fullBodySprite: {fileID: -8233516635283454589, guid: 9bafa84f80baa85498162c8d8835752b, type: 3}
+    fullBodySprite: {fileID: -8233516635283454589, guid: d3515f4f463573d499b6009559b74dfd, type: 3}
     activeSkillId: A2
     passiveOneId: P8
     passiveTwoId: P1
@@ -162,7 +162,7 @@ MonoBehaviour:
     tier: 0
     faction: 1
     iconSprite: {fileID: 7158837212616700528, guid: 62f3018a015e4a34b9fcd819d40dafad, type: 3}
-    fullBodySprite: {fileID: 3473259192302037391, guid: 837eb328b11936e4fac14b5b367f74a5, type: 3}
+    fullBodySprite: {fileID: 3473259192302037391, guid: 88da3cc54c3fe914ab450a52120e45b5, type: 3}
     activeSkillId: A6
     passiveOneId: P2
     passiveTwoId: P12
@@ -177,8 +177,8 @@ MonoBehaviour:
     displayName: "\u9A6C\u8D85"
     tier: 0
     faction: 1
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -7084257184563123898, guid: b70cd2db70a6a444a833ad54ed2c2092, type: 3}
+    fullBodySprite: {fileID: -7608292734429031989, guid: 1d12d0c8c4dc9b8468ffe379b661c6aa, type: 3}
     activeSkillId: A7
     passiveOneId: P5
     passiveTwoId: P8
@@ -193,8 +193,8 @@ MonoBehaviour:
     displayName: "\u8BF8\u845B\u4EAE"
     tier: 0
     faction: 1
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -6927590385265217401, guid: f7f40e0a69b4b29469c16295c3072144, type: 3}
+    fullBodySprite: {fileID: 3369220496524086724, guid: d88d4e284da9bfa40871a9c2787d9279, type: 3}
     activeSkillId: A9
     passiveOneId: P4
     passiveTwoId: P3
@@ -209,8 +209,8 @@ MonoBehaviour:
     displayName: "\u90ED\u5609"
     tier: 0
     faction: 0
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -7526122260403557649, guid: 6b8092a9a2e584344912fd29d83a19b3, type: 3}
+    fullBodySprite: {fileID: -2370523316893661755, guid: 3b0f618edcd7def42b54fadeb4c7c45e, type: 3}
     activeSkillId: A9
     passiveOneId: P13
     passiveTwoId: P10
@@ -225,8 +225,8 @@ MonoBehaviour:
     displayName: "\u5F90\u6643"
     tier: 0
     faction: 0
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: 8708172479551966124, guid: 82a9937e2fa3eac45824b6b0c956630e, type: 3}
+    fullBodySprite: {fileID: 8681175734635792706, guid: e4c89d8ed6996e34aa1ba88c8287d9bc, type: 3}
     activeSkillId: A5
     passiveOneId: P7
     passiveTwoId: P11
@@ -241,8 +241,8 @@ MonoBehaviour:
     displayName: "\u5178\u97E6"
     tier: 0
     faction: 0
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -5360311845304395022, guid: 41d7d4169d91eca4093480e05db7088a, type: 3}
+    fullBodySprite: {fileID: 5279137518498398355, guid: e64a8da3316f09746b30ff1ba3402a84, type: 3}
     activeSkillId: A1
     passiveOneId: P6
     passiveTwoId: P9
@@ -257,8 +257,8 @@ MonoBehaviour:
     displayName: "\u5F20\u8FBD"
     tier: 0
     faction: 0
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -3440351150754219121, guid: 7e16314d3cd31a04ca06b8b827065528, type: 3}
+    fullBodySprite: {fileID: 4141318077348595042, guid: 22f4bdb10dfd1b94ca0171fe67347138, type: 3}
     activeSkillId: A8
     passiveOneId: P6
     passiveTwoId: P9
@@ -273,8 +273,8 @@ MonoBehaviour:
     displayName: "\u66F9\u64CD"
     tier: 0
     faction: 0
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: 6162731276378963382, guid: f2682d933fc300249ac985614c8c3a37, type: 3}
+    fullBodySprite: {fileID: 464998692365074479, guid: 140d1bf63bb38a949b9ce3a1544f89a3, type: 3}
     activeSkillId: A7
     passiveOneId: P8
     passiveTwoId: P4
@@ -289,8 +289,8 @@ MonoBehaviour:
     displayName: "\u53F8\u9A6C\u61FF"
     tier: 0
     faction: 0
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: 4148742527433598165, guid: ba9ae859edd7a6f44be1c6b545016948, type: 3}
+    fullBodySprite: {fileID: 80199381137538028, guid: 67808fe7c26551340813fc89fcbba5a3, type: 3}
     activeSkillId: A4
     passiveOneId: P2
     passiveTwoId: P12
@@ -305,8 +305,8 @@ MonoBehaviour:
     displayName: "\u5468\u745C"
     tier: 0
     faction: 2
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -6721952579828128124, guid: 361ecc0b66cb8934eb9d363301d6c140, type: 3}
+    fullBodySprite: {fileID: -1493830381554167643, guid: eeb18d62f2a5fd1479d2cb65b07056cd, type: 3}
     activeSkillId: A8
     passiveOneId: P7
     passiveTwoId: P6
@@ -321,8 +321,8 @@ MonoBehaviour:
     displayName: "\u592A\u53F2\u6148"
     tier: 0
     faction: 2
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: 4158899898743885867, guid: c09180d0291e4a54291b12e21b58b495, type: 3}
+    fullBodySprite: {fileID: -4000816472372026225, guid: 9955778eefc5cb441adb0a1f13e7d501, type: 3}
     activeSkillId: A9
     passiveOneId: P7
     passiveTwoId: P10
@@ -337,8 +337,8 @@ MonoBehaviour:
     displayName: "\u7518\u5B81"
     tier: 0
     faction: 2
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: 3907361536553648155, guid: 542f9a8854c99c94eb1a2237f9bab370, type: 3}
+    fullBodySprite: {fileID: 6098101139880615624, guid: c648cf821cf059f46891bd682daa4b50, type: 3}
     activeSkillId: A2
     passiveOneId: P13
     passiveTwoId: P9
@@ -353,8 +353,8 @@ MonoBehaviour:
     displayName: "\u5415\u8499"
     tier: 0
     faction: 2
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -1230614752943923959, guid: 31e1e04db90bd25418cb195d4336b69e, type: 3}
+    fullBodySprite: {fileID: 1071974012226559818, guid: b5195699f22031b4692ae3bb8d57da5f, type: 3}
     activeSkillId: A4
     passiveOneId: P5
     passiveTwoId: P12
@@ -369,8 +369,8 @@ MonoBehaviour:
     displayName: "\u5B59\u6743"
     tier: 0
     faction: 2
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -7641367383156660411, guid: 04c9b953f0c871b469ed3fb8a35115e6, type: 3}
+    fullBodySprite: {fileID: -4253705556631827335, guid: 8370ef7e212cfa9469826b1faddb3e17, type: 3}
     activeSkillId: A6
     passiveOneId: P2
     passiveTwoId: P4
@@ -385,8 +385,8 @@ MonoBehaviour:
     displayName: "\u5B59\u7B56"
     tier: 0
     faction: 2
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -3647685398166809960, guid: f507cfa861571ff45a1e7d377fffeb86, type: 3}
+    fullBodySprite: {fileID: 6314056484655183566, guid: fd116145b2f2da24282a2794a7e612af, type: 3}
     activeSkillId: A2
     passiveOneId: P3
     passiveTwoId: P14
@@ -402,8 +402,8 @@ MonoBehaviour:
     displayName: "\u5E9E\u7EDF"
     tier: 1
     faction: 1
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: 8280888669821849666, guid: 2e4915c1abd8275429ff7bd079c0493b, type: 3}
+    fullBodySprite: {fileID: 4868345635958177334, guid: 2a55e181ab6958341a0fbd84c2606bc4, type: 3}
     activeSkillId: A4
     passiveOneId: P2
     passiveTwoId: P16
@@ -418,8 +418,8 @@ MonoBehaviour:
     displayName: "\u9EC4\u5FE0"
     tier: 1
     faction: 1
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -7231295756107749365, guid: d58cc2f257b7f474385b192bbdd8ef89, type: 3}
+    fullBodySprite: {fileID: -6056746551055069493, guid: 0d8f799b89eb99a4bab931dfe833b2c7, type: 3}
     activeSkillId: A9
     passiveOneId: P14
     passiveTwoId: P10
@@ -434,8 +434,8 @@ MonoBehaviour:
     displayName: "\u7A0B\u6631"
     tier: 1
     faction: 0
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: 4045581894646763384, guid: 99487db6643024c4b95e7f7a042ffb05, type: 3}
+    fullBodySprite: {fileID: 305708534917798872, guid: 4cd741bba44b58b48ab0b29efa69e121, type: 3}
     activeSkillId: A8
     passiveOneId: P2
     passiveTwoId: P12
@@ -450,8 +450,8 @@ MonoBehaviour:
     displayName: "\u9B4F\u5EF6"
     tier: 1
     faction: 1
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: 4596833110996596373, guid: 63d68b0ebf2ab8e44a27c8af2d289575, type: 3}
+    fullBodySprite: {fileID: 6696492569245361803, guid: a1d39e72db29c9347a3714ffbc6cc3b3, type: 3}
     activeSkillId: A1
     passiveOneId: P9
     passiveTwoId: P4
@@ -466,8 +466,8 @@ MonoBehaviour:
     displayName: "\u795D\u878D"
     tier: 1
     faction: 3
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -8650306977144024609, guid: b6bbc11822d189f4b8e6e2c6abfdcd29, type: 3}
+    fullBodySprite: {fileID: 5468713951624192584, guid: ca6ebd02faa2dca4ca6bcb2bcafd0422, type: 3}
     activeSkillId: A9
     passiveOneId: P13
     passiveTwoId: P10
@@ -482,8 +482,8 @@ MonoBehaviour:
     displayName: "\u4E8E\u7981"
     tier: 1
     faction: 0
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -1647048653855167643, guid: 12cdd293fc567d04dbb8673055ed856d, type: 3}
+    fullBodySprite: {fileID: -1535311339875855563, guid: f9b16d1f6f15a8947b6e73c51ff69af3, type: 3}
     activeSkillId: A8
     passiveOneId: P7
     passiveTwoId: P1
@@ -498,8 +498,8 @@ MonoBehaviour:
     displayName: "\u534E\u96C4"
     tier: 1
     faction: 0
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: 2887091990339958561, guid: 9b0ab2815665a48428e55965e375f1d9, type: 3}
+    fullBodySprite: {fileID: 4492604311486023894, guid: 70c48a0d0e8102c4fb902ebedf37f386, type: 3}
     activeSkillId: A1
     passiveOneId: P6
     passiveTwoId: P14
@@ -514,8 +514,8 @@ MonoBehaviour:
     displayName: "\u9A6C\u5CB1"
     tier: 1
     faction: 1
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: 3302380440701470321, guid: a4b1e0a2c02658b4380cd00df17fe53f, type: 3}
+    fullBodySprite: {fileID: -7933158239958454041, guid: 4517c2b3880006d4d9c128b62228a3d8, type: 3}
     activeSkillId: A6
     passiveOneId: P8
     passiveTwoId: P15
@@ -530,8 +530,8 @@ MonoBehaviour:
     displayName: "\u9C81\u8083"
     tier: 1
     faction: 2
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -7377257088087877858, guid: 53ee9cb07c9045948baf7f1dd944645d, type: 3}
+    fullBodySprite: {fileID: 302949293795926304, guid: 10b861dcf8219f040992d4c38b5c2a91, type: 3}
     activeSkillId: A3
     passiveOneId: P13
     passiveTwoId: P3
@@ -546,8 +546,8 @@ MonoBehaviour:
     displayName: "\u8521\u6587\u59EC"
     tier: 1
     faction: 3
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: 8919811033548844619, guid: 87b2b67ca8bb09141a53b310dc2432d6, type: 3}
+    fullBodySprite: {fileID: 632790138527295813, guid: 840107ce43b96d3449a667b5cdda66f3, type: 3}
     activeSkillId: A4
     passiveOneId: P13
     passiveTwoId: P16
@@ -562,8 +562,8 @@ MonoBehaviour:
     displayName: "\u8340\u5F67"
     tier: 1
     faction: 0
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -4054346618716567943, guid: 99b4e9a225c2f1c45905d2e045fbc30d, type: 3}
+    fullBodySprite: {fileID: -1351850881191769862, guid: f3ba35c0c295b6c4c8083f7d62414f04, type: 3}
     activeSkillId: A8
     passiveOneId: P4
     passiveTwoId: P12
@@ -578,8 +578,8 @@ MonoBehaviour:
     displayName: "\u8D3E\u8BE9"
     tier: 1
     faction: 0
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -2861498897904111873, guid: 2641c3376b4bb6e488b626e053232fe6, type: 3}
+    fullBodySprite: {fileID: -8295273186891882977, guid: 4d0134843a04a3d4698068ac83d54c9e, type: 3}
     activeSkillId: A4
     passiveOneId: P15
     passiveTwoId: P9
@@ -594,8 +594,8 @@ MonoBehaviour:
     displayName: "\u7A0B\u666E"
     tier: 1
     faction: 2
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -2403394421124959884, guid: 6805514e9f57168479ebd36ece4eb542, type: 3}
+    fullBodySprite: {fileID: 5060094802603281050, guid: bf329738a1f160f44b17583af277d1a3, type: 3}
     activeSkillId: A5
     passiveOneId: P1
     passiveTwoId: P11
@@ -610,8 +610,8 @@ MonoBehaviour:
     displayName: "\u97E9\u5F53"
     tier: 1
     faction: 2
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: 1566984134236572377, guid: 79a3f8aba9a5abb47937ccf502db4e36, type: 3}
+    fullBodySprite: {fileID: -998848536045270611, guid: 73c2524334511b24ba328447f526978c, type: 3}
     activeSkillId: A2
     passiveOneId: P7
     passiveTwoId: P5
@@ -626,8 +626,8 @@ MonoBehaviour:
     displayName: "\u5468\u6CF0"
     tier: 1
     faction: 2
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -8828502440789944518, guid: eba90b576d005784f8ba2116b5636a60, type: 3}
+    fullBodySprite: {fileID: -7697486008473251461, guid: cb68c26faac138b4584192d6383adb2a, type: 3}
     activeSkillId: A7
     passiveOneId: P11
     passiveTwoId: P3
@@ -642,8 +642,8 @@ MonoBehaviour:
     displayName: "\u6587\u4E11"
     tier: 2
     faction: 3
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -5369999064535439716, guid: cc398e847a5061b4c84cee5b7747b09b, type: 3}
+    fullBodySprite: {fileID: 4049874166513087764, guid: 590579a62dd9c3c4abac91f11a97df34, type: 3}
     activeSkillId: A2
     passiveOneId: P1
     passiveTwoId: P4
@@ -658,8 +658,8 @@ MonoBehaviour:
     displayName: "\u66F9\u6D2A"
     tier: 2
     faction: 0
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -1697743154335095826, guid: 6cb3b674af03edd489144226cf5c30ea, type: 3}
+    fullBodySprite: {fileID: 1209416393123164923, guid: 5e372ac291c89ca46a60235e9a97a3cc, type: 3}
     activeSkillId: A9
     passiveOneId: P11
     passiveTwoId: P6
@@ -674,8 +674,8 @@ MonoBehaviour:
     displayName: "\u5173\u5E73"
     tier: 2
     faction: 1
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -5210050945119871188, guid: 05bacb97696948a48bfe4f62a8cd21e4, type: 3}
+    fullBodySprite: {fileID: -7704802800753908846, guid: 0a87fd01becec564cba5581f55858363, type: 3}
     activeSkillId: A1
     passiveOneId: P3
     passiveTwoId: P8
@@ -690,8 +690,8 @@ MonoBehaviour:
     displayName: "\u4E01\u5949"
     tier: 2
     faction: 2
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: 2576825515857651634, guid: 2d2c77b8a9b783f49866ff666c8ef67a, type: 3}
+    fullBodySprite: {fileID: 7864857790135076398, guid: 274466e4d13de63499309b5c278cc3e7, type: 3}
     activeSkillId: A5
     passiveOneId: P10
     passiveTwoId: P7
@@ -706,8 +706,8 @@ MonoBehaviour:
     displayName: "\u9648\u5BAB"
     tier: 2
     faction: 3
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -662845625128427516, guid: c8753160231751945859aa1b8e12435f, type: 3}
+    fullBodySprite: {fileID: -3643914978961028513, guid: bf9e773ab5d756e47bde9d87dec01143, type: 3}
     activeSkillId: A5
     passiveOneId: P5
     passiveTwoId: P2
@@ -722,8 +722,8 @@ MonoBehaviour:
     displayName: "\u5218\u7985"
     tier: 2
     faction: 1
-    iconSprite: {fileID: 0}
-    fullBodySprite: {fileID: 0}
+    iconSprite: {fileID: -6357770557260838927, guid: dfba4e2aa054cf5468a69da3cb90c1cf, type: 3}
+    fullBodySprite: {fileID: 2832099588200226586, guid: a5dc6a160b814f44b80ae18e33ba9e92, type: 3}
     activeSkillId: A6
     passiveOneId: P12
     passiveTwoId: P9

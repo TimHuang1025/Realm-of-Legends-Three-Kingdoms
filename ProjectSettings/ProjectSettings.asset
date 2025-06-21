@@ -8,12 +8,12 @@ PlayerSettings:
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
-  defaultScreenOrientation: 4
+  defaultScreenOrientation: 3
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: Fields of Conquest Three Kingdoms
+  companyName: rol
+  productName: realmsoflegends
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -79,7 +79,7 @@ PlayerSettings:
   androidFullscreenMode: 1
   androidAutoRotationBehavior: 1
   androidPredictiveBackSupport: 0
-  androidApplicationEntry: 2
+  androidApplicationEntry: 1
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
   runInBackground: 0
@@ -141,7 +141,8 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 1.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -255,7 +256,7 @@ PlayerSettings:
   templateDefaultScene: Assets/Scenes/SampleScene.unity
   useCustomMainManifest: 0
   useCustomLauncherManifest: 0
-  useCustomMainGradleTemplate: 0
+  useCustomMainGradleTemplate: 1
   useCustomLauncherGradleManifest: 0
   useCustomBaseGradleTemplate: 0
   useCustomGradlePropertiesTemplate: 0
@@ -286,7 +287,14 @@ PlayerSettings:
   AndroidAppBundleSizeToValidate: 150
   AndroidReportGooglePlayAppDependencies: 1
   androidSymbolsSizeThreshold: 800
-  m_BuildTargetIcons: []
+  m_BuildTargetIcons:
+  - m_BuildTarget: 
+    m_Icons:
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: 37dd9c84a14924140aba63e79ba8f766, type: 3}
+      m_Width: 128
+      m_Height: 128
+      m_Kind: 0
   m_BuildTargetPlatformIcons:
   - m_BuildTarget: Android
     m_Icons:
@@ -400,7 +408,10 @@ PlayerSettings:
   m_BuildTargetGroupLightmapSettings: []
   m_BuildTargetGroupLoadStoreDebugModeSettings: []
   m_BuildTargetNormalMapEncoding: []
-  m_BuildTargetDefaultTextureCompressionFormat: []
+  m_BuildTargetDefaultTextureCompressionFormat:
+  - serializedVersion: 3
+    m_BuildTarget: Android
+    m_Formats: 01000000
   playModeTestRunnerEnabled: 0
   runPlayModeTestAsEditModeTest: 0
   actionOnDotNetUnhandledException: 1
@@ -667,22 +678,22 @@ PlayerSettings:
   webGLCloseOnQuit: 0
   webWasm2023: 0
   scriptingDefineSymbols:
-    Android: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    EmbeddedLinux: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    GameCoreXboxOne: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    LinuxHeadlessSimulation: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    Nintendo Switch: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    PS4: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    PS5: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    QNX: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    ReservedCFE: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    Standalone: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    VisionOS: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    WebGL: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    Windows Store Apps: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    XboxOne: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    iPhone: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
-    tvOS: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND
+    Android: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW;LEVELPLAY_DEPENDENCIES_INSTALLED
+    EmbeddedLinux: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW
+    GameCoreXboxOne: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW
+    LinuxHeadlessSimulation: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW
+    Nintendo Switch: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW
+    PS4: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW
+    PS5: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW
+    QNX: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW
+    ReservedCFE: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW
+    Standalone: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;LEVELPLAY_DEPENDENCIES_INSTALLED;KAMGAM_UITOOLKIT_GLOW
+    VisionOS: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW
+    WebGL: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW
+    Windows Store Apps: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW
+    XboxOne: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW
+    iPhone: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW
+    tvOS: KAMGAM_UI_TOOLKIT_BLURRED_BACKGROUND;KAMGAM_UITOOLKIT_GLOW
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -759,7 +770,8 @@ PlayerSettings:
   XboxOneOverrideIdentityName: 
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Purchasing: 1
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -779,7 +791,7 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 2
+  activeInputHandler: 1
   windowsGamepadBackendHint: 0
   cloudProjectId: b83cdbd7-f581-4d70-8cbb-7774d5d975b7
   framebufferDepthMemorylessMode: 0
