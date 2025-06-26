@@ -53,7 +53,7 @@ MonoBehaviour:
     queryValue: skillname
     widthVh: 0
     heightVh: 0
-    fontVh: 3.5
+    fontVh: 3
     applyScale: 0
     aspectWidth: 0
     addWidthVw: 0
@@ -62,7 +62,7 @@ MonoBehaviour:
     queryValue: skilltext
     widthVh: 0
     heightVh: 25
-    fontVh: 2.5
+    fontVh: 2
     applyScale: 0
     aspectWidth: 0
     addWidthVw: 0
@@ -229,3 +229,12 @@ MonoBehaviour:
     aspectWidth: 0
     addWidthVw: 0
     widthVw: 30
+  - queryType: 0
+    queryValue: SelectedCard
+    widthVh: 22
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 1
+    widthVw: 20

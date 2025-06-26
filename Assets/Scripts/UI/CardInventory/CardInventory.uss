@@ -85,6 +85,9 @@
     color: rgb(255, 255, 255);
     font-size: 26px;
     letter-spacing: 45px;
+    align-items: stretch;
+    justify-content: flex-start;
+    align-self: auto;
 }
 
 .skillname {
@@ -92,6 +95,7 @@
     -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
     -unity-text-align: middle-center;
     -unity-font-style: normal;
+    color: rgb(218, 140, 44);
 }
 
 .skilltext {
@@ -99,11 +103,13 @@
     font-size: 22px;
     white-space: pre-wrap;
     overflow-wrap: break-word;
+    -unity-text-align: upper-center;
+    color: rgb(203, 203, 203);
 }
 
 .skillboxcontainer {
     max-width: 33.3%;
-    background-color: rgba(232, 214, 185, 0.44);
+    background-color: rgba(0, 0, 0, 0.44);
     flex-wrap: wrap;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -170,6 +176,21 @@
     font-size: 28px;
     white-space: pre-wrap;
     overflow-wrap: break-word;
+    background-color: rgb(251, 193, 138);
+    border-top-left-radius: 19px;
+    border-top-right-radius: 19px;
+    border-bottom-right-radius: 19px;
+    border-bottom-left-radius: 19px;
+    -unity-text-align: middle-center;
+    text-overflow: clip;
+    letter-spacing: 0;
+    word-spacing: 0;
+    -unity-paragraph-spacing: 0;
+    -unity-text-outline-width: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    padding-top: -5px;
+    background-size: 127% 134%;
 }
 
 .stataddnum {
@@ -280,14 +301,14 @@
     flex-shrink: 0;
     align-items: auto;
     align-self: flex-end;
-    background-image: url("project://database/Assets/Assets/UI/CardInventory/locked.png?fileID=2800000&guid=af8b94ef02d673d47b270b5dc9ff5f8e&type=3#locked");
+    background-image: url("project://database/Assets/Assets/UI/CardInventory/locked%201.png?fileID=2800000&guid=f016843af78a12546a370667947149ab&type=3#locked 1");
     -unity-background-scale-mode: stretch-to-fill;
     background-size: 110% 110%;
     overflow: visible;
 }
 
 .equipmentunlocked {
-    background-image: url("project://database/Assets/Assets/UI/CardInventory/unlocked.png?fileID=2800000&guid=a0cc84f375f5c814682b11e13a80856a&type=3#unlocked");
+    background-image: url("project://database/Assets/Assets/UI/CardInventory/unlocked%201.png?fileID=2800000&guid=067356baeaf288f46931ad59038c0cee&type=3#unlocked 1");
     flex-shrink: 0;
     width: auto;
     height: auto;
@@ -391,4 +412,65 @@
 .skillbox {
     justify-content: space-around;
     align-items: center;
+    padding-bottom: 35px;
+}
+
+.addBtn {
+    background-color: rgb(90, 62, 43);
+    border-left-color: rgb(201, 158, 83);
+    border-right-color: rgb(201, 158, 83);
+    border-top-color: rgb(201, 158, 83);
+    border-bottom-color: rgb(201, 158, 83);
+    border-top-width: 1.2px;
+    border-right-width: 1.2px;
+    border-bottom-width: 1.2px;
+    border-left-width: 1.2px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    font-size: 55px;
+    -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
+    word-spacing: 18px;
+    letter-spacing: 76px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    align-content: center;
+    background-image: url("project://database/Assets/Assets/UI/CardInventory/+.png?fileID=2800000&guid=87d614324d710ed42835119e6e7c30da&type=3#+");
+    -unity-background-scale-mode: stretch-to-fill;
+    background-size: 50% 50%;
+}
+
+.upgradeBtn {
+    background-color: rgb(90, 62, 43);
+    border-left-color: rgb(201, 158, 83);
+    border-right-color: rgb(201, 158, 83);
+    border-top-color: rgb(201, 158, 83);
+    border-bottom-color: rgb(201, 158, 83);
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    font-size: 55px;
+    -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
+    word-spacing: 18px;
+    letter-spacing: 76px;
+    color: rgb(255, 255, 255);
+}
+
+.influencenum {
+    -unity-font-definition: url("project://database/Assets/Assets/UI/%E9%80%9A%E7%94%A8font_Martius-LV9L4.ttf?fileID=12800000&guid=bb435f9645558fe418dcd41866efa735&type=3#通用font_Martius-LV9L4");
+    align-self: center;
+    align-items: auto;
+    justify-content: flex-start;
+    -unity-font-style: normal;
+    font-size: 27px;
+    align-content: auto;
 }

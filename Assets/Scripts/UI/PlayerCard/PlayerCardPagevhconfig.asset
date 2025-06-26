@@ -42,7 +42,7 @@ MonoBehaviour:
     widthVw: 0
   - queryType: 1
     queryValue: smallbtns
-    widthVh: 27
+    widthVh: 30
     heightVh: 10
     fontVh: 0
     applyScale: 0
@@ -62,7 +62,43 @@ MonoBehaviour:
     queryValue: addBtn
     widthVh: 5
     heightVh: 5
-    fontVh: 4
+    fontVh: 6
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 35
+  - queryType: 1
+    queryValue: upgradeBtn
+    widthVh: 20
+    heightVh: 9
+    fontVh: 6
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 35
+  - queryType: 1
+    queryValue: influencenum
+    widthVh: 0
+    heightVh: 0
+    fontVh: 5
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 35
+  - queryType: 1
+    queryValue: skillbox
+    widthVh: 17
+    heightVh: 17
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 35
+  - queryType: 1
+    queryValue: skillimg
+    widthVh: 15
+    heightVh: 15
+    fontVh: 0
     applyScale: 0
     aspectWidth: 0
     addWidthVw: 0

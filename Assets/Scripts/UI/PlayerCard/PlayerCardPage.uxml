@@ -1,12 +1,12 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Scripts/UI/PlayerCard/PlayerCardPage.uss?fileID=7433441132597879392&amp;guid=a1bd806fe4839d041b412ac10f0f7999&amp;type=3" />
+    <Style src="project://database/Assets/Scripts/UI/PlayerCard/PlayerCardPage.uss?fileID=7433441132597879392&amp;guid=a1bd806fe4839d041b412ac10f0f7999&amp;type=3#PlayerCardPage" />
     <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3" />
     <ui:VisualElement style="flex-grow: 1; flex-direction: column; background-image: url(&quot;project://database/Assets/Assets/UI/PlayerCardPanel/%E4%B8%BB%E5%B0%86%E5%BA%9C.png?fileID=2800000&amp;guid=fdaeadc0bf611944283eec572ec4fb04&amp;type=3#主将府&quot;); background-color: rgba(55, 55, 55, 0); -unity-background-image-tint-color: rgba(224, 224, 224, 0.73);">
         <ui:VisualElement name="InfoBar" style="flex-grow: 0; height: 12%; display: flex; width: 100%; flex-direction: row-reverse; align-items: center; justify-content: flex-start;">
             <ui:Button text="&lt;返回" name="ReturnBtn" class="smallbtns" style="flex-grow: 0; width: 15%; border-left-width: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; margin-left: 0; margin-top: 3%; height: 67%; position: absolute; left: 0;" />
             <ui:VisualElement name="OrderContainer" style="align-items: center; height: 12%; flex-direction: row; justify-content: space-around; flex-shrink: 0; align-content: auto; align-self: center; width: 43%; margin-right: 10%;">
-                <ui:VisualElement name="Mat2Bar" class="smallbtns" style="flex-grow: 0; height: 45%; flex-direction: row; flex-shrink: 0; width: 251px; letter-spacing: 0;">
-                    <ui:VisualElement name="Mat2Icon" class="bigdisplayicon" style="flex-grow: 0; width: 26%; background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E9%93%B6%E9%94%AD.png?fileID=2800000&amp;guid=ee3c346f5e8f2d747a51b4f69dd46ca6&amp;type=3#银锭&quot;); margin-top: 0; margin-bottom: 0; flex-shrink: 0;" />
+                <ui:VisualElement name="Mat2Bar" class="smallbtns" style="flex-grow: 0; height: 45%; flex-direction: row; flex-shrink: 0; width: 251px; letter-spacing: 0; padding-left: 0; padding-right: 0;">
+                    <ui:VisualElement name="Mat2Icon" class="bigdisplayicon" style="flex-grow: 0; width: 26%; background-image: url(&quot;project://database/Assets/Assets/UI/PlayerCardPanel/influence3.png?fileID=2800000&amp;guid=7766a17f453604b47be507a5c5ee81d0&amp;type=3#influence3&quot;); margin-top: 0; margin-bottom: 0; flex-shrink: 0; background-position-y: top 0; background-position-x: left 0; -unity-background-scale-mode: scale-and-crop;" />
                     <ui:VisualElement name="Mat2Panel" style="flex-grow: 1; flex-direction: column; -unity-text-align: upper-left; justify-content: center;">
                         <ui:Label text="355232" name="mat2value" class="golddisplay" style="-unity-text-align: middle-left;" />
                     </ui:VisualElement>
@@ -28,15 +28,15 @@
             </ui:VisualElement>
             <ui:VisualElement name="ItemPanel" style="flex-grow: 0; flex-shrink: 0; width: auto;">
                 <ui:VisualElement name="EquipmentPanel" style="flex-grow: 0; flex-direction: column; height: 206px; flex-shrink: 0; width: 100%; margin-right: 0%; min-width: 20%; background-color: rgba(177, 160, 138, 0.48); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138); border-top-left-radius: 13px; border-top-right-radius: 13px; border-bottom-right-radius: 13px; border-bottom-left-radius: 13px; justify-content: space-evenly;">
-                    <ui:Button name="weaponslot" class="equipmentlocked" style="flex-grow: 0; align-self: center; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; justify-content: center; align-items: stretch; align-content: flex-end; min-width: auto; min-height: auto; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/unlocked.png?fileID=2800000&amp;guid=a0cc84f375f5c814682b11e13a80856a&amp;type=3#unlocked&quot;);">
+                    <ui:Button name="weaponslot" class="equipmentlocked" style="flex-grow: 0; align-self: center; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; justify-content: center; align-items: stretch; align-content: flex-end; min-width: auto; min-height: auto; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/unlocked%201.png?fileID=2800000&amp;guid=067356baeaf288f46931ad59038c0cee&amp;type=3#unlocked 1&quot;);">
                         <ui:VisualElement name="EquipIcon" style="flex-grow: 1; max-width: 80%; max-height: 80%; align-items: auto; justify-content: flex-start; align-self: center; flex-shrink: 0; min-width: 80%; min-height: 80%;" />
                         <ui:Button text="X" name="WeaponRemoveBtn" class="closepanel slot-remove" style="white-space: normal; align-self: flex-end; background-color: rgb(90, 62, 43); border-left-color: rgb(201, 158, 83); border-right-color: rgb(201, 158, 83); border-top-color: rgb(201, 158, 83); border-bottom-color: rgb(201, 158, 83); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; border-top-left-radius: 33px; border-top-right-radius: 33px; border-bottom-right-radius: 33px; border-bottom-left-radius: 33px; width: 54px; -unity-font-definition: url(&quot;project://database/Library/unity%20default%20resources?fileID=10102&amp;guid=0000000000000000e000000000000000&amp;type=0#LegacyRuntime&quot;); -unity-font-style: bold; font-size: 22px; color: rgb(255, 201, 159); display: none;" />
                     </ui:Button>
-                    <ui:Button name="armorslot" class="equipmentlocked" style="flex-grow: 0; align-self: center; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; justify-content: center; min-width: auto; min-height: auto; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/unlocked.png?fileID=2800000&amp;guid=a0cc84f375f5c814682b11e13a80856a&amp;type=3#unlocked&quot;);">
+                    <ui:Button name="armorslot" class="equipmentlocked" style="flex-grow: 0; align-self: center; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; justify-content: center; min-width: auto; min-height: auto; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/unlocked%201.png?fileID=2800000&amp;guid=067356baeaf288f46931ad59038c0cee&amp;type=3#unlocked 1&quot;);">
                         <ui:VisualElement name="EquipIcon" style="flex-grow: 1; max-width: 80%; max-height: 80%; align-items: auto; justify-content: flex-start; align-self: center; min-width: 80%; min-height: 80%; flex-shrink: 0;" />
                         <ui:Button text="X" name="ArmorRemoveBtn" class="closepanel slot-remove" style="white-space: normal; align-self: flex-end; background-color: rgb(90, 62, 43); border-left-color: rgb(201, 158, 83); border-right-color: rgb(201, 158, 83); border-top-color: rgb(201, 158, 83); border-bottom-color: rgb(201, 158, 83); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; border-top-left-radius: 33px; border-top-right-radius: 33px; border-bottom-right-radius: 33px; border-bottom-left-radius: 33px; width: 54px; -unity-font-definition: url(&quot;project://database/Library/unity%20default%20resources?fileID=10102&amp;guid=0000000000000000e000000000000000&amp;type=0#LegacyRuntime&quot;); -unity-font-style: bold; font-size: 22px; color: rgb(255, 201, 159); display: none;" />
                     </ui:Button>
-                    <ui:Button name="horseslot" class="equipmentlocked" style="flex-grow: 0; align-self: center; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; justify-content: center; min-width: auto; min-height: auto; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/unlocked.png?fileID=2800000&amp;guid=a0cc84f375f5c814682b11e13a80856a&amp;type=3#unlocked&quot;);">
+                    <ui:Button name="horseslot" class="equipmentlocked" style="flex-grow: 0; align-self: center; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; justify-content: center; min-width: auto; min-height: auto; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/unlocked%201.png?fileID=2800000&amp;guid=067356baeaf288f46931ad59038c0cee&amp;type=3#unlocked 1&quot;);">
                         <ui:VisualElement name="EquipIcon" style="flex-grow: 1; max-width: 80%; max-height: 80%; align-items: auto; flex-shrink: 0; align-self: center; min-width: 80%; min-height: 80%;" />
                         <ui:Button text="X" name="MountRemoveBtn" class="closepanel slot-remove" style="white-space: normal; align-self: flex-end; background-color: rgb(90, 62, 43); border-left-color: rgb(201, 158, 83); border-right-color: rgb(201, 158, 83); border-top-color: rgb(201, 158, 83); border-bottom-color: rgb(201, 158, 83); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; border-top-left-radius: 33px; border-top-right-radius: 33px; border-bottom-right-radius: 33px; border-bottom-left-radius: 33px; width: 54px; -unity-font-definition: url(&quot;project://database/Library/unity%20default%20resources?fileID=10102&amp;guid=0000000000000000e000000000000000&amp;type=0#LegacyRuntime&quot;); -unity-font-style: bold; font-size: 22px; color: rgb(255, 201, 159); display: none;" />
                     </ui:Button>
@@ -44,33 +44,75 @@
             </ui:VisualElement>
             <ui:VisualElement name="VisualElement" style="flex-grow: 0; flex-direction: row; flex-shrink: 0; width: auto;">
                 <ui:VisualElement name="StatsPanel" style="flex-grow: 1; height: auto; flex-shrink: 0; min-height: auto; background-color: rgba(177, 160, 138, 0.48); border-top-left-radius: 17px; border-top-right-radius: 17px; border-bottom-right-radius: 17px; border-bottom-left-radius: 17px; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138);">
-                    <ui:VisualElement style="flex-grow: 1;" />
-                    <ui:VisualElement name="SkillpointPanel" style="flex-grow: 0; background-size: 100% 100%; background-color: rgba(224, 214, 200, 0.63); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138); height: 40%; margin-right: 1%; margin-left: 1%; flex-direction: column;">
-                        <ui:VisualElement style="flex-grow: 1;" />
-                        <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: flex-start;">
-                            <ui:VisualElement style="flex-grow: 1; align-self: auto; align-items: center;">
-                                <ui:Label text="攻击" class="upgradeskilltext" />
-                                <ui:Label text="防御&#10;" class="upgradeskilltext" />
-                                <ui:Label text="智力" class="upgradeskilltext" />
+                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; height: 30%; align-items: center; justify-content: space-evenly;">
+                        <ui:VisualElement name="MainSkillSlot" class="skillbox" style="flex-grow: 0; height: auto; padding-bottom: 0; width: 25%;">
+                            <ui:VisualElement name="MainSkillImage" class="skillimg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); -unity-background-scale-mode: stretch-to-fill; background-image: url(&quot;project://database/Assets/Assets/Characters/Skills/P9_Skill_icon.png?fileID=2800000&amp;guid=262d587e024edcf43848505aba921dce&amp;type=3#P9_Skill_icon&quot;);">
+                                <ui:VisualElement name="MainSkillRing" class="skill-ring" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/skill_lv1.png?fileID=2800000&amp;guid=afcabfcda735e774681c9085d8c01d4b&amp;type=3#skill_lv1&quot;);" />
                             </ui:VisualElement>
-                            <ui:VisualElement style="flex-grow: 1; align-items: center;">
-                                <ui:Label text="23512" class="statnum" />
-                                <ui:Label text="32132" class="statnum" />
-                                <ui:Label text="31245" class="statnum" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Passive1Slot" class="skillbox" style="flex-grow: 0; padding-bottom: 0; width: 25%;">
+                            <ui:VisualElement name="Passive1Image" class="skillimg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-image: url(&quot;project://database/Assets/Assets/Characters/Skills/P11_Skill_icon.png?fileID=2800000&amp;guid=2981180002338ca478a62641878784bd&amp;type=3#P11_Skill_icon&quot;); height: 100%;">
+                                <ui:VisualElement name="Passive1Ring" class="skill-ring" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/skill_lv3.png?fileID=2800000&amp;guid=1947ce4454e00274b8de217ab403d13e&amp;type=3#skill_lv3&quot;);" />
                             </ui:VisualElement>
-                            <ui:VisualElement style="flex-grow: 1; align-items: center;">
-                                <ui:Label text="324" class="statnum" />
-                                <ui:Label text="65" class="statnum" />
-                                <ui:Label text="32" class="statnum" />
-                            </ui:VisualElement>
-                            <ui:VisualElement style="flex-grow: 1; justify-content: flex-start;">
-                                <ui:Button name="upgradeBtn" text="+" enabled="true" class="addBtn" style="width: auto; height: auto; right: auto; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;);" />
-                                <ui:Button name="upgradeBtn" text="+" enabled="true" class="addBtn" style="width: auto; height: auto; right: auto; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;);" />
-                                <ui:Button name="upgradeBtn" text="+" enabled="true" class="addBtn" style="width: auto; height: auto; right: auto; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;);" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Passive2Slot" class="skillbox" style="flex-grow: 0; padding-bottom: 0; width: 25%;">
+                            <ui:VisualElement name="Passive2Image" class="skillimg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: url(&quot;project://database/Assets/Assets/Characters/Skills/P7_Skill_icon.png?fileID=2800000&amp;guid=ac3b77f4d9b1d2b40909dc19d120adbd&amp;type=3#P7_Skill_icon&quot;);">
+                                <ui:VisualElement name="Passive2Ring" class="skill-ring" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/skill_lv0.png?fileID=2800000&amp;guid=9f3dcce21882fff4fa90871f2abd4455&amp;type=3#skill_lv0&quot;);" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement style="flex-grow: 1; background-size: 100% 100%; background-color: rgba(224, 214, 200, 0.63); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138); margin-top: 1.5%; margin-right: 1%; margin-left: 1%; margin-bottom: 1.5%;" />
+                    <ui:VisualElement name="SkillpointPanel" style="flex-grow: 0; background-size: 100% 100%; background-color: rgb(224, 214, 200); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138); height: 40%; margin-right: 1%; margin-left: 1%; flex-direction: column;">
+                        <ui:VisualElement style="flex-grow: 1;" />
+                        <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: column; justify-content: flex-start;">
+                            <ui:VisualElement name="Top" style="flex-grow: 1; flex-direction: row-reverse;">
+                                <ui:Label text="技能点" class="statnum" style="width: 38%; -unity-text-align: upper-left; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;);" />
+                                <ui:Label text="数值" class="statnum" style="width: 24%; -unity-text-align: upper-left; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Slot1" style="flex-grow: 1; flex-direction: row; justify-content: space-around; align-items: center; height: 20%;">
+                                <ui:Label text="攻击" class="upgradeskilltext" style="width: 20%; -unity-text-align: upper-center;" />
+                                <ui:Label text="23512" class="statnum" style="width: 20%; -unity-text-align: upper-center;" />
+                                <ui:Label text="324" class="statnum" style="width: 20%; align-items: center; -unity-text-align: upper-center;" />
+                                <ui:Button name="upgradeBtn" enabled="true" class="addBtn" style="width: auto; height: auto; right: auto; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Slot2" style="flex-grow: 1; flex-direction: row; justify-content: space-around; align-items: center; height: 20%;">
+                                <ui:Label text="防御&#10;" class="upgradeskilltext" style="width: 20%; -unity-text-align: upper-center;" />
+                                <ui:Label text="3244" class="statnum" style="width: 20%; -unity-text-align: upper-center;" />
+                                <ui:Label text="65" class="statnum" style="width: 20%; align-items: center; -unity-text-align: upper-center;" />
+                                <ui:Button name="upgradeBtn" enabled="true" class="addBtn" style="width: auto; height: auto; right: auto; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Slot3" style="flex-grow: 1; flex-direction: row; justify-content: space-around; align-items: center; height: 20%; margin-bottom: 2%;">
+                                <ui:Label text="智力" class="upgradeskilltext" style="width: 20%; -unity-text-align: upper-center;" />
+                                <ui:Label text="31245" class="statnum" style="width: 20%; -unity-text-align: upper-center;" />
+                                <ui:Label text="32" class="statnum" style="width: 20%; align-items: center; -unity-text-align: upper-center;" />
+                                <ui:Button name="upgradeBtn" enabled="true" class="addBtn" style="width: auto; height: auto; right: auto; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;);" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-grow: 0; background-size: 100% 100%; background-color: rgb(224, 214, 200); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138); margin-top: 1.5%; margin-right: 1%; margin-left: 1%; margin-bottom: 1.5%; flex-direction: row; height: 25%;">
+                        <ui:VisualElement style="flex-grow: 1; width: 65%;">
+                            <ui:VisualElement style="flex-grow: 0; height: 50%; justify-content: center;">
+                                <ui:Label text="下一等级: 骠骑将军II" class="upgradeskilltext" style="-unity-text-align: upper-center;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement style="flex-grow: 0; flex-direction: row; height: 50%;">
+                                <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                                    <ui:Label text="技能点:" style="-unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); font-size: 29px; -unity-text-align: middle-left;" />
+                                    <ui:Label text="150" class="influencenum" style="-unity-text-align: upper-center;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-grow: 1;">
+                                    <ui:Label text="+30&#x9;" class="influencenum" style="-unity-text-align: upper-center;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement style="flex-grow: 1; align-items: stretch;">
+                            <ui:VisualElement style="flex-grow: 1; align-self: auto; align-items: center; flex-direction: row; justify-content: center; align-content: center;">
+                                <ui:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Assets/UI/PlayerCardPanel/influence3.png?fileID=2800000&amp;guid=7766a17f453604b47be507a5c5ee81d0&amp;type=3#influence3&quot;); height: 100%; width: 30%; -unity-background-scale-mode: scale-and-crop;" />
+                                <ui:Label text="x3952" style="-unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;); font-size: 20px;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement style="flex-grow: 1; justify-content: center; align-items: center;">
+                                <ui:Button text="升级" class="upgradeBtn" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
