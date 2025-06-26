@@ -49,10 +49,12 @@
 }
 
 .skillimg {
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
+    position: relative;
+    overflow: visible;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
@@ -101,8 +103,20 @@
 
 .skillboxcontainer {
     max-width: 33.3%;
-    background-color: rgb(232, 214, 185);
+    background-color: rgba(232, 214, 185, 0.44);
     flex-wrap: wrap;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-left-color: rgb(116, 103, 86);
+    border-right-color: rgb(116, 103, 86);
+    border-top-color: rgb(116, 103, 86);
+    border-bottom-color: rgb(116, 103, 86);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
 }
 
 .skillnamecontainer {
@@ -362,4 +376,19 @@
     text-align: center;
     line-height: 20px;
     pointer-events: all;
+}
+
+.skill-ring {
+    position: absolute;
+    left: -9%;
+    top: -9%;
+    width: 118%;
+    height: 118%;
+    background-size: 100% 100%;
+    pointer-events: none;
+}
+
+.skillbox {
+    justify-content: space-around;
+    align-items: center;
 }

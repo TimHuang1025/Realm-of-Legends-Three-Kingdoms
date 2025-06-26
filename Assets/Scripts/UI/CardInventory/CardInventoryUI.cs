@@ -22,7 +22,7 @@ public class CardInventoryUI : MonoBehaviour
     [SerializeField] private PlayerHorseBank horseBank;
     [SerializeField] private HorseDatabaseStatic horseDB;
 
-    
+
 
 
     [SerializeField] GiftPanelController giftPanelCtrl;
@@ -40,6 +40,11 @@ public class CardInventoryUI : MonoBehaviour
     VisualElement passive1Img, passive2Img;
     Label passive1NameLbl, passive1DescLbl;
     Label passive2NameLbl, passive2DescLbl;
+
+    [SerializeField] Sprite[] ringSprites = new Sprite[5]; // 0=lv1 … 3=lv4
+
+    VisualElement mainSkillRing, passive1Ring, passive2Ring; // 被动技能的环形图标
+
     // ── 私有 UI 元素 ────────────────────────────────
     Button weaponRemoveBtn, armorRemoveBtn, mountRemoveBtn;
     VisualElement atkTip;        // 当前悬浮气泡（null = 没弹）
@@ -173,14 +178,20 @@ public class CardInventoryUI : MonoBehaviour
         mainSkillImg = root.Q<VisualElement>("MainSkillImage");
         mainSkillNameLbl = root.Q<Label>("MainSkillNameLbl");
         mainSkillDescLbl = root.Q<Label>("MainSkillDescriptionLbl");
+        mainSkillRing = root.Q<VisualElement>("MainSkillRing");
+        
         /* 主动技能节点已缓存，下面只缓存被动 */
         passive1Img = root.Q<VisualElement>("Passive1Image");
         passive1NameLbl = root.Q<Label>("Passive1NameLbl");
         passive1DescLbl = root.Q<Label>("Passive1DescLbl");
+        passive1Ring = root.Q<VisualElement>("Passive1Ring");
+
 
         passive2Img = root.Q<VisualElement>("Passive2Image");
         passive2NameLbl = root.Q<Label>("Passive2NameLbl");
         passive2DescLbl = root.Q<Label>("Passive2DescLbl");
+        passive2Ring = root.Q<VisualElement>("Passive2Ring");
+
 
         StatBreakdownPanel.OnPanelShown = () => vhSizer?.Apply();
         /*──── 监听卡牌升级／获得 ────*/
@@ -386,15 +397,15 @@ public class CardInventoryUI : MonoBehaviour
         var rule = CardDatabaseStatic.Instance.GetStar(star);
 
         /* 2) 点亮数量 & 亮星贴图 */
-        int    lit       = rule != null ? rule.starsInFrame               : 0;
-        string colorKey  = rule != null ? rule.frameColor.ToLowerInvariant() : "blue";
+        int lit = rule != null ? rule.starsInFrame : 0;
+        string colorKey = rule != null ? rule.frameColor.ToLowerInvariant() : "blue";
 
         Sprite litSprite = colorKey switch
         {
             "purple" => cardInv.purpleStarSprite,
-            "gold"   => cardInv.goldStarSprite,
-            "blue"   => cardInv.blueStarSprite,
-            _        => cardInv.blueStarSprite
+            "gold" => cardInv.goldStarSprite,
+            "blue" => cardInv.blueStarSprite,
+            _ => cardInv.blueStarSprite
         };
 
         /* 3) 应用到 5 槽 */
@@ -439,6 +450,7 @@ public class CardInventoryUI : MonoBehaviour
 
         /* 主动技能绝对等级：idx = 0 */
         int skillLv = SkillLevelHelper.GetSkillLevel(currentDyn?.star ?? 0, 0);
+        SetRing(mainSkillRing, mainSkillImg, skillLv);
 
         /* 等级倍率：从 ActiveSkillDB.LevelMultiplier 里查 */
         var lvDict = activeSkillDB.LevelMultiplier;
@@ -463,26 +475,29 @@ public class CardInventoryUI : MonoBehaviour
 
         /* 被动 1 */
         ApplyPassive(info.passiveOneId,
-                    passive1Img, passive1NameLbl, passive1DescLbl,
-                    info, dyn, 1);
+             passive1Img, passive1NameLbl, passive1DescLbl,
+             passive1Ring,                // ★
+             info, dyn, 1);
 
         /* 被动 2 */
         ApplyPassive(info.passiveTwoId,
-                    passive2Img, passive2NameLbl, passive2DescLbl,
-                    info, dyn, 2);
+             passive2Img, passive2NameLbl, passive2DescLbl,
+             passive2Ring,                // ★
+             info, dyn, 2);
     }
 
     /*───────────────────────────────────────────────*/
     /* 单个被动技能刷新 ─ ApplyPassive                */
     /*───────────────────────────────────────────────*/
     void ApplyPassive(
-        string          id,
-        VisualElement   img,
-        Label           nameLbl,
-        Label           descLbl,
-        CardInfoStatic  info,
-        PlayerCard      dyn,
-        int             skillIdx)     // 1 = 被动1, 2 = 被动2
+        string id,
+        VisualElement img,
+        Label nameLbl,
+        Label descLbl,
+        VisualElement   ring,
+        CardInfoStatic info,
+        PlayerCard dyn,
+        int skillIdx)     // 1 = 被动1, 2 = 被动2
     {
         var ps = passiveSkillDB.Get(id);
         if (ps == null)
@@ -498,11 +513,12 @@ public class CardInventoryUI : MonoBehaviour
         nameLbl.text = ps.cnName;
 
         /* 绝对技能等级 */
-        int   skillLv = SkillLevelHelper.GetSkillLevel(dyn?.star ?? 0, skillIdx);
+        int skillLv = SkillLevelHelper.GetSkillLevel(dyn?.star ?? 0, skillIdx);
+        SetRing(ring, img, skillLv);
 
         /* 等级倍率 */
-        var  prov   = (ISkillMultiplierProvider)passiveSkillDB;
-        var  lvDict = prov.LevelMultiplier;
+        var prov = (ISkillMultiplierProvider)passiveSkillDB;
+        var lvDict = prov.LevelMultiplier;
         float lvMul = lvDict != null && lvDict.TryGetValue(skillLv, out var m) ? m : 1f;
 
         /* 百分比 */
@@ -691,14 +707,14 @@ public class CardInventoryUI : MonoBehaviour
         };
 
         // ② 战马 & Buff（仅 Atk/Def 有战马；Buff 按需实现）
-        int horseVal = CalcHorseBonus(currentDyn, type); 
+        int horseVal = CalcHorseBonus(currentDyn, type);
         int buffVal = CalcBuffBonus(type);     // 如果没有 Buff 系统可直接返回 0
 
         // ③ 组织列表
         var parts = new List<(string, int)>
         {
             ("基础",  baseVal)
-            
+
         };
         if (equipVal != 0) parts.Add(("装备", equipVal));
         if (horseVal != 0) parts.Add(("战马", horseVal));
@@ -716,7 +732,7 @@ public class CardInventoryUI : MonoBehaviour
         // ④ 弹窗
         StatBreakdownPanel.Show(title, parts, evt.position);
     }
-    
+
     int CalcHorseBonus(PlayerCard dyn, StatType type)
     {
         if (dyn == null) return 0;
@@ -738,7 +754,7 @@ public class CardInventoryUI : MonoBehaviour
             StatType.Atk => Mathf.RoundToInt(stats.Atk * atkPct),
             StatType.Def => Mathf.RoundToInt(stats.Def * defPct),
             StatType.Int => Mathf.RoundToInt(stats.Int * intPct),  // ← 只这行生效
-            _            => 0
+            _ => 0
         };
     }
 
@@ -748,9 +764,23 @@ public class CardInventoryUI : MonoBehaviour
         // 还没做 Buff 系统 → 直接返回 0
         return 0;
     }
+    void SetRing(VisualElement ring, VisualElement icon, int lv)
+    {
+        if (ring == null || icon == null) return;
+
+        /* 环贴图（数组长度 = 5，0~4 级对应 0~4） */
+        int idx = Mathf.Clamp(lv, 0, ringSprites.Length - 1);
+        ring.style.backgroundImage = new StyleBackground(ringSprites[idx]);
+        ring.style.display = DisplayStyle.Flex;   // 始终显示
+
+        /* 图标透明度 */
+        icon.style.opacity = lv == 0 ? 0.4f : 1f;
+    }
+
+
+
 
 
 
 }
-
 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rules:
   - queryType: 1
-    queryValue: skillimg
+    queryValue: skillbox
     widthVh: 19
     heightVh: 19
     fontVh: 0
@@ -217,6 +217,15 @@ MonoBehaviour:
     heightVh: 5
     fontVh: 0
     applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 30
+  - queryType: 1
+    queryValue: skillimg
+    widthVh: 15
+    heightVh: 15
+    fontVh: 0
+    applyScale: 1
     aspectWidth: 0
     addWidthVw: 0
     widthVw: 30

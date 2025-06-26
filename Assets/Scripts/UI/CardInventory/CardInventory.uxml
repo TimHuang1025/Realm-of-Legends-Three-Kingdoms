@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3#CardInventory" />
-    <ui:VisualElement name="Container" enabled="true" style="flex-grow: 1; background-color: rgba(148, 112, 71, 0.87); align-self: auto; align-content: flex-start; flex-direction: column;">
+    <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3" />
+    <ui:VisualElement name="Container" enabled="true" style="flex-grow: 1; background-color: rgba(148, 112, 71, 0.87); align-self: auto; align-content: flex-start; flex-direction: column; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/%E8%83%8C%E6%99%AF.png?fileID=2800000&amp;guid=9ba6973d915481d4ebe7c7815d86b0c1&amp;type=3#背景&quot;); -unity-background-scale-mode: scale-and-crop;">
         <ui:VisualElement name="Top" style="flex-grow: 4; flex-direction: row; height: 80%; margin-top: 0%;">
             <ui:VisualElement name="SelectedCard" style="flex-grow: 0; width: 40%; flex-shrink: 0; flex-direction: column; justify-content: flex-start; align-items: auto;">
                 <ui:Button text="&lt;返回" name="ReturnBtn" class="smallbtns" style="flex-grow: 0; width: 35%; border-left-width: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; margin-left: 0; margin-top: 3%; height: 9%; position: absolute;" />
@@ -19,7 +19,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="RightSidePanel" style="flex-grow: 1;">
-                <ui:VisualElement name="Cards" style="flex-grow: 1; height: 100%; top: 0%; position: relative; width: 100%; display: none;">
+                <ui:VisualElement name="Cards" style="flex-grow: 1; height: 100%; top: 0%; position: relative; width: 100%; display: flex;">
                     <ui:VisualElement name="OrderContainer" style="align-items: center; height: 12%; flex-direction: row-reverse; justify-content: space-between; flex-shrink: 0;">
                         <ui:Button name="OrderButton" text="排序" class="smallbtns" style="width: 20%; height: 80%; margin-right: 10%; margin-top: 1%; letter-spacing: 0;" />
                         <ui:VisualElement name="Mat2Bar" class="smallbtns" style="flex-grow: 0; height: 45%; flex-direction: row; flex-shrink: 0; width: 251px; letter-spacing: 0;">
@@ -41,7 +41,7 @@
                         <ui:Button name="InfoBtn" text="详情&#x9;" class="bigBtn" style="width: 42.5%; height: 60%; right: auto;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Info" style="flex-grow: 0; width: 100%; height: 100%; display: flex;">
+                <ui:VisualElement name="Info" style="flex-grow: 0; width: 100%; height: 100%; display: none;">
                     <ui:VisualElement name="InfoBar" style="flex-grow: 0; height: 12%; display: flex;" />
                     <ui:VisualElement name="InfoPanel" style="flex-grow: 1; background-color: rgb(177, 160, 138); margin-left: 0; margin-top: 10px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); padding-top: 30px; padding-right: 30px; padding-bottom: 30px; padding-left: 30px; border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; display: flex;">
                         <ui:VisualElement name="LevelStats" style="flex-grow: 0; flex-direction: row;">
@@ -135,7 +135,11 @@
         </ui:VisualElement>
         <ui:VisualElement name="Bottom" style="flex-grow: 1; align-items: center; justify-content: center; height: 20%; margin-left: 1.5%; margin-right: 1.5%; margin-bottom: 1.5%;">
             <ui:VisualElement name="SkillBox" style="flex-grow: 0; width: 100%; height: 90%; flex-shrink: 0; justify-content: center; border-left-color: rgb(210, 164, 85); border-right-color: rgb(210, 164, 85); border-top-color: rgb(210, 164, 85); border-bottom-color: rgb(210, 164, 85); border-top-width: 5px; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 30px; border-top-right-radius: 30px; border-bottom-right-radius: 30px; border-bottom-left-radius: 30px; flex-direction: row;">
-                <ui:VisualElement name="MainSkillImage" class="skillimg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); -unity-background-scale-mode: stretch-to-fill;" />
+                <ui:VisualElement name="MainSkillSlot" class="skillbox" style="flex-grow: 0;">
+                    <ui:VisualElement name="MainSkillImage" class="skillimg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); -unity-background-scale-mode: stretch-to-fill;">
+                        <ui:VisualElement name="MainSkillRing" class="skill-ring" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/skill_lv4.png?fileID=2800000&amp;guid=33c6004c34960b343a64f64058383433&amp;type=3#skill_lv4&quot;);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
                 <ui:VisualElement name="MainSkillContainer" class="skillboxcontainer" style="flex-grow: 0; flex-shrink: 1; max-width: 33.3%; width: 25%;">
                     <ui:VisualElement name="MainSkillNameContainer" class="skillnamecontainer" style="flex-grow: 0; flex-shrink: 0;">
                         <ui:Label text="主动技能" name="MainSkillNameLbl" class="skillname" />
@@ -144,7 +148,11 @@
                         <ui:Label text="对敌军造成中量伤害。每歼灭 20 万敌兵，技能伤害提升 10%，最多叠加 5 层。&#10;冷却：2 回合" enable-rich-text="true" name="MainSkillDescriptionLbl" class="skilltext" style="flex-wrap: wrap;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Passive1Image" class="skillimg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);" />
+                <ui:VisualElement name="Passive1Slot" class="skillbox" style="flex-grow: 0;">
+                    <ui:VisualElement name="Passive1Image" class="skillimg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-image: url(&quot;project://database/Assets/Assets/Characters/Skills/P9_Skill_icon.png?fileID=2800000&amp;guid=262d587e024edcf43848505aba921dce&amp;type=3#P9_Skill_icon&quot;); height: 100%;">
+                        <ui:VisualElement name="Passive1Ring" class="skill-ring" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/skill_lv4.png?fileID=2800000&amp;guid=33c6004c34960b343a64f64058383433&amp;type=3#skill_lv4&quot;);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
                 <ui:VisualElement name="Passive1Container" class="skillboxcontainer" style="flex-grow: 0; flex-shrink: 1; width: 25%;">
                     <ui:VisualElement name="Passive1NameContainer" class="skillnamecontainer" style="flex-grow: 0; flex-shrink: 0;">
                         <ui:Label text="被动技能" name="Passive1NameLbl" class="skillname" />
@@ -153,7 +161,11 @@
                         <ui:Label text="对敌军造成中量伤害。每歼灭 20 万敌兵，技能伤害提升 10%，最多叠加 5 层。&#10;冷却：2 回合" name="Passive1DescLbl" class="skilltext" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Passive2Image" class="skillimg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);" />
+                <ui:VisualElement name="Passive2Slot" class="skillbox" style="flex-grow: 0;">
+                    <ui:VisualElement name="Passive2Image" class="skillimg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);">
+                        <ui:VisualElement name="Passive2Ring" class="skill-ring" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/skill_lv4.png?fileID=2800000&amp;guid=33c6004c34960b343a64f64058383433&amp;type=3#skill_lv4&quot;);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
                 <ui:VisualElement name="Passive2Container" class="skillboxcontainer" style="flex-grow: 0; flex-shrink: 1; width: 25%;">
                     <ui:VisualElement name="Passive2NameContainer" class="skillnamecontainer" style="flex-grow: 0; flex-shrink: 0;">
                         <ui:Label text="被动技能" name="Passive2NameLbl" class="skillname" />

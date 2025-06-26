@@ -1,14 +1,3 @@
 # ninja log v5
-5	916	7721820604464418	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	c45502bfed168831
-44	183	7721820597104405	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	ef1e580e73329f57
-184	258	7721820597902352	G:/ROL3K/Library/PramData/AndroidApplicationController/Cache/com.rol.realmsoflegends/gradle-project/unityLibrary/build/intermediates/cxx/Debug/665x47fn/obj/arm64-v8a/libswappywrapper.so	20c4df779c33fa7b
-14	817	7721820603450912	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	2d16fe1687b52354
-19	820	7721820603480914	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	af6d79a12cdad31b
-31	864	7721820603956881	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	30291e66be021bd1
-9	823	7721820603510912	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	4c452e39c2a282a
-0	832	7721820603610018	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	13b7b8f1338434ff
-37	830	7721820603580911	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	52d19eb1255a4636
-25	904	7721820604354417	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	99c67503759b9715
-916	966	7721820605009102	G:/ROL3K/Library/PramData/AndroidApplicationController/Cache/com.rol.realmsoflegends/gradle-project/unityLibrary/build/intermediates/cxx/Debug/665x47fn/obj/arm64-v8a/libgame.so	b69b3763f4827660
-1	124	7721917353324898	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	ef1e580e73329f57
-124	188	7721917353992149	G:/ROL3K/Library/PramData/AndroidApplicationController/Cache/com.rol.realmsoflegends/gradle-project/unityLibrary/build/intermediates/cxx/Debug/665x47fn/obj/arm64-v8a/libswappywrapper.so	20c4df779c33fa7b
+1	84	7725856395650053	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	ef1e580e73329f57
+85	138	7725856396243861	G:/ROL3K/Library/PramData/AndroidApplicationController/Cache/com.rol.realmsoflegends/gradle-project/unityLibrary/build/intermediates/cxx/Debug/665x47fn/obj/arm64-v8a/libswappywrapper.so	20c4df779c33fa7b
