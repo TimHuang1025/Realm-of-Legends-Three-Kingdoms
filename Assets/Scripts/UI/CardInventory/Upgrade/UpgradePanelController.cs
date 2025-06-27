@@ -125,8 +125,8 @@ public class UpgradePanelController : MonoBehaviour, IUIPanelController
 
         var (expNeed, matNeed) = LevelStatCalculator.GetUpgradeCost(dyn.level);
 
-        bool hasExp  = PlayerResourceBank.I[ResourceType.HeroExp]  >= expNeed;
-        bool hasMat2 = PlayerResourceBank.I[ResourceType.HeroMat2] >= matNeed;
+        bool hasExp  = PlayerResourceBank.I[ResourceType.Merit]  >= expNeed;
+        bool hasMat2 = PlayerResourceBank.I[ResourceType.AdvanceScroll] >= matNeed;
 
         if (!hasExp || !hasMat2)
         {
@@ -135,9 +135,9 @@ public class UpgradePanelController : MonoBehaviour, IUIPanelController
         }
 
         // 扣资源
-        PlayerResourceBank.I.Spend(ResourceType.HeroExp,  expNeed);
+        PlayerResourceBank.I.Spend(ResourceType.Merit,  expNeed);
         if (matNeed > 0)
-            PlayerResourceBank.I.Spend(ResourceType.HeroMat2, matNeed);
+            PlayerResourceBank.I.Spend(ResourceType.AdvanceScroll, matNeed);
 
         //  通过 BankMgr 升级 → 自动触发 onCardUpdated
         PlayerCardBankMgr.I.AddLevel(dyn.id, 1);
@@ -191,8 +191,8 @@ public class UpgradePanelController : MonoBehaviour, IUIPanelController
         }
 
         /* 玩家持有 */
-        long expHave  = PlayerResourceBank.I[ResourceType.HeroExp];
-        long mat2Have = PlayerResourceBank.I[ResourceType.HeroMat2];
+        long expHave  = PlayerResourceBank.I[ResourceType.Merit];
+        long mat2Have = PlayerResourceBank.I[ResourceType.AdvanceScroll];
         expHaveLbl.text = expHave.ToString();
         matHaveLbl.text = mat2Have.ToString();
 

@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3" />
+    <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3#CardInventory" />
     <ui:VisualElement name="Container" enabled="true" style="flex-grow: 1; background-color: rgba(148, 112, 71, 0.87); align-self: auto; align-content: flex-start; flex-direction: column; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/%E8%83%8C%E6%99%AF.png?fileID=2800000&amp;guid=9ba6973d915481d4ebe7c7815d86b0c1&amp;type=3#背景&quot;); -unity-background-scale-mode: scale-and-crop;">
         <ui:VisualElement name="Top" style="flex-grow: 4; flex-direction: row; height: 80%; margin-top: 0%;">
             <ui:VisualElement name="SelectedCard" style="flex-grow: 0; width: 40%; flex-shrink: 0; flex-direction: column; justify-content: flex-start; align-items: auto;">
@@ -41,7 +41,7 @@
                         <ui:Button name="InfoBtn" text="详情&#x9;" class="bigBtn" style="width: 42.5%; height: 60%; right: auto;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Info" style="flex-grow: 0; width: 100%; height: 100%; display: none;">
+                <ui:VisualElement name="Info" style="flex-grow: 0; width: 100%; height: 100%; display: flex;">
                     <ui:VisualElement name="InfoBar" style="flex-grow: 0; height: 12%; display: flex;" />
                     <ui:VisualElement name="InfoPanel" style="flex-grow: 1; background-color: rgb(177, 160, 138); margin-left: 0; margin-top: 10px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); padding-top: 30px; padding-right: 30px; padding-bottom: 30px; padding-left: 30px; border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; display: flex;">
                         <ui:VisualElement name="LevelStats" style="flex-grow: 0; flex-direction: row;">

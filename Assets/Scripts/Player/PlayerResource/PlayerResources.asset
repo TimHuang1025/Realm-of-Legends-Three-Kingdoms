@@ -15,7 +15,27 @@ MonoBehaviour:
   gold: 0
   silver: 0
   copper: 0
-  heroexp: 11217610
-  heromat2: 9960999
-  gachaTicket: 6200
-  upTierMaterial: 9985499
+  food: 0
+  summonWrit: 8200
+  troopOrder: 0
+  unionMerit: 0
+  merit: 0
+  advanceScroll: 54
+  heroCrestSGeneral: 0
+  heroCrestAGeneral: 0
+  heroCrestBGeneral: 0
+  forage: 0
+  refinedIron: 0
+  fineWood: 0
+  fineSteel: 0
+  techScroll: 0
+  fame: 187
+  artOfWar: 0
+  trainingToken: 0
+  respecPotion: 6
+  rawIron: 0
+  firmwood: 0
+  ironIngot: 0
+  honor: 0
+  merchantDeed: 0
+  landDeed: 0

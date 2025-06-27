@@ -322,7 +322,7 @@ public class CardInventoryUI : MonoBehaviour
         }
         if (defLbl != null)
         {
-            int totalDef = stats.Atk + equipDef;
+            int totalDef = stats.Def + equipDef;
             defLbl.text = totalDef.ToString();
         }
         if (intLbl != null)
@@ -377,14 +377,14 @@ public class CardInventoryUI : MonoBehaviour
 
     void OnBankChanged(ResourceType type)
     {
-        if (type == ResourceType.HeroMat2 || type == ResourceType.HeroExp)
+        if (type == ResourceType.AdvanceScroll || type == ResourceType.Merit)
             RefreshResource();
     }
 
     void RefreshResource()
     {
-        long mat2 = PlayerResourceBank.I[ResourceType.HeroMat2];
-        long exp = PlayerResourceBank.I[ResourceType.HeroExp];
+        long mat2 = PlayerResourceBank.I[ResourceType.AdvanceScroll];
+        long exp = PlayerResourceBank.I[ResourceType.Merit];
 
         // 1 行搞定数字缩写（默认保留 1 位小数，可传第二个参数改小数位）
         mat2valueLbl.text = NumberAbbreviator.Format(mat2, 2); // 例：23.0K

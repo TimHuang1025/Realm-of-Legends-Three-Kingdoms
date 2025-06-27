@@ -1,0 +1,917 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aeaf2086f1833d4c82ce41825b7ca9e, type: 3}
+  m_Name: LordCardStaticData
+  m_EditorClassIdentifier: 
+  currentMax: 100
+  valuePerSkillPoint: 475
+  levels:
+  - level: 1
+    title: "\u65E0\u540D\u5C0F\u5352I"
+    requiredFame: 2
+    copperIncome: 20
+    addSoldierSymbol: 1
+    baseSoldierCount: 500
+    rewardSoldier: 1000
+    skillPoints: 1
+    rewards: []
+  - level: 2
+    title: "\u65E0\u540D\u5C0F\u5352II"
+    requiredFame: 5
+    copperIncome: 92
+    addSoldierSymbol: 0
+    baseSoldierCount: 1000
+    rewardSoldier: 2000
+    skillPoints: 1
+    rewards: []
+  - level: 3
+    title: "\u65E0\u540D\u5C0F\u5352III"
+    requiredFame: 11
+    copperIncome: 225
+    addSoldierSymbol: 0
+    baseSoldierCount: 1500
+    rewardSoldier: 3000
+    skillPoints: 1
+    rewards: []
+  - level: 4
+    title: "\u65E0\u540D\u5C0F\u5352IV"
+    requiredFame: 18
+    copperIncome: 423
+    addSoldierSymbol: 0
+    baseSoldierCount: 2000
+    rewardSoldier: 4000
+    skillPoints: 1
+    rewards: []
+  - level: 5
+    title: "\u65E0\u540D\u5C0F\u5352V"
+    requiredFame: 27
+    copperIncome: 690
+    addSoldierSymbol: 0
+    baseSoldierCount: 2500
+    rewardSoldier: 5000
+    skillPoints: 2
+    rewards: []
+  - level: 6
+    title: "\u4E61\u52C7I"
+    requiredFame: 38
+    copperIncome: 1031
+    addSoldierSymbol: 0
+    baseSoldierCount: 3000
+    rewardSoldier: 6000
+    skillPoints: 2
+    rewards: []
+  - level: 7
+    title: "\u4E61\u52C7II"
+    requiredFame: 50
+    copperIncome: 1447
+    addSoldierSymbol: 0
+    baseSoldierCount: 3500
+    rewardSoldier: 7000
+    skillPoints: 2
+    rewards: []
+  - level: 8
+    title: "\u4E61\u52C7III"
+    requiredFame: 63
+    copperIncome: 1941
+    addSoldierSymbol: 0
+    baseSoldierCount: 4000
+    rewardSoldier: 8000
+    skillPoints: 3
+    rewards: []
+  - level: 9
+    title: "\u4E61\u52C7IV"
+    requiredFame: 78
+    copperIncome: 2514
+    addSoldierSymbol: 0
+    baseSoldierCount: 4500
+    rewardSoldier: 9000
+    skillPoints: 4
+    rewards: []
+  - level: 10
+    title: "\u4E61\u52C7V"
+    requiredFame: 95
+    copperIncome: 3170
+    addSoldierSymbol: 0
+    baseSoldierCount: 5000
+    rewardSoldier: 10000
+    skillPoints: 5
+    rewards: []
+  - level: 11
+    title: "\u4F0D\u957FI"
+    requiredFame: 128
+    copperIncome: 3910
+    addSoldierSymbol: 1
+    baseSoldierCount: 5500
+    rewardSoldier: 11000
+    skillPoints: 6
+    rewards: []
+  - level: 12
+    title: "\u4F0D\u957FII"
+    requiredFame: 147
+    copperIncome: 4735
+    addSoldierSymbol: 0
+    baseSoldierCount: 6000
+    rewardSoldier: 12000
+    skillPoints: 7
+    rewards: []
+  - level: 13
+    title: "\u4F0D\u957FIII"
+    requiredFame: 167
+    copperIncome: 5646
+    addSoldierSymbol: 0
+    baseSoldierCount: 6500
+    rewardSoldier: 13000
+    skillPoints: 7
+    rewards: []
+  - level: 14
+    title: "\u4F0D\u957FIV"
+    requiredFame: 189
+    copperIncome: 6646
+    addSoldierSymbol: 0
+    baseSoldierCount: 7000
+    rewardSoldier: 14000
+    skillPoints: 7
+    rewards: []
+  - level: 15
+    title: "\u4F0D\u957FV"
+    requiredFame: 212
+    copperIncome: 7735
+    addSoldierSymbol: 0
+    baseSoldierCount: 7500
+    rewardSoldier: 15000
+    skillPoints: 8
+    rewards: []
+  - level: 16
+    title: "\u90FD\u5C09I"
+    requiredFame: 236
+    copperIncome: 8915
+    addSoldierSymbol: 0
+    baseSoldierCount: 8000
+    rewardSoldier: 16000
+    skillPoints: 8
+    rewards: []
+  - level: 17
+    title: "\u90FD\u5C09II"
+    requiredFame: 261
+    copperIncome: 10187
+    addSoldierSymbol: 0
+    baseSoldierCount: 8500
+    rewardSoldier: 17000
+    skillPoints: 8
+    rewards: []
+  - level: 18
+    title: "\u90FD\u5C09III"
+    requiredFame: 288
+    copperIncome: 11552
+    addSoldierSymbol: 0
+    baseSoldierCount: 9000
+    rewardSoldier: 18000
+    skillPoints: 9
+    rewards: []
+  - level: 19
+    title: "\u90FD\u5C09IV"
+    requiredFame: 315
+    copperIncome: 13011
+    addSoldierSymbol: 0
+    baseSoldierCount: 9500
+    rewardSoldier: 19000
+    skillPoints: 10
+    rewards: []
+  - level: 20
+    title: "\u90FD\u5C09V"
+    requiredFame: 345
+    copperIncome: 14565
+    addSoldierSymbol: 0
+    baseSoldierCount: 10000
+    rewardSoldier: 20000
+    skillPoints: 10
+    rewards: []
+  - level: 21
+    title: "\u6821\u5C09I"
+    requiredFame: 390
+    copperIncome: 16215
+    addSoldierSymbol: 0
+    baseSoldierCount: 10500
+    rewardSoldier: 21000
+    skillPoints: 11
+    rewards: []
+  - level: 22
+    title: "\u6821\u5C09II"
+    requiredFame: 422
+    copperIncome: 17963
+    addSoldierSymbol: 0
+    baseSoldierCount: 11000
+    rewardSoldier: 22000
+    skillPoints: 12
+    rewards: []
+  - level: 23
+    title: "\u6821\u5C09III"
+    requiredFame: 455
+    copperIncome: 19808
+    addSoldierSymbol: 0
+    baseSoldierCount: 11500
+    rewardSoldier: 23000
+    skillPoints: 12
+    rewards: []
+  - level: 24
+    title: "\u6821\u5C09IV"
+    requiredFame: 488
+    copperIncome: 21752
+    addSoldierSymbol: 0
+    baseSoldierCount: 12000
+    rewardSoldier: 24000
+    skillPoints: 13
+    rewards: []
+  - level: 25
+    title: "\u6821\u5C09V"
+    requiredFame: 522
+    copperIncome: 23796
+    addSoldierSymbol: 0
+    baseSoldierCount: 12500
+    rewardSoldier: 25000
+    skillPoints: 14
+    rewards: []
+  - level: 26
+    title: "\u5343\u592B\u957FI"
+    requiredFame: 558
+    copperIncome: 25941
+    addSoldierSymbol: 1
+    baseSoldierCount: 13000
+    rewardSoldier: 26000
+    skillPoints: 15
+    rewards: []
+  - level: 27
+    title: "\u5343\u592B\u957FII"
+    requiredFame: 596
+    copperIncome: 28186
+    addSoldierSymbol: 0
+    baseSoldierCount: 13500
+    rewardSoldier: 27000
+    skillPoints: 16
+    rewards: []
+  - level: 28
+    title: "\u5343\u592B\u957FIII"
+    requiredFame: 635
+    copperIncome: 30534
+    addSoldierSymbol: 0
+    baseSoldierCount: 14000
+    rewardSoldier: 28000
+    skillPoints: 17
+    rewards: []
+  - level: 29
+    title: "\u5343\u592B\u957FIV"
+    requiredFame: 674
+    copperIncome: 32985
+    addSoldierSymbol: 0
+    baseSoldierCount: 14500
+    rewardSoldier: 29000
+    skillPoints: 18
+    rewards: []
+  - level: 30
+    title: "\u5343\u592B\u957FV"
+    requiredFame: 714
+    copperIncome: 35539
+    addSoldierSymbol: 0
+    baseSoldierCount: 15000
+    rewardSoldier: 30000
+    skillPoints: 19
+    rewards: []
+  - level: 31
+    title: "\u504F\u5C06\u519BI"
+    requiredFame: 771
+    copperIncome: 38197
+    addSoldierSymbol: 0
+    baseSoldierCount: 15500
+    rewardSoldier: 31000
+    skillPoints: 20
+    rewards: []
+  - level: 32
+    title: "\u504F\u5C06\u519BII"
+    requiredFame: 813
+    copperIncome: 40960
+    addSoldierSymbol: 0
+    baseSoldierCount: 16000
+    rewardSoldier: 32000
+    skillPoints: 21
+    rewards: []
+  - level: 33
+    title: "\u504F\u5C06\u519BIII"
+    requiredFame: 857
+    copperIncome: 43829
+    addSoldierSymbol: 0
+    baseSoldierCount: 16500
+    rewardSoldier: 33000
+    skillPoints: 22
+    rewards: []
+  - level: 34
+    title: "\u504F\u5C06\u519BIV"
+    requiredFame: 902
+    copperIncome: 46805
+    addSoldierSymbol: 0
+    baseSoldierCount: 17000
+    rewardSoldier: 34000
+    skillPoints: 23
+    rewards: []
+  - level: 35
+    title: "\u504F\u5C06\u519BV"
+    requiredFame: 948
+    copperIncome: 49887
+    addSoldierSymbol: 0
+    baseSoldierCount: 17500
+    rewardSoldier: 35000
+    skillPoints: 24
+    rewards: []
+  - level: 36
+    title: "\u4E2D\u90CE\u5C06I"
+    requiredFame: 995
+    copperIncome: 53076
+    addSoldierSymbol: 0
+    baseSoldierCount: 18000
+    rewardSoldier: 36000
+    skillPoints: 25
+    rewards: []
+  - level: 37
+    title: "\u4E2D\u90CE\u5C06II"
+    requiredFame: 1043
+    copperIncome: 56374
+    addSoldierSymbol: 0
+    baseSoldierCount: 18500
+    rewardSoldier: 37000
+    skillPoints: 26
+    rewards: []
+  - level: 38
+    title: "\u4E2D\u90CE\u5C06III"
+    requiredFame: 1092
+    copperIncome: 59780
+    addSoldierSymbol: 0
+    baseSoldierCount: 19000
+    rewardSoldier: 38000
+    skillPoints: 27
+    rewards: []
+  - level: 39
+    title: "\u4E2D\u90CE\u5C06IV"
+    requiredFame: 1142
+    copperIncome: 63296
+    addSoldierSymbol: 0
+    baseSoldierCount: 19500
+    rewardSoldier: 39000
+    skillPoints: 28
+    rewards: []
+  - level: 40
+    title: "\u4E2D\u90CE\u5C06V"
+    requiredFame: 1193
+    copperIncome: 66921
+    addSoldierSymbol: 0
+    baseSoldierCount: 20000
+    rewardSoldier: 40000
+    skillPoints: 29
+    rewards: []
+  - level: 41
+    title: "\u88E8\u5C06\u519BI"
+    requiredFame: 1260
+    copperIncome: 70657
+    addSoldierSymbol: 1
+    baseSoldierCount: 20500
+    rewardSoldier: 41000
+    skillPoints: 30
+    rewards: []
+  - level: 42
+    title: "\u88E8\u5C06\u519BII"
+    requiredFame: 1313
+    copperIncome: 74504
+    addSoldierSymbol: 0
+    baseSoldierCount: 21000
+    rewardSoldier: 42000
+    skillPoints: 31
+    rewards: []
+  - level: 43
+    title: "\u88E8\u5C06\u519BIII"
+    requiredFame: 1367
+    copperIncome: 78463
+    addSoldierSymbol: 0
+    baseSoldierCount: 21500
+    rewardSoldier: 43000
+    skillPoints: 32
+    rewards: []
+  - level: 44
+    title: "\u88E8\u5C06\u519BIV"
+    requiredFame: 1422
+    copperIncome: 82533
+    addSoldierSymbol: 0
+    baseSoldierCount: 22000
+    rewardSoldier: 44000
+    skillPoints: 33
+    rewards: []
+  - level: 45
+    title: "\u88E8\u5C06\u519BV"
+    requiredFame: 1479
+    copperIncome: 86716
+    addSoldierSymbol: 0
+    baseSoldierCount: 22500
+    rewardSoldier: 45000
+    skillPoints: 34
+    rewards: []
+  - level: 46
+    title: "\u6298\u51B2\u5C06\u519BI"
+    requiredFame: 1536
+    copperIncome: 91012
+    addSoldierSymbol: 0
+    baseSoldierCount: 23000
+    rewardSoldier: 46000
+    skillPoints: 35
+    rewards: []
+  - level: 47
+    title: "\u6298\u51B2\u5C06\u519BII"
+    requiredFame: 1595
+    copperIncome: 95422
+    addSoldierSymbol: 0
+    baseSoldierCount: 23500
+    rewardSoldier: 47000
+    skillPoints: 36
+    rewards: []
+  - level: 48
+    title: "\u6298\u51B2\u5C06\u519BIII"
+    requiredFame: 1653
+    copperIncome: 99945
+    addSoldierSymbol: 0
+    baseSoldierCount: 24000
+    rewardSoldier: 48000
+    skillPoints: 37
+    rewards: []
+  - level: 49
+    title: "\u6298\u51B2\u5C06\u519BIV"
+    requiredFame: 1713
+    copperIncome: 104584
+    addSoldierSymbol: 0
+    baseSoldierCount: 24500
+    rewardSoldier: 49000
+    skillPoints: 38
+    rewards: []
+  - level: 50
+    title: "\u6298\u51B2\u5C06\u519BV"
+    requiredFame: 1775
+    copperIncome: 109337
+    addSoldierSymbol: 0
+    baseSoldierCount: 25000
+    rewardSoldier: 50000
+    skillPoints: 39
+    rewards: []
+  - level: 51
+    title: "\u9AA0\u9A91\u6821\u5C09I"
+    requiredFame: 1853
+    copperIncome: 114205
+    addSoldierSymbol: 0
+    baseSoldierCount: 25500
+    rewardSoldier: 51000
+    skillPoints: 40
+    rewards: []
+  - level: 52
+    title: "\u9AA0\u9A91\u6821\u5C09II"
+    requiredFame: 1916
+    copperIncome: 119190
+    addSoldierSymbol: 0
+    baseSoldierCount: 26000
+    rewardSoldier: 52000
+    skillPoints: 41
+    rewards: []
+  - level: 53
+    title: "\u9AA0\u9A91\u6821\u5C09III"
+    requiredFame: 1980
+    copperIncome: 124291
+    addSoldierSymbol: 0
+    baseSoldierCount: 26500
+    rewardSoldier: 53000
+    skillPoints: 42
+    rewards: []
+  - level: 54
+    title: "\u9AA0\u9A91\u6821\u5C09IV"
+    requiredFame: 2045
+    copperIncome: 129508
+    addSoldierSymbol: 0
+    baseSoldierCount: 27000
+    rewardSoldier: 54000
+    skillPoints: 43
+    rewards: []
+  - level: 55
+    title: "\u9AA0\u9A91\u6821\u5C09V"
+    requiredFame: 2111
+    copperIncome: 134843
+    addSoldierSymbol: 0
+    baseSoldierCount: 27500
+    rewardSoldier: 55000
+    skillPoints: 44
+    rewards: []
+  - level: 56
+    title: "\u9547\u8FDC\u5C06\u519BI"
+    requiredFame: 2178
+    copperIncome: 140296
+    addSoldierSymbol: 0
+    baseSoldierCount: 28000
+    rewardSoldier: 56000
+    skillPoints: 45
+    rewards: []
+  - level: 57
+    title: "\u9547\u8FDC\u5C06\u519BII"
+    requiredFame: 2246
+    copperIncome: 145867
+    addSoldierSymbol: 0
+    baseSoldierCount: 28500
+    rewardSoldier: 57000
+    skillPoints: 46
+    rewards: []
+  - level: 58
+    title: "\u9547\u8FDC\u5C06\u519BIII"
+    requiredFame: 2315
+    copperIncome: 151556
+    addSoldierSymbol: 0
+    baseSoldierCount: 29000
+    rewardSoldier: 58000
+    skillPoints: 46
+    rewards: []
+  - level: 59
+    title: "\u9547\u8FDC\u5C06\u519BIV"
+    requiredFame: 2385
+    copperIncome: 157364
+    addSoldierSymbol: 0
+    baseSoldierCount: 29500
+    rewardSoldier: 59000
+    skillPoints: 47
+    rewards: []
+  - level: 60
+    title: "\u9547\u8FDC\u5C06\u519BV"
+    requiredFame: 2456
+    copperIncome: 163292
+    addSoldierSymbol: 0
+    baseSoldierCount: 30000
+    rewardSoldier: 60000
+    skillPoints: 47
+    rewards: []
+  - level: 61
+    title: "\u9547\u519B\u5C06\u519BI"
+    requiredFame: 2732
+    copperIncome: 169339
+    addSoldierSymbol: 0
+    baseSoldierCount: 30500
+    rewardSoldier: 61000
+    skillPoints: 47
+    rewards: []
+  - level: 62
+    title: "\u9547\u519B\u5C06\u519BII"
+    requiredFame: 2916
+    copperIncome: 175506
+    addSoldierSymbol: 0
+    baseSoldierCount: 31000
+    rewardSoldier: 62000
+    skillPoints: 48
+    rewards: []
+  - level: 63
+    title: "\u9547\u519B\u5C06\u519BIII"
+    requiredFame: 3104
+    copperIncome: 181794
+    addSoldierSymbol: 0
+    baseSoldierCount: 31500
+    rewardSoldier: 63000
+    skillPoints: 48
+    rewards: []
+  - level: 64
+    title: "\u9547\u519B\u5C06\u519BIV"
+    requiredFame: 3294
+    copperIncome: 188203
+    addSoldierSymbol: 0
+    baseSoldierCount: 32000
+    rewardSoldier: 64000
+    skillPoints: 48
+    rewards: []
+  - level: 65
+    title: "\u9547\u519B\u5C06\u519BV"
+    requiredFame: 3488
+    copperIncome: 194733
+    addSoldierSymbol: 0
+    baseSoldierCount: 32500
+    rewardSoldier: 65000
+    skillPoints: 49
+    rewards: []
+  - level: 66
+    title: "\u9AA0\u9A91\u5C06\u519BI"
+    requiredFame: 3684
+    copperIncome: 201385
+    addSoldierSymbol: 1
+    baseSoldierCount: 33000
+    rewardSoldier: 66000
+    skillPoints: 49
+    rewards: []
+  - level: 67
+    title: "\u9AA0\u9A91\u5C06\u519BII"
+    requiredFame: 3884
+    copperIncome: 208159
+    addSoldierSymbol: 0
+    baseSoldierCount: 33500
+    rewardSoldier: 67000
+    skillPoints: 50
+    rewards: []
+  - level: 68
+    title: "\u9AA0\u9A91\u5C06\u519BIII"
+    requiredFame: 4086
+    copperIncome: 215056
+    addSoldierSymbol: 0
+    baseSoldierCount: 34000
+    rewardSoldier: 68000
+    skillPoints: 50
+    rewards: []
+  - level: 69
+    title: "\u9AA0\u9A91\u5C06\u519BIV"
+    requiredFame: 4292
+    copperIncome: 222075
+    addSoldierSymbol: 0
+    baseSoldierCount: 34500
+    rewardSoldier: 69000
+    skillPoints: 50
+    rewards: []
+  - level: 70
+    title: "\u9AA0\u9A91\u5C06\u519BV"
+    requiredFame: 4500
+    copperIncome: 229217
+    addSoldierSymbol: 0
+    baseSoldierCount: 35000
+    rewardSoldier: 70000
+    skillPoints: 51
+    rewards: []
+  - level: 71
+    title: "\u8F66\u9A91\u5C06\u519BI"
+    requiredFame: 4712
+    copperIncome: 236483
+    addSoldierSymbol: 0
+    baseSoldierCount: 35500
+    rewardSoldier: 71000
+    skillPoints: 51
+    rewards: []
+  - level: 72
+    title: "\u8F66\u9A91\u5C06\u519BII"
+    requiredFame: 4926
+    copperIncome: 243872
+    addSoldierSymbol: 0
+    baseSoldierCount: 36000
+    rewardSoldier: 72000
+    skillPoints: 51
+    rewards: []
+  - level: 73
+    title: "\u8F66\u9A91\u5C06\u519BIII"
+    requiredFame: 5144
+    copperIncome: 251386
+    addSoldierSymbol: 0
+    baseSoldierCount: 36500
+    rewardSoldier: 73000
+    skillPoints: 52
+    rewards: []
+  - level: 74
+    title: "\u8F66\u9A91\u5C06\u519BIV"
+    requiredFame: 5364
+    copperIncome: 259024
+    addSoldierSymbol: 0
+    baseSoldierCount: 37000
+    rewardSoldier: 74000
+    skillPoints: 52
+    rewards: []
+  - level: 75
+    title: "\u8F66\u9A91\u5C06\u519BV"
+    requiredFame: 5588
+    copperIncome: 266788
+    addSoldierSymbol: 0
+    baseSoldierCount: 37500
+    rewardSoldier: 75000
+    skillPoints: 52
+    rewards: []
+  - level: 76
+    title: "\u4E0A\u5C06\u519BI"
+    requiredFame: 5814
+    copperIncome: 274676
+    addSoldierSymbol: 0
+    baseSoldierCount: 38000
+    rewardSoldier: 76000
+    skillPoints: 53
+    rewards: []
+  - level: 77
+    title: "\u4E0A\u5C06\u519BII"
+    requiredFame: 6044
+    copperIncome: 282690
+    addSoldierSymbol: 0
+    baseSoldierCount: 38500
+    rewardSoldier: 77000
+    skillPoints: 53
+    rewards: []
+  - level: 78
+    title: "\u4E0A\u5C06\u519BIII"
+    requiredFame: 6276
+    copperIncome: 290830
+    addSoldierSymbol: 0
+    baseSoldierCount: 39000
+    rewardSoldier: 78000
+    skillPoints: 53
+    rewards: []
+  - level: 79
+    title: "\u4E0A\u5C06\u519BIV"
+    requiredFame: 6512
+    copperIncome: 299096
+    addSoldierSymbol: 0
+    baseSoldierCount: 39500
+    rewardSoldier: 79000
+    skillPoints: 54
+    rewards: []
+  - level: 80
+    title: "\u4E0A\u5C06\u519BV"
+    requiredFame: 6750
+    copperIncome: 307488
+    addSoldierSymbol: 0
+    baseSoldierCount: 40000
+    rewardSoldier: 80000
+    skillPoints: 54
+    rewards: []
+  - level: 81
+    title: "\u5927\u90FD\u7763I"
+    requiredFame: 6992
+    copperIncome: 316008
+    addSoldierSymbol: 0
+    baseSoldierCount: 40500
+    rewardSoldier: 81000
+    skillPoints: 54
+    rewards: []
+  - level: 82
+    title: "\u5927\u90FD\u7763II"
+    requiredFame: 7236
+    copperIncome: 324654
+    addSoldierSymbol: 0
+    baseSoldierCount: 41000
+    rewardSoldier: 82000
+    skillPoints: 55
+    rewards: []
+  - level: 83
+    title: "\u5927\u90FD\u7763III"
+    requiredFame: 7484
+    copperIncome: 333428
+    addSoldierSymbol: 0
+    baseSoldierCount: 41500
+    rewardSoldier: 83000
+    skillPoints: 55
+    rewards: []
+  - level: 84
+    title: "\u5927\u90FD\u7763IV"
+    requiredFame: 7734
+    copperIncome: 342330
+    addSoldierSymbol: 0
+    baseSoldierCount: 42000
+    rewardSoldier: 84000
+    skillPoints: 55
+    rewards: []
+  - level: 85
+    title: "\u5927\u90FD\u7763V"
+    requiredFame: 7988
+    copperIncome: 351360
+    addSoldierSymbol: 0
+    baseSoldierCount: 42500
+    rewardSoldier: 85000
+    skillPoints: 56
+    rewards: []
+  - level: 86
+    title: "\u4FAF\u7235I"
+    requiredFame: 8244
+    copperIncome: 360518
+    addSoldierSymbol: 0
+    baseSoldierCount: 43000
+    rewardSoldier: 86000
+    skillPoints: 56
+    rewards: []
+  - level: 87
+    title: "\u4FAF\u7235II"
+    requiredFame: 8504
+    copperIncome: 369805
+    addSoldierSymbol: 0
+    baseSoldierCount: 43500
+    rewardSoldier: 87000
+    skillPoints: 56
+    rewards: []
+  - level: 88
+    title: "\u4FAF\u7235III"
+    requiredFame: 8766
+    copperIncome: 379221
+    addSoldierSymbol: 0
+    baseSoldierCount: 44000
+    rewardSoldier: 88000
+    skillPoints: 57
+    rewards: []
+  - level: 89
+    title: "\u4FAF\u7235IV"
+    requiredFame: 9032
+    copperIncome: 388766
+    addSoldierSymbol: 0
+    baseSoldierCount: 44500
+    rewardSoldier: 89000
+    skillPoints: 57
+    rewards: []
+  - level: 90
+    title: "\u4FAF\u7235V"
+    requiredFame: 9300
+    copperIncome: 398441
+    addSoldierSymbol: 0
+    baseSoldierCount: 45000
+    rewardSoldier: 90000
+    skillPoints: 57
+    rewards: []
+  - level: 91
+    title: "\u738B\u7235I"
+    requiredFame: 9572
+    copperIncome: 408246
+    addSoldierSymbol: 0
+    baseSoldierCount: 45500
+    rewardSoldier: 91000
+    skillPoints: 58
+    rewards: []
+  - level: 92
+    title: "\u738B\u7235II"
+    requiredFame: 9846
+    copperIncome: 418180
+    addSoldierSymbol: 0
+    baseSoldierCount: 46000
+    rewardSoldier: 92000
+    skillPoints: 58
+    rewards: []
+  - level: 93
+    title: "\u738B\u7235III"
+    requiredFame: 10124
+    copperIncome: 428246
+    addSoldierSymbol: 0
+    baseSoldierCount: 46500
+    rewardSoldier: 93000
+    skillPoints: 58
+    rewards: []
+  - level: 94
+    title: "\u738B\u7235IV"
+    requiredFame: 10404
+    copperIncome: 438442
+    addSoldierSymbol: 0
+    baseSoldierCount: 47000
+    rewardSoldier: 94000
+    skillPoints: 59
+    rewards: []
+  - level: 95
+    title: "\u738B\u7235V"
+    requiredFame: 10688
+    copperIncome: 448769
+    addSoldierSymbol: 0
+    baseSoldierCount: 47500
+    rewardSoldier: 95000
+    skillPoints: 59
+    rewards: []
+  - level: 96
+    title: "\u9738\u4E3BI"
+    requiredFame: 10974
+    copperIncome: 459227
+    addSoldierSymbol: 0
+    baseSoldierCount: 48000
+    rewardSoldier: 96000
+    skillPoints: 59
+    rewards: []
+  - level: 97
+    title: "\u9738\u4E3BII"
+    requiredFame: 11264
+    copperIncome: 469817
+    addSoldierSymbol: 0
+    baseSoldierCount: 48500
+    rewardSoldier: 97000
+    skillPoints: 60
+    rewards: []
+  - level: 98
+    title: "\u9738\u4E3BIII"
+    requiredFame: 11556
+    copperIncome: 480538
+    addSoldierSymbol: 0
+    baseSoldierCount: 49000
+    rewardSoldier: 98000
+    skillPoints: 60
+    rewards: []
+  - level: 99
+    title: "\u9738\u4E3BIV"
+    requiredFame: 11852
+    copperIncome: 491392
+    addSoldierSymbol: 0
+    baseSoldierCount: 49500
+    rewardSoldier: 99000
+    skillPoints: 60
+    rewards: []
+  - level: 100
+    title: "\u9738\u4E3BV"
+    requiredFame: 0
+    copperIncome: 502378
+    addSoldierSymbol: 0
+    baseSoldierCount: 50000
+    rewardSoldier: 0
+    skillPoints: 0
+    rewards: []

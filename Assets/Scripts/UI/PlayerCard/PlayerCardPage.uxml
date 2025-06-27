@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/UI/PlayerCard/PlayerCardPage.uss?fileID=7433441132597879392&amp;guid=a1bd806fe4839d041b412ac10f0f7999&amp;type=3#PlayerCardPage" />
-    <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3" />
+    <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3#CardInventory" />
     <ui:VisualElement style="flex-grow: 1; flex-direction: column; background-image: url(&quot;project://database/Assets/Assets/UI/PlayerCardPanel/%E4%B8%BB%E5%B0%86%E5%BA%9C.png?fileID=2800000&amp;guid=fdaeadc0bf611944283eec572ec4fb04&amp;type=3#主将府&quot;); background-color: rgba(55, 55, 55, 0); -unity-background-image-tint-color: rgba(224, 224, 224, 0.73);">
         <ui:VisualElement name="InfoBar" style="flex-grow: 0; height: 12%; display: flex; width: 100%; flex-direction: row-reverse; align-items: center; justify-content: flex-start;">
             <ui:Button text="&lt;返回" name="ReturnBtn" class="smallbtns" style="flex-grow: 0; width: 15%; border-left-width: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; margin-left: 0; margin-top: 3%; height: 67%; position: absolute; left: 0;" />
@@ -8,7 +8,7 @@
                 <ui:VisualElement name="Mat2Bar" class="smallbtns" style="flex-grow: 0; height: 45%; flex-direction: row; flex-shrink: 0; width: 251px; letter-spacing: 0; padding-left: 0; padding-right: 0;">
                     <ui:VisualElement name="Mat2Icon" class="bigdisplayicon" style="flex-grow: 0; width: 26%; background-image: url(&quot;project://database/Assets/Assets/UI/PlayerCardPanel/influence3.png?fileID=2800000&amp;guid=7766a17f453604b47be507a5c5ee81d0&amp;type=3#influence3&quot;); margin-top: 0; margin-bottom: 0; flex-shrink: 0; background-position-y: top 0; background-position-x: left 0; -unity-background-scale-mode: scale-and-crop;" />
                     <ui:VisualElement name="Mat2Panel" style="flex-grow: 1; flex-direction: column; -unity-text-align: upper-left; justify-content: center;">
-                        <ui:Label text="355232" name="mat2value" class="golddisplay" style="-unity-text-align: middle-left;" />
+                        <ui:Label text="355232" name="FameValue" class="golddisplay" style="-unity-text-align: middle-left;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="ExpBar" class="smallbtns" style="flex-grow: 0; height: 45%; flex-direction: row; flex-shrink: 0; width: 251px; letter-spacing: 0; background-color: rgb(2, 2, 2);">
@@ -23,7 +23,7 @@
             <ui:VisualElement style="flex-grow: 0; max-width: none; flex-shrink: 0;">
                 <ui:VisualElement name="SelectedCardImage" style="flex-grow: 0; top: 0%; left: 0%; width: 90%; height: 80%; flex-shrink: 0; background-color: rgba(197, 197, 197, 0); flex-direction: row; justify-content: center; align-self: center; align-content: flex-start; align-items: stretch; background-image: url(&quot;project://database/Assets/Assets/Characters/Cards/B5_full.jpg?fileID=2800000&amp;guid=bf9e773ab5d756e47bde9d87dec01143&amp;type=3#B5_full&quot;); -unity-background-scale-mode: scale-and-crop; background-position-x: center 0; background-position-y: top 0; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgba(134, 134, 134, 0.71); border-right-color: rgba(134, 134, 134, 0.71); border-top-color: rgba(134, 134, 134, 0.71); border-bottom-color: rgba(134, 134, 134, 0.71); margin-top: 0%; margin-left: 1%; display: flex; border-top-left-radius: 9px; border-top-right-radius: 9px; border-bottom-right-radius: 9px; border-bottom-left-radius: 9px;">
                     <ui:Label text="测试" double-click-selects-word="false" name="CardName" style="white-space: pre; -unity-text-align: upper-center; align-self: center; justify-content: flex-start; align-items: center; top: 12%; font-size: 160%; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); color: rgb(255, 255, 255); text-shadow: 2px 2px 1px rgb(0, 0, 0); display: none;" />
-                    <ui:Label text="LV 66 骠骑将军I" double-click-selects-word="false" name="PlayerLevel" parse-escape-sequences="false" style="white-space: pre; -unity-text-align: upper-center; align-self: center; justify-content: flex-start; align-items: center; top: -2%; font-size: 30%; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); color: rgb(255, 255, 255); text-shadow: 2px 2px 1px rgb(0, 0, 0); display: flex; position: absolute;" />
+                    <ui:Label text="LV 66 骠骑将军I" double-click-selects-word="false" name="PlayerLevelLabel" parse-escape-sequences="false" style="white-space: pre; -unity-text-align: upper-center; align-self: center; justify-content: flex-start; align-items: center; top: -2%; font-size: 30%; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); color: rgb(255, 255, 255); text-shadow: 2px 2px 1px rgb(0, 0, 0); display: flex; position: absolute;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="ItemPanel" style="flex-grow: 0; flex-shrink: 0; width: auto;">
@@ -70,20 +70,20 @@
                             </ui:VisualElement>
                             <ui:VisualElement name="Slot1" style="flex-grow: 1; flex-direction: row; justify-content: space-around; align-items: center; height: 20%;">
                                 <ui:Label text="攻击" class="upgradeskilltext" style="width: 20%; -unity-text-align: upper-center;" />
-                                <ui:Label text="23512" class="statnum" style="width: 20%; -unity-text-align: upper-center;" />
-                                <ui:Label text="324" class="statnum" style="width: 20%; align-items: center; -unity-text-align: upper-center;" />
+                                <ui:Label text="23512" name="AtkStat" class="statnum" style="width: 20%; -unity-text-align: upper-center;" />
+                                <ui:Label text="324" name="AtkSkillPtsAdded" class="statnum" style="width: 20%; align-items: center; -unity-text-align: upper-center;" />
                                 <ui:Button name="upgradeBtn" enabled="true" class="addBtn" style="width: auto; height: auto; right: auto; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;);" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Slot2" style="flex-grow: 1; flex-direction: row; justify-content: space-around; align-items: center; height: 20%;">
                                 <ui:Label text="防御&#10;" class="upgradeskilltext" style="width: 20%; -unity-text-align: upper-center;" />
-                                <ui:Label text="3244" class="statnum" style="width: 20%; -unity-text-align: upper-center;" />
-                                <ui:Label text="65" class="statnum" style="width: 20%; align-items: center; -unity-text-align: upper-center;" />
+                                <ui:Label text="3244" name="DefStat" class="statnum" style="width: 20%; -unity-text-align: upper-center;" />
+                                <ui:Label text="65" name="DefSkillPtsAdded" class="statnum" style="width: 20%; align-items: center; -unity-text-align: upper-center;" />
                                 <ui:Button name="upgradeBtn" enabled="true" class="addBtn" style="width: auto; height: auto; right: auto; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;);" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Slot3" style="flex-grow: 1; flex-direction: row; justify-content: space-around; align-items: center; height: 20%; margin-bottom: 2%;">
                                 <ui:Label text="智力" class="upgradeskilltext" style="width: 20%; -unity-text-align: upper-center;" />
-                                <ui:Label text="31245" class="statnum" style="width: 20%; -unity-text-align: upper-center;" />
-                                <ui:Label text="32" class="statnum" style="width: 20%; align-items: center; -unity-text-align: upper-center;" />
+                                <ui:Label text="31245" name="IQStat" class="statnum" style="width: 20%; -unity-text-align: upper-center;" />
+                                <ui:Label text="32" name="IQSkillPtsAdded" class="statnum" style="width: 20%; align-items: center; -unity-text-align: upper-center;" />
                                 <ui:Button name="upgradeBtn" enabled="true" class="addBtn" style="width: auto; height: auto; right: auto; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;);" />
                             </ui:VisualElement>
                         </ui:VisualElement>
@@ -91,25 +91,25 @@
                     <ui:VisualElement style="flex-grow: 0; background-size: 100% 100%; background-color: rgb(224, 214, 200); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138); margin-top: 1.5%; margin-right: 1%; margin-left: 1%; margin-bottom: 1.5%; flex-direction: row; height: 25%;">
                         <ui:VisualElement style="flex-grow: 1; width: 65%;">
                             <ui:VisualElement style="flex-grow: 0; height: 50%; justify-content: center;">
-                                <ui:Label text="下一等级: 骠骑将军II" class="upgradeskilltext" style="-unity-text-align: upper-center;" />
+                                <ui:Label text="下一等级: 骠骑将军II" name="NextLevelLabel" class="upgradeskilltext" style="-unity-text-align: upper-center;" />
                             </ui:VisualElement>
                             <ui:VisualElement style="flex-grow: 0; flex-direction: row; height: 50%;">
                                 <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-                                    <ui:Label text="技能点:" style="-unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); font-size: 29px; -unity-text-align: middle-left;" />
-                                    <ui:Label text="150" class="influencenum" style="-unity-text-align: upper-center;" />
+                                    <ui:Label text="技能点:" class="statnum" style="-unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); font-size: 29px; -unity-text-align: middle-left;" />
+                                    <ui:Label text="150" name="TotalSkillPts" class="influencenum" style="-unity-text-align: upper-center;" />
                                 </ui:VisualElement>
                                 <ui:VisualElement style="flex-grow: 1;">
-                                    <ui:Label text="+30&#x9;" class="influencenum" style="-unity-text-align: upper-center;" />
+                                    <ui:Label text="+30&#x9;" name="NextLvAddSkillPts" class="influencenum" style="-unity-text-align: upper-center;" />
                                 </ui:VisualElement>
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement style="flex-grow: 1; align-items: stretch;">
                             <ui:VisualElement style="flex-grow: 1; align-self: auto; align-items: center; flex-direction: row; justify-content: center; align-content: center;">
                                 <ui:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Assets/UI/PlayerCardPanel/influence3.png?fileID=2800000&amp;guid=7766a17f453604b47be507a5c5ee81d0&amp;type=3#influence3&quot;); height: 100%; width: 30%; -unity-background-scale-mode: scale-and-crop;" />
-                                <ui:Label text="x3952" style="-unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;); font-size: 20px;" />
+                                <ui:Label text="x3952" name="NextLevelFameRequire" class="statnum" style="-unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;); font-size: 20px;" />
                             </ui:VisualElement>
                             <ui:VisualElement style="flex-grow: 1; justify-content: center; align-items: center;">
-                                <ui:Button text="升级" class="upgradeBtn" />
+                                <ui:Button text="升级" name="UpgradeLvBtn" class="upgradeBtn" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>

@@ -25,7 +25,7 @@ namespace Game.Core
         {
             rule = DB.GetStar(pc.star + 1);            // ★1‒15 规则
             if (rule == null) return false;            // 已满星
-            return RES.upTierMaterial >= rule.shardsRequired;
+            return RES.heroCrestSGeneral >= rule.shardsRequired;
             
         }
 
@@ -35,7 +35,7 @@ namespace Game.Core
             if (!CanUpgrade(pc, out var rule)) return false;
 
             /* 1) 扣统一碎片 & 星级 +1 */
-            RES.upTierMaterial -= rule.shardsRequired;
+            RES.heroCrestSGeneral -= rule.shardsRequired;
             pc.star += 1;
             PlayerCardBankMgr.I?.MarkDirty(pc.id);
 

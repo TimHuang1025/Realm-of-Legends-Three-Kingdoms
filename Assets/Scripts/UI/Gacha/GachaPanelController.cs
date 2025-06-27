@@ -46,13 +46,13 @@ public class GachaPanelController : MonoBehaviour
         Button freeBtn = root.Q<Button>(freeticketsbtn);
         freeBtn.clicked += () =>
         {
-            PlayerResourceBank.I.Add(ResourceType.GachaTicket, 5000);      
+            PlayerResourceBank.I.Add(ResourceType.SummonWrit, 5000);      
             Debug.Log("赠送 5000 Ticket");
         };
         bankHandler = t =>
         {
-        if (t == ResourceType.GachaTicket && ticketLbl != null)
-            ticketLbl.text = PlayerResourceBank.I[ResourceType.GachaTicket].ToString();
+        if (t == ResourceType.SummonWrit && ticketLbl != null)
+            ticketLbl.text = PlayerResourceBank.I[ResourceType.SummonWrit].ToString();
         };
         PlayerResourceBank.I.onBankChanged += bankHandler;
 
@@ -62,7 +62,7 @@ public class GachaPanelController : MonoBehaviour
         /*── Ticket Label ─*/
         ticketLbl = root.Q<Label>("TicketAmount");
         if (ticketLbl != null)
-            ticketLbl.text = PlayerResourceBank.I[ResourceType.GachaTicket].ToString();
+            ticketLbl.text = PlayerResourceBank.I[ResourceType.SummonWrit].ToString();
 
         handler = v => { if (ticketLbl != null) ticketLbl.text = v.ToString(); };
         GachaTicketManager.I.OnTicketChanged += handler;
@@ -206,13 +206,13 @@ public class GachaPanelController : MonoBehaviour
         if (selectedItem?.userData is not GachaPoolInfo info) return;
 
         int cost = (count == 1) ? info.costx1 : info.costx10;
-        if (PlayerResourceBank.I[ResourceType.GachaTicket] < cost)
+        if (PlayerResourceBank.I[ResourceType.SummonWrit] < cost)
         {
             Debug.Log("Ticket 不够！");
             PopupManager.Show("抽奖失败", $"Ticket 不够！需要 {cost} 张 Ticket。");
             return;
         }
-        PlayerResourceBank.I.Spend(ResourceType.GachaTicket, cost);
+        PlayerResourceBank.I.Spend(ResourceType.SummonWrit, cost);
 
         // ★ 抽奖
         var results = GachaSystem.Roll(info, count);

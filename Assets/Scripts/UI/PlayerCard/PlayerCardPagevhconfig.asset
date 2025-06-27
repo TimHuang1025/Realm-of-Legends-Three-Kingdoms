@@ -103,3 +103,39 @@ MonoBehaviour:
     aspectWidth: 0
     addWidthVw: 0
     widthVw: 35
+  - queryType: 1
+    queryValue: statnum
+    widthVh: 0
+    heightVh: 0
+    fontVh: 5
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 35
+  - queryType: 1
+    queryValue: upgradeskilltext
+    widthVh: 0
+    heightVh: 0
+    fontVh: 5
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 35
+  - queryType: 0
+    queryValue: BlackPanel
+    widthVh: 0
+    heightVh: 100
+    fontVh: 5
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 35
+  - queryType: 0
+    queryValue: PlayerLevelLabel
+    widthVh: 0
+    heightVh: 0
+    fontVh: 5.5
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 35

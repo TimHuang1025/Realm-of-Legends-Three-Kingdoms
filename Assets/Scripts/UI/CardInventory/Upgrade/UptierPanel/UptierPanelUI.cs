@@ -146,7 +146,7 @@ public class UptierPanelController : MonoBehaviour, IUIPanelController
         lblTitle[2].text = passiveSkillDB ? passiveSkillDB.Get(info.passiveTwoId )?.cnName ?? "—" : "—";
 
         /* 碎片 */
-        copiesHaveLbl.text = RES ? RES.upTierMaterial.ToString() : "0";
+        copiesHaveLbl.text = RES ? RES.heroCrestSGeneral.ToString() : "0";
 
 
         /* 技能等级 */
@@ -173,7 +173,7 @@ public class UptierPanelController : MonoBehaviour, IUIPanelController
             powerNextLbl.text = nextPower.ToString();
         }
         /*──────── 碎片需求 & 按钮 ────────*/
-        int shardsHave = RES ? RES.upTierMaterial : 0;
+        int shardsHave = RES ? RES.heroCrestSGeneral : 0;
         copiesHaveLbl.text = shardsHave.ToString();
 
         if (curStar >= 15)

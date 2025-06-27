@@ -1,14 +1,20 @@
+// Assets/Scripts/Game/Core/LevelStatCalculator.cs
 using System;
-using UnityEngine;     // Mathf
-using Game.Core;      // Stats4
+using UnityEngine;          // Mathf, Resources
+using Game.Core;            // Stats4
+using Game.Data;            // CardDatabaseStatic, StarRule
 
 public static class LevelStatCalculator
 {
-    /*──────────── 常量 ───────────*/
-    public const int MaxLevel = 200;   // 若有上限，外部可用
+    /*──────── 常量 ────────*/
+    public const int MaxLevel = 200;
 
-    /*──────────── 内部工具 ───────*/
-    static float GetTierMultiplier(Tier tier) => tier switch
+    /*──────── 数据库 ─────*/
+    static CardDatabaseStatic DB => _db ??= Resources.Load<CardDatabaseStatic>("CardDatabaseStatic");
+    static CardDatabaseStatic _db;
+
+    /*──────── 内部工具 ───*/
+    static float GetTierMul(Tier t) => t switch
     {
         Tier.S => 1f,
         Tier.A => 0.8f,
@@ -16,54 +22,71 @@ public static class LevelStatCalculator
         _      => 1f
     };
 
-    /// <summary>真正的曲线计算核心</summary>
-    static Stats4 CalcStatsCore(int level, Tier tier, float[] mul)
+    static int GetStarBonus(int star) => DB?.GetStar(star)?.battlePowerAdd ?? 0;
+
+    /*──────── 属性核心 ───*/
+
+    /// <summary>等级对应的基础值 f(level)</summary>
+    static double BaseStatCurve(int lv)
     {
-        level = Mathf.Max(level, 1);
-
-        // ▸ (1) 等级 → 基础值：
-        //    ≤100 走立方曲线，>100 走指数衰减段
-        double baseVal = level <= 100
-            ? Math.Ceiling(0.2 * Math.Pow(level, 3))
-            : 200_000 + Math.Ceiling(650 * level + 81_250
-                       - 7_984_980 * Math.Exp(-0.04 * level));
-
-        baseVal *= GetTierMultiplier(tier);
-
-        // ▸ (2) 专属倍率（数组不足时补 1）
-        float mAtk = mul.Length > 0 ? mul[0] : 1f;
-        float mDef = mul.Length > 1 ? mul[1] : 1f;
-        float mInt = mul.Length > 2 ? mul[2] : 1f;
-        float mCmd = mul.Length > 3 ? mul[3] : 1f;
-
-        return new Stats4(
-            Mathf.CeilToInt((float)(baseVal * mAtk)),
-            Mathf.CeilToInt((float)(baseVal * mDef)),
-            Mathf.CeilToInt((float)(baseVal * mInt)),
-            Mathf.CeilToInt((float)(baseVal * mCmd))
-        );
+        return lv <= 100
+             ? Math.Ceiling(0.2 * Math.Pow(lv, 3))
+             : 200_000 + Math.Ceiling(650 * lv + 81_250
+                          - 7_984_980 * Math.Exp(-0.04 * lv));
     }
 
-    /*──────────── 公共 API ───────*/
+    /// <summary>统御(带兵)基础值 g(level)</summary>
+    static double CommandCurve(int lv)
+    {
+        return lv <= 100
+             ? Math.Ceiling(0.09333 * Math.Pow(lv, 3)
+                            + 0.14   * Math.Pow(lv, 2)
+                            + 0.04667* lv)
+             : Math.Ceiling(130 * lv + 150_450
+                            - 68_750 * Math.Exp(-0.04 * lv) + 4);
+    }
 
-    /// <summary>当前等级四维属性</summary>
+    static Stats4 CalcStatsCore(int lv, Tier tier, float[] mul, int star)
+    {
+        lv   = Mathf.Max(lv, 1);
+        var  baseVal     = BaseStatCurve(lv);
+        var  cmdBaseVal  = CommandCurve(lv);
+        var  tierMul     = GetTierMul(tier);
+        var  mAtk = mul.Length > 0 ? mul[0] : 1f;
+        var  mDef = mul.Length > 1 ? mul[1] : 1f;
+        var  mInt = mul.Length > 2 ? mul[2] : 1f;
+        var  mCmd = mul.Length > 3 ? mul[3] : 1f;
+
+        int starBonus = GetStarBonus(star);
+
+        int atk = Mathf.CeilToInt( starBonus + (float)(baseVal * mAtk * tierMul) );
+        int def = Mathf.CeilToInt( starBonus + (float)(baseVal * mDef * tierMul) );
+        int iq  = Mathf.CeilToInt( starBonus + (float)(baseVal * mInt * tierMul) );
+        int cmd = Mathf.CeilToInt( (float)(cmdBaseVal * mCmd * tierMul) );   // 统御无星级加成
+
+        return new Stats4(atk, def, iq, cmd);
+    }
+
+    /*──────── Public API ───*/
+
+    /// <summary>当前等级四维</summary>
     public static Stats4 CalculateStats(CardInfoStatic info, PlayerCard dyn)
     {
         if (info == null) throw new ArgumentNullException(nameof(info));
-
-        int level = dyn?.level ?? 1;
-        return CalcStatsCore(level, info.tier, info.base_value_multiplier);
+        int lv   = dyn?.level ?? 1;
+        int star = dyn?.star  ?? 0;
+        return CalcStatsCore(lv, info.tier, info.base_value_multiplier, star);
     }
 
-    /// <summary>下一等级 − 当前等级 的增量</summary>
+    /// <summary>下一等级 - 当前等级 的增量</summary>
     public static Stats4 CalculateDeltaNextLevel(CardInfoStatic info, PlayerCard dyn)
     {
         if (info == null) throw new ArgumentNullException(nameof(info));
+        int lv   = dyn?.level ?? 1;
+        int star = dyn?.star  ?? 0;
 
-        int level = dyn?.level ?? 1;
-
-        var cur  = CalcStatsCore(level,     info.tier, info.base_value_multiplier);
-        var next = CalcStatsCore(level + 1, info.tier, info.base_value_multiplier);
+        var cur  = CalcStatsCore(lv,     info.tier, info.base_value_multiplier, star);
+        var next = CalcStatsCore(lv + 1, info.tier, info.base_value_multiplier, star);
 
         return new Stats4(
             next.Atk - cur.Atk,
@@ -73,16 +96,32 @@ public static class LevelStatCalculator
         );
     }
 
-    /// <summary>升级到 <paramref name="level"/> → <c>level + 1</c> 所需 (exp, extraMat)</summary>
-    public static (int exp, int extraMat) GetUpgradeCost(int level)
+    /// <summary>升级到 lv → lv+1 所需 (exp, extraMat)</summary>
+    public static (int exp, int extraMat) GetUpgradeCost(int lv)
     {
-        if (level < 1) throw new ArgumentException("等级必须 ≥ 1");
+        if (lv < 1) throw new ArgumentException("等级必须 ≥ 1");
 
-        int expNeeded = level <= 99
-            ? Mathf.CeilToInt(0.6f * level * level)   // 前 99 级：二次曲线
-            : 60_000 + Mathf.CeilToInt((level - 100) / 10f) * 5_000;
+        int exp = lv <= 99
+            ? Mathf.CeilToInt(0.6f * lv * lv)
+            : 60_000 + Mathf.CeilToInt((lv - 100) / 10f) * 5_000;
 
-        int extraMaterial = (level % 2 == 0) ? 1_000 : 0;    // 偶数级需额外材料
-        return (expNeeded, extraMaterial);
+        int extraMat = lv % 10 == 0 ? lv * 2 : 0;   // 每 10 级一次
+        return (exp, extraMat);
+    }
+
+    /// <summary>仅获取统御值</summary>
+    public static int CalculateCommand(CardInfoStatic info, PlayerCard dyn)
+    {
+        if (info == null) throw new ArgumentNullException(nameof(info));
+        int lv = dyn?.level ?? 1;
+        int star = dyn?.star ?? 0;   // star 没用，但保持签名一致
+        return CalcStatsCore(lv, info.tier, info.base_value_multiplier, star).Cmd;
+    }
+
+    /// <summary>战力=Atk+Def+Int+Cmd</summary>
+    public static int CalculateBattlePower(CardInfoStatic info, PlayerCard dyn)
+    {
+        var s = CalculateStats(info, dyn);
+        return s.Atk + s.Def + s.Int + s.Cmd;
     }
 }

@@ -1,0 +1,133 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3#CardInventory" />
+    <ui:VisualElement template="UpgradePanel">
+        <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3#CardInventory" />
+        <ui:VisualElement name="BlackPanel" style="flex-grow: 0; width: 100%; height: 139%; background-color: rgba(0, 0, 0, 0.71); justify-content: center; align-self: auto; align-items: center; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; flex-shrink: 0;">
+            <ui:VisualElement name="BlackSpace" style="flex-grow: 0; position: absolute; width: 100%; height: 100%; top: -2px; left: 4px; flex-shrink: 0;" />
+            <ui:VisualElement name="UpgradePanelContainer" style="flex-grow: 0; width: 50%; height: 55%; flex-shrink: 0; flex-direction: row;">
+                <ui:VisualElement name="UpgradePanel" class="panel" style="flex-grow: 1; background-color: rgb(224, 214, 200); flex-shrink: 0; width: 50%; height: 689px; align-self: auto; justify-content: flex-start; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138); flex-direction: column; margin-left: 0; padding-left: 0%;">
+                    <ui:VisualElement name="LevelPanel" style="flex-grow: 0; margin-left: 4%; flex-direction: row; margin-right: 4%; flex-shrink: 0; height: 20%; justify-content: center;">
+                        <ui:VisualElement name="VisualElement" style="flex-grow: 1; align-self: auto; align-items: center; justify-content: flex-end; align-content: auto; padding-top: 3%;">
+                            <ui:Label text="技能点" name="LevelAfterUpgrade" class="level" style="justify-content: flex-start; -unity-text-align: middle-left;" />
+                            <ui:VisualElement style="flex-grow: 1; flex-direction: row; font-size: 20px;">
+                                <ui:Label text="剩余点数:" class="title" />
+                                <ui:Label text="35" name="RemainingSkillPts" class="title" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="StatsPanel" style="flex-grow: 0; margin-left: 4%; margin-right: 4%; flex-direction: column; align-self: stretch; height: 60%; flex-shrink: 0;">
+                        <ui:VisualElement name="Border" style="flex-grow: 1; flex-direction: column; height: 12%;">
+                            <ui:VisualElement name="BorderLine" style="flex-grow: 0; height: 1px; background-color: rgb(0, 0, 0); flex-shrink: 0;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                            <ui:Label text="数值" class="title" style="width: 65%; -unity-text-align: upper-center;" />
+                            <ui:Label text="技能点" class="title" style="width: 18%; -unity-text-align: upper-right;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Stats" style="flex-grow: 0; flex-direction: row; height: 55%;">
+                            <ui:VisualElement name="BeforeUpgradeStatsPanel" style="flex-grow: 0; flex-shrink: 0; width: 30%; height: 100%; justify-content: space-evenly; align-items: center;">
+                                <ui:VisualElement name="BeforeUpgradeAtkPanel" style="flex-grow: 1; flex-direction: row; justify-content: space-between; align-self: auto; align-items: center; width: 100%;">
+                                    <ui:Label text="攻击&#10;" name="AtkTitle" class="upgradeskilltext" style="flex-shrink: 0; width: 55%;" />
+                                    <ui:Label text="4554" name="BeforeUpgradeAtkStat" enable-rich-text="true" class="statnum" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="BeforeUpgradeDefPanel" style="flex-grow: 1; flex-direction: row; align-items: center; width: 100%; justify-content: space-between;">
+                                    <ui:Label text="防御" name="DefTitle" class="upgradeskilltext" style="width: 55%;" />
+                                    <ui:Label text="4316" name="BeforeUpgradeDefStat" class="statnum" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="BeforeUpgradeIQPanel" style="flex-grow: 1; flex-direction: row; align-items: center; width: 100%; justify-content: space-between;">
+                                    <ui:Label text="智力" name="IQTitle" class="upgradeskilltext" style="width: 55%;" />
+                                    <ui:Label text="3124" name="BeforeUpgradeIQStat" parse-escape-sequences="true" class="statnum" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="ArrowPanel" style="flex-grow: 1; align-self: center; justify-content: space-around; height: 100%; align-items: flex-end; -unity-background-scale-mode: stretch-to-fill; width: 20%;">
+                                <ui:VisualElement name="Arrow" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/arrow.png?fileID=-765150924802650856&amp;guid=1d9184f2da4e59541ae8e88e3836f541&amp;type=3#arrow_0&quot;); flex-shrink: 0; width: 57%; height: 41%; max-width: 70px; left: -6%; -unity-background-scale-mode: scale-to-fit;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="AfterUpgradeStatsPanel" style="flex-grow: 0; width: 15%; flex-direction: column; align-self: auto; align-items: center; height: 100%; justify-content: space-evenly; flex-shrink: 0;">
+                                <ui:VisualElement name="AfterUpgradeAtkPanel" style="flex-grow: 1; flex-direction: row;">
+                                    <ui:Label text="4554" name="AfterOrgAtkStat" enable-rich-text="true" class="statnum" />
+                                    <ui:Label text="+100" name="UpgradeAddAtk" enable-rich-text="false" emoji-fallback-support="false" class="stataddnum" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="AfterUpgradeDefPanel" style="flex-grow: 1; flex-direction: row;">
+                                    <ui:Label text="4316" name="AfterOrgDefStat" class="statnum" />
+                                    <ui:Label text="+100" name="UpgradeAddDef" enable-rich-text="false" emoji-fallback-support="false" class="stataddnum" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="AfterUpgradeIQPanel" style="flex-grow: 1; flex-direction: row;">
+                                    <ui:Label text="3124" name="AfterOrgIQStat" parse-escape-sequences="true" class="statnum" />
+                                    <ui:Label text="+100" name="UpgradeAddIQ" enable-rich-text="false" emoji-fallback-support="false" class="stataddnum" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="PointsPanel" style="flex-grow: 0; justify-content: space-evenly; height: 100%; flex-shrink: 0; width: 15%;">
+                                <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: center;">
+                                    <ui:Label text="3124" name="AtkPoints" parse-escape-sequences="true" class="statnum" />
+                                    <ui:Label text="+100" name="AtkPointsAdd" enable-rich-text="false" emoji-fallback-support="false" class="stataddnum" />
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-grow: 1; align-items: stretch; flex-direction: row; justify-content: center;">
+                                    <ui:Label text="3124" name="DefPoints" parse-escape-sequences="true" class="statnum" />
+                                    <ui:Label text="+100" name="DefPointsAdd" enable-rich-text="false" emoji-fallback-support="false" class="stataddnum" />
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: center;">
+                                    <ui:Label text="3124" name="IQPoints" parse-escape-sequences="true" class="statnum" />
+                                    <ui:Label text="+100" name="IQPointsAdd" enable-rich-text="false" emoji-fallback-support="false" class="stataddnum" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="UpgradeBtnContainer" style="flex-grow: 1; justify-content: space-evenly; width: 60%;">
+                                <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; justify-content: center;">
+                                    <ui:SliderInt value="0" high-value="10" name="AtkSlider" style="flex-grow: 1; width: 80%;" />
+                                    <ui:Button name="upgradeAtkBtn" enabled="true" class="addBtn" style="width: auto; height: auto; right: auto; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;);" />
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: center;">
+                                    <ui:SliderInt value="0" high-value="10" name="DefSlider" style="flex-grow: 1; width: 80%;" />
+                                    <ui:Button name="upgradeDefBtn" enabled="true" class="addBtn" style="width: auto; height: auto; right: auto; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;);" />
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: center;">
+                                    <ui:SliderInt value="0" high-value="10" name="IQSlider" style="flex-grow: 1; width: 80%;" />
+                                    <ui:Button name="upgradeIQBtn" enabled="true" class="addBtn" style="width: auto; height: auto; right: auto; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&amp;guid=5456734120a941b4294accb9f414a7e6&amp;type=3#英文font_Balthazar-Regular&quot;);" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Border" style="flex-grow: 1; flex-direction: column-reverse; height: 12%;">
+                            <ui:VisualElement name="BorderLine" style="flex-grow: 0; height: 1px; background-color: rgb(0, 0, 0); flex-shrink: 0;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="MaterialPanel" style="flex-grow: 0; flex-shrink: 0;">
+                        <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-evenly; align-items: stretch; display: none;">
+                            <ui:VisualElement name="Material1VE" style="flex-grow: 0; flex-shrink: 0; width: 20%; align-items: center; justify-content: flex-start;">
+                                <ui:VisualElement name="Material1IconContainer" style="flex-grow: 0; flex-shrink: 0; height: 55%; flex-direction: column; justify-content: center; align-items: center; width: 55%;">
+                                    <ui:VisualElement name="MaterialIcon1" class="materialicon" style="flex-grow: 1; background-color: rgba(163, 163, 163, 0); background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E9%93%9C%E5%B8%81.png?fileID=2800000&amp;guid=a040931efe2fcf142948a21d5157c2a4&amp;type=3#铜币&quot;);" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Material3" style="flex-grow: 0; flex-shrink: 0; width: 20%; align-items: center; justify-content: flex-start; display: none;">
+                                <ui:VisualElement name="Material3IconContainer" style="flex-grow: 0; flex-shrink: 0; height: 55%; flex-direction: column; justify-content: center; align-items: center; width: 55%;">
+                                    <ui:VisualElement name="MaterialIcon3" class="materialicon" style="flex-grow: 1; background-color: rgba(163, 163, 163, 0); background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E9%93%9C%E5%B8%81.png?fileID=2800000&amp;guid=a040931efe2fcf142948a21d5157c2a4&amp;type=3#铜币&quot;);" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="MaterialNeed" style="flex-grow: 0; flex-direction: row; flex-shrink: 0;">
+                                    <ui:Label text="32154" name="PlayerMaterial3Num" class="materialnum" style="-unity-text-align: upper-center;" />
+                                    <ui:Label text="/" name="slash" class="materialnum" style="-unity-text-align: upper-center;" />
+                                    <ui:Label text="1000" name="UpgradeMaterial3Num" class="materialnum" style="-unity-text-align: upper-center;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="BtnRow" style="flex-grow: 1; flex-direction: row; align-items: center; justify-content: space-around; height: 15%; margin-left: 4%; margin-bottom: 1%; margin-right: 4%; flex-shrink: 0; align-self: auto; -unity-text-align: upper-left; align-content: auto;">
+                        <Kamgam.UIToolkitGlow.Shadow inner-color="#00000098" scale-x="0.95" scale-y="0.9" offset-y="10" blur-width="5" picking-mode="Ignore" layout-first-child="true" class="upgradeBtnShadow" style="flex-grow: 0; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;">
+                            <ui:VisualElement style="flex-grow: 1;">
+                                <ui:Button text="洗点" name="ResetAllBtn" class="upgradeBtn" style="display: flex; flex-grow: 1;" />
+                            </ui:VisualElement>
+                        </Kamgam.UIToolkitGlow.Shadow>
+                        <Kamgam.UIToolkitGlow.Shadow inner-color="#00000098" scale-x="0.95" scale-y="0.9" offset-y="10" blur-width="5" picking-mode="Ignore" layout-first-child="true" offset-x="0.05" class="upgradeBtnShadow" style="flex-grow: 0; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px;">
+                            <ui:VisualElement style="flex-grow: 1;">
+                                <ui:Button text="重置" name="ResetBtn" class="upgradeBtn" style="display: flex; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; flex-grow: 1;" />
+                            </ui:VisualElement>
+                        </Kamgam.UIToolkitGlow.Shadow>
+                        <Kamgam.UIToolkitGlow.Shadow inner-color="#00000098" scale-x="0.95" scale-y="0.9" offset-y="10" blur-width="5" picking-mode="Ignore" layout-first-child="true" class="upgradeBtnShadow" style="flex-grow: 0; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;">
+                            <ui:VisualElement style="flex-grow: 1;">
+                                <ui:Button text="确认" name="ConfirmBtn" class="upgradeBtn" style="display: flex; flex-grow: 1;" />
+                            </ui:VisualElement>
+                        </Kamgam.UIToolkitGlow.Shadow>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Button text="X" name="ClosePanel" class="closepanel" style="white-space: normal; align-self: flex-end; position: absolute; top: -6%; right: -6%; background-color: rgb(90, 62, 43); border-left-color: rgb(201, 158, 83); border-right-color: rgb(201, 158, 83); border-top-color: rgb(201, 158, 83); border-bottom-color: rgb(201, 158, 83); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; border-top-left-radius: 33px; border-top-right-radius: 33px; border-bottom-right-radius: 33px; border-bottom-left-radius: 33px; width: 54px; -unity-font-definition: url(&quot;project://database/Library/unity%20default%20resources?fileID=10102&amp;guid=0000000000000000e000000000000000&amp;type=0#LegacyRuntime&quot;); -unity-font-style: bold; font-size: 22px; color: rgb(255, 201, 159);" />
+                <ui:VisualElement tabindex="1" name="CardOnTop" style="flex-grow: 0; flex-shrink: 0; width: 10%; position: absolute; top: -10%; height: 15%; left: 40%; align-self: center; align-items: center; justify-content: center;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

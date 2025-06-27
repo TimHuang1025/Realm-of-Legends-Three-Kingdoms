@@ -1,0 +1,186 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cf3741383c24e4e8e1a0343e811986, type: 3}
+  m_Name: VhSizerConfigSkillUpgrade
+  m_EditorClassIdentifier: 
+  rules:
+  - queryType: 1
+    queryValue: upgradeBtn
+    widthVh: 22
+    heightVh: 8
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: upgradeBtnShadow
+    widthVh: 22
+    heightVh: 8
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: materialicon
+    widthVh: 10
+    heightVh: 7
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: materialnum
+    widthVh: 0
+    heightVh: 0
+    fontVh: 3.3
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: materialnum
+    widthVh: 0
+    heightVh: 0
+    fontVh: 3.3
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: upgradeskilltext
+    widthVh: 0
+    heightVh: 0
+    fontVh: 4.4
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: statnum
+    widthVh: 0
+    heightVh: 0
+    fontVh: 4.5
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: stataddnum
+    widthVh: 0
+    heightVh: 0
+    fontVh: 4.5
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: level
+    widthVh: 0
+    heightVh: 0
+    fontVh: 5
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: ClosePanel
+    widthVh: 10
+    heightVh: 10
+    fontVh: 5
+    applyScale: 1
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: UpgradePanel
+    widthVh: 120
+    heightVh: 75
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: UpgradePanelContainer
+    widthVh: 120
+    heightVh: 75
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: GiftListPanel
+    widthVh: 81
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: smallbtnforgift
+    widthVh: 15
+    heightVh: 5
+    fontVh: 3
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: smallbtnforgift
+    widthVh: 15
+    heightVh: 5
+    fontVh: 3
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: GiftPanelContainer
+    widthVh: 90
+    heightVh: 73
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: title
+    widthVh: 0
+    heightVh: 0
+    fontVh: 4
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: addBtn
+    widthVh: 5
+    heightVh: 5
+    fontVh: 6
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: BlackSpace
+    widthVh: 0
+    heightVh: 100
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
