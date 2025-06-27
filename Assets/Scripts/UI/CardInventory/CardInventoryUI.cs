@@ -41,7 +41,7 @@ public class CardInventoryUI : MonoBehaviour
     Label passive1NameLbl, passive1DescLbl;
     Label passive2NameLbl, passive2DescLbl;
 
-    [SerializeField] Sprite[] ringSprites = new Sprite[5]; // 0=lv1 … 3=lv4
+    [SerializeField] public Sprite[] ringSprites = new Sprite[5]; // 0=lv1 … 3=lv4
 
     VisualElement mainSkillRing, passive1Ring, passive2Ring; // 被动技能的环形图标
 

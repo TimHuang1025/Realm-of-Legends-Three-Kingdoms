@@ -1,6 +1,6 @@
 // ────────────────────────────────────────────────────────────────────────────────
-// Assets/Scripts/UI/SkillUpgradePanelController.cs
-// ResetAllBtn → 弹出确认框，消耗 1×RespecPotion 洗点
+// Assets/Scripts/UI/PlayerCard/SkillUpgradePanelController.cs
+// ResetAllBtn → 弹确认框，消耗 1×RespecPotion 洗点
 // ────────────────────────────────────────────────────────────────────────────────
 using System;
 using UnityEngine;
@@ -14,7 +14,7 @@ public class SkillUpgradePanelController : MonoBehaviour, IUIPanelController
     [SerializeField] private PlayerLordCard    playerLordCard;
 
     /*── 暂存滑杆值 ──*/
-    private int sliderAtk, sliderDef, sliderIQ;
+    int sliderAtk, sliderDef, sliderIQ;
 
     /*── UI 节点 ──*/
     UIDocument doc;
@@ -28,38 +28,44 @@ public class SkillUpgradePanelController : MonoBehaviour, IUIPanelController
           afterAtkLbl,  afterDefLbl,  afterIQLbl,
           atkUsedLbl,   defUsedLbl,   iqUsedLbl;
 
-    /*──────── 生命周期 ────────*/
+    bool _bound = false;    // 是否已绑定节点
+
+    /*──────────────── 生命周期 ─────────────────*/
     void Awake()
     {
         doc = GetComponent<UIDocument>();
-        gameObject.SetActive(false);
+        gameObject.SetActive(false);          // 默认隐藏
     }
 
     void OnEnable()
     {
-        CacheNodes();
+        if (!_bound) CacheNodes();
         ResetTemp();
         RefreshUI();
     }
 
     void OnDisable()
     {
-        atkSlider.UnregisterValueChangedCallback(OnAtkSlider);
-        defSlider.UnregisterValueChangedCallback(OnDefSlider);
-        iqSlider.UnregisterValueChangedCallback(OnIQSlider);
+        if (!_bound) return;                  // 第一次 Awake 隐藏时避免空解绑
 
-        upgradeAtkBtn.clicked -= OnUpgradeAtkClicked;
-        upgradeDefBtn.clicked -= OnUpgradeDefClicked;
-        upgradeIQBtn.clicked  -= OnUpgradeIQClicked;
-        resetBtn.clicked      -= OnResetClicked;
-        confirmBtn.clicked    -= OnConfirmClicked;
-        resetAllBtn.clicked   -= OnResetAllClicked;
+        if (atkSlider != null) atkSlider.UnregisterValueChangedCallback(OnAtkSlider);
+        if (defSlider != null) defSlider.UnregisterValueChangedCallback(OnDefSlider);
+        if (iqSlider != null)  iqSlider.UnregisterValueChangedCallback(OnIQSlider);
+
+        if (upgradeAtkBtn != null) upgradeAtkBtn.clicked -= OnUpgradeAtkClicked;
+        if (upgradeDefBtn != null) upgradeDefBtn.clicked -= OnUpgradeDefClicked;
+        if (upgradeIQBtn != null) upgradeIQBtn.clicked   -= OnUpgradeIQClicked;
+        if (resetBtn      != null) resetBtn.clicked      -= OnResetClicked;
+        if (confirmBtn    != null) confirmBtn.clicked    -= OnConfirmClicked;
+        if (resetAllBtn   != null) resetAllBtn.clicked   -= OnResetAllClicked;
+
+        _bound = false;
     }
 
     public void Open(CardInfoStatic _, PlayerCard __) => gameObject.SetActive(true);
     public void Close() => gameObject.SetActive(false);
 
-    /*──────── 抓节点 ────────*/
+    /*──────────────── 抓节点 ─────────────────*/
     void CacheNodes()
     {
         var root = doc.rootVisualElement;
@@ -74,15 +80,15 @@ public class SkillUpgradePanelController : MonoBehaviour, IUIPanelController
         upgradeIQBtn  = root.Q<Button>("upgradeIQBtn");
         resetBtn      = root.Q<Button>("ResetBtn");
         confirmBtn    = root.Q<Button>("ConfirmBtn");
-        resetAllBtn   = root.Q<Button>("ResetAllBtn");   // 洗点按钮
+        resetAllBtn   = root.Q<Button>("ResetAllBtn");
 
-        remainingLbl    = root.Q<Label>("RemainingSkillPts");
-        addAtkLbl       = root.Q<Label>("UpgradeAddAtk");
-        addDefLbl       = root.Q<Label>("UpgradeAddDef");
-        addIQLbl        = root.Q<Label>("UpgradeAddIQ");
-        atkPtsAddLbl    = root.Q<Label>("AtkPointsAdd");
-        defPtsAddLbl    = root.Q<Label>("DefPointsAdd");
-        iqPtsAddLbl     = root.Q<Label>("IQPointsAdd");
+        remainingLbl = root.Q<Label>("RemainingSkillPts");
+        addAtkLbl    = root.Q<Label>("UpgradeAddAtk");
+        addDefLbl    = root.Q<Label>("UpgradeAddDef");
+        addIQLbl     = root.Q<Label>("UpgradeAddIQ");
+        atkPtsAddLbl = root.Q<Label>("AtkPointsAdd");
+        defPtsAddLbl = root.Q<Label>("DefPointsAdd");
+        iqPtsAddLbl  = root.Q<Label>("IQPointsAdd");
 
         beforeAtkLbl = root.Q<Label>("BeforeUpgradeAtkStat");
         beforeDefLbl = root.Q<Label>("BeforeUpgradeDefStat");
@@ -109,9 +115,11 @@ public class SkillUpgradePanelController : MonoBehaviour, IUIPanelController
 
         root.Q<Button>("ClosePanel")?.RegisterCallback<ClickEvent>(_ => Close());
         root.Q<VisualElement>("BlackSpace")?.RegisterCallback<ClickEvent>(_ => Close());
+
+        _bound = true;
     }
 
-    /*──────── 滑杆 & +1 ────────*/
+    /*──────────────── 滑杆 / +1 ─────────────────*/
     void OnAtkSlider(ChangeEvent<int> e){ sliderAtk = Clamp(e.newValue, atkSlider.highValue); RefreshUI(); }
     void OnDefSlider(ChangeEvent<int> e){ sliderDef = Clamp(e.newValue, defSlider.highValue); RefreshUI(); }
     void OnIQSlider (ChangeEvent<int> e){ sliderIQ  = Clamp(e.newValue, iqSlider.highValue ); RefreshUI(); }
@@ -119,12 +127,17 @@ public class SkillUpgradePanelController : MonoBehaviour, IUIPanelController
     void OnUpgradeAtkClicked(){ IncSlider(ref sliderAtk, atkSlider); }
     void OnUpgradeDefClicked(){ IncSlider(ref sliderDef, defSlider); }
     void OnUpgradeIQClicked (){ IncSlider(ref sliderIQ , iqSlider ); }
-    void IncSlider(ref int v, SliderInt s){ if(v < s.highValue){ v++; s.SetValueWithoutNotify(v); RefreshUI(); } }
 
-    /*──────── Reset / Confirm ────────*/
+    void IncSlider(ref int v, SliderInt s)
+    {
+        if (v < s.highValue) { v++; s.SetValueWithoutNotify(v); RefreshUI(); }
+    }
+
+    /*──────────────── Reset / Confirm ─────────────────*/
     void OnResetClicked(){ ResetTemp(); RefreshUI(); }
 
     public event Action onConfirm;
+
     void OnConfirmClicked()
     {
         int total = sliderAtk + sliderDef + sliderIQ;
@@ -138,7 +151,7 @@ public class SkillUpgradePanelController : MonoBehaviour, IUIPanelController
         Close();
     }
 
-    /*──────── 洗点确认框 ────────*/
+    /*──────────────── 洗点按钮 ─────────────────*/
     void OnResetAllClicked()
     {
         int potions = (int)PlayerResourceBank.I[ResourceType.RespecPotion];
@@ -148,9 +161,8 @@ public class SkillUpgradePanelController : MonoBehaviour, IUIPanelController
             return;
         }
 
-        string msg = $"是否消耗 1 个洗点药水? (当前持有 {potions})";
         PopupManager.ShowConfirm(
-            msg,
+            $"是否消耗 1 个洗点药水？ (当前持有 {potions})",
             onYes: () =>
             {
                 playerLordCard.RefundAllSkillPoints();
@@ -163,8 +175,9 @@ public class SkillUpgradePanelController : MonoBehaviour, IUIPanelController
         );
     }
 
-    /*──────── 工具 ────────*/
+    /*──────────────── 工具 ─────────────────*/
     int Clamp(int v, int max) => Mathf.Clamp(v, 0, max);
+
     void ResetTemp()
     {
         sliderAtk = sliderDef = sliderIQ = 0;
@@ -173,7 +186,7 @@ public class SkillUpgradePanelController : MonoBehaviour, IUIPanelController
         iqSlider.SetValueWithoutNotify(0);
     }
 
-    /*──────── 刷 UI ────────*/
+    /*──────────────── 刷 UI ─────────────────*/
     void RefreshUI()
     {
         int inc   = lordCardStatic.valuePerSkillPoint;
@@ -193,7 +206,7 @@ public class SkillUpgradePanelController : MonoBehaviour, IUIPanelController
 
         ShowPreview(addAtkLbl, atkPtsAddLbl, sliderAtk, inc);
         ShowPreview(addDefLbl, defPtsAddLbl, sliderDef, inc);
-        ShowPreview(addIQLbl, iqPtsAddLbl, sliderIQ , inc);
+        ShowPreview(addIQLbl, iqPtsAddLbl,  sliderIQ, inc);
 
         atkUsedLbl.text = (playerLordCard.atkPointsUsed + sliderAtk).ToString();
         defUsedLbl.text = (playerLordCard.defPointsUsed + sliderDef).ToString();

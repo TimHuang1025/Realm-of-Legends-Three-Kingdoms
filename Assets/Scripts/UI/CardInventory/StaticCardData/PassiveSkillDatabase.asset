@@ -110,7 +110,7 @@ MonoBehaviour:
     timing: 2
     description: "\u5175\u529B\u9AD8\u4E8E80%\u65F6\uFF0C\u589E\u52A0{X}%\u4F24\u5BB3"
     baseValue: 0.2
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: 996773821596262083, guid: ea3bc622dfa218a4db02bf8c986b5639, type: 3}
   - id: P15
     name: Desperation Fury
     cnName: "\u80CC\u6C34\u4E4B\u6012"

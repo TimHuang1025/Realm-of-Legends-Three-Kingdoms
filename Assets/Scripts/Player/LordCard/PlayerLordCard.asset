@@ -14,3 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLevel: 1
   currentFame: 0
+  activeSkillId: A1
+  passiveOneId: P11
+  passiveTwoId: P14
+  activeSkillLv: 1
+  passiveOneLv: 1
+  passiveTwoLv: 0
+  totalSkillPointsEarned: 0
+  availableSkillPoints: 0
+  baseAtk: 100
+  baseDef: 100
+  baseIQ: 100
+  atk: 100
+  def: 100
+  iq: 100
+  atkPointsUsed: 0
+  defPointsUsed: 0
+  iqPointsUsed: 0

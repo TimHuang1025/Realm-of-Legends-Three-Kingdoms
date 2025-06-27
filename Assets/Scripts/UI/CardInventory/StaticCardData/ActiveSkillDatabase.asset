@@ -18,7 +18,7 @@ MonoBehaviour:
     cnName: "\u5927\u6740\u56DB\u65B9"
     description: "\u51FB\u6740\u654C\u65B9\u58EB\u5175"
     coefficient: 100
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: -7135256032413534146, guid: 6976e5b0f612a964fa28c3d5267cef3a, type: 3}
   - id: A2
     name: Critical Slash
     cnName: "\u66B4\u98CE\u4E00\u51FB"

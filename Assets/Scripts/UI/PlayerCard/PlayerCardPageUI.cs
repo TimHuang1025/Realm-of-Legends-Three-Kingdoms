@@ -1,5 +1,6 @@
 // ────────────────────────────────────────────────────────────────────────────────
-// 玩家卡牌页面 UI 逻辑
+// Assets/Scripts/UI/PlayerCard/PlayerCardPage.cs
+// 主公卡牌页面：等级 / 声望 / 技能面板 / 技能弹窗（环实时刷新）
 // ────────────────────────────────────────────────────────────────────────────────
 using System.Collections;
 using System.Collections.Generic;
@@ -11,55 +12,80 @@ using Game;
 [RequireComponent(typeof(UIDocument))]
 public class PlayerCardPage : MonoBehaviour
 {
-    /*──────── Inspector 引用 ────────*/
+    /*──────── Inspector ────────*/
     [Header("面板控制器")]
-    [SerializeField] private SkillUpgradePanelController skillPanelCtrl;
+    [SerializeField] SkillUpgradePanelController skillPanelCtrl;
+    [SerializeField] SkillDetailPopupController  skillPopupCtrl;
 
     [Header("数据")]
-    [SerializeField] private LordCardStaticData lordCardStatic;   // Static SO
-    [SerializeField] private PlayerLordCard playerLordCard;    // Player SO
-    [SerializeField] private PlayerBaseController playerBaseController;
+    [SerializeField] LordCardStaticData   lordCardStatic;
+    [SerializeField] PlayerLordCard       playerLordCard;
+    [SerializeField] ActiveSkillDatabase  activeDB;
+    [SerializeField] PassiveSkillDatabase passiveDB;
+    [SerializeField] PlayerBaseController playerBaseController;
 
-    /*──────── UI 元素 ────────*/
-    private Label playerLevelLbl, nextLevelLbl;
-    private Label nextLevelFameLbl, nextLvAddSkillLbl;
-    private Label totalSkillPtsLbl;
-    private Label atkStatLbl, defStatLbl, iqStatLbl;
-    private Label atkPtsAddedLbl, defPtsAddedLbl, iqPtsAddedLbl;
-    private Label fameValueLbl;           // 当前声望
-    private Button upgradeLvBtn;
+    [Header("UI Sprites")]
+    [Tooltip("技能等级环：索引 0-4 = Lv0-Lv4")]
+    [SerializeField] Sprite[] ringSprites;
+
+    /*──────── UI 组件 ────────*/
+    Label playerLevelLbl, nextLevelLbl,
+          nextLevelFameLbl, nextLvAddSkillLbl,
+          totalSkillPtsLbl,
+          atkStatLbl, defStatLbl, iqStatLbl,
+          atkPtsAddedLbl, defPtsAddedLbl, iqPtsAddedLbl,
+          fameValueLbl;
+    Button upgradeLvBtn;
+
+    // 技能图标 & 环
+    VisualElement activeImg,   passive1Img,   passive2Img;
+    VisualElement activeRing,  passive1Ring,  passive2Ring;
 
     /*──────── 其它 ────────*/
-    private List<Button> addBtns;
-    private CardInfoStatic currentStatic;
-    private PlayerCard currentDyn;
+    List<Button> addBtns;
+    CardInfoStatic currentStatic;
+    PlayerCard    currentDyn;
 
-    /*──────────────────────── 生命周期 ────────────────────────*/
-    private void OnEnable()
+    /*──────────────── 生命周期 ─────────────────*/
+    void OnEnable()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
 
-        // 1⃣  获取所有标签 / 按钮
-        playerLevelLbl = root.Q<Label>("PlayerLevelLabel");
-        nextLevelLbl = root.Q<Label>("NextLevelLabel");
+        /*── 基础节点 ──*/
+        playerLevelLbl   = root.Q<Label>("PlayerLevelLabel");
+        nextLevelLbl     = root.Q<Label>("NextLevelLabel");
         nextLevelFameLbl = root.Q<Label>("NextLevelFameRequire");
-        nextLvAddSkillLbl = root.Q<Label>("NextLvAddSkillPts");
+        nextLvAddSkillLbl= root.Q<Label>("NextLvAddSkillPts");
         totalSkillPtsLbl = root.Q<Label>("TotalSkillPts");
 
-        atkStatLbl = root.Q<Label>("AtkStat");
-        defStatLbl = root.Q<Label>("DefStat");
-        iqStatLbl = root.Q<Label>("IQStat");
+        atkStatLbl       = root.Q<Label>("AtkStat");
+        defStatLbl       = root.Q<Label>("DefStat");
+        iqStatLbl        = root.Q<Label>("IQStat");
 
-        atkPtsAddedLbl = root.Q<Label>("AtkSkillPtsAdded");
-        defPtsAddedLbl = root.Q<Label>("DefSkillPtsAdded");
-        iqPtsAddedLbl = root.Q<Label>("IQSkillPtsAdded");
+        atkPtsAddedLbl   = root.Q<Label>("AtkSkillPtsAdded");
+        defPtsAddedLbl   = root.Q<Label>("DefSkillPtsAdded");
+        iqPtsAddedLbl    = root.Q<Label>("IQSkillPtsAdded");
 
-        fameValueLbl = root.Q<Label>("FameValue");            // ⬅️ 统一大小写
+        fameValueLbl     = root.Q<Label>("FameValue");
 
+        /*── 升级主公按钮 ──*/
         upgradeLvBtn = root.Q<Button>("UpgradeLvBtn");
         if (upgradeLvBtn != null) upgradeLvBtn.clicked += OnUpgradeLvClicked;
 
-        // 2⃣  “+”按钮
+        /*── 技能图标 & 环节点 ──*/
+        activeImg    = root.Q<VisualElement>("MainSkillImage");
+        passive1Img  = root.Q<VisualElement>("Passive1Image");
+        passive2Img  = root.Q<VisualElement>("Passive2Image");
+
+        activeRing   = root.Q<VisualElement>("MainSkillRing");
+        passive1Ring = root.Q<VisualElement>("Passive1Ring");
+        passive2Ring = root.Q<VisualElement>("Passive2Ring");
+
+        if (activeImg   != null) activeImg.RegisterCallback<ClickEvent>(_ => skillPopupCtrl?.Open(SkillSlot.Active));
+        if (passive1Img != null) passive1Img.RegisterCallback<ClickEvent>(_ => skillPopupCtrl?.Open(SkillSlot.Passive1));
+        if (passive2Img != null) passive2Img.RegisterCallback<ClickEvent>(_ => skillPopupCtrl?.Open(SkillSlot.Passive2));
+
+        /*── “+”按钮：打开加点面板 ──*/
         addBtns = root.Query<Button>(className: "addBtn").ToList();
         foreach (var btn in addBtns)
             btn.RegisterCallback<ClickEvent>(_ => StartCoroutine(OpenSkillPanel()));
@@ -67,14 +93,17 @@ public class PlayerCardPage : MonoBehaviour
         root.Q<Button>("ReturnBtn")?.RegisterCallback<ClickEvent>(_ =>
             playerBaseController?.HidePlayerCardUpgradePage());
 
-        // ★ 监听 onConfirm：加点确认后刷新
+        /*── 事件监听 ──*/
         if (skillPanelCtrl != null)
             skillPanelCtrl.onConfirm += RefreshAll;
+
+        if (skillPopupCtrl != null)
+            skillPopupCtrl.onUpgrade += RefreshAll;
 
         RefreshAll();
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
         if (upgradeLvBtn != null) upgradeLvBtn.clicked -= OnUpgradeLvClicked;
 
@@ -82,67 +111,92 @@ public class PlayerCardPage : MonoBehaviour
             foreach (var btn in addBtns)
                 btn.UnregisterCallback<ClickEvent>(_ => StartCoroutine(OpenSkillPanel()));
 
-        // ★ 解绑 onConfirm
         if (skillPanelCtrl != null)
             skillPanelCtrl.onConfirm -= RefreshAll;
+
+        if (skillPopupCtrl != null)
+            skillPopupCtrl.onUpgrade -= RefreshAll;
     }
 
-    /*──────────────────────── 升级按钮 ────────────────────────*/
-    private void OnUpgradeLvClicked()
+    /*──────────────── 升级主公 ─────────────────*/
+    void OnUpgradeLvClicked()
     {
         bool ok = playerLordCard.TryLevelUpWithFame(lordCardStatic);
-        Debug.Log(ok ? "升级成功！" : "声望不足或已满级 " + PlayerResourceBank.I[ResourceType.Fame]);
+        Debug.Log(ok ? "升级成功！" : "声望不足或已满级");
         RefreshAll();
     }
 
-    /*──────────────────────── 公共刷新 ────────────────────────*/
-    private void RefreshAll()
+    /*──────────────── 主刷新 ─────────────────*/
+    void RefreshAll()
     {
         if (lordCardStatic == null || playerLordCard == null) return;
 
-        int lv = playerLordCard.currentLevel;
+        /*── 1. 等级 / 声望 / 属性 ──*/
+        int lv  = playerLordCard.currentLevel;
         var cur = lordCardStatic.GetLevel(lv);
         var nxt = lordCardStatic.GetLevel(lv + 1);
 
-        /* 当前等级 & 称号 */
-        if (playerLevelLbl != null) playerLevelLbl.text = $"Lv{lv} {cur?.title ?? ""}";
-        if (nextLevelLbl != null) nextLevelLbl.text = nxt == null ? "已达最高等级" : $"下一等级: {nxt.title}";
+        playerLevelLbl.text   = $"Lv{lv} {cur?.title ?? ""}";
+        nextLevelLbl.text     = nxt == null ? "已达最高等级" : $"下一等级: {nxt.title}";
+        nextLevelFameLbl.text = nxt == null ? "--" : nxt.requiredFame.ToString();
+        nextLvAddSkillLbl.text= nxt == null ? "+0" : $"+{nxt.skillPoints}";
+        totalSkillPtsLbl.text = playerLordCard.totalSkillPointsEarned.ToString();
 
-        /* 升级需求 & 奖励 */
-        if (nextLevelFameLbl != null) nextLevelFameLbl.text = nxt == null ? "--" : nxt.requiredFame.ToString();
-        if (nextLvAddSkillLbl != null) nextLvAddSkillLbl.text = nxt == null ? "+0" : $"+{nxt.skillPoints}";
+        atkStatLbl.text = playerLordCard.atk.ToString();
+        defStatLbl.text = playerLordCard.def.ToString();
+        iqStatLbl.text  = playerLordCard.iq.ToString();
 
-        /* 技能点统计 */
-        if (totalSkillPtsLbl != null) totalSkillPtsLbl.text = playerLordCard.totalSkillPointsEarned.ToString();
+        atkPtsAddedLbl.text = playerLordCard.atkPointsUsed.ToString();
+        defPtsAddedLbl.text = playerLordCard.defPointsUsed.ToString();
+        iqPtsAddedLbl.text  = playerLordCard.iqPointsUsed.ToString();
 
-        /* 属性值 */
-        if (atkStatLbl != null) atkStatLbl.text = playerLordCard.atk.ToString();
-        if (defStatLbl != null) defStatLbl.text = playerLordCard.def.ToString();
-        if (iqStatLbl != null) iqStatLbl.text = playerLordCard.iq.ToString();
+        fameValueLbl.text = PlayerResourceBank.I != null
+            ? PlayerResourceBank.I[ResourceType.Fame].ToString()
+            : "0";
 
-        /* 已投技能点 */
-        if (atkPtsAddedLbl != null) atkPtsAddedLbl.text = playerLordCard.atkPointsUsed.ToString();
-        if (defPtsAddedLbl != null) defPtsAddedLbl.text = playerLordCard.defPointsUsed.ToString();
-        if (iqPtsAddedLbl != null) iqPtsAddedLbl.text = playerLordCard.iqPointsUsed.ToString();
-
-        /* 当前声望 */
-        if (fameValueLbl != null && PlayerResourceBank.I != null)
-            fameValueLbl.text = PlayerResourceBank.I[ResourceType.Fame].ToString();
+        /*── 2. 技能图标 + 等级环 ──*/
+        ApplySkillUI(activeImg,   activeRing,   activeDB,  playerLordCard.activeSkillId);
+        ApplySkillUI(passive1Img, passive1Ring, passiveDB, playerLordCard.passiveOneId);
+        ApplySkillUI(passive2Img, passive2Ring, passiveDB, playerLordCard.passiveTwoId);
     }
 
-    /*──────────────────────── 技能面板 ────────────────────────*/
-    private IEnumerator OpenSkillPanel()
+    /*──────── 统一设置图标 & 环 ────────*/
+    void ApplySkillUI(VisualElement iconVE, VisualElement ringVE,
+                      ScriptableObject db, string id)
+    {
+        if (iconVE == null || ringVE == null || db == null || string.IsNullOrEmpty(id))
+            return;
+
+        // 图标
+        Sprite icon = null;
+        switch (db)
+        {
+            case ActiveSkillDatabase adb:
+                var a = adb.Get(id);  icon = a?.iconSprite; break;
+            case PassiveSkillDatabase pdb:
+                var p = pdb.Get(id);  icon = p?.iconSprite; break;
+        }
+        if (icon != null)
+            iconVE.style.backgroundImage = new StyleBackground(icon);
+
+        // 等级环：直接从 PlayerPrefs 取
+        int lv = Mathf.Clamp(PlayerPrefs.GetInt($"SKILL_LV_{id}", 0), 0, ringSprites.Length - 1);
+        if (ringSprites != null && ringSprites.Length > 0)
+            ringVE.style.backgroundImage = new StyleBackground(ringSprites[lv]);
+    }
+
+    /*──────────────── 打开加点面板 ─────────────────*/
+    IEnumerator OpenSkillPanel()
     {
         if (skillPanelCtrl != null)
             skillPanelCtrl.Open(currentStatic, currentDyn);
         yield return null;
     }
 
-    /* 供外部调用：更新当前选中的卡 */
+    /* 外部：卡牌切换回调 */
     public void OnCardClicked(CardInfoStatic info, PlayerCard dyn)
     {
         currentStatic = info;
-        currentDyn = dyn;
+        currentDyn    = dyn;
     }
-    
 }

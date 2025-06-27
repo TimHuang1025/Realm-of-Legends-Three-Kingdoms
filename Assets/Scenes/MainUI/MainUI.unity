@@ -508,9 +508,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillPanelCtrl: {fileID: 1568202119}
+  skillPopupCtrl: {fileID: 271169580}
   lordCardStatic: {fileID: 11400000, guid: 27774c9e9f679564994f2b2cc15abffd, type: 2}
   playerLordCard: {fileID: 11400000, guid: 9cad50520b3759842a6ecca032db78c7, type: 2}
+  activeDB: {fileID: 11400000, guid: 00cf314ffbc8eb740992c68892b4fc66, type: 2}
+  passiveDB: {fileID: 11400000, guid: d742edebbbf1bbb45b2b0959b6d19462, type: 2}
   playerBaseController: {fileID: 1844380995}
+  ringSprites:
+  - {fileID: 552816270446394510, guid: 9f3dcce21882fff4fa90871f2abd4455, type: 3}
+  - {fileID: 8030064497564113186, guid: afcabfcda735e774681c9085d8c01d4b, type: 3}
+  - {fileID: 7447347831704141306, guid: 5f462416227e63b46999230a4a9802e3, type: 3}
+  - {fileID: -2559199762392956009, guid: 1947ce4454e00274b8de217ab403d13e, type: 3}
+  - {fileID: -6970207667547736616, guid: 33c6004c34960b343a64f64058383433, type: 3}
 --- !u!114 &268597282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,6 +554,96 @@ MonoBehaviour:
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
+--- !u!1 &271169578
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 271169579}
+  - component: {fileID: 271169581}
+  - component: {fileID: 271169580}
+  - component: {fileID: 271169582}
+  m_Layer: 0
+  m_Name: DetailPopup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &271169579
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271169578}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 707846649}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &271169580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271169578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c1201c12b0f695428a8c3ab405db8b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiDoc: {fileID: 271169581}
+  ringSprites:
+  - {fileID: 552816270446394510, guid: 9f3dcce21882fff4fa90871f2abd4455, type: 3}
+  - {fileID: 8030064497564113186, guid: afcabfcda735e774681c9085d8c01d4b, type: 3}
+  - {fileID: 7447347831704141306, guid: 5f462416227e63b46999230a4a9802e3, type: 3}
+  - {fileID: -2559199762392956009, guid: 1947ce4454e00274b8de217ab403d13e, type: 3}
+  - {fileID: -6970207667547736616, guid: 33c6004c34960b343a64f64058383433, type: 3}
+  lord: {fileID: 11400000, guid: 9cad50520b3759842a6ecca032db78c7, type: 2}
+  activeDB: {fileID: 11400000, guid: 00cf314ffbc8eb740992c68892b4fc66, type: 2}
+  passiveDB: {fileID: 11400000, guid: d742edebbbf1bbb45b2b0959b6d19462, type: 2}
+--- !u!114 &271169581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271169578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: cc4057f6b7427b54288ee27431155bde, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 829ec7a6f052369408053e510edc7ad7, type: 3}
+  m_SortingOrder: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!114 &271169582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271169578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73c2f2cf251ef7042877417eeac9d96c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 607dc76e05fcca74899983ee3d57eaaf, type: 2}
+  referenceShort: 1179
+  minScale: 0.6
 --- !u!1 &295827550
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +709,7 @@ Transform:
   m_Children:
   - {fileID: 268597280}
   - {fileID: 1568202117}
+  - {fileID: 271169579}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &727382610
