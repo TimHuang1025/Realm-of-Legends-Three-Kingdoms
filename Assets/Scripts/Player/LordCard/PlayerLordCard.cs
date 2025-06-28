@@ -25,9 +25,9 @@ namespace Game
 
         /*──────── 技能等级 ────────*/
         [Header("技能等级 (0~4)")]
-        [Range(0,4)] public int activeSkillLv  = 0;
-        [Range(0,4)] public int passiveOneLv   = 0;
-        [Range(0,4)] public int passiveTwoLv   = 0;
+        [Range(0,4)] public int activeSkillLv  = 1;
+        [Range(0,4)] public int passiveOneLv   = 1;
+        [Range(0,4)] public int passiveTwoLv   = 1;
 
         /*──────── 技能点 ────────*/
         [Header("技能点")]
@@ -155,15 +155,12 @@ namespace Game
         }
 
         /*──────── 技能等级便捷 ────────*/
-        public int GetSkillLevel(SkillSlot s) => s switch
-        {
-            SkillSlot.Active   => activeSkillLv,
-            SkillSlot.Passive1 => passiveOneLv,
-            _                  => passiveTwoLv
-        };
+        public int  GetSkillLevel(SkillSlot s) =>
+            s == SkillSlot.Active   ? activeSkillLv  :
+            s == SkillSlot.Passive1 ? passiveOneLv   : passiveTwoLv;
+
         public void SetSkillLevel(SkillSlot s, int lv)
         {
-            lv = Mathf.Clamp(lv, 0, 4);
             if      (s == SkillSlot.Active)   activeSkillLv  = lv;
             else if (s == SkillSlot.Passive1) passiveOneLv   = lv;
             else                              passiveTwoLv   = lv;

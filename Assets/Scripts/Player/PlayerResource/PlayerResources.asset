@@ -20,7 +20,7 @@ MonoBehaviour:
   troopOrder: 0
   unionMerit: 0
   merit: 0
-  advanceScroll: 54
+  advanceScroll: 1000
   heroCrestSGeneral: 0
   heroCrestAGeneral: 0
   heroCrestBGeneral: 0
@@ -29,10 +29,10 @@ MonoBehaviour:
   fineWood: 0
   fineSteel: 0
   techScroll: 0
-  fame: 88
-  artOfWar: 13
+  fame: 27
+  artOfWar: 1000
   trainingToken: 0
-  respecPotion: 6
+  respecPotion: 5
   rawIron: 0
   firmwood: 0
   ironIngot: 0

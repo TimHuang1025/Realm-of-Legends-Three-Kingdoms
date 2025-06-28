@@ -7,7 +7,7 @@ using Game.Core;                         // ISkillMultiplierProvider, Tier
 [CreateAssetMenu(
     fileName = "ActiveSkillDatabase",
     menuName = "SkillDB/Active Database")]
-public class ActiveSkillDatabase : ScriptableObject, ISkillMultiplierProvider
+public class ActiveSkillDatabase : ScriptableObject, ISkillMultiplierSource
 {
     /*──────── 1. 技能条目 ─────────────────────────*/
     [Header("技能条目")]

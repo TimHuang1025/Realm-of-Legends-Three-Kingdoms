@@ -15,11 +15,11 @@ MonoBehaviour:
   currentLevel: 1
   currentFame: 0
   activeSkillId: A1
-  passiveOneId: P11
-  passiveTwoId: P14
+  passiveOneId: P3
+  passiveTwoId: P9
   activeSkillLv: 1
   passiveOneLv: 1
-  passiveTwoLv: 0
+  passiveTwoLv: 1
   totalSkillPointsEarned: 0
   availableSkillPoints: 0
   baseAtk: 100

@@ -515,7 +515,6 @@ MonoBehaviour:
   passiveDB: {fileID: 11400000, guid: d742edebbbf1bbb45b2b0959b6d19462, type: 2}
   playerBaseController: {fileID: 1844380995}
   ringSprites:
-  - {fileID: 552816270446394510, guid: 9f3dcce21882fff4fa90871f2abd4455, type: 3}
   - {fileID: 8030064497564113186, guid: afcabfcda735e774681c9085d8c01d4b, type: 3}
   - {fileID: 7447347831704141306, guid: 5f462416227e63b46999230a4a9802e3, type: 3}
   - {fileID: -2559199762392956009, guid: 1947ce4454e00274b8de217ab403d13e, type: 3}
@@ -602,7 +601,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiDoc: {fileID: 271169581}
   ringSprites:
-  - {fileID: 552816270446394510, guid: 9f3dcce21882fff4fa90871f2abd4455, type: 3}
   - {fileID: 8030064497564113186, guid: afcabfcda735e774681c9085d8c01d4b, type: 3}
   - {fileID: 7447347831704141306, guid: 5f462416227e63b46999230a4a9802e3, type: 3}
   - {fileID: -2559199762392956009, guid: 1947ce4454e00274b8de217ab403d13e, type: 3}
