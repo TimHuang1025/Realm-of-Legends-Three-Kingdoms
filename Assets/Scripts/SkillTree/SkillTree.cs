@@ -166,15 +166,29 @@ public class FancySkillTree : MonoBehaviour
 
         VisualElement c=nodeTemplate.CloneTree(); c.style.marginRight=56; parentRow.Add(c);
         var nodeRoot=c.Q<VisualElement>("icon"); nodeRoot.name=key; nodeRoot.AddToClassList("skill-node");
-        //c.Q<Label>("skill-label").text = Nicify(type);
 
         /* ─ lvslot 圆点 ─ */
-        var tplSlot=c.Q<VisualElement>("lvslot"); var slotParent=tplSlot.parent; slotParent.Remove(tplSlot);
+        var tplSlot = c.Q<VisualElement>("lvslot");
+        var slotParent = tplSlot != null ? tplSlot.parent : c;
+        if (tplSlot != null) slotParent.Remove(tplSlot);
+        slotParent.style.flexDirection  = FlexDirection.Row;      // ★
+
         var lvSlots=new List<VisualElement>();
-        for(int i=0;i<max;i++){ var s=new VisualElement(); s.AddToClassList("lvslot"); slotParent.Add(s); lvSlots.Add(s); }
+        for(int i=0;i<max;i++)
+        {
+            var s=new VisualElement();
+            s.AddToClassList("lvslot");
+
+            if(lockedSlotSprite!=null)
+                s.style.backgroundImage=new StyleBackground(lockedSlotSprite);
+
+            slotParent.Add(s);
+            lvSlots.Add(s);
+        }
 
         /* 图标 */
-        Sprite sp=defaultIcon; if(sp!=null){ nodeRoot.style.backgroundImage=new StyleBackground(sp); nodeRoot.style.unityBackgroundScaleMode=ScaleMode.ScaleToFit;}
+        if(defaultIcon!=null)
+            nodeRoot.style.backgroundImage=new StyleBackground(defaultIcon);
 
         RefreshSlotVisual(key,nodeRoot,lvSlots);
         nodeRoot.RegisterCallback<ClickEvent>(_=>SelectSkill(key));
@@ -195,7 +209,8 @@ public class FancySkillTree : MonoBehaviour
     }
     private void OnUpgrade()
     {
-        if(curKey==null) return; var d=dataDict[curKey]; int lvl=levelDict[curKey];
+        if(curKey==null) return;
+        var d=dataDict[curKey]; int lvl=levelDict[curKey];
         if(lvl>=d.maxLvl||playerSpark<d.costs[lvl]) return;
         playerSpark-=d.costs[lvl]; levelDict[curKey]=++lvl;
         RefreshSlotVisual(curKey,curView.root.Q("icon"),curView.lvSlots);
@@ -206,16 +221,25 @@ public class FancySkillTree : MonoBehaviour
     private void RefreshSlotVisual(string key,VisualElement nodeRoot,List<VisualElement> lvSlots)
     {
         var data=dataDict[key]; int lvl=levelDict[key];
-        nodeRoot.EnableInClassList("locked",false); nodeRoot.EnableInClassList("available",false); nodeRoot.EnableInClassList("learned",false);
+
+        if (lvSlots == null || lvSlots.Count == 0)   // ★ 防御
+            return;
 
         for(int i=0;i<lvSlots.Count;i++)
-            lvSlots[i].style.backgroundImage=new StyleBackground(i<lvl?unlockedSlotSprite:lockedSlotSprite);
-
-        if(lvl>=data.maxLvl) nodeRoot.AddToClassList("learned");
-        else if(playerSpark>=data.costs[lvl]) nodeRoot.AddToClassList("available");
-        else nodeRoot.AddToClassList("locked");
+            if(lvSlots[i]!=null)                     // ★ 防御
+                lvSlots[i].style.backgroundImage =
+                    new StyleBackground(i<lvl?unlockedSlotSprite:lockedSlotSprite);
     }
 
     /**************** 工具 ****************/
-    private static string Nicify(string raw)=>string.Join(" ",raw.Split('_').Select(s=>CultureInfo.InvariantCulture.TextInfo.ToTitleCase(s)));
+    private static string Nicify(string raw)=>
+        string.Join(" ",raw.Split('_').Select(s=>CultureInfo.InvariantCulture.TextInfo.ToTitleCase(s)));
 }
+
+/* ---------- 可放 skill_tree.uss 测试 ----------
+.lvslot {
+    border-radius:25px;
+    -unity-background-scale-mode:scale-to-fit;
+    margin-left:6px;
+}
+-----------------------------------------------*/
