@@ -17,18 +17,18 @@ MonoBehaviour:
     level: 1
     star: 1
     copies: 0
-    giftLv: 1
+    giftLv: 3
     giftExp: 0
     equip:
       weaponUuid: 
       armorUuid: 
       accessoryUuid: 
-      weaponUnlocked: 0
-      armorUnlocked: 0
+      weaponUnlocked: 1
+      armorUnlocked: 1
       mountUnlocked: 0
   - id: S2
     level: 1
-    star: 2
+    star: 13
     copies: 0
     giftLv: 2
     giftExp: 0
@@ -43,21 +43,21 @@ MonoBehaviour:
     level: 4
     star: 15
     copies: 0
-    giftLv: 2
+    giftLv: 3
     giftExp: 0
     equip:
       weaponUuid: 
       armorUuid: 
       accessoryUuid: 
       weaponUnlocked: 1
-      armorUnlocked: 0
+      armorUnlocked: 1
       mountUnlocked: 0
   - id: S4
-    level: 18
-    star: 10
+    level: 50
+    star: 13
     copies: 0
     giftLv: 4
-    giftExp: 0
+    giftExp: 5000
     equip:
       weaponUuid: 
       armorUuid: 
@@ -67,7 +67,7 @@ MonoBehaviour:
       mountUnlocked: 1
   - id: S5
     level: 12
-    star: 2
+    star: 8
     copies: 0
     giftLv: 4
     giftExp: 0
@@ -92,21 +92,21 @@ MonoBehaviour:
       armorUnlocked: 1
       mountUnlocked: 0
   - id: S7
-    level: 30
+    level: 35
     star: 15
     copies: 0
     giftLv: 4
-    giftExp: 0
+    giftExp: 85000
     equip:
-      weaponUuid: cddaa1e303fa491ea4b126dcdf9bfad3
+      weaponUuid: 
       armorUuid: 
-      accessoryUuid: 3fd3f0d911584fb1a9064b63179fa2c9
+      accessoryUuid: 
       weaponUnlocked: 1
       armorUnlocked: 1
       mountUnlocked: 1
   - id: S8
     level: 68
-    star: 1
+    star: 2
     copies: 0
     giftLv: 4
     giftExp: 0
@@ -119,8 +119,8 @@ MonoBehaviour:
       mountUnlocked: 1
   - id: S9
     level: 8
-    star: 1
-    copies: 0
+    star: 3
+    copies: 2700
     giftLv: 1
     giftExp: 0
     equip:
@@ -223,7 +223,7 @@ MonoBehaviour:
       mountUnlocked: 0
   - id: S14
     level: 1
-    star: 1
+    star: 13
     copies: 0
     giftLv: 1
     giftExp: 0
@@ -262,7 +262,7 @@ MonoBehaviour:
       mountUnlocked: 0
   - id: S16
     level: 1
-    star: 1
+    star: 4
     copies: 0
     giftLv: 1
     giftExp: 0
@@ -275,7 +275,7 @@ MonoBehaviour:
       mountUnlocked: 0
   - id: S18
     level: 1
-    star: 1
+    star: 13
     copies: 0
     giftLv: 1
     giftExp: 0

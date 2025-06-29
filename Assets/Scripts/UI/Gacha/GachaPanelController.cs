@@ -46,7 +46,7 @@ public class GachaPanelController : MonoBehaviour
         Button freeBtn = root.Q<Button>(freeticketsbtn);
         freeBtn.clicked += () =>
         {
-            PlayerResourceBank.I.Add(ResourceType.SummonWrit, 5000);      
+            PlayerResourceBank.I.DebugAddAllResources();      
             Debug.Log("赠送 5000 Ticket");
         };
         bankHandler = t =>

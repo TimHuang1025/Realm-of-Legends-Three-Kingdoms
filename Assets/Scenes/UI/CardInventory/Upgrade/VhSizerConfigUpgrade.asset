@@ -16,7 +16,7 @@ MonoBehaviour:
   - queryType: 1
     queryValue: upgradeBtn
     widthVh: 24
-    heightVh: 10
+    heightVh: 8
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
   - queryType: 1
     queryValue: upgradeBtnShadow
     widthVh: 24
-    heightVh: 10
+    heightVh: 8
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
@@ -187,7 +187,7 @@ MonoBehaviour:
   - queryType: 0
     queryValue: GiftPanelContainer
     widthVh: 90
-    heightVh: 73
+    heightVh: 78
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
@@ -196,7 +196,7 @@ MonoBehaviour:
   - queryType: 0
     queryValue: GiftPanel
     widthVh: 90
-    heightVh: 73
+    heightVh: 78
     fontVh: 0
     applyScale: 0
     aspectWidth: 0

@@ -1,24 +1,26 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/SkillTree/skill_tree.uss?fileID=7433441132597879392&amp;guid=56d4617636c20e4479dd9cbbf8105244&amp;type=3#skill_tree" />
     <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3#CardInventory" />
-    <ui:VisualElement name="TreeRoot" style="flex-grow: 1;">
+    <ui:VisualElement name="TreeRoot" style="flex-grow: 1; background-image: none; background-color: rgba(177, 160, 138, 0.82);">
         <ui:VisualElement name="Top" class="tree-root" style="flex-grow: 0; display: flex; height: 14%; flex-shrink: 0;">
-            <Kamgam.UIToolkitScrollViewPro.ScrollViewPro touch-scroll-type="Elastic" focus-snap-on-pointer="false" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="AlwaysVisible" mode="Horizontal" style="height: 100%; flex-grow: 1; flex-shrink: 0;">
-                <ui:Button text="Button" name="stage-options" class="smallbtns" style="width: 20%; height: 84px;" />
+            <Kamgam.UIToolkitScrollViewPro.ScrollViewPro touch-scroll-type="Elastic" focus-snap-on-pointer="false" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" mode="Horizontal" style="height: 100%; flex-grow: 1; flex-shrink: 0;">
+                <ui:Button text="Button" name="stage-options" class="smallbtns" style="width: 20%; height: 84px; justify-content: flex-start; align-self: center;" />
             </Kamgam.UIToolkitScrollViewPro.ScrollViewPro>
         </ui:VisualElement>
         <ui:VisualElement style="flex-direction: row; height: 100%;">
-            <ui:VisualElement name="skilltree" style="flex-grow: 0; width: 70%; height: 100%; background-color: rgb(224, 214, 200); display: flex;">
+            <ui:VisualElement name="skilltree" style="flex-grow: 0; width: 70%; height: 100%; background-color: rgb(224, 214, 200); display: flex; background-image: url(&quot;project://database/Assets/Assets/SkillTree/%E6%8A%80%E8%83%BD%E6%A0%91%E8%83%8C%E6%99%AF.png?fileID=2800000&amp;guid=e2fb90601ae013f469e9f202d3effd5e&amp;type=3#技能树背景&quot;); -unity-background-image-tint-color: rgb(255, 255, 255);">
                 <ui:VisualElement name="page" style="flex-grow: 0; -unity-text-align: upper-left; justify-content: center; font-size: 70px; flex-shrink: 0; height: 10%;">
-                    <ui:Label text="Label" name="stage-label" style="-unity-text-align: middle-center;" />
+                    <ui:Label text="Label" name="stage-label" style="-unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); font-size: 77px; color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
-                <Kamgam.UIToolkitScrollViewPro.ScrollViewPro touch-scroll-type="Elastic" mode="VerticalAndHorizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="flex-grow: 1;">
-                    <ui:VisualElement name="row" class="skill-row" style="height: 17%;" />
-                    <ui:VisualElement name="row" class="skill-row" />
-                    <ui:VisualElement name="row" class="skill-row" />
-                    <ui:VisualElement name="row" class="skill-row" />
-                    <ui:VisualElement name="row" class="skill-row" />
-                </Kamgam.UIToolkitScrollViewPro.ScrollViewPro>
+                <ui:VisualElement name="SkillTreePanel" style="flex-grow: 1;">
+                    <Kamgam.UIToolkitScrollViewPro.ScrollViewPro touch-scroll-type="Elastic" mode="VerticalAndHorizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="flex-grow: 1;">
+                        <ui:VisualElement name="row" class="skill-row" style="height: 17%;" />
+                        <ui:VisualElement name="row" class="skill-row" />
+                        <ui:VisualElement name="row" class="skill-row" />
+                        <ui:VisualElement name="row" class="skill-row" />
+                        <ui:VisualElement name="row" class="skill-row" />
+                    </Kamgam.UIToolkitScrollViewPro.ScrollViewPro>
+                </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="description" style="flex-grow: 1; background-color: rgb(73, 166, 180); display: flex;">
                 <ui:VisualElement style="flex-grow: 1; justify-content: space-evenly; align-items: stretch; display: flex;">

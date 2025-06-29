@@ -494,43 +494,54 @@ public class CardInventoryUI : MonoBehaviour
         VisualElement img,
         Label nameLbl,
         Label descLbl,
-        VisualElement   ring,
+        VisualElement ring,
         CardInfoStatic info,
         PlayerCard dyn,
-        int skillIdx)     // 1 = 被动1, 2 = 被动2
+        int skillIdx)   // 1 = 被动1，2 = 被动2
     {
-        var ps = passiveSkillDB.Get(id);
+        // ① 查静态配置 ------------------------------------------------------
+        var ps = passiveSkillDB?.Get(id);
         if (ps == null)
         {
+            // 没配表：清空显示并退出
             img.style.backgroundImage = null;
             nameLbl.text = "—";
             descLbl.text = "";
+            SetRing(ring, img, 0);
             return;
         }
 
-        /* 图标 & 名称 */
+        // ② 基础 UI ---------------------------------------------------------
         img.style.backgroundImage = new StyleBackground(ps.iconSprite);
         nameLbl.text = ps.cnName;
 
-        /* 绝对技能等级 */
+        // 技能等级（根据星级映射）
         int skillLv = SkillLevelHelper.GetSkillLevel(dyn?.star ?? 0, skillIdx);
         SetRing(ring, img, skillLv);
 
-        /* 等级倍率 */
-        var prov = (ISkillMultiplierProvider)passiveSkillDB;
-        var lvDict = prov.LevelMultiplier;
-        float lvMul = lvDict != null && lvDict.TryGetValue(skillLv, out var m) ? m : 1f;
+        // ③ 等级倍率 --------------------------------------------------------
+        float lvMul = 1f;   // 默认倍率
 
-        /* 百分比 */
+        if (passiveSkillDB is ISkillMultiplierProvider prov &&
+            prov.LevelMultiplier != null &&
+            prov.LevelMultiplier.TryGetValue(skillLv, out var mul))
+        {
+            lvMul = mul;
+        }
+        else
+        {
+            // 不是致命错误，给个日志提示方便排查
+            Debug.LogWarning($"[CardInventoryUI] PassiveSkillDB on {name} 未实现 ISkillMultiplierProvider 或缺少倍率表，已按 1.0 处理。");
+        }
+
+        // ④ 计算描述 --------------------------------------------------------
         float pct = SkillValueCalculator.CalcPercent(
                         ps.baseValue,
                         info,
                         lvMul);
 
-        /* 描述 */
         descLbl.text = ps.description.Replace("{X}", pct.ToString("0.#"));
     }
-
 
 
     public void HandleSlotClick(CardInfoStatic info, PlayerCard dyn, EquipSlotType slot)

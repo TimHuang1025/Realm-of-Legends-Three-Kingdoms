@@ -61,7 +61,7 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="SkillpointPanel" style="flex-grow: 0; background-size: 100% 100%; background-color: rgb(224, 214, 200); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138); height: 40%; margin-right: 1%; margin-left: 1%; flex-direction: column;">
+                    <ui:VisualElement name="SkillpointPanel" style="flex-grow: 0; background-size: 100% 100%; background-color: rgba(196, 169, 132, 0.39); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138); height: 40%; margin-right: 1%; margin-left: 1%; flex-direction: column;">
                         <ui:VisualElement style="flex-grow: 1;" />
                         <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: column; justify-content: flex-start;">
                             <ui:VisualElement name="Top" style="flex-grow: 1; flex-direction: row-reverse;">
@@ -88,7 +88,7 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement style="flex-grow: 0; background-size: 100% 100%; background-color: rgb(224, 214, 200); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138); margin-top: 1.5%; margin-right: 1%; margin-left: 1%; margin-bottom: 1.5%; flex-direction: row; height: 25%;">
+                    <ui:VisualElement style="flex-grow: 0; background-size: 100% 100%; background-color: rgba(196, 169, 132, 0.39); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138); margin-top: 1.5%; margin-right: 1%; margin-left: 1%; margin-bottom: 1.5%; flex-direction: row; height: 25%;">
                         <ui:VisualElement style="flex-grow: 1; width: 65%;">
                             <ui:VisualElement style="flex-grow: 0; height: 50%; justify-content: center;">
                                 <ui:Label text="下一等级: 骠骑将军II" name="NextLevelLabel" class="upgradeskilltext" style="-unity-text-align: upper-center;" />

@@ -155,7 +155,7 @@ public class FancySkillTree : MonoBehaviour
         foreach (var kv in stageBtns)
             kv.Value.EnableInClassList("active", kv.Key == sKey);
 
-        stageLabel.text = $"Stage {sKey}";
+        stageLabel.text = $"阶级 {sKey}";
         foreach (var row in rows) row.Clear();
 
         levelDict.Clear(); viewDict.Clear(); keyToIdx.Clear(); dataDict.Clear();

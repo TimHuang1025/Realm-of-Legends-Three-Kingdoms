@@ -5,7 +5,7 @@
 .cardroot {
 }
 
-.cardroot:focus {
+.cardroot:selected {
     border-top-width: 12px;
     border-right-width: 12px;
     border-bottom-width: 12px;
@@ -14,6 +14,7 @@
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
+    display: flex;
 }
 
 .glow {

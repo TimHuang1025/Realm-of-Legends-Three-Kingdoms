@@ -3,7 +3,7 @@
     <ui:VisualElement name="BlackPanel" style="flex-grow: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.71); justify-content: center; align-self: auto; align-items: center; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; flex-shrink: 0;">
         <ui:VisualElement name="BlackSpace" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; top: -1px; left: 0;" />
         <ui:VisualElement name="UptierPanelContainer" style="flex-grow: 0; width: 50%; height: 55%; flex-shrink: 0; flex-direction: row;">
-            <ui:VisualElement name="UptierPanel" class="panel" style="flex-grow: 1; background-color: rgb(224, 214, 200); flex-shrink: 0; width: 50%; height: 55%; align-self: auto; justify-content: flex-start; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138); flex-direction: column; margin-left: 0; padding-left: 0%;">
+            <ui:VisualElement name="UptierPanel" class="panel" style="flex-grow: 1; background-color: rgb(224, 214, 200); flex-shrink: 0; width: 50%; height: 549px; align-self: auto; justify-content: flex-start; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-left-color: rgb(177, 160, 138); border-right-color: rgb(177, 160, 138); border-top-color: rgb(177, 160, 138); border-bottom-color: rgb(177, 160, 138); flex-direction: column; margin-left: 0; padding-left: 0%;">
                 <ui:VisualElement name="LevelPanel" style="flex-grow: 0; margin-left: 4%; flex-direction: row; margin-right: 4%; flex-shrink: 0; height: 18%;">
                     <ui:VisualElement name="StarLevelBefore" style="flex-grow: 0; flex-direction: row; flex-shrink: 0; width: 25%;">
                         <ui:VisualElement name="Star1" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/newstar.png?fileID=2800000&amp;guid=225758a5b9c5ff348bffc048eddfe6c0&amp;type=3#newstar&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain;" />
@@ -28,11 +28,11 @@
                     <ui:VisualElement name="Stats" style="flex-grow: 0; flex-direction: row;">
                         <ui:VisualElement name="BeforeUptierStatsPanel" style="flex-grow: 0; flex-shrink: 0; width: 30%;">
                             <ui:VisualElement name="BeforeUptierPowerPanel" style="flex-grow: 1; flex-direction: row;">
-                                <ui:Label text="战力加成&#10;" name="PowerSlotTitle" class="upgradeskilltext" style="align-items: flex-start; flex-shrink: 0; -unity-text-align: upper-left;" />
+                                <ui:Label text="战力加成&#10;" name="PowerSlotTitle" class="upgradeskilltext" style="align-items: flex-start; flex-shrink: 0; -unity-text-align: middle-left;" />
                                 <ui:Label text="0&#10;" name="PowerSlotStat" enable-rich-text="true" class="statnum" />
                             </ui:VisualElement>
                             <ui:VisualElement name="BeforeUptierAtkPanel" style="flex-grow: 1; flex-direction: row;">
-                                <ui:Label text="主动技能等级" name="BeforeUptierSlotTitle1" class="upgradeskilltext" style="align-items: flex-start; flex-shrink: 0; -unity-text-align: upper-left;" />
+                                <ui:Label text="主动技能等级" name="BeforeUptierSlotTitle1" class="upgradeskilltext" style="align-items: flex-start; flex-shrink: 0; -unity-text-align: middle-left;" />
                                 <ui:Label text="5" name="BeforeUptierSlotStat1" enable-rich-text="true" class="statnum" />
                             </ui:VisualElement>
                             <ui:VisualElement name="BeforeUptierDefPanel" style="flex-grow: 1; flex-direction: row;">
@@ -66,27 +66,29 @@
                         <ui:VisualElement name="BorderLine" style="flex-grow: 0; height: 1px; background-color: rgb(0, 0, 0); flex-shrink: 0;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="MaterialPanel" style="flex-grow: 0; flex-shrink: 0;">
-                    <ui:Label text="花费材料" name="PanelTitle" style="-unity-text-align: upper-center; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); font-size: 22px;" />
-                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-evenly; align-items: stretch;">
-                        <ui:VisualElement name="Material1" style="flex-grow: 0; flex-shrink: 0; width: 20%; align-items: center; justify-content: flex-start;">
+                <ui:VisualElement name="MaterialPanel" style="flex-grow: 0; flex-shrink: 1;">
+                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-content: flex-start; justify-content: center;">
+                        <ui:Label text="升级所需" name="title" style="-unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); font-size: 33px; width: 136px;" />
+                        <ui:Label text="=" name="CostSelection" style="-unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E9%80%9A%E7%94%A8font_Martius-LV9L4.ttf?fileID=12800000&amp;guid=bb435f9645558fe418dcd41866efa735&amp;type=3#通用font_Martius-LV9L4&quot;); font-size: 40px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="mat-row" style="flex-grow: 1; flex-direction: row; justify-content: center; align-items: stretch; display: flex;">
+                        <ui:VisualElement name="SpecMat" style="flex-grow: 0; flex-shrink: 0; width: 20%; align-items: center; justify-content: flex-start;">
                             <ui:VisualElement name="Material1IconContainer" style="flex-grow: 0; flex-shrink: 0; height: 55%; flex-direction: column; justify-content: center; align-items: center; width: 55%;">
-                                <ui:VisualElement name="MaterialIcon1" class="materialicon" style="flex-grow: 1; background-color: rgba(163, 163, 163, 0); background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E9%93%9C%E5%B8%81.png?fileID=2800000&amp;guid=a040931efe2fcf142948a21d5157c2a4&amp;type=3#铜币&quot;);" />
+                                <ui:VisualElement name="mat-icon" class="materialicon" style="flex-grow: 1; background-color: rgba(163, 163, 163, 0); background-image: url(&quot;project://database/Assets/Assets/UI/CardInventory/GiftIcon/%E9%A6%99%E6%9C%A8%E6%89%8B%E4%B8%B2.png?fileID=2800000&amp;guid=be7ad99e768fcde4c82c308f09332ccb&amp;type=3#香木手串&quot;);" />
                             </ui:VisualElement>
                             <ui:VisualElement name="MaterialNeed" style="flex-grow: 0; flex-direction: row; flex-shrink: 0;">
-                                <ui:Label text="32154" name="PlayerMaterial1Num" class="materialnum" style="-unity-text-align: upper-center;" />
-                                <ui:Label text="/" name="slash" class="materialnum" style="-unity-text-align: upper-center;" />
-                                <ui:Label text="1000" name="UpgradeMaterial1Num" class="materialnum" style="-unity-text-align: upper-center;" />
+                                <ui:Label text="32154" name="Material1Use" class="materialnum" style="-unity-text-align: upper-center; display: none;" />
+                                <ui:Label text="1000" name="Material1Own" class="materialnum" style="-unity-text-align: upper-center;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:VisualElement name="Material2" style="flex-grow: 0; flex-shrink: 0; width: 20%; align-items: center; justify-content: flex-start; display: none;">
+                        <ui:Label text="+" name="Plus" style="-unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E9%80%9A%E7%94%A8font_Martius-LV9L4.ttf?fileID=12800000&amp;guid=bb435f9645558fe418dcd41866efa735&amp;type=3#通用font_Martius-LV9L4&quot;); font-size: 74px; -unity-text-align: middle-left;" />
+                        <ui:VisualElement name="GenMat" style="flex-grow: 0; flex-shrink: 0; width: 20%; align-items: center; justify-content: flex-start; display: none;">
                             <ui:VisualElement name="Material2IconContainer" style="flex-grow: 0; flex-shrink: 0; height: 55%; flex-direction: column; justify-content: center; align-items: center; width: 55%;">
-                                <ui:VisualElement name="MaterialIcon2" class="materialicon" style="flex-grow: 1; background-color: rgba(163, 163, 163, 0); background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E9%93%9C%E5%B8%81.png?fileID=2800000&amp;guid=a040931efe2fcf142948a21d5157c2a4&amp;type=3#铜币&quot;);" />
+                                <ui:VisualElement name="mat-icon" class="materialicon" style="flex-grow: 1; background-color: rgba(163, 163, 163, 0); background-image: url(&quot;project://database/Assets/Assets/UI/MainUI/%E7%B2%AE%E8%8D%89.png?fileID=2800000&amp;guid=9be2dd49093bc5447baa696235d89d4d&amp;type=3#粮草&quot;);" />
                             </ui:VisualElement>
                             <ui:VisualElement name="MaterialNeed" style="flex-grow: 0; flex-direction: row; flex-shrink: 0;">
-                                <ui:Label text="32154" name="PlayerMaterial2Num" class="materialnum" style="-unity-text-align: upper-center;" />
-                                <ui:Label text="/" name="slash" class="materialnum" style="-unity-text-align: upper-center;" />
-                                <ui:Label text="1000" name="UpgradeMaterial2Num" class="materialnum" style="-unity-text-align: upper-center;" />
+                                <ui:Label text="32154" name="Material2Use" class="materialnum" style="-unity-text-align: upper-center; display: none;" />
+                                <ui:Label text="1000" name="Material2Own" class="materialnum" style="-unity-text-align: upper-center;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="Material3" style="flex-grow: 0; flex-shrink: 0; width: 20%; align-items: center; justify-content: flex-start; display: none;">
@@ -100,6 +102,7 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
+                    <ui:Toggle value="false" toggle-on-label-click="false" usage-hints="None" name="useGeneral" style="justify-content: center; align-self: center; align-content: flex-start; font-size: 30px; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); flex-direction: row-reverse;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="BtnRow" style="flex-grow: 0; flex-direction: row; align-items: flex-end; justify-content: space-around; height: 15%; margin-left: 4%; margin-bottom: 2%; margin-right: 4%; flex-shrink: 0; align-self: auto;">
                     <Kamgam.UIToolkitGlow.Shadow inner-color="#00000098" scale-x="0.95" scale-y="0.9" offset-y="10" blur-width="5" picking-mode="Ignore" layout-first-child="true" class="upgradeBtnShadow" style="flex-grow: 0; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;">

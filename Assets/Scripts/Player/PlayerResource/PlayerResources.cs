@@ -49,17 +49,17 @@ public enum ResourceType
 public class PlayerResources : ScriptableObject
 {
     // ───────── 基础货币 ─────────
-    public long gold      = 0;
-    public long silver    = 0;
-    public long copper    = 0;
-    public long food      = 0;
+    public long gold = 0;
+    public long silver = 0;
+    public long copper = 0;
+    public long food = 0;
 
     // ───────── 通用令牌 / 经验 ─────────
-    public int  summonWrit   = 0;   // 征才令
-    public int  troopOrder   = 0;   // 募兵帖
-    public long unionMerit   = 0;   // 联盟军功
-    public long merit        = 0;   // 战功值（经验）
-    public int  advanceScroll = 0;  // 进修册
+    public int summonWrit = 0;   // 征才令
+    public int troopOrder = 0;   // 募兵帖
+    public long unionMerit = 0;   // 联盟军功
+    public long merit = 0;   // 战功值（经验）
+    public int advanceScroll = 0;  // 进修册
 
     // ───────── 武将碎片 ─────────
     public int heroCrestSGeneral = 0;  // S 将印（通用）
@@ -67,21 +67,22 @@ public class PlayerResources : ScriptableObject
     public int heroCrestBGeneral = 0;  // B 将印（通用）
 
     // ───────── 常用材料（可按需裁剪）─────────
-    public long forage         = 0;  // 马粮
-    public long refinedIron    = 0;  // 炼铁
-    public long fineWood       = 0;  // 精木
-    public long fineSteel      = 0;  // 精钢
-    public long techScroll     = 0;  // 科技卷轴
-    public long fame           = 0;  // 声望
-    public int  artOfWar       = 0;  // 兵法
-    public int  trainingToken  = 0;  // 练兵券
-    public int  respecPotion   = 0;  // 重修药水
-    public long rawIron        = 0;  // 粗铁
-    public long firmwood       = 0;  // 坚木
-    public long ironIngot      = 0;  // 铁锭
-    public int  honor          = 0;  // Honor_xxx（如果按 ID 细分，可改成 Dictionary）
-    public int  merchantDeed   = 0;  // 商契
-    public int  landDeed       = 0;  // 田契
+    public long forage = 0;  // 马粮
+    public long refinedIron = 0;  // 炼铁
+    public long fineWood = 0;  // 精木
+    public long fineSteel = 0;  // 精钢
+    public long techScroll = 0;  // 科技卷轴
+    public long fame = 0;  // 声望
+    public int artOfWar = 0;  // 兵法
+    public int trainingToken = 0;  // 练兵券
+    public int respecPotion = 0;  // 重修药水
+    public long rawIron = 0;  // 粗铁
+    public long firmwood = 0;  // 坚木
+    public long ironIngot = 0;  // 铁锭
+    public int honor = 0;  // Honor_xxx（如果按 ID 细分，可改成 Dictionary）
+    public int merchantDeed = 0;  // 商契
+    public int landDeed = 0;  // 田契
 
     // 需要更多资源继续加字段，名字保持和 ResourceType 枚举一致即可
+    
 }

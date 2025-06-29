@@ -10,7 +10,7 @@ public class PlayerResourceBank : MonoBehaviour
 {
     public static PlayerResourceBank I { get; private set; }
 
-    [SerializeField] private PlayerResources data;    // Inspector 拖入 ScriptableObject
+    [SerializeField] private PlayerResources data;      // Inspector 拖入 ScriptableObject
     private const string SaveFile = "player_bank.json";
 
     /*──────────────── 生命周期 ─────────────────*/
@@ -19,7 +19,7 @@ public class PlayerResourceBank : MonoBehaviour
         if (I != null) { Destroy(gameObject); return; }
         I = this;
         DontDestroyOnLoad(gameObject);
-        Load();                                       // 启动时读取本地存档
+        Load();                                         // 启动时读取本地存档
     }
 
     /*──────────────── 查询接口 ─────────────────*/
@@ -227,5 +227,24 @@ public class PlayerResourceBank : MonoBehaviour
         data.honor         = s.honor;
         data.merchantDeed  = s.merchantDeed;
         data.landDeed      = s.landDeed;
+    }
+
+    /*──────────────── 调试工具 ─────────────────*/
+    /// <summary>
+    /// 把 <see cref="ResourceType"/> 中的所有资源一次性 +amount（默认 1000）。<br/>
+    /// 调用示例：<c>PlayerResourceBank.I.DebugAddAllResources();</c>
+    /// </summary>
+    public void DebugAddAllResources(long amount = 1000)
+    {
+        foreach (ResourceType rt in Enum.GetValues(typeof(ResourceType)))
+        {
+            // 直接修改字段，最后统一 Save & 广播，避免多次 IO
+            Modify(rt, amount);
+        }
+
+        // Modify 内部已 Save()；如果想只保存一次，可注释掉 Modify 里的 Save()
+        // 然后在这里 Save()。根据你的实际需求决定。
+        onBankChanged?.Invoke(ResourceType.Gold);     // 随便传一个类型通知 UI 刷新
+        Debug.Log($"<color=#51a687>✔ DebugAddAllResources(+{amount}) 完成</color>");
     }
 }

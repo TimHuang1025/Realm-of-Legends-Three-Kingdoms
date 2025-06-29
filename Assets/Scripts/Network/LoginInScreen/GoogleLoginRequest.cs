@@ -2,14 +2,14 @@
  * GoogleLoginRequest.cs
  * 功能：UI Toolkit 版 Google 登录
  *       ① 启动先清旧 token
- *       ② 点击 <Button name="GoogleLogo"> 登录（不缓存 token）
- *       ③ 登录成功后异步切到 MainUI
+ *       ② 点击 <Button name="GoogleLogo"> 获取 Token（GetTokenResponse）
+ *       ③ Token 获取成功后异步切到 MainUI
  *****************************************************/
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
-using Assets.SimpleSignIn.Google.Scripts;
+using Assets.SimpleSignIn.Google.Scripts;     // 引入 GoogleAuth / TokenResponse
 
 [RequireComponent(typeof(UIDocument))]
 public sealed class GoogleLoginRequest : MonoBehaviour
@@ -52,22 +52,28 @@ public sealed class GoogleLoginRequest : MonoBehaviour
         googleBtn.SetEnabled(false);                 // 防抖
         LoadingPanelManager.Instance.Show();         // Loading
 
-        googleAuth.SignIn(OnSignIn, caching: false); // 不写本地缓存
+        // 直接获取 Token；如无缓存会自动弹出授权
+        googleAuth.GetTokenResponse(OnGetTokenResponse);
     }
 
-    /*──────── 登录回调 ────────*/
-    private void OnSignIn(bool success, string error, UserInfo info)
+    /*──────── Token 回调 ────────*/
+    private void OnGetTokenResponse(bool success, string error, TokenResponse token)
     {
         LoadingPanelManager.Instance.Hide();
         googleBtn.SetEnabled(true);
 
         if (!success)
         {
-            PopupManager.Show($"Google 登录失败：{error}");
+            PopupManager.Show($"登录失败：{error}");
             return;
         }
 
-        PopupManager.Show($"登录, {info.name}!");
+        // 仅示例输出前 8 位，实际业务请安全存储
+        string shortToken = token.AccessToken.Length > 8
+                            ? token.AccessToken.Substring(0, 8) + "..."
+                            : token.AccessToken;
+        PopupManager.Show($"登陆成功！");
+
         StartCoroutine(LoadMainUIAndCleanup());      // 跳转主场景
     }
 

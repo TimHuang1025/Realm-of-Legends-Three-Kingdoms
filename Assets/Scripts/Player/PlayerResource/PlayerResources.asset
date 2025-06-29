@@ -19,9 +19,9 @@ MonoBehaviour:
   summonWrit: 8200
   troopOrder: 0
   unionMerit: 0
-  merit: 0
-  advanceScroll: 1000
-  heroCrestSGeneral: 0
+  merit: 974260
+  advanceScroll: 759
+  heroCrestSGeneral: 9999
   heroCrestAGeneral: 0
   heroCrestBGeneral: 0
   forage: 0
@@ -30,7 +30,7 @@ MonoBehaviour:
   fineSteel: 0
   techScroll: 0
   fame: 27
-  artOfWar: 1000
+  artOfWar: 0
   trainingToken: 0
   respecPotion: 5
   rawIron: 0

@@ -1729,6 +1729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd87d9a2f264c604db97375c3a96e3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerResources: {fileID: 11400000, guid: 1943a33e61094274a885ea4b70a0c077, type: 2}
   vhSizer: {fileID: 1671468813}
   emptyStar: {fileID: -7435001082846661440, guid: 4c267482cd77b0a489689ad49fc22e23, type: 3}
   blueStar: {fileID: -175546558445803189, guid: 46d14db2a9e1b334facf98b41d03e059, type: 3}
