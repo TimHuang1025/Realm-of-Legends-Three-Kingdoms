@@ -286,6 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cb8a9a65a27e614c8795a5345bbed69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  progressAsset: {fileID: 11400000, guid: 3d63d9c6884cac9449eb3eeac3bf72d8, type: 2}
   jsonFile: {fileID: 4900000, guid: 9d3c195ed3ac4cf46b704b5a82accb00, type: 3}
   nodeTemplate: {fileID: 9197481963319205126, guid: 4265b19c66cd5a249a5e8edd661357da, type: 3}
   lockedSlotSprite: {fileID: 6156169275291022604, guid: 29feff93d2df704448753a7c261fc70a, type: 3}

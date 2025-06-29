@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Scripts/SkillTree/skill_tree.uss?fileID=7433441132597879392&amp;guid=56d4617636c20e4479dd9cbbf8105244&amp;type=3#skill_tree" />
     <ui:VisualElement name="skill-container" style="flex-grow: 1;">
         <ui:VisualElement style="flex-grow: 1;">
-            <ui:VisualElement name="icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/Characters/Skills/A3_Skill_icon.png?fileID=2800000&amp;guid=360fcb0a6e20e61488278ff9ca5cc853&amp;type=3#A3_Skill_icon&quot;); -unity-background-scale-mode: scale-to-fit; flex-shrink: 0; width: 100px; height: 100px; align-self: center;" />
+            <ui:VisualElement name="icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/Characters/Skills/A3_Skill_icon.png?fileID=2800000&amp;guid=360fcb0a6e20e61488278ff9ca5cc853&amp;type=3#A3_Skill_icon&quot;); -unity-background-scale-mode: scale-to-fit; flex-shrink: 0; width: 100px; height: 100px; align-self: center; margin-right: 40px; margin-left: 40px;" />
             <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: flex-start; align-items: flex-start; align-content: flex-start; -unity-text-align: upper-left; align-self: center;">
                 <ui:VisualElement name="lvslot" class="lvslot" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Assets/UI/SkillTree/unlocklv.png?fileID=2800000&amp;guid=e7b57381dcd6d124dbfe803332942b66&amp;type=3#unlocklv&quot;); width: 50px; height: 50px; flex-shrink: 0;" />
             </ui:VisualElement>

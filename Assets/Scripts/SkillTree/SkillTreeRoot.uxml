@@ -1,13 +1,14 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/SkillTree/skill_tree.uss?fileID=7433441132597879392&amp;guid=56d4617636c20e4479dd9cbbf8105244&amp;type=3#skill_tree" />
+    <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3#CardInventory" />
     <ui:VisualElement name="TreeRoot" style="flex-grow: 1;">
         <ui:VisualElement name="Top" class="tree-root" style="flex-grow: 0; display: flex; height: 14%; flex-shrink: 0;">
             <Kamgam.UIToolkitScrollViewPro.ScrollViewPro touch-scroll-type="Elastic" focus-snap-on-pointer="false" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="AlwaysVisible" mode="Horizontal" style="height: 100%; flex-grow: 1; flex-shrink: 0;">
-                <ui:Button text="Button" name="stage-options" style="width: 20%; height: 84px;" />
+                <ui:Button text="Button" name="stage-options" class="smallbtns" style="width: 20%; height: 84px;" />
             </Kamgam.UIToolkitScrollViewPro.ScrollViewPro>
         </ui:VisualElement>
-        <ui:VisualElement style="flex-direction: row;">
-            <ui:VisualElement name="skilltree" style="flex-grow: 0; width: 60%; height: 100%; background-color: rgb(224, 214, 200); display: flex;">
+        <ui:VisualElement style="flex-direction: row; height: 100%;">
+            <ui:VisualElement name="skilltree" style="flex-grow: 0; width: 70%; height: 100%; background-color: rgb(224, 214, 200); display: flex;">
                 <ui:VisualElement name="page" style="flex-grow: 0; -unity-text-align: upper-left; justify-content: center; font-size: 70px; flex-shrink: 0; height: 10%;">
                     <ui:Label text="Label" name="stage-label" style="-unity-text-align: middle-center;" />
                 </ui:VisualElement>
@@ -21,9 +22,9 @@
             </ui:VisualElement>
             <ui:VisualElement name="description" style="flex-grow: 1; background-color: rgb(73, 166, 180); display: flex;">
                 <ui:VisualElement style="flex-grow: 1; justify-content: space-evenly; align-items: stretch; display: flex;">
-                    <ui:Button text="Button" name="upgradeBtn" />
                     <ui:Label text="Label" name="skilltitle" style="-unity-text-align: upper-center; font-size: 58px;" />
-                    <ui:Label text="Label" name="skilldescription" style="-unity-text-align: upper-center; font-size: 73px;" />
+                    <ui:Label text="Label" name="skilldescription" style="-unity-text-align: upper-center; font-size: 50px; white-space: normal;" />
+                    <ui:Button text="Button" name="upgradeBtn" class="upgradeBtn" style="height: 66px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
