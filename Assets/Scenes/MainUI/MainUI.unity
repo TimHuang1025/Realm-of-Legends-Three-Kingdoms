@@ -1554,6 +1554,94 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuRoot: {fileID: 1359527954}
   settingsPanel: {fileID: 91845541}
+--- !u!1 &1454053321
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1454053325}
+  - component: {fileID: 1454053324}
+  - component: {fileID: 1454053323}
+  - component: {fileID: 1454053322}
+  m_Layer: 5
+  m_Name: PlayerTechTree
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1454053322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454053321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73c2f2cf251ef7042877417eeac9d96c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 96e548db29da1eb4baf598b889a4a5a6, type: 2}
+  referenceShort: 1179
+  minScale: 0.6
+--- !u!114 &1454053323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454053321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb8a9a65a27e614c8795a5345bbed69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressAsset: {fileID: 11400000, guid: 3d63d9c6884cac9449eb3eeac3bf72d8, type: 2}
+  playerBaseController: {fileID: 1844380995}
+  jsonFile: {fileID: 4900000, guid: 9d3c195ed3ac4cf46b704b5a82accb00, type: 3}
+  playerResources: {fileID: 11400000, guid: 1943a33e61094274a885ea4b70a0c077, type: 2}
+  nodeTemplate: {fileID: 9197481963319205126, guid: 4265b19c66cd5a249a5e8edd661357da, type: 3}
+  lockedSlotSprite: {fileID: 6156169275291022604, guid: 29feff93d2df704448753a7c261fc70a, type: 3}
+  unlockedSlotSprite: {fileID: -2601226363218445542, guid: e7b57381dcd6d124dbfe803332942b66, type: 3}
+  defaultIcon: {fileID: 996773821596262083, guid: ea3bc622dfa218a4db02bf8c986b5639, type: 3}
+--- !u!114 &1454053324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454053321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: cc4057f6b7427b54288ee27431155bde, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 3eda926acccadaa43a6675b78dd88d18, type: 3}
+  m_SortingOrder: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!4 &1454053325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454053321}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1568202116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,6 +2039,7 @@ MonoBehaviour:
   gachaPage: {fileID: 105621718}
   armyControlPage: {fileID: 727382610}
   playerCardUpgradePage: {fileID: 268597279}
+  playerTechTreePage: {fileID: 1454053321}
 --- !u!114 &1844380996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2147,3 +2236,4 @@ SceneRoots:
   - {fileID: 922049120}
   - {fileID: 91845546}
   - {fileID: 707846649}
+  - {fileID: 1454053325}

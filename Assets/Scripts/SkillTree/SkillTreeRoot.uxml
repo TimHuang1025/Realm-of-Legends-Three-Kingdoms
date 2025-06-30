@@ -3,10 +3,15 @@
     <Style src="project://database/Assets/Scripts/UI/CardInventory/CardInventory.uss?fileID=7433441132597879392&amp;guid=fc9ddba0192cdf1449d73a91b0f9010d&amp;type=3#CardInventory" />
     <ui:VisualElement name="TreeRoot" style="flex-grow: 1; background-image: none; background-color: rgba(177, 160, 138, 0.82);">
         <ui:VisualElement name="Top" class="tree-root" style="flex-grow: 0; display: flex; height: 14%; flex-shrink: 0; flex-direction: row;">
-            <Kamgam.UIToolkitScrollViewPro.ScrollViewPro touch-scroll-type="Elastic" focus-snap-on-pointer="false" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" mode="Horizontal" style="height: 100%; flex-grow: 0; flex-shrink: 0; width: 80%;">
+            <ui:VisualElement style="flex-grow: 1; flex-shrink: 0; width: 10%; justify-content: center;">
+                <ui:Button text="&lt;返回" name="ReturnBtn" class="smallbtns" style="flex-grow: 0; width: 80%; border-left-width: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; margin-left: 0; margin-top: 3%; height: 67%; position: absolute; left: 0;" />
+            </ui:VisualElement>
+            <Kamgam.UIToolkitScrollViewPro.ScrollViewPro touch-scroll-type="Elastic" focus-snap-on-pointer="false" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" mode="Horizontal" style="height: 100%; flex-grow: 0; flex-shrink: 0; width: 70%;">
                 <ui:Button text="Button" name="stage-options" class="smallbtns" style="width: 20%; height: 84px; justify-content: flex-start; align-self: center;" />
             </Kamgam.UIToolkitScrollViewPro.ScrollViewPro>
-            <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-size: 20% 100%;" />
+            <ui:VisualElement name="VisualElement" style="flex-grow: 0; background-size: 20% 100%; flex-shrink: 0; width: 15%; justify-content: center;">
+                <ui:Label text="Label" name="playermat" style="font-size: 67px; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E9%80%9A%E7%94%A8font_Martius-LV9L4.ttf?fileID=12800000&amp;guid=bb435f9645558fe418dcd41866efa735&amp;type=3#通用font_Martius-LV9L4&quot;); -unity-text-align: upper-center;" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement style="flex-direction: row; height: 100%;">
             <ui:VisualElement name="skilltree" style="flex-grow: 0; width: 70%; height: 100%; background-color: rgb(224, 214, 200); display: flex; background-image: url(&quot;project://database/Assets/Assets/SkillTree/%E6%8A%80%E8%83%BD%E6%A0%91%E8%83%8C%E6%99%AF.png?fileID=2800000&amp;guid=e2fb90601ae013f469e9f202d3effd5e&amp;type=3#技能树背景&quot;); -unity-background-image-tint-color: rgb(255, 255, 255);">
@@ -24,10 +29,14 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="description" style="flex-grow: 1; background-color: rgb(73, 166, 180); display: flex;">
-                <ui:VisualElement style="flex-grow: 1; justify-content: space-evenly; align-items: stretch; display: flex; background-color: rgb(156, 154, 154);">
+                <ui:VisualElement style="flex-grow: 1; justify-content: space-evenly; align-items: stretch; display: flex; background-color: rgb(77, 77, 77);">
                     <ui:Label text="Label" name="skilltitle" style="-unity-text-align: upper-center; font-size: 58px;" />
+                    <ui:Label text="Label" name="skilllv" style="-unity-text-align: upper-center; font-size: 58px;" />
                     <ui:Label text="Label" name="skilldescription" style="-unity-text-align: upper-center; font-size: 50px; white-space: normal;" />
-                    <ui:Label text="Label" name="skillupgradeneed" style="-unity-text-align: upper-center; font-size: 50px; white-space: normal; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;);" />
+                    <ui:VisualElement style="flex-grow: 0; flex-direction: row; justify-content: center; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;); -unity-text-align: middle-left; font-size: 55px;">
+                        <ui:Label text="需要卷轴：" name="needtitle" />
+                        <ui:Label text="Label" name="skillupgradeneed" style="-unity-text-align: upper-center; font-size: 50px; white-space: normal; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E9%80%9A%E7%94%A8font_Martius-LV9L4.ttf?fileID=12800000&amp;guid=bb435f9645558fe418dcd41866efa735&amp;type=3#通用font_Martius-LV9L4&quot;);" />
+                    </ui:VisualElement>
                     <ui:Button text="Button" name="upgradeBtn" class="upgradeBtn" style="height: 66px;" />
                 </ui:VisualElement>
             </ui:VisualElement>

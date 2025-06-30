@@ -16,6 +16,7 @@ using System.Linq;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Game.Utils;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -27,6 +28,7 @@ public class FancySkillTree : MonoBehaviour
     /*──────── Inspector 引用 ────────*/
     [Header("拖入 TechProgressData.asset")]
     public TechProgressData progressAsset;
+    [SerializeField] private PlayerBaseController playerBaseController;  // 拖引用
 
     [Header("拖入 techtree.json")]
     public TextAsset jsonFile;
@@ -64,24 +66,26 @@ public class FancySkillTree : MonoBehaviour
     }
 
     /*──────── 运行时容器 ────────*/
-    private readonly Dictionary<string, int>       levelDict = new();
-    private readonly Dictionary<string, SkillData> dataDict  = new();
-    private readonly Dictionary<string, SkillView> viewDict  = new();
-    private readonly Dictionary<string, Button>    stageBtns = new();
-    private readonly Dictionary<string, int>       keyToIdx  = new();
+    private readonly Dictionary<string,int>       levelDict = new();
+    private readonly Dictionary<string,SkillData> dataDict  = new();
+    private readonly Dictionary<string,SkillView> viewDict  = new();
+    private readonly Dictionary<string,Button>    stageBtns = new();
+    private readonly Dictionary<string,int>       keyToIdx  = new();
 
     /*──────── UI 引用 ────────*/
     private VisualElement root;
     private VisualElement stageContainer;
     private Label         stageLabel;
     private List<VisualElement> rows;
-    private Label  detailTitle;
-    private Label  detailDesc;
+    private Label detailTitle, detailDesc;
     private Button upgradeBtn;
-    private Label  needLabel;          // “消耗 / 拥有” 标签
+    private Label needTitle, skillLvLabel, needLabel;
+    
+    private Label playermat;  // 显示玩家卷轴数量
+    private Button returnBtn;
 
     /*──────── JSON 数据 ────────*/
-    private JObject                   treeData;
+    private JObject treeData;
     private Dictionary<string,string> descTable;
 
     /*──────── 运行时状态 ────────*/
@@ -94,8 +98,8 @@ public class FancySkillTree : MonoBehaviour
         if (!Validate()) return;
 
         TechTreeCalculator.JsonFile = jsonFile;
-        treeData  = JObject.Parse(jsonFile.text);
-        descTable = treeData["description"]?.ToObject<Dictionary<string,string>>() ?? new();
+        treeData = JObject.Parse(jsonFile.text);
+        descTable = treeData["description"]?.ToObject<Dictionary<string, string>>() ?? new();
 
         rows = FindRows();
         if (rows.Count < 5) { Debug.LogError("需要 5 行 skill-row"); return; }
@@ -105,7 +109,19 @@ public class FancySkillTree : MonoBehaviour
         string stageKey = progressAsset ? progressAsset.CurrentStage.ToString() : "1";
         ShowStage(stageKey);
 
+        playermat.text = NumberAbbreviator.Format(playerResources.techScroll, 2);
         progressAsset?.RecalculateBonus();
+        
+        var root = GetComponent<UIDocument>().rootVisualElement;
+
+        // 假设 UXML 里按钮 name="ReturnBtn"
+        
+    }
+    
+    private void OnDisable()
+    {
+        if (returnBtn != null)
+            returnBtn.UnregisterCallback<ClickEvent>(_ => playerBaseController.HidePlayerTechTreePage());
     }
 
     /**************** 校验 & 获取 UI ****************/
@@ -123,18 +139,26 @@ public class FancySkillTree : MonoBehaviour
         var tplBtn = root.Q<Button>("stage-options");
         if (tplBtn == null) { Debug.LogError("未找到 stage-options"); return false; }
 
+        returnBtn = root.Q<Button>("ReturnBtn");
+        if (returnBtn != null)
+            returnBtn.RegisterCallback<ClickEvent>(_ => playerBaseController.HidePlayerTechTreePage());
+        else
+            Debug.LogError("找不到 ReturnBtn");
+
         stageContainer = tplBtn.parent;
         tplBtn.style.display = DisplayStyle.None;
 
-        stageLabel   = root.Q<Label>("stage-label");
-        detailTitle  = root.Q<Label>("skilltitle");
-        detailDesc   = root.Q<Label>("skilldescription");
-        upgradeBtn   = root.Q<Button>("upgradeBtn");
-        needLabel    = root.Q<Label>("skillupgradeneed");
+        stageLabel = root.Q<Label>("stage-label");
+        detailTitle = root.Q<Label>("skilltitle");
+        detailDesc = root.Q<Label>("skilldescription");
+        upgradeBtn = root.Q<Button>("upgradeBtn");
+        needLabel = root.Q<Label>("skillupgradeneed");
+        needTitle = root.Q<Label>("needtitle");
+        skillLvLabel = root.Q<Label>("skilllv");
+        playermat = root.Q<Label>("playermat");
 
         if (needLabel == null) { Debug.LogError("缺少 skillupgradeneed Label"); return false; }
-        needLabel.enableRichText = true;   // ← 这里
-
+        needLabel.enableRichText = true;
 
         return true;
     }
@@ -157,7 +181,10 @@ public class FancySkillTree : MonoBehaviour
                                      .OrderBy(p => int.Parse(p.Name)))
         {
             string sKey = prop.Name;
-            var btn = new Button(() => ShowStage(sKey)) { text = $"阶段 {sKey}" };
+
+            var btn = new Button(() => ShowStage(sKey))
+            { text = $"阶段 {sKey}" };
+
             btn.AddToClassList("stage-btn");
             stageContainer.Add(btn);
             stageBtns[sKey] = btn;
@@ -177,14 +204,14 @@ public class FancySkillTree : MonoBehaviour
 
         if (treeData[sKey] is not JObject stageObj) return;
 
-        /* 按编号升序 */
+        /* ---- 按编号升序 ---- */
         var items = stageObj.Properties()
                             .Where(p => int.TryParse(p.Name, out _))
                             .OrderBy(p => int.Parse(p.Name))
                             .Select(p => (key: $"{sKey}-{p.Name}", arr: (JArray)p.Value))
                             .ToList();
 
-        /* 行布局（持久化） */
+        /* ---- 行布局（持久化） ---- */
         List<int> rowLayout = progressAsset?.GetRowLayout(sKey);
         bool needSaveLayout = false;
         if (rowLayout == null || rowLayout.Count != items.Count)
@@ -193,11 +220,11 @@ public class FancySkillTree : MonoBehaviour
             needSaveLayout = true;
         }
 
-        /* 阶段状态 */
-        int curStageIdx = progressAsset ? progressAsset.CurrentStage : 1;
-        bool isPast    = int.Parse(sKey) < curStageIdx;
-        bool isCurrent = int.Parse(sKey) == curStageIdx;
-        string progStr = isCurrent ? progressAsset.Progress : null;
+        /* ---- 阶段状态 ---- */
+        int  curStageIdx = progressAsset ? progressAsset.CurrentStage : 1;
+        bool isPast      = int.Parse(sKey) < curStageIdx;
+        bool isCurrent   = int.Parse(sKey) == curStageIdx;
+        string progStr   = isCurrent ? progressAsset.Progress : null;
 
         for (int i = 0; i < items.Count; i++)
         {
@@ -211,12 +238,21 @@ public class FancySkillTree : MonoBehaviour
             keyToIdx[key]  = i;
         }
 
-        /* 生成节点 */
+        /* ---- 生成节点 ---- */
         for (int i = 0; i < items.Count; i++)
         {
             int rowIdx = rowLayout[i];
-            var v = CreateNode(items[i].key, items[i].arr, rows[rowIdx]);
-            viewDict[items[i].key] = v;
+
+            string key = items[i].key;
+            int    lvl = levelDict[key];
+
+            bool stageUnlocked = isPast || isCurrent;
+            bool dimNode       = !stageUnlocked || lvl == 0;
+
+            var v = CreateNode(key, items[i].arr,
+                               rows[rowIdx],
+                               dimNode);
+            viewDict[key] = v;
         }
 
         if (needSaveLayout && progressAsset)
@@ -228,37 +264,24 @@ public class FancySkillTree : MonoBehaviour
         curKey = null; curView = null;
     }
 
-    private List<int> GenerateRandomLayout(int count)
-    {
-        var layout = new List<int>(new int[count]);
-        int[] load = new int[rows.Count];
-        var rnd = new System.Random();
-
-        for (int i = 0; i < count; i++)
-        {
-            int r;
-            do { r = rnd.Next(rows.Count); } while (load[r] >= 4);
-            layout[i] = r; load[r]++;
-        }
-        return layout;
-    }
-
     /**************** 创建节点 ****************/
-    private SkillView CreateNode(string key, JArray arr, VisualElement parentRow)
+    private SkillView CreateNode(string key,
+                                 JArray        arr,
+                                 VisualElement parentRow,
+                                 bool          dim)
     {
         string type  = arr[0].ToString();
         int    max   = arr[1].Value<int>();
         var    costs = arr[2].ToObject<List<int>>();
         var    gains = arr[3].ToObject<List<float>>();
 
-        /* 补齐缺漏 */
         while (costs.Count < max)  costs.Add(costs.LastOrDefault());
         while (gains.Count < max)  gains.Add(gains.LastOrDefault());
 
         var data = new SkillData { type = type, maxLvl = max, costs = costs, gains = gains };
         dataDict[key] = data;
 
-        /* UI */
+        /* ---------- UI ---------- */
         VisualElement c = nodeTemplate.CloneTree();
         parentRow.Add(c);
 
@@ -287,6 +310,8 @@ public class FancySkillTree : MonoBehaviour
         if (defaultIcon)
             nodeRoot.style.backgroundImage = new StyleBackground(defaultIcon);
 
+        nodeRoot.style.opacity = dim ? 0.05f : 1f;
+
         return new SkillView { root = c, lvSlots = slots, data = data };
     }
 
@@ -305,28 +330,56 @@ public class FancySkillTree : MonoBehaviour
         float val   = d.gains[safeIdx];
 
         string vStr = tpl.Contains("%") ? (val * 100).ToString() : val.ToString();
-        detailDesc.text = tpl.Replace("{x}", vStr) +
-                        (lvl >= d.maxLvl ? " (满级)" : "");
+        detailDesc.text = tpl.Replace("{x}", vStr);
 
         UpdateNeedLabelAndButton(d, lvl);
     }
 
+    /**************** 更新消耗标签 & 升级按钮 ****************/
     private void UpdateNeedLabelAndButton(SkillData d, int lvl)
     {
         long have   = playerResources.techScroll;
-        long need   = lvl < d.maxLvl ? d.costs[lvl] : 0;
+        bool isMax  = lvl >= d.maxLvl;
+        long need   = isMax ? 0 : d.costs[lvl];
         bool afford = have >= need;
 
-        string colorHex = ColorUtility.ToHtmlStringRGB(afford ? okColor : errColor);
-        string haveStr  = $"<color=#{colorHex}>{have}</color>";
+        /* 1) 技能等级文字 */
+        if (lvl == 0)
+            skillLvLabel.text = "<color=#999999>未解锁</color>";
+        else if (isMax)
+            skillLvLabel.text = $"<color=#FFD700>等级 <b>{lvl}</b></color>";
+        else
+            skillLvLabel.text = $"等级 <b>{lvl}</b>";
 
-        needLabel.text = lvl >= d.maxLvl
-                       ? "已满级"
-                       : $"需要卷轴：{need} / {haveStr}";
+        /* 2) 判断阶段是否已解锁 */
+        int stageOfNode  = int.Parse(curKey.Split('-')[0]);
+        int currentStage = progressAsset ? progressAsset.CurrentStage : 1;
+        bool stageUnlocked = stageOfNode == currentStage;
 
-        if (lvl >= d.maxLvl)
+        /* 3) 满级 */
+        if (isMax)
         {
+            needTitle.text = "<color=#999999>已满级</color>";
+            needLabel.Hide();
+
             upgradeBtn.text = "满级";
+            upgradeBtn.SetEnabled(false);
+            return;
+        }
+
+        /* 4) 未满级：显示需求 */
+        needTitle.text = "需要卷轴：";
+
+        string colorHex = ColorUtility.ToHtmlStringRGB(afford ? okColor : errColor);
+        needLabel.text  = $"<color=#{colorHex}>{have}</color> / {need:N0}";
+
+        playermat.text = NumberAbbreviator.Format(have, 2);
+        needLabel.Show();
+
+        /* 5) 升级按钮状态 */
+        if (!stageUnlocked)
+        {
+            upgradeBtn.text = "阶段未解锁";
             upgradeBtn.SetEnabled(false);
         }
         else if (!afford)
@@ -338,37 +391,48 @@ public class FancySkillTree : MonoBehaviour
         {
             upgradeBtn.text = lvl == 0 ? "解锁" : "升级";
             upgradeBtn.SetEnabled(true);
+
             upgradeBtn.clicked -= UpgradeCurrent;
             upgradeBtn.clicked += UpgradeCurrent;
         }
     }
 
+    //**************** 升级 ****************/
     /**************** 升级 ****************/
     private void UpgradeCurrent()
     {
         if (curKey == null) return;
 
-        var d   = dataDict[curKey];
-        int lvl = levelDict[curKey];
+        string keyBackup = curKey;                // ← 1) 备份
+
+        var d   = dataDict[keyBackup];
+        int lvl = levelDict[keyBackup];
         if (lvl >= d.maxLvl) return;
 
         long need = d.costs[lvl];
-        if (playerResources.techScroll < need) return;   // 双保险
+        if (playerResources.techScroll < need) return;
 
         /* 扣资源 */
         playerResources.techScroll -= need;
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
         EditorUtility.SetDirty(playerResources);
-#endif
+    #endif
 
         /* 升级操作 */
-        levelDict[curKey] = ++lvl;
-        ApplySlotVisual(curKey, curView.lvSlots);
-        SelectSkill(curKey);   // 刷新面板 + 按钮
-
+        levelDict[keyBackup] = ++lvl;
         WriteBackProgress(lvl);
         TryUnlockNextStage();
+
+        /* 2) 刷新当前阶段整页 UI */
+        string curStageKey = keyBackup.Split('-')[0];   // "6-2" → "6"
+        ShowStage(curStageKey);
+
+        /* 3) 重新选中刚才升级的节点，面板立即更新且不会空指针 */
+        SelectSkill(keyBackup);
     }
+
+
+
 
     private void WriteBackProgress(int lvl)
     {
@@ -392,13 +456,29 @@ public class FancySkillTree : MonoBehaviour
         }
     }
 
+    /**************** 行布局随机生成 *****************/
+    private List<int> GenerateRandomLayout(int count)
+    {
+        var layout = new List<int>(new int[count]);
+        int[] load = new int[rows.Count];
+        var rnd = new System.Random();
+
+        for (int i = 0; i < count; i++)
+        {
+            int r;
+            do { r = rnd.Next(rows.Count); } while (load[r] >= 4);
+            layout[i] = r;
+            load[r]++;
+        }
+        return layout;
+    }
+
     /**************** 自动解锁下一阶段 ****************/
     private void TryUnlockNextStage()
     {
         string curStageKey = progressAsset.CurrentStage.ToString();
         if (treeData[curStageKey] is not JObject stageObj) return;
 
-        /* 本阶段是否全满级 */
         string prog = progressAsset.Progress;
         int idx = 0;
         foreach (var prop in stageObj.Properties()
@@ -411,7 +491,6 @@ public class FancySkillTree : MonoBehaviour
             idx++;
         }
 
-        /* 解锁下一阶段 */
         int nextStage = progressAsset.CurrentStage + 1;
         string nextKey = nextStage.ToString();
         if (!treeData.Properties().Any(p => p.Name == nextKey)) return;
@@ -426,17 +505,39 @@ public class FancySkillTree : MonoBehaviour
 #if UNITY_EDITOR
         EditorUtility.SetDirty(progressAsset);
 #endif
-        ShowStage(nextKey);
+
+        if (stageLabel.text.EndsWith($"阶段 {nextKey}"))
+            ShowStage(nextKey);
     }
 
-    /**************** 圆点刷新 ****************/
+    /**************** 圆点刷新 & 节点亮度 ****************/
+    /**************** 圆点刷新 & 节点亮度 ****************/
+    /**************** 圆点刷新 & 节点亮度 ****************/
     private void ApplySlotVisual(string key, List<VisualElement> slots)
     {
         int lvl = levelDict[key];
+
+        /* ---- 圆点贴图 ---- */
         for (int i = 0; i < slots.Count; i++)
             slots[i].style.backgroundImage =
                 new StyleBackground(i < lvl ? unlockedSlotSprite : lockedSlotSprite);
+
+        /* ---- 亮度判定 ---- */
+        int stageIdx  = int.Parse(key.Split('-')[0]);
+        int curStage  = progressAsset ? progressAsset.CurrentStage : 1;
+        bool unlocked = stageIdx < curStage || (stageIdx == curStage && lvl > 0);
+
+        float opacity = unlocked ? 1f : 0.05f;
+
+        if (viewDict.TryGetValue(key, out var sv))
+        {
+            sv.root.style.opacity = opacity;                  // 整个节点
+            var icon = sv.root.Q<VisualElement>("icon");
+            if (icon != null) icon.style.opacity = opacity;   // 单独 icon（保险）
+        }
     }
+
+
 
     /**************** 小工具 ****************/
     private static string Nicify(string raw) =>

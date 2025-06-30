@@ -1,4 +1,4 @@
-                        -HG:\ROL3K\Library\PramData\AndroidApplicationController\Cache\com.rol.threekingdoms\gradle-project\unityLibrary\src\main\cpp
+                        -HG:\ROL3K\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp
 -DCMAKE_SYSTEM_NAME=Android
 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 -DCMAKE_SYSTEM_VERSION=23
@@ -9,8 +9,8 @@
 -DCMAKE_ANDROID_NDK=G:\Unity\UnityVersion\6000.1.9f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK
 -DCMAKE_TOOLCHAIN_FILE=G:\Unity\UnityVersion\6000.1.9f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\build\cmake\android.toolchain.cmake
 -DCMAKE_MAKE_PROGRAM=G:\Unity\UnityVersion\6000.1.9f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\cmake\3.22.1\bin\ninja.exe
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=G:\ROL3K\Library\PramData\AndroidApplicationController\Cache\com.rol.threekingdoms\gradle-project\unityLibrary\build\intermediates\cxx\Debug\665x47fn\obj\arm64-v8a
--DCMAKE_RUNTIME_OUTPUT_DIRECTORY=G:\ROL3K\Library\PramData\AndroidApplicationController\Cache\com.rol.threekingdoms\gradle-project\unityLibrary\build\intermediates\cxx\Debug\665x47fn\obj\arm64-v8a
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=G:\ROL3K\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\Debug\665x47fn\obj\arm64-v8a
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=G:\ROL3K\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\Debug\665x47fn\obj\arm64-v8a
 -DCMAKE_BUILD_TYPE=Debug
 -DCMAKE_FIND_ROOT_PATH=G:\ROL3K\.utmp\Debug\665x47fn\prefab\arm64-v8a\prefab
 -BG:\ROL3K\.utmp\Debug\665x47fn\arm64-v8a

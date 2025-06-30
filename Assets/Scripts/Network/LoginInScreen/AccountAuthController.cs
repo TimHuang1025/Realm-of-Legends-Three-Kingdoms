@@ -43,12 +43,15 @@ public class AccountAuthController : MonoBehaviour
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
         api = GetComponent<AuthAPI>();
-        Button visitorBtn = root.Q<Button>("GuestLogo");
-        var visitorapi = GetComponent<VisitorLoginRequest>();
-        visitorBtn.clicked += visitorapi.SendVisitorPlay;
+        var visitorApi = GetComponent<VisitorLoginRequest>();
+        // 绑定所有带有 “visitorBtn” USS 类的按钮
+        foreach (var btn in root.Query<Button>(className: "visitorbtn").ToList())
+        {
+            btn.clicked += visitorApi.SendVisitorPlay;
+        }
 
         // 修改密码页面
-        var pwd1Field = root.Q<TextField>("NewPwd1");
+            var pwd1Field = root.Q<TextField>("NewPwd1");
         var pwd2Field = root.Q<TextField>("NewPwd2");
         var changePwdBtn = root.Q<Button>("ChangePwdBtn");
         changePwdBtn.clicked += () => OnClickChangePwd(pwd1Field, pwd2Field);

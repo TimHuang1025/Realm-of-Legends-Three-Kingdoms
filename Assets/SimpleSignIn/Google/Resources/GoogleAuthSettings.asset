@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: Default
   ClientIdGeneric: 897882335663-n16ph8pdk4ts907effrtnspjhetdi90m.apps.googleusercontent.com
-  CustomUriSchemeGeneric: com.rol.threekingdoms
+  CustomUriSchemeGeneric: com.realmoflegend.threekingdoms
   ClientIdWindows: 897882335663-n16ph8pdk4ts907effrtnspjhetdi90m.apps.googleusercontent.com
   ClientSecretWindows: 
-  CustomUriSchemeWindows: com.rol.threekingdoms
+  CustomUriSchemeWindows: com.realmoflegend.threekingdoms
   ClientIdWebGL: 897882335663-k8ki17p6mls48g7phi7ltgu05eu6qdk7.apps.googleusercontent.com
   ClientSecretWebGL: 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
   ClientIdDesktop: 897882335663-b4vgfha88d374pl6ehoeo3hbu56h1uld.apps.googleusercontent.com

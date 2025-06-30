@@ -1,7 +1,7 @@
 // Assets/Scripts/Game/UI/PlayerBaseController.cs
 using UnityEngine;
 using UnityEngine.UIElements;
-using UIExt;  // 你的 Bounce 扩展方法所在命名空间
+using UIExt;   // 你的 Bounce 扩展方法所在命名空间
 
 [RequireComponent(typeof(UIDocument))]
 public class PlayerBaseController : MonoBehaviour
@@ -9,37 +9,41 @@ public class PlayerBaseController : MonoBehaviour
     /*──────── Inspector 拖入 ────────*/
     [Header("主界面与地图")]
     [SerializeField] private GameObject mainUIPanel;
-    [SerializeField] private GameObject playerBaseMap;
+    [SerializeField] private GameObject playerBaseMap;          
 
     [Header("各功能页面")]
-    [SerializeField] private GameObject cardInventoryPage;
-    [SerializeField] private GameObject gachaPage;
-    [SerializeField] private GameObject armyControlPage;
-    [SerializeField] private GameObject playerCardUpgradePage;   // ★ 新增：主将府页面
+    [SerializeField] private GameObject cardInventoryPage;       // 卡牌仓库
+    [SerializeField] private GameObject gachaPage;               // 抽卡
+    [SerializeField] private GameObject armyControlPage;         // 军团指挥
+    [SerializeField] private GameObject playerCardUpgradePage;   // 主将府（升级主将卡）
+    [SerializeField] private GameObject playerTechTreePage;      // ★ 科技树页面
 
-    /*──────── 建筑按钮 ────────*/
+    /*──────── 建筑按钮引用 ────────*/
     private Button cardInventoryBtn;
     private Button armyControlBtn;
-    private Button playerCardUpgradeBtn;                         // ★ 新增：主将府按钮
+    private Button playerCardUpgradeBtn;
+    private Button playerTechTreeBtn;                            // ★ 科技树按钮
 
-    /*──────── 初始化 ────────*/
-    void Awake()
+    /*──────── 生命周期：初始化 ────────*/
+    private void Awake()
     {
-        // 默认只开主界面 + 地图
+        /* 仅打开主界面 & 地图，其余功能页隐藏 */
+        mainUIPanel.SetActive(true);
+        playerBaseMap.SetActive(true);
+
         cardInventoryPage.SetActive(false);
         gachaPage.SetActive(false);
         armyControlPage.SetActive(false);
-        playerCardUpgradePage.SetActive(false);   
-        mainUIPanel.SetActive(true);
-        playerBaseMap.SetActive(true);
+        playerCardUpgradePage.SetActive(false);
+        playerTechTreePage.SetActive(false);                     // ★
     }
 
-    /*──────── 注册按钮 ────────*/
-    void OnEnable()
+    /*──────── 生命周期：绑定按钮 ────────*/
+    private void OnEnable()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
 
-        // ——— 卡牌仓库 ———
+        /* —— 卡牌仓库 —— */
         cardInventoryBtn = root.Q<Button>("CardInventoryBuilding");
         if (cardInventoryBtn != null)
         {
@@ -48,7 +52,7 @@ public class PlayerBaseController : MonoBehaviour
         }
         else Debug.LogError("找不到 CardInventoryBuilding 按钮");
 
-        // ——— 军团指挥 ———
+        /* —— 军团指挥 —— */
         armyControlBtn = root.Q<Button>("ArmyControlBuilding");
         if (armyControlBtn != null)
         {
@@ -57,99 +61,113 @@ public class PlayerBaseController : MonoBehaviour
         }
         else Debug.LogError("找不到 ArmyControlBuilding 按钮");
 
-        // ——— 主将府（技能/等级升级）———
-        playerCardUpgradeBtn = root.Q<Button>("PlayerCardBuilding");   // ★ 新增
+        /* —— 主将府 —— */
+        playerCardUpgradeBtn = root.Q<Button>("PlayerCardBuilding");
         if (playerCardUpgradeBtn != null)
         {
             PrepareBuildingButton(playerCardUpgradeBtn);
             playerCardUpgradeBtn.clicked += ShowPlayerCardUpgradePage;
         }
         else Debug.LogError("找不到 PlayerCardBuilding 按钮");
+
+        /* —— 科技树 —— */
+        playerTechTreeBtn = root.Q<Button>("PlayerTechTreeBuilding");
+        if (playerTechTreeBtn != null)
+        {
+            PrepareBuildingButton(playerTechTreeBtn);
+            playerTechTreeBtn.clicked += ShowPlayerTechTreePage;
+        }
+        else Debug.LogError("找不到 PlayerTechTreeBuilding 按钮");
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
-        if (cardInventoryBtn      != null) cardInventoryBtn.clicked      -= ShowCardInventoryPage;
-        if (armyControlBtn        != null) armyControlBtn.clicked        -= ShowArmyControlPage;
-        if (playerCardUpgradeBtn  != null) playerCardUpgradeBtn.clicked  -= ShowPlayerCardUpgradePage; // ★ 新增
+        if (cardInventoryBtn     != null) cardInventoryBtn.clicked     -= ShowCardInventoryPage;
+        if (armyControlBtn       != null) armyControlBtn.clicked       -= ShowArmyControlPage;
+        if (playerCardUpgradeBtn != null) playerCardUpgradeBtn.clicked -= ShowPlayerCardUpgradePage;
+        if (playerTechTreeBtn    != null) playerTechTreeBtn.clicked    -= ShowPlayerTechTreePage;
     }
 
-    /*──────── 公用：给建筑按钮做统一设置 ────────*/
-    void PrepareBuildingButton(Button btn)
+    /*──────── 公共：统一按钮外观 & 动效 ────────*/
+    private void PrepareBuildingButton(Button btn)
     {
-        btn.pickingMode = PickingMode.Position;                         // 整块区域可点
-        btn.style.backgroundColor = new StyleColor(new Color(0,0,0,0)); // 透明背景，拦截点击
-        btn.Bounce(0.9f, 0.08f);                                        // 动效
+        btn.pickingMode            = PickingMode.Position;                     // 整块可点
+        btn.style.backgroundColor  = new StyleColor(new Color(0, 0, 0, 0));    // 透明覆盖
+        btn.Bounce(0.9f, 0.08f);                                               // UIExt 中的弹跳
     }
 
     /*──────── 页面切换逻辑 ────────*/
-    void ShowCardInventoryPage()
-    {
-        cardInventoryPage.SetActive(true);
-        gachaPage.SetActive(false);
-        armyControlPage.SetActive(false);
-        playerCardUpgradePage.SetActive(false);   // ★ 新增
-        mainUIPanel.SetActive(false);
-        playerBaseMap.SetActive(false);
-    }
+    #region Show / Hide helpers
 
+    /* —— 卡牌仓库 —— */
+    private void ShowCardInventoryPage()
+    {
+        TogglePages(cardInventory: true);
+    }
     public void HideCardInventoryPage()
     {
-        cardInventoryPage.SetActive(false);
-        mainUIPanel.SetActive(true);
-        playerBaseMap.SetActive(true);
+        BackToMain();
     }
 
+    /* —— 抽卡 —— */
     public void ShowGachaPage()
     {
-        gachaPage.SetActive(true);
-        cardInventoryPage.SetActive(false);
-        armyControlPage.SetActive(false);
-        playerCardUpgradePage.SetActive(false);   // ★ 新增
-        mainUIPanel.SetActive(false);
-        playerBaseMap.SetActive(false);
+        TogglePages(gacha: true);
     }
-
     public void HideGachaPage()
     {
-        gachaPage.SetActive(false);
-        // 返回哪里按需求，这里默认回主界面
-        mainUIPanel.SetActive(true);
-        playerBaseMap.SetActive(true);
+        BackToMain();
     }
 
+    /* —— 军团指挥 —— */
     public void ShowArmyControlPage()
     {
-        armyControlPage.SetActive(true);
-        cardInventoryPage.SetActive(false);
-        gachaPage.SetActive(false);
-        playerCardUpgradePage.SetActive(false);   // ★ 新增
-        mainUIPanel.SetActive(false);
-        playerBaseMap.SetActive(false);
+        TogglePages(armyControl: true);
     }
-
     public void HideArmyControlPage()
     {
-        armyControlPage.SetActive(false);
-        mainUIPanel.SetActive(true);
-        playerBaseMap.SetActive(true);
+        BackToMain();
     }
 
-    /*──────── 主将府页面 ────────*/
-    void ShowPlayerCardUpgradePage()               
+    /* —— 主将府 —— */
+    private void ShowPlayerCardUpgradePage()
     {
-        playerCardUpgradePage.SetActive(true);
-        cardInventoryPage.SetActive(false);
-        gachaPage.SetActive(false);
-        armyControlPage.SetActive(false);
-        mainUIPanel.SetActive(false);
-        playerBaseMap.SetActive(false);
+        TogglePages(cardUpgrade: true);
+    }
+    public void HidePlayerCardUpgradePage()
+    {
+        BackToMain();
     }
 
-    public void HidePlayerCardUpgradePage()        
+    /* —— 科技树 —— */
+    private void ShowPlayerTechTreePage()                                 // ★
     {
-        playerCardUpgradePage.SetActive(false);
-        mainUIPanel.SetActive(true);
-        playerBaseMap.SetActive(true);
+        TogglePages(techTree: true);
     }
+    public void HidePlayerTechTreePage()                                  // ★
+    {
+        BackToMain();
+    }
+
+    /* —— 通用切页开关 —— */
+    private void TogglePages(
+        bool cardInventory = false,
+        bool gacha         = false,
+        bool armyControl   = false,
+        bool cardUpgrade   = false,
+        bool techTree      = false)                                       // ★
+    {
+        cardInventoryPage.SetActive(cardInventory);
+        gachaPage.SetActive(gacha);
+        armyControlPage.SetActive(armyControl);
+        playerCardUpgradePage.SetActive(cardUpgrade);
+        playerTechTreePage.SetActive(techTree);                           // ★
+
+        bool isMain = !(cardInventory || gacha || armyControl || cardUpgrade || techTree);
+        mainUIPanel.SetActive(isMain);
+        playerBaseMap.SetActive(isMain);
+    }
+
+    private void BackToMain() => TogglePages();   // 全 false → 返回主界面
+    #endregion
 }

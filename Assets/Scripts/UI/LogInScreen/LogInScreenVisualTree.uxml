@@ -28,12 +28,12 @@
                                 <ui:Button text="忘记密码" name="ChangePasswordButton" parse-escape-sequences="false" class="clickableBlue" style="flex-shrink: 0; flex-grow: 0; align-self: center; white-space: pre; -unity-text-align: middle-center; font-size: 35px; width: 25%; left: 0%; right: -2%; color: rgb(160, 125, 46);" />
                             </ui:VisualElement>
                             <ui:VisualElement name="LogInMethodsContainer" style="flex-grow: 0; width: 100%; flex-shrink: 0; height: 18%; flex-direction: row; display: flex; justify-content: center; align-items: flex-end; align-self: center;">
-                                <ui:VisualElement name="AppleLogInContainer" style="flex-grow: 0; flex-shrink: 0; align-items: center; justify-content: center; width: 20%; display: flex;">
-                                    <ui:Button name="AppleLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/appleicon.png?fileID=2800000&amp;guid=49cc8934aea75a94ab5bca6ec14f8e78&amp;type=3#appleicon&quot;); background-size: 50% 50%; display: flex;" />
+                                <ui:VisualElement name="AppleLogInContainer" class="applecontainer" style="flex-grow: 0; flex-shrink: 0; align-items: center; justify-content: center; width: 20%; display: flex;">
+                                    <ui:Button name="AppleLogo" class="buttons border applebtn" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/appleicon.png?fileID=2800000&amp;guid=49cc8934aea75a94ab5bca6ec14f8e78&amp;type=3#appleicon&quot;); background-size: 50% 50%; display: flex;" />
                                     <ui:Label text="苹果" name="AppleText" class="englishText" />
                                 </ui:VisualElement>
                                 <ui:VisualElement name="GoogleLogInContainer" style="flex-grow: 0; align-items: center; justify-content: center; flex-shrink: 0; width: 20%;">
-                                    <ui:Button name="GoogleLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/googleicon.png?fileID=2800000&amp;guid=b885c4c4fa2599143abaf84e6ab5a1b2&amp;type=3#googleicon&quot;); background-size: 50% 50%;" />
+                                    <ui:Button name="GoogleLogo" class="buttons border googlebtn" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/googleicon.png?fileID=2800000&amp;guid=b885c4c4fa2599143abaf84e6ab5a1b2&amp;type=3#googleicon&quot;); background-size: 50% 50%;" />
                                     <ui:Label text="谷歌" name="GoogleText" class="englishText" />
                                 </ui:VisualElement>
                                 <ui:VisualElement name="EmailLogInContainer" style="flex-grow: 0; align-items: center; justify-content: center; flex-shrink: 0; width: 20%;">
@@ -45,7 +45,7 @@
                                     <ui:Label text="Account" name="AccountText" class="englishText" />
                                 </ui:VisualElement>
                                 <ui:VisualElement name="GuestlogInContainer" style="flex-grow: 0; align-items: center; justify-content: center; flex-shrink: 0; width: 20%;">
-                                    <ui:Button name="GuestLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/accounticon.png?fileID=2800000&amp;guid=0d52499bda7013644b2044619010c05d&amp;type=3#accounticon&quot;); background-size: 50% 50%;" />
+                                    <ui:Button name="GuestLogo" class="buttons border visitorbtn" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/accounticon.png?fileID=2800000&amp;guid=0d52499bda7013644b2044619010c05d&amp;type=3#accounticon&quot;); background-size: 50% 50%;" />
                                     <ui:Label text="游客" name="GuestText" class="englishText" />
                                 </ui:VisualElement>
                             </ui:VisualElement>
@@ -146,12 +146,12 @@
                             </ui:VisualElement>
                             <ui:VisualElement style="flex-grow: 0; height: 10%; flex-shrink: 0;" />
                             <ui:VisualElement name="LogInMethodsContainer" style="flex-grow: 0; width: 100%; flex-shrink: 0; height: 18%; flex-direction: row; display: flex; justify-content: center; align-items: flex-end; align-self: center;">
-                                <ui:VisualElement name="AppleLogInContainer" style="flex-grow: 0; flex-shrink: 0; align-items: center; justify-content: center; width: 20%; display: flex;">
-                                    <ui:Button name="AppleLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/appleicon.png?fileID=2800000&amp;guid=49cc8934aea75a94ab5bca6ec14f8e78&amp;type=3#appleicon&quot;); background-size: 50% 50%; display: flex;" />
+                                <ui:VisualElement name="AppleLogInContainer" class="applecontainer" style="flex-grow: 0; flex-shrink: 0; align-items: center; justify-content: center; width: 20%; display: flex;">
+                                    <ui:Button name="AppleLogo" class="buttons border applebtn" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/appleicon.png?fileID=2800000&amp;guid=49cc8934aea75a94ab5bca6ec14f8e78&amp;type=3#appleicon&quot;); background-size: 50% 50%; display: flex;" />
                                     <ui:Label text="苹果" name="AppleText" class="englishText" />
                                 </ui:VisualElement>
                                 <ui:VisualElement name="GoogleLogInContainer" style="flex-grow: 0; align-items: center; justify-content: center; flex-shrink: 0; width: 20%;">
-                                    <ui:Button name="GoogleLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/googleicon.png?fileID=2800000&amp;guid=b885c4c4fa2599143abaf84e6ab5a1b2&amp;type=3#googleicon&quot;); background-size: 50% 50%;" />
+                                    <ui:Button name="GoogleLogo" class="buttons border googlebtn" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/googleicon.png?fileID=2800000&amp;guid=b885c4c4fa2599143abaf84e6ab5a1b2&amp;type=3#googleicon&quot;); background-size: 50% 50%;" />
                                     <ui:Label text="谷歌" name="GoogleText" class="englishText" />
                                 </ui:VisualElement>
                                 <ui:VisualElement name="EmailLogInContainer" style="flex-grow: 0; align-items: center; justify-content: center; flex-shrink: 0; width: 20%; display: none;">
@@ -163,7 +163,7 @@
                                     <ui:Label text="账号" name="AccountText" class="englishText" />
                                 </ui:VisualElement>
                                 <ui:VisualElement name="GuestlogInContainer" style="flex-grow: 0; align-items: center; justify-content: center; flex-shrink: 0; width: 20%;">
-                                    <ui:Button name="GuestLogo" class="buttons border" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/accounticon.png?fileID=2800000&amp;guid=0d52499bda7013644b2044619010c05d&amp;type=3#accounticon&quot;); background-size: 50% 50%;" />
+                                    <ui:Button name="GuestLogo" class="buttons border visitorbtn" style="background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/accounticon.png?fileID=2800000&amp;guid=0d52499bda7013644b2044619010c05d&amp;type=3#accounticon&quot;); background-size: 50% 50%;" />
                                     <ui:Label text="游客" name="GuestText" class="englishText" />
                                 </ui:VisualElement>
                             </ui:VisualElement>

@@ -140,3 +140,15 @@
     background-image: url("project://database/Assets/Assets/UI/LoginPage/return.png?fileID=2800000&guid=9847a310af4e8df4089d8f813f7d979a&type=3#return");
     -unity-background-scale-mode: stretch-to-fill;
 }
+
+.visitorbtn {
+}
+
+.googlebtn {
+}
+
+.applebtn {
+}
+
+.applecontainer {
+}

@@ -52,7 +52,7 @@ public class LoginUIManager : MonoBehaviour
 
         /* ---- 顶栏按钮 ---- */
         root.Q<Button>("EmailLogo")?.RegisterCallback<ClickEvent>(_ => ShowEmail());
-        root.Q<Button>(className: "accountbtn")?.RegisterCallback<ClickEvent>(_ => ShowAccount());
+        root.Query<Button>(className: "accountbtn").ForEach(b => b.RegisterCallback<ClickEvent>(_ => ShowAccount()));
 
         /* ---- Account 内部按钮 ---- */
         root.Q<Button>("RegisterButton")?.RegisterCallback<ClickEvent>(_ => ShowRegister());
@@ -149,6 +149,7 @@ public class LoginUIManager : MonoBehaviour
 
     private void ShowAccount()
     {
+        Debug.Log("ShowAccount called");
         pagesRoot.Show();
         accountPage.Show();
         emailPage.Hide();

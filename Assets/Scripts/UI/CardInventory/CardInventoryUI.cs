@@ -7,6 +7,7 @@ using Game.Data;
 using Game.Utils;
 using System.Collections.Generic;
 
+
 [RequireComponent(typeof(UIDocument))]
 public class CardInventoryUI : MonoBehaviour
 {
