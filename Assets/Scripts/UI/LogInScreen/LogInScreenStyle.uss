@@ -12,17 +12,17 @@
     height: auto;
     flex: 0 0 auto;
     align-self: center;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(246, 242, 230);
     background-size: 50% 50%;
     -unity-background-scale-mode: scale-and-crop;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
+    border-top-left-radius: 31px;
+    border-top-right-radius: 31px;
+    border-bottom-right-radius: 31px;
+    border-bottom-left-radius: 31px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
     border-left-color: rgb(117, 117, 117);
     border-right-color: rgb(117, 117, 117);
     border-top-color: rgb(117, 117, 117);
@@ -30,20 +30,22 @@
 }
 
 .englishText {
-    -unity-font-definition: url("project://database/Assets/Assets/UI/%E8%8B%B1%E6%96%87font_Balthazar-Regular.ttf?fileID=12800000&guid=5456734120a941b4294accb9f414a7e6&type=3#英文font_Balthazar-Regular");
+    -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
     font-size: 20px;
-    color: rgb(255, 255, 255);
+    color: rgb(160, 125, 46);
 }
 
 .return-btn {
     align-self: flex-start;
+    background-image: url("project://database/Assets/Assets/UI/LoginPage/return.png?fileID=2800000&guid=9847a310af4e8df4089d8f813f7d979a&type=3#return");
+    -unity-background-scale-mode: stretch-to-fill;
 }
 
 .clickableBlue {
     background-color: rgba(0, 0, 0, 0);
     font-size: 35px;
     -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
-    color: rgb(101, 179, 247);
+    color: rgb(160, 125, 46);
     -unity-font-style: normal;
     border-left-color: rgba(255, 0, 0, 0);
     border-right-color: rgba(255, 0, 0, 0);
@@ -55,7 +57,7 @@
     background-color: rgba(0, 0, 0, 0);
     font-size: 45px;
     -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
-    color: rgb(0, 0, 0);
+    color: rgb(108, 68, 41);
     -unity-font-style: normal;
     -unity-text-align: upper-left;
     border-top-width: 0;
@@ -70,6 +72,10 @@
 }
 
 .pwd-input {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
 }
 
 .account-input {
@@ -107,7 +113,30 @@
 }
 
 .bar {
+    background-image: url("project://database/Assets/Assets/UI/LoginPage/%E8%BE%93%E5%85%A5%E8%B4%A6%E5%8F%B7%E6%A1%86.png?fileID=2800000&guid=89347ec870f45564993d1f4dfee9d496&type=3#输入账号框");
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    align-self: center;
+    width: 100%;
+    height: 45%;
 }
 
 .brownbutton {
+}
+
+.title {
+    -unity-font-definition: url("project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&guid=bd77ce5c718bc0e47b01c5156d0863d8&type=3#中文font_dingliesongketi");
+    font-size: 45px;
+    color: rgb(251, 231, 178);
+}
+
+.accountbtn {
+}
+
+.returntomain-btn {
+    align-self: flex-start;
+    background-image: url("project://database/Assets/Assets/UI/LoginPage/return.png?fileID=2800000&guid=9847a310af4e8df4089d8f813f7d979a&type=3#return");
+    -unity-background-scale-mode: stretch-to-fill;
 }

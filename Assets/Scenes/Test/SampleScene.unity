@@ -289,6 +289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   progressAsset: {fileID: 11400000, guid: 3d63d9c6884cac9449eb3eeac3bf72d8, type: 2}
   jsonFile: {fileID: 4900000, guid: 9d3c195ed3ac4cf46b704b5a82accb00, type: 3}
+  playerResources: {fileID: 11400000, guid: 1943a33e61094274a885ea4b70a0c077, type: 2}
   nodeTemplate: {fileID: 9197481963319205126, guid: 4265b19c66cd5a249a5e8edd661357da, type: 3}
   lockedSlotSprite: {fileID: 6156169275291022604, guid: 29feff93d2df704448753a7c261fc70a, type: 3}
   unlockedSlotSprite: {fileID: -2601226363218445542, guid: e7b57381dcd6d124dbfe803332942b66, type: 3}

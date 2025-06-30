@@ -1,180 +1,211 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.Linq;
 
-/// <summary>
-/// 专管登录场景 UI 的顶层管理器：
-/// 1. 顶栏按钮 → 切外层 Page
-/// 2. AccountPage 内部再切 Login / Register 子面板
-/// </summary>
 [RequireComponent(typeof(UIDocument))]
+[RequireComponent(typeof(AudioSource))]
 public class LoginUIManager : MonoBehaviour
 {
     public static LoginUIManager I;
-    readonly Stack<System.Action> navStack = new();   // 返回栈
-    /* ---------- 外层 UI ------------- */
-    VisualElement selectorBar;                 // #LogInSelectorContainer
-    VisualElement pagesRoot;                   // #Page
 
-    /* ---------- Page 容器 ------------ */
-    VisualElement emailPage;
-    VisualElement accountPage;
+    /* ====== 可调动画参数 ====== */
+    [Header("FX Settings")]
+    [SerializeField] private AudioClip clickSfx;        // 首次点击音效
+    [SerializeField] private float    fadeDelay = 1f;   // 点击后等待多久开始动画
+    [SerializeField] private float    coverFadeTime     = 0.6f;  // 封面淡出时长
+    [SerializeField] private float    containerFadeTime = 1.2f;  // 主界面淡入时长
+    [Range(0, 1)]     public  float  darkenAlpha = .6f;          // Container 最终叠加不透明度
+    [SerializeField]  private Color  darkenColor = Color.black;
 
-    VisualElement accountPagePanel;
+    /* ====== 返回栈 ====== */
+    private readonly Stack<System.Action> navStack = new();
 
-    /* ---------- 子面板 (Account) ----- */
-    VisualElement loginPanel;                  // #LoginPanel
-    VisualElement registerPanel;               // #RegisterPanel
-    VisualElement accountChangePwPanel;        // #AccountChangePwPanel
-    VisualElement AccChangePw;                 // #AccChangePw
-    VisualElement AccEmailVerifyPanel;         // #AccEmailVerifyPanel
+    /* ====== 节点缓存 ====== */
+    private VisualElement root, startScreen, pagesRoot, container;
+    private VisualElement emailPage, accountPage, accountPagePanel;
+    private VisualElement loginPanel, registerPanel, accountChangePwPanel;
+    private VisualElement accChangePw, accEmailVerifyPanel;
 
-    /* ---------- 映射  ----------------- */
-    readonly Dictionary<Button, VisualElement> pageOf = new();
+    private AudioSource audioSrc;
+    private bool hasEntered;
 
-    void OnEnable()
+    /* ───────────────── 生命周期 ───────────────── */
+    private void OnEnable()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        I = this;
+        root     = GetComponent<UIDocument>().rootVisualElement;
+        I        = this;
+        audioSrc = GetComponent<AudioSource>();
 
-        // Google / Apple 登录按钮 ----------------------
-        var appleBtn  = root.Q<VisualElement>("AppleLogInContainer");
-        var googleBtn = root.Q<VisualElement>("GoogleLogInContainer");
-        if (PlatformDetector.IsAndroid)
-        {
-            appleBtn.style.display = DisplayStyle.None;
-            googleBtn.style.display = DisplayStyle.Flex;
-        }
-
-        // 抓核心节点 -------------------------------------------------
-        selectorBar = root.Q<VisualElement>("LogInSelectorContainer");
-        pagesRoot = root.Q<VisualElement>("Page");
-
-        emailPage = root.Q<VisualElement>("EmailPageContainer");
-        accountPage = root.Q<VisualElement>("AccountPageContainer");
-        accountPagePanel = root.Q<VisualElement>("AccountPagePanel");
+        /* ---- 抓节点 ---- */
+        startScreen          = root.Q<VisualElement>("StartScreen");
+        pagesRoot            = root.Q<VisualElement>("Page");
+        container            = root.Q<VisualElement>("Container");      // 需要变暗的容器
+        emailPage            = root.Q<VisualElement>("EmailPageContainer");
+        accountPage          = root.Q<VisualElement>("AccountPageContainer");
+        accountPagePanel     = root.Q<VisualElement>("AccountPagePanel");
         accountChangePwPanel = root.Q<VisualElement>("AccountChangePwPanel");
+        loginPanel           = root.Q<VisualElement>("AccountLoginPanel");
+        registerPanel        = root.Q<VisualElement>("RegisterPanel");
+        accChangePw          = root.Q<VisualElement>("AccChangePw");
+        accEmailVerifyPanel  = root.Q<VisualElement>("AccEmailVerifyPanel");
 
+        /* ---- 顶栏按钮 ---- */
+        root.Q<Button>("EmailLogo")?.RegisterCallback<ClickEvent>(_ => ShowEmail());
+        root.Q<Button>(className: "accountbtn")?.RegisterCallback<ClickEvent>(_ => ShowAccount());
 
-        loginPanel = root.Q<VisualElement>("AccountLoginPanel");
-        registerPanel = root.Q<VisualElement>("RegisterPanel");
+        /* ---- Account 内部按钮 ---- */
+        root.Q<Button>("RegisterButton")?.RegisterCallback<ClickEvent>(_ => ShowRegister());
+        root.Q<Button>("GoLoginBtn")?.RegisterCallback<ClickEvent>(_ => ShowLogin());
+        root.Q<Button>("ChangePasswordButton")?.RegisterCallback<ClickEvent>(_ => ShowAccVerify());
 
-        // 顶栏按钮 -------------------------------------------------
-        Button emailBtn = root.Q<Button>("EmailLogo");
-        Button accountBtn = root.Q<Button>("AccountLogo");
+        /* ---- 返回 / 回封面按钮 ---- */
+        root.Query<Button>(className: "return-btn").ForEach(b => b.clicked += GoBack);
+        root.Query<Button>(className: "returntomain-btn").ForEach(b => b.clicked += ResetToCover);
 
-        AccChangePw = root.Q<VisualElement>("AccChangePw");
-        AccEmailVerifyPanel = root.Q<VisualElement>("AccEmailVerifyPanel");
+        /* ---- 初始只显示封面 ---- */
+        ResetToCover();
+        root.RegisterCallback<PointerDownEvent>(OnFirstClick);
+    }
 
-        pageOf[emailBtn] = emailPage;
-        pageOf[accountBtn] = accountPage;
+    /* ───────── 首次点击 ───────── */
+    private void OnFirstClick(PointerDownEvent _)
+    {
+        if (hasEntered) return;
+        hasEntered = true;
 
-        foreach (var kv in pageOf)
+        if (clickSfx) audioSrc.PlayOneShot(clickSfx);
+        StartCoroutine(EnterSequence());
+    }
+
+    /* 封面 → 主界面 两段动画协程 */
+    private IEnumerator EnterSequence()
+    {
+        /* 1) 等待 delay */
+        yield return new WaitForSeconds(fadeDelay);
+
+        /* 2) 封面淡出 */
+        float t = 0;
+        while (t < coverFadeTime)
         {
-            var btn = kv.Key;                       // 复制避免闭包 bug
-            btn.clicked += () => ShowPage(btn);
+            t += Time.deltaTime;
+            startScreen.style.opacity = 1 - t / coverFadeTime;
+            yield return null;
         }
+        startScreen.Hide();
+        startScreen.style.opacity = 1;
 
-        // Account 内部子面板按钮 -------------------------------
-        Button gotoRegisterBtn = root.Q<Button>("RegisterButton");
-        Button gotoLoginBtn = root.Q<Button>("GoLoginBtn");
-        Button gotoVerifyBtn = root.Q<Button>("ChangePasswordButton");
+        /* 3) 主界面淡入 & Container 变暗 */
+        pagesRoot.Show();
+        pagesRoot.style.opacity = 0;
+        container.style.backgroundColor =
+            new Color(darkenColor.r, darkenColor.g, darkenColor.b, 0);
 
-        if (gotoRegisterBtn != null) gotoRegisterBtn.clicked += ShowRegister;
-        if (gotoLoginBtn != null) gotoLoginBtn.clicked += ShowLogin;
-        if (gotoVerifyBtn != null) gotoVerifyBtn.clicked += ShowAccVerify;
+        ShowAccount();   // 默认展开 Login
 
-        // Return 按钮 （class="return-btn"）
-        root.Query<Button>(className: "return-btn")
-            .ForEach(b => b.clicked += GoBack);
-
-        // 启动：只显示顶栏
-        pagesRoot.style.display = DisplayStyle.None;
+        t = 0;
+        while (t < containerFadeTime)
+        {
+            t += Time.deltaTime;
+            float k = t / containerFadeTime;
+            pagesRoot.style.opacity = k;
+            container.style.backgroundColor =
+                new Color(darkenColor.r, darkenColor.g, darkenColor.b, k * darkenAlpha);
+            yield return null;
+        }
+        pagesRoot.style.opacity = 1;
+        container.style.backgroundColor =
+            new Color(darkenColor.r, darkenColor.g, darkenColor.b, darkenAlpha);
     }
 
-    /* ============== 顶栏导航 ============== */
-
-    void ShowPage(Button btn)
+    /* ───────── 封面重置 ───────── */
+    private void ResetToCover()
     {
-        navStack.Push(ShowTopBar); // 先压入栈上一页
-        // 隐顶栏，显外层 Page 父容器
-        selectorBar.style.display = DisplayStyle.None;
-        pagesRoot.style.display = DisplayStyle.Flex;
+        StopAllCoroutines();
+        hasEntered = false;
+        navStack.Clear();
 
-        // 隐全部 Page，再显目标 Page
-        foreach (var p in pageOf.Values) p.style.display = DisplayStyle.None;
-        pageOf[btn].style.display = DisplayStyle.Flex;
-
-        // 若是 AccountPage，默认展示 LoginPanel
-        if (btn.name == "AccountLogo")
-            ShowLogin();
-    }
-
-    void ShowTopBar()
-    {
+        pagesRoot.Hide();
+        emailPage.Hide();
+        accountPage.Hide();
         HideAccSubPanel();
-        selectorBar.style.display = DisplayStyle.Flex;
-        pagesRoot.style.display = DisplayStyle.None;
+        pagesRoot.style.opacity = 1;
+
+        container.style.backgroundColor =
+            new Color(darkenColor.r, darkenColor.g, darkenColor.b, 0);
+
+        startScreen.Show();
+        startScreen.style.opacity = 1;
     }
 
-    /* ============== Account 内部子面板 ============== */
-
-    void ShowLogin()
+    /* ───────── 顶栏切换 ───────── */
+    private void ShowEmail()
     {
-        navStack.Push(ShowTopBar);
+        navStack.Push(ShowLogin);
+        pagesRoot.Show();
+        emailPage.Show();
+        accountPage.Hide();
+    }
+
+    private void ShowAccount()
+    {
+        pagesRoot.Show();
+        accountPage.Show();
+        emailPage.Hide();
+        ShowLogin();
+    }
+
+    /* ───────── Account 子面板 ───────── */
+    private void ShowLogin()
+    {
+        emailPage.Hide();
+        accountPage.Show();
         HideAccSubPanel();
-        accountPagePanel.style.display = DisplayStyle.Flex;
-        loginPanel.style.display = DisplayStyle.Flex;
-        registerPanel.style.display = DisplayStyle.None;
+        accountPagePanel.Show();
+        loginPanel.Show();
     }
-
-    void ShowRegister()
+    private void ShowRegister()
     {
-        navStack.Push(ShowLogin);            // 返回注册页上一层 = Login
+        navStack.Push(ShowLogin);
         HideAccSubPanel();
-        loginPanel.style.display = DisplayStyle.None;
-        registerPanel.style.display = DisplayStyle.Flex;
+        registerPanel.Show();
     }
-
-    void ShowAccVerify()
+    private void ShowAccVerify()
     {
-        navStack.Push(ShowLogin); 
+        navStack.Push(ShowLogin);
         HideAccSubPanel();
-        registerPanel.style.display = DisplayStyle.None;
-        loginPanel.style.display = DisplayStyle.None;
-        AccChangePw.style.display = DisplayStyle.None;
-        accountChangePwPanel.style.display = DisplayStyle.Flex;
-        AccEmailVerifyPanel.style.display = DisplayStyle.Flex;
+        accountChangePwPanel.Show();
+        accEmailVerifyPanel.Show();
     }
-
-    void HideAccSubPanel()
-    {
-        accountChangePwPanel.style.display = DisplayStyle.None;
-        registerPanel.style.display = DisplayStyle.None;
-        loginPanel.style.display = DisplayStyle.None;
-    }
-
     public void ToChangePwPanel()
     {
         navStack.Push(ShowAccVerify);
         HideAccSubPanel();
-        Debug.Log("触发修改密码Panel");
-        accountChangePwPanel.style.display = DisplayStyle.Flex;
-        AccEmailVerifyPanel.style.display = DisplayStyle.None;
-        AccChangePw.style.display = DisplayStyle.Flex;
+        accountChangePwPanel.Show();
+        accChangePw.Show();
     }
-    void GoBack()
+    private void HideAccSubPanel()
+    {
+        accountChangePwPanel.Hide();
+        registerPanel.Hide();
+        loginPanel.Hide();
+        accEmailVerifyPanel.Hide();
+        accChangePw.Hide();
+    }
+
+    /* ───────── 返回 ───────── */
+    private void GoBack()
     {
         if (navStack.Count > 0)
-        {
-            var back = navStack.Pop();
-            back?.Invoke();
-        }
+            navStack.Pop()?.Invoke();
         else
-        {
-            // 栈空 ⇒ 回到顶栏
-            ShowTopBar();
-        }
+            ShowLogin();
     }
+}
+
+/* ───────── Show / Hide 扩展 ───────── */
+static class VisualElementEx
+{
+    public static void Show(this VisualElement ve) => ve.style.display = DisplayStyle.Flex;
+    public static void Hide(this VisualElement ve) => ve.style.display = DisplayStyle.None;
 }

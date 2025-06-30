@@ -82,6 +82,7 @@ public sealed class BonusData
     public float mining_speed;
     public float all_army_attack_bonus;
     public float damage_taken_reduction;
+    public float soldier_damage_bonus;
     public float captain_damage_bonus;
     public float cavalry_flatland_damage_bonus;
     public float ranged_forest_damage_bonus;
@@ -115,6 +116,7 @@ public sealed class BonusData
         mining_speed                       = d["mining_speed"];
         all_army_attack_bonus              = d["all_army_attack_bonus"];
         damage_taken_reduction             = d["damage_taken_reduction"];
+        soldier_damage_bonus               = d["soldier_damage_bonus"];
         captain_damage_bonus               = d["captain_damage_bonus"];
         cavalry_flatland_damage_bonus      = d["cavalry_flatland_damage_bonus"];
         ranged_forest_damage_bonus         = d["ranged_forest_damage_bonus"];

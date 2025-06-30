@@ -1,54 +1,58 @@
 /******************************************************
- * TechTreeCalculator.cs
- *  ─────────────────────────────────────────
- *  用途：根据服务器下发
- *        { "current_stage": n, "progress": "abc..." }
- *        计算玩家的所有 player_tech_bonus。
- *
- *  方案 B：优先使用 Inspector 拖入的 TextAsset，
- *          若为空则退回读取 StreamingAssets/techtree.json
+ * TechTreeCalculator.cs – 2025-06-30
+ * ----------------------------------------------------
+ * 功能：根据当前阶段 & 进度字符串计算所有科技加成。
+ * 关键改动：
+ *   1. 任何数组访问前都核对下标，避免越界。
+ *   2. 支持通过 Inspector 注入 TextAsset，也可回退
+ *      StreamingAssets/techtree.json。
  *****************************************************/
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using UnityEngine;
 using Newtonsoft.Json.Linq;
+using UnityEngine;
 
 public static class TechTreeCalculator
 {
-    /*──────── 通过 Inspector 注入 ────────*/
-    public static TextAsset JsonFile;   // ← FancySkillTree 在 OnEnable 里赋值
+    /*──────── 可在 Inspector 中拖入 ────────*/
+    public static TextAsset JsonFile;
 
-    /*──────── 公共调用入口 ────────*/
+    /*──────── 公共接口 ────────*/
+    /// <summary>
+    /// 计算 currentStage（含）以内的所有加成。
+    /// progress 形如 "0120"（第 n 位 = 第 n 项当前等级）。
+    /// </summary>
     public static Dictionary<string, float> Calc(int currentStage, string progress)
     {
         if (_tree == null) LoadTree();
 
-        // 初始化结果字典
-        var result = new Dictionary<string, float>();
-        foreach (string key in AllStatKeys) result[key] = 0f;
+        // 初始化结果
+        var result = AllStatKeys.ToDictionary(k => k, _ => 0f);
 
-        // 累加各阶段
         for (int stage = 1; stage <= currentStage; stage++)
         {
             if (!_tree.TryGetValue(stage, out var items)) continue;
 
-            bool isCurrent = stage == currentStage;
-            int  idx       = 0;                              // progress 位序
+            bool isCurrentStage = stage == currentStage;
+            int  progIdx        = 0;
 
             foreach (var kv in items.OrderBy(k => k.Key))
             {
-                var item     = kv.Value;
-                string stat  = item.StatName;
-                int maxLevel = item.MaxLevel;
+                var item      = kv.Value;
+                int maxLvl    = item.MaxLevel;
+                int levelChar = isCurrentStage ? CharLevel(progress, progIdx) : maxLvl;
 
-                int level = isCurrent ? CharLevel(progress, idx) : maxLevel;
+                // 保险起见再和数据长度比一次
+                int safeLevel = Mathf.Clamp(levelChar, 0,
+                                            Math.Min(maxLvl, item.Values.Length));
 
-                if (level > 0 && level <= maxLevel)
-                    result[stat] += item.Values[level - 1]; // 取“本级数值”
+                if (safeLevel > 0)
+                    result[item.StatName] += item.Values[safeLevel - 1];
 
-                idx++;
+                progIdx++;
             }
         }
         return result;
@@ -68,7 +72,7 @@ public static class TechTreeCalculator
     static readonly string[] AllStatKeys =
     {
         "recruit_speed","money_speed","food_speed","mining_speed",
-        "all_army_attack_bonus","damage_taken_reduction","captain_damage_bonus",
+        "all_army_attack_bonus","damage_taken_reduction","soldier_damage_bonus","captain_damage_bonus",
         "cavalry_flatland_damage_bonus","ranged_forest_damage_bonus",
         "infantry_hill_damage_bonus","attack_clan_building_damage_bonus",
         "attack_map_building_damage_bonus","attack_player_camp_damage_bonus",
@@ -85,22 +89,17 @@ public static class TechTreeCalculator
     /*──────── JSON 解析 ────────*/
     static void LoadTree()
     {
-        string json = null;
+        string json;
 
-        // A) 优先使用 Inspector 拖进来的 TextAsset
-        if (JsonFile != null)
-        {
+        if (JsonFile != null)                          // A) Inspector 注入
             json = JsonFile.text;
-        }
-        else
+        else                                           // B) StreamingAssets
         {
-            // B) 退回 StreamingAssets
-            string path = Path.Combine(Application.streamingAssetsPath, "techtree.json");
+            var path = Path.Combine(Application.streamingAssetsPath, "techtree.json");
 #if UNITY_ANDROID && !UNITY_EDITOR
-            // Android 下需要用 UnityWebRequest
             var req = UnityEngine.Networking.UnityWebRequest.Get(path);
             req.SendWebRequest();
-            while (!req.isDone) { }
+            while (!req.isDone) {}
             json = req.downloadHandler.text;
 #else
             json = File.ReadAllText(path);
@@ -108,7 +107,7 @@ public static class TechTreeCalculator
         }
 
         if (string.IsNullOrEmpty(json))
-            throw new FileNotFoundException("无法加载 techtree.json：既未拖入 TextAsset，也未在 StreamingAssets 找到。");
+            throw new FileNotFoundException("未能加载 techtree.json。");
 
         JObject root = JObject.Parse(json);
         _tree = new Dictionary<int, Dictionary<int, TechItem>>();
@@ -117,36 +116,31 @@ public static class TechTreeCalculator
         {
             if (!int.TryParse(stageProp.Name, out int stageNum)) continue;
 
-            var itemMap = new Dictionary<int, TechItem>();
-            JObject stageObj = (JObject)stageProp.Value;
+            var itemMap  = new Dictionary<int, TechItem>();
+            JObject obj  = (JObject)stageProp.Value;
 
-            foreach (var itemProp in stageObj.Properties())
+            foreach (var itemProp in obj.Properties())
             {
                 if (!int.TryParse(itemProp.Name, out int itemNum)) continue;
 
-                JArray arr = (JArray)itemProp.Value; // [statName, max, [costs], [values]]
+                // [statName, maxLvl, [costs], [values]]
+                JArray arr = (JArray)itemProp.Value;
                 if (arr.Count < 4) continue;
 
-                string statName = arr[0].ToString();
-                int maxLvl      = arr[1].ToObject<int>();
-                float[] values  = arr[3].ToObject<float[]>();
-
-                itemMap[itemNum] = new TechItem
+                var tech = new TechItem
                 {
-                    StatName = statName,
-                    MaxLevel = maxLvl,
-                    Values   = values
+                    StatName = arr[0].ToString(),
+                    MaxLevel = arr[1].ToObject<int>(),
+                    Values   = arr[3].ToObject<float[]>()
                 };
+                itemMap[itemNum] = tech;
             }
             _tree[stageNum] = itemMap;
         }
     }
 
-    /*──────── 工具函数 ────────*/
-    static int CharLevel(string progress, int index)
-    {
-        if (index < 0 || index >= progress.Length) return 0;
-        char c = progress[index];
-        return (c >= '0' && c <= '9') ? c - '0' : 0;
-    }
+    /*──────── 小工具 ────────*/
+    static int CharLevel(string progress, int index) =>
+        (index >= 0 && index < progress?.Length)
+        && char.IsDigit(progress[index]) ? progress[index] - '0' : 0;
 }

@@ -15,11 +15,13 @@ MonoBehaviour:
   rules:
   - queryType: 0
     queryValue: Logo
-    widthVh: 35
-    heightVh: 35
+    widthVh: 70
+    heightVh: 45
     fontVh: 0
     applyScale: 1
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 0
     queryValue: LogInSelectorContainer
     widthVh: 110
@@ -27,13 +29,17 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: buttons
-    widthVh: 10
-    heightVh: 10
+    widthVh: 9
+    heightVh: 9
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 0
     queryValue: LogInText
     widthVh: 0
@@ -41,6 +47,8 @@ MonoBehaviour:
     fontVh: 4
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: englishText
     widthVh: 0
@@ -48,6 +56,8 @@ MonoBehaviour:
     fontVh: 2.5
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: bar
     widthVh: 70
@@ -55,6 +65,8 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: pagepanel
     widthVh: 110
@@ -62,6 +74,8 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 0
     queryValue: AcceptHintPanel
     widthVh: 70
@@ -69,13 +83,8 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
-  - queryType: 0
-    queryValue: RegisterOptionPanel
-    widthVh: 70
-    heightVh: 0
-    fontVh: 0
-    applyScale: 0
-    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 0
     queryValue: accsubpanel
     widthVh: 70
@@ -83,6 +92,17 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: AccountPagePanel
+    widthVh: 110
+    heightVh: 100
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
   - queryType: 1
     queryValue: toast
     widthVh: 70
@@ -90,3 +110,32 @@ MonoBehaviour:
     fontVh: 0
     applyScale: 0
     aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 0
+    queryValue: RegisterOptionPanel
+    widthVh: 75
+    heightVh: 0
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: return-btn
+    widthVh: 10
+    heightVh: 10
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
+  - queryType: 1
+    queryValue: returntomain-btn
+    widthVh: 10
+    heightVh: 10
+    fontVh: 0
+    applyScale: 0
+    aspectWidth: 0
+    addWidthVw: 0
+    widthVw: 0
