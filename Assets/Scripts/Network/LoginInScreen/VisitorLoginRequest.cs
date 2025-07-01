@@ -26,9 +26,9 @@ public class VisitorLoginRequest : MonoBehaviour
                 // 1) 解析服务器返回
                 var data = JsonUtility.FromJson<ServerResp>(json);
                 PlayerData.I.SetSession(
-                    data.uuid,
+                    data.uid,
                     data.user_token,
-                    data.cuid,
+                    data.cid,
                     data.character_token,
                     data.server_id,
                     data.server_ip_address,

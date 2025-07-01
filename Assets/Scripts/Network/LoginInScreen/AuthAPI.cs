@@ -8,7 +8,7 @@ using System.Security.Cryptography;   // AES / SHA-256 / RSA
 public class AuthAPI : MonoBehaviour
 {
     /*──────── 常量 ────────*/
-    const string host    = "http://login.threekingdom.realmoflegend.com:8000";
+    const string host = "http://login.threekingdom.realmoflegend.com:8000";
     const string AES_KEY = "ROLTKROLTKROLTK1";           // 固定 16 bytes
 
     /*——— RSA 公钥（两种形式，任选其一） ———*/
@@ -38,27 +38,62 @@ mwIDAQAB
     [Serializable]
     class ApiResp
     {
-        public int    code;
+        public int code;
         public string message;
     }
 
     public struct ServerResp
     {
-        public int    code;
+        public int code;
         public string message;
 
         // 角色
-        public string uuid;
+        public string uid;
         public string user_token;
-        public string cuid;
+        public string cid;
         public string character_token;
 
         // 服务器信息
-        public int    server_id;
+        public int server_id;
         public string server_ip_address;
-        public int    server_port;
+        public int server_port;
     }
 
+public Coroutine AppleLogin(string idToken,
+                                Action<string> ok,
+                                Action<string> fail)
+    {
+        string url  = $"{host}/user/AppleLogin";
+        string body = $"{{\"id_token\":\"{idToken}\"}}";
+        return StartCoroutine(PostJson(url, body, ok, fail));
+    }
+
+    // B. 回调直接拿反序列化后的 ServerResp
+    public Coroutine AppleLogin(string idToken,
+                                Action<ServerResp> ok,
+                                Action<string>     fail)
+    {
+        return AppleLogin(idToken,
+            json => ok?.Invoke(JsonUtility.FromJson<ServerResp>(json)),
+            fail);
+    }
+
+    public Coroutine GoogleLogin(string idToken,
+                             Action<string> ok,
+                             Action<string> fail)
+    {
+        string url = $"{host}/user/GoogleLogin";
+        string body = $"{{\"id_token\":\"{idToken}\"}}";
+        return StartCoroutine(PostJson(url, body, ok, fail));   // 直接沿用 PostJson
+    }
+    public Coroutine GoogleLogin(string idToken,
+                             Action<ServerResp> ok,
+                             Action<string>     fail)
+{
+    return GoogleLogin(idToken,
+        json => ok?.Invoke(JsonUtility.FromJson<ServerResp>(json)),
+        fail);
+}
     /*──────────────────────────────────────────────────────
      *  访客登录
      *──────────────────────────────────────────────────────*/
@@ -66,7 +101,7 @@ mwIDAQAB
                                   Action<string> onSuccess,
                                   Action<string> onFail)
     {
-        string url  = $"{host}/user/VisitorPlay";
+        string url = $"{host}/user/VisitorPlay";
         string body = $"{{\"device_id\":\"{deviceId}\"}}";
         return StartCoroutine(PostJson(url, body, onSuccess, onFail));
     }
@@ -77,13 +112,13 @@ mwIDAQAB
     public Coroutine PasswordLogin(string account, string rawPwd,
                                    Action<string> ok, Action<string> fail)
     {
-        long   ts    = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        long ts = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         string tsStr = ts.ToString();
 
         string sha1 = Sha256Hex(rawPwd);            // 第一次 SHA-256
         string sha2 = Sha256Hex(sha1 + tsStr);      // 第二次 SHA-256
 
-        string url  = $"{host}/user/PasswordLogin";
+        string url = $"{host}/user/PasswordLogin";
         string body = $"{{\"username\":\"{account}\"," +
                       $"\"password\":\"{sha2}\"," +
                       $"\"timestamp\":\"{tsStr}\"}}";
@@ -97,13 +132,13 @@ mwIDAQAB
     public Coroutine AccountRegister(string account, string rawPwd,
                                      Action<string> ok, Action<string> fail)
     {
-        long   ts    = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        long ts = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         string tsStr = ts.ToString();
 
         string pwd1 = Sha256Hex(rawPwd);      // ① SHA-256
         string pwd2 = AesEncrypt(pwd1, ts);   // ② AES-CBC  → Base64
         string pwd3 = RsaEncryptBase64(pwd2); // ③ RSA-PKCS1 → Base64
-        string url  = $"{host}/user/Register";
+        string url = $"{host}/user/Register";
         string body = $"{{\"username\":\"{account}\"," +
                       $"\"password\":\"{pwd3}\"," +
                       $"\"timestamp\":\"{tsStr}\"}}";
@@ -118,16 +153,16 @@ mwIDAQAB
     public Coroutine GetEmailCode(string email,
                                   Action<string> ok, Action<string> fail)
     {
-        long   ts   = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        long ts = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         string body = $"{{\"email\":\"{email}\",\"timestamp\":\"{ts}\"}}";
-        string url  = $"{host}/user/GetEmailCode";
+        string url = $"{host}/user/GetEmailCode";
         return StartCoroutine(PostJson(url, body, ok, fail));
     }
 
     public Coroutine EmailLogin(string email, string verifycode,
                                 Action<string> ok, Action<string> fail)
     {
-        string url  = $"{host}/user/EmailLogin";
+        string url = $"{host}/user/EmailLogin";
         string body = $"{{\"email\":\"{email}\",\"code\":\"{verifycode}\"}}";
         return StartCoroutine(PostJson(url, body, ok, fail));
     }
@@ -135,7 +170,7 @@ mwIDAQAB
     public Coroutine CheckUsername(string username,
                                    Action<string> ok, Action<string> fail)
     {
-        string url  = $"{host}/user/CheckUsername";
+        string url = $"{host}/user/CheckUsername";
         string body = $"{{\"username\":\"{username}\"}}";
         return StartCoroutine(PostJson(url, body, ok, fail));
     }
@@ -147,7 +182,7 @@ mwIDAQAB
                          Action<string> ok, Action<string> fail)
     {
         using var req = new UnityWebRequest(url, "POST");
-        req.uploadHandler   = new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
+        req.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
         req.downloadHandler = new DownloadHandlerBuffer();
         req.SetRequestHeader("Content-Type", "application/json");
 
@@ -179,16 +214,16 @@ mwIDAQAB
     static string AesEncrypt(string plainHex, long tsMillis)
     {
         byte[] key = Encoding.ASCII.GetBytes(AES_KEY);
-        byte[] iv  = Encoding.ASCII.GetBytes(tsMillis.ToString() + "000"); // 16 bytes
+        byte[] iv = Encoding.ASCII.GetBytes(tsMillis.ToString() + "000"); // 16 bytes
 
         using var aes = Aes.Create();
-        aes.Key     = key;
-        aes.IV      = iv;
-        aes.Mode    = CipherMode.CBC;
+        aes.Key = key;
+        aes.IV = iv;
+        aes.Mode = CipherMode.CBC;
         aes.Padding = PaddingMode.PKCS7;
 
         using var enc = aes.CreateEncryptor();
-        byte[] bytes  = Encoding.UTF8.GetBytes(plainHex);
+        byte[] bytes = Encoding.UTF8.GetBytes(plainHex);
         byte[] cipher = enc.TransformFinalBlock(bytes, 0, bytes.Length);
         return Convert.ToBase64String(cipher);
     }
@@ -203,11 +238,12 @@ mwIDAQAB
         using var rsa = RSA.Create();
         rsa.ImportParameters(new RSAParameters
         {
-            Modulus  = Convert.FromBase64String(RSA_MOD_B64),
+            Modulus = Convert.FromBase64String(RSA_MOD_B64),
             Exponent = Convert.FromBase64String(RSA_EXP_B64)
         });
 
         byte[] cipher = rsa.Encrypt(plainBytes, RSAEncryptionPadding.Pkcs1);
         return Convert.ToBase64String(cipher);
     }
+    
 }

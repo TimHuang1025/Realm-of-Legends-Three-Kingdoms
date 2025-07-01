@@ -579,7 +579,7 @@ namespace Assets.SimpleSignIn.Google.Scripts
         {
             if (DebugLog)
             {
-                Debug.Log(message); // TODO: Remove in Release.
+                //Debug.Log(message); // TODO: Remove in Release.
             }
         }
     }
