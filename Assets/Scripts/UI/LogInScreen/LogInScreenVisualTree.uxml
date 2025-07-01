@@ -65,7 +65,8 @@
                                 <ui:VisualElement style="flex-grow: 0; flex-shrink: 0;">
                                     <ui:VisualElement name="EnterAccountPanel" class="bar" style="flex-direction: row;">
                                         <ui:TextField placeholder-text="输入账号" name="regAccField" class="textinput account-input" style="flex-grow: 1; flex-shrink: 1;" />
-                                        <ui:VisualElement name="checkUserPanel" style="flex-grow: 0;">
+                                        <ui:VisualElement name="checkUserPanel" style="flex-grow: 0; flex-direction: row;">
+                                            <ui:VisualElement name="loading" class="spin" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/loading.png?fileID=2800000&amp;guid=dcf4fede5cee84c4b974baec5bd098eb&amp;type=3#loading&quot;); flex-shrink: 0; width: 100px; height: 100px; -unity-text-align: upper-left; justify-content: center; align-self: center; -unity-background-scale-mode: scale-to-fit;" />
                                             <ui:Button text="检查用户名" name="checkUserBtn" class="clickableBlue" style="flex-grow: 1;" />
                                         </ui:VisualElement>
                                     </ui:VisualElement>
@@ -105,6 +106,7 @@
                                                 <ui:TextField placeholder-text="输入验证码" name="RstCode" readonly="false" class="textinput verifycode-input" style="background-color: rgba(0, 0, 0, 0); flex-grow: 1; -unity-background-image-tint-color: rgba(255, 255, 255, 0); background-size: 100% 100%; font-size: 45px;" />
                                             </ui:VisualElement>
                                             <ui:VisualElement name="EnterCodeHintContainer" style="flex-grow: 0; flex-direction: row;">
+                                                <ui:VisualElement name="loading" class="spin" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/loading.png?fileID=2800000&amp;guid=dcf4fede5cee84c4b974baec5bd098eb&amp;type=3#loading&quot;); flex-shrink: 0; width: 100px; height: 100px; -unity-text-align: upper-left; justify-content: center; align-self: center;" />
                                                 <ui:Button text="获取验证码" name="RstSendCodeBtn" enabled="true" class="clickableBlue getemailcode" style="border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgb(149, 149, 149); border-right-color: rgb(149, 149, 149); border-top-color: rgb(149, 149, 149); border-bottom-color: rgb(149, 149, 149);" />
                                             </ui:VisualElement>
                                         </ui:VisualElement>
@@ -156,6 +158,7 @@
                                             <ui:TextField placeholder-text="输入验证码" name="RegCode" readonly="false" class="textinput verifycode-input" style="background-color: rgba(0, 0, 0, 0); flex-grow: 1; -unity-background-image-tint-color: rgba(255, 255, 255, 0); background-size: 100% 100%; font-size: 45px;" />
                                         </ui:VisualElement>
                                         <ui:VisualElement name="EnterCodeHintContainer" style="flex-grow: 0; flex-direction: row;">
+                                            <ui:VisualElement name="loading" class="spin" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/loading.png?fileID=2800000&amp;guid=dcf4fede5cee84c4b974baec5bd098eb&amp;type=3#loading&quot;); flex-shrink: 0; width: 100px; height: 100px; -unity-text-align: upper-left; justify-content: center; align-self: center; -unity-background-scale-mode: scale-to-fit;" />
                                             <ui:Button text="获取验证码" name="RegSendCodeBtn" enabled="true" class="clickableBlue getemailcode" style="border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgb(149, 149, 149); border-right-color: rgb(149, 149, 149); border-top-color: rgb(149, 149, 149); border-bottom-color: rgb(149, 149, 149);" />
                                         </ui:VisualElement>
                                     </ui:VisualElement>
@@ -170,7 +173,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="ToastPanel" picking-mode="Ignore" class="toast" style="flex-grow: 0; flex-shrink: 0; width: 40%; height: 35%; background-color: rgba(0, 0, 0, 0); background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/%E5%BC%B9%E7%AA%97%EF%BC%88%E5%B0%8F%EF%BC%89.png?fileID=2800000&amp;guid=6d3c8c537197a5940a0b0cf5d8828dd8&amp;type=3#弹窗（小）&quot;); background-size: 100% 116%; display: flex; -unity-background-scale-mode: scale-to-fit; top: 468px; left: 770px;">
+            <ui:VisualElement name="ToastPanel" picking-mode="Ignore" class="toast" style="flex-grow: 0; flex-shrink: 0; width: 40%; height: 35%; background-color: rgba(0, 0, 0, 0); background-image: url(&quot;project://database/Assets/Assets/UI/LoginPage/%E5%BC%B9%E7%AA%97%EF%BC%88%E5%B0%8F%EF%BC%89.png?fileID=2800000&amp;guid=6d3c8c537197a5940a0b0cf5d8828dd8&amp;type=3#弹窗（小）&quot;); background-size: 100% 116%; display: flex; -unity-background-scale-mode: scale-to-fit; top: 468px; left: 769px; justify-content: center; align-items: center; align-self: center;">
                 <ui:VisualElement name="ToastTextPanel" style="flex-grow: 0; flex-shrink: 0; top: 50%; align-self: center; font-size: 35px; -unity-font-definition: url(&quot;project://database/Assets/Assets/UI/%E4%B8%AD%E6%96%87font_dingliesongketi.ttf?fileID=12800000&amp;guid=bd77ce5c718bc0e47b01c5156d0863d8&amp;type=3#中文font_dingliesongketi&quot;);">
                     <ui:Label text="代码" name="ToastText" />
                 </ui:VisualElement>

@@ -23,7 +23,12 @@ public sealed class AccountAuthController : MonoBehaviour
     private Label         hinterror;          // 账号
     private Label         hinterrorpwd;       // 密码
     private List<Label>   hinterroremail;     // 邮箱（同类多个）
-    private List<Label>   hinterroremailcode; // 邮箱验证码（同类多个）
+    private List<Label>   hinterroremailcode; // 邮箱验证码（同类多个）// 成功提示用的绿色
+    private static readonly Color okColor = new(0.32f, 0.65f, 0.53f, 1f);
+    private string lastCheckedName   = null; // 上一次查询的名字
+    private bool? lastNameIsUsable = null;  // 上一次结果：true 可用；false 占用
+
+
 
     /*──────── UI：登录 / 注册 / 邮箱 ────────*/
     private TextField loginAccField, loginPwdField;
@@ -155,65 +160,143 @@ public sealed class AccountAuthController : MonoBehaviour
             return;
         }
 
-        LoadingPanelManager.Instance.Show();
+        string nameTrying = regAccField.value.Trim();
+
+        /*––––– 本地拦截：上次已判定为占用，就不再请求 –––––*/
+        // ① 改写 if 块
+        if (nameTrying == lastCheckedName && lastNameIsUsable == false)
+        {
+            StartCoroutine(SpinAndTip("已被占用，请换一个或登录", false, regAccField));
+            return;
+        }
+
+        // ② 共用协程：可同时处理 OK / Error
+        IEnumerator SpinAndTip(string msg, bool isOk, TextField focus)
+        {
+            SpinController.Instance.Show();
+            yield return new WaitForSeconds(Random.Range(0.05f, 0.5f));
+            SpinController.Instance.Hide();
+
+            if (isOk)
+                ShowFieldOk(hinterror, msg, focus);
+            else
+                ShowFieldError(hinterror, msg, focus);
+        }
+
+
+        /*––––– 正式发注册请求 –––––*/
+        registerBtn?.SetEnabled(false);
+        SpinController.Instance.Show();
 
         api.AccountRegister(
-            regAccField.value.Trim(),
+            nameTrying,
             regPwdField1.value,
             ok: _ =>
             {
-                LoadingPanelManager.Instance.Hide();
+                SpinController.Instance.Hide();
+                registerBtn?.SetEnabled(true);
+
                 Toast("注册成功！");
                 JumpToMainUI();
             },
             fail: msg =>
             {
-                LoadingPanelManager.Instance.Hide();
-                if (msg.StartsWith("1"))
-                    ShowFieldError(hinterror, "用户名已存在，请换一个或登录", regAccField);
-                else
-                    PopupManager.Show("注册失败", msg);
-            });
+                SpinController.Instance.Hide();
+                registerBtn?.SetEnabled(true);
 
-        ClearAllInputs();
+                if (msg.StartsWith("1"))
+                {
+                    // 记录缓存：占用
+                    lastCheckedName  = nameTrying;
+                    lastNameIsUsable = false;
+
+                    ShowFieldError(hinterror, "用户名已存在，请换一个或登录", regAccField);
+                }
+                else
+                {
+                    lastNameIsUsable = null;    // 其它错误不缓存
+                    PopupManager.Show("注册失败", msg);
+                }
+            });
     }
 
     /*───────────────────────────────────────────
      * 检查用户名
      *──────────────────────────────────────────*/
     private void OnClickCheckUsername(TextField userField)
+{
+    string name = userField.value.Trim();
+
+    // —— 基本本地校验 ——
+    if (string.IsNullOrEmpty(name))
     {
-        string name = userField.value.Trim();
-
-        if (string.IsNullOrEmpty(name))
-        {
-            ShowFieldError(hinterror, "用户名不能为空", userField);
-            return;
-        }
-        if (!IsAccountValid(name))
-        {
-            ShowFieldError(hinterror, "账号需≥5位，仅限英文或数字", userField);
-            return;
-        }
-
-        LoadingPanelManager.Instance.Show();
-
-        api.CheckUsername(
-            name,
-            ok: _ =>
-            {
-                LoadingPanelManager.Instance.Hide();
-                Toast("用户名可以使用！");
-            },
-            fail: msg =>
-            {
-                LoadingPanelManager.Instance.Hide();
-                if (msg.StartsWith("1"))
-                    ShowFieldError(hinterror, "已被占用，请换一个", userField);
-                else
-                    PopupManager.Show("请求失败", msg);
-            });
+        ShowFieldError(hinterror, "用户名不能为空", userField);
+        return;
     }
+    if (!IsAccountValid(name))
+    {
+        ShowFieldError(hinterror, "账号需≥5位，仅限英文或数字", userField);
+        return;
+    }
+
+    // —— 本地缓存命中：直接提示，不发请求 ——
+    if (name == lastCheckedName && lastNameIsUsable.HasValue)
+    {
+        // 先转圈 0.5 秒，然后再提示
+        StartCoroutine(SpinHalfSecondAndTip(lastNameIsUsable.Value, userField));
+        return;
+    }
+
+    /*───────────────────────────────────────────
+    * 协程：转圈 0.5 秒后显示 OK / Error
+    *──────────────────────────────────────────*/
+    IEnumerator SpinHalfSecondAndTip(bool usable, TextField field)
+    {
+        SpinController.Instance.Show();
+        yield return new WaitForSeconds(Random.Range(0.05f, 0.5f));
+        SpinController.Instance.Hide();
+
+        if (usable)
+            ShowFieldOk(hinterror, "用户名可以使用！", field);
+        else
+            ShowFieldError(hinterror, "已被占用，请换一个", field);
+    }
+
+    // —— 需要重新访问服务器 ——
+    SpinController.Instance.Show();
+
+    api.CheckUsername(
+        name,
+        ok: _ =>
+        {
+            SpinController.Instance.Hide();
+
+            // 记录缓存
+            lastCheckedName   = name;
+            lastNameIsUsable  = true;
+
+            ShowFieldOk(hinterror, "用户名可以使用！", userField);
+        },
+        fail: msg =>
+        {
+            SpinController.Instance.Hide();
+
+            // 记录缓存 (只有业务码 1 时才记为占用)
+            if (msg.StartsWith("1"))
+            {
+                lastCheckedName  = name;
+                lastNameIsUsable = false;
+
+                ShowFieldError(hinterror, "已被占用，请换一个", userField);
+            }
+            else
+            {
+                lastNameIsUsable = null;  // 不缓存未知错误
+                PopupManager.Show("请求失败", msg);
+            }
+        });
+}
+
 
     /*───────────────────────────────────────────
      * 发送邮箱验证码 & 校验
@@ -240,20 +323,20 @@ public sealed class AccountAuthController : MonoBehaviour
             return;
         }
 
-        LoadingPanelManager.Instance.Show();
+        SpinController.Instance.Show();
 
         api.GetEmailCode(
             email,
             ok: _ =>
             {
-                LoadingPanelManager.Instance.Hide();
-                Toast("验证码已发送，请查收邮箱");
+                SpinController.Instance.Hide();
+                ShowFieldOk(hinterroremail, "验证码已发送，请查收邮箱", emailField);
                 if (cooldownCO == null)
                     cooldownCO = StartCoroutine(ButtonCooldown(senderBtn, 30));
             },
             fail: msg =>
             {
-                LoadingPanelManager.Instance.Hide();
+                SpinController.Instance.Hide();
                 PopupManager.Show("发送失败", msg);
             });
     }
@@ -274,13 +357,13 @@ public sealed class AccountAuthController : MonoBehaviour
             return;
         }
 
-        LoadingPanelManager.Instance.Show();
+        SpinController.Instance.Show();
 
         api.EmailLogin(
             email, code,
             ok: _ =>
             {
-                LoadingPanelManager.Instance.Hide();
+                SpinController.Instance.Hide();
 
                 if (emailField.name == "RstEmail")
                 {
@@ -296,7 +379,7 @@ public sealed class AccountAuthController : MonoBehaviour
             },
             fail: msg =>
             {
-                LoadingPanelManager.Instance.Hide();
+                SpinController.Instance.Hide();
                 PopupManager.Show("操作失败", msg);
             });
     }
@@ -346,16 +429,42 @@ public sealed class AccountAuthController : MonoBehaviour
         foreach (var l in hinterroremailcode) l.text = " ";
     }
 
-    private void ShowFieldError(Label lbl, string msg, TextField focus = null)
+// 成功提示用的绿色
+
+/*── 单 Label : Error ──*/
+private void ShowFieldError(Label lbl, string msg, TextField focus = null)
+{
+    lbl.text = msg;
+    lbl.style.color = Color.red;   // ❗ 若已在 USS 设红色，可删此行
+}
+
+/*── 单 Label : OK ──*/
+private void ShowFieldOk(Label lbl, string msg, TextField focus = null)
+{
+    lbl.text = msg;
+    lbl.style.color = okColor;
+}
+
+/*── 多 Label : Error ──*/
+private void ShowFieldError(IEnumerable<Label> lbls, string msg, TextField focus = null)
+{
+    foreach (var l in lbls)
     {
-        lbl.text = msg;
-        Focus(focus);
+        l.text = msg;
+        l.style.color = Color.red;
     }
-    private void ShowFieldError(IEnumerable<Label> lbls, string msg, TextField focus = null)
+}
+
+/*── 多 Label : OK ──*/
+private void ShowFieldOk(IEnumerable<Label> lbls, string msg, TextField focus = null)
+{
+    foreach (var l in lbls)
     {
-        foreach (var l in lbls) l.text = msg;
-        Focus(focus);
+        l.text = msg;
+        l.style.color = okColor;
     }
+}
+
 
     private bool CheckAccountAndPwd(TextField acc, TextField pwd)
     {

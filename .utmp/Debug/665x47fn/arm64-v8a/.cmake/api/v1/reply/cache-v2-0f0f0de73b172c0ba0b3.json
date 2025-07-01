@@ -250,22 +250,6 @@
 			"value" : "G:/Unity/UnityVersion/6000.1.9f1/Editor/Data/PlaybackEngines/AndroidPlayer/SDK/cmake/3.22.1/bin/ctest.exe"
 		},
 		{
-			"name" : "CMAKE_CXX_COMPILER",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "(This variable does not exist and should not be used)"
-				}
-			],
-			"type" : "UNINITIALIZED",
-			"value" : ""
-		},
-		{
 			"name" : "CMAKE_CXX_COMPILER_AR",
 			"properties" : 
 			[
@@ -392,22 +376,6 @@
 			],
 			"type" : "STRING",
 			"value" : "-latomic -lm"
-		},
-		{
-			"name" : "CMAKE_C_COMPILER",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "(This variable does not exist and should not be used)"
-				}
-			],
-			"type" : "UNINITIALIZED",
-			"value" : ""
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_AR",
@@ -739,7 +707,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "G:/ROL3K/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp"
+			"value" : "G:/ROL3K/Library/PramData/AndroidApplicationController/Cache/com.realmoflegend.threekingdoms/gradle-project/unityLibrary/src/main/cpp"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -775,7 +743,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "G:\\ROL3K\\Library\\Bee\\Android\\Prj\\IL2CPP\\Gradle\\unityLibrary\\build\\intermediates\\cxx\\Debug\\665x47fn\\obj\\arm64-v8a"
+			"value" : "G:\\ROL3K\\Library\\PramData\\AndroidApplicationController\\Cache\\com.realmoflegend.threekingdoms\\gradle-project\\unityLibrary\\build\\intermediates\\cxx\\Debug\\665x47fn\\obj\\arm64-v8a"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -1047,7 +1015,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "G:\\ROL3K\\Library\\Bee\\Android\\Prj\\IL2CPP\\Gradle\\unityLibrary\\build\\intermediates\\cxx\\Debug\\665x47fn\\obj\\arm64-v8a"
+			"value" : "G:\\ROL3K\\Library\\PramData\\AndroidApplicationController\\Cache\\com.realmoflegend.threekingdoms\\gradle-project\\unityLibrary\\build\\intermediates\\cxx\\Debug\\665x47fn\\obj\\arm64-v8a"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -1287,11 +1255,11 @@
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "The CMake toolchain file"
+					"value" : "No help, variable specified on the command line."
 				}
 			],
-			"type" : "FILEPATH",
-			"value" : "G:/Unity/UnityVersion/6000.1.9f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/build/cmake/android.toolchain.cmake"
+			"type" : "UNINITIALIZED",
+			"value" : "G:\\Unity\\UnityVersion\\6000.1.9f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\build\\cmake\\android.toolchain.cmake"
 		},
 		{
 			"name" : "CMAKE_VERBOSE_MAKEFILE",
@@ -1343,7 +1311,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "G:/ROL3K/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp"
+			"value" : "G:/ROL3K/Library/PramData/AndroidApplicationController/Cache/com.realmoflegend.threekingdoms/gradle-project/unityLibrary/src/main/cpp"
 		},
 		{
 			"name" : "games-frame-pacing_DIR",
@@ -1403,7 +1371,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "G:/ROL3K/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/FramePacing"
+			"value" : "G:/ROL3K/Library/PramData/AndroidApplicationController/Cache/com.realmoflegend.threekingdoms/gradle-project/unityLibrary/src/main/cpp/FramePacing"
 		}
 	],
 	"kind" : "cache",

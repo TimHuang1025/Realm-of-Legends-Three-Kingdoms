@@ -321,6 +321,7 @@ GameObject:
   - component: {fileID: 853378244}
   - component: {fileID: 853378245}
   - component: {fileID: 853378246}
+  - component: {fileID: 853378247}
   m_Layer: 5
   m_Name: LoginPanel
   m_TagString: Untagged
@@ -552,6 +553,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6eee03c6c1bcc4fbc9aea4bac2209e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &853378247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853378235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80562e0a016465541b9eeb25a3279df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  degreesPerSecond: 360
 --- !u!1001 &963660214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1267,7 +1281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22400000, guid: 2b71a9985e9a8d24196f7c2e803eb329, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -204
+      value: -320
       objectReference: {fileID: 0}
     - target: {fileID: 22400000, guid: 2b71a9985e9a8d24196f7c2e803eb329, type: 3}
       propertyPath: m_ConstrainProportionsScale
