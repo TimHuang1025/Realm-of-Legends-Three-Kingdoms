@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   techtreeJson: {fileID: 4900000, guid: 9d3c195ed3ac4cf46b704b5a82accb00, type: 3}
   CurrentStage: 10
-  Progress: 0000000000422010
+  Progress: 0000000232422011
   StageLayouts:
   - StageKey: 1
     Rows: 01000000010000000300000001000000030000000100000003000000040000000300000002000000
@@ -61,14 +61,14 @@ MonoBehaviour:
     ranged_forest_damage_bonus: 0.06
     infantry_hill_damage_bonus: 0.04
     attack_clan_building_damage_bonus: 0
-    attack_map_building_damage_bonus: 0.06
+    attack_map_building_damage_bonus: 0.089999996
     attack_player_camp_damage_bonus: 0.04
     defend_clan_building_damage_bonus: 0
     defend_map_building_damage_bonus: 0
-    defend_camp_damage_bonus: 0.08
+    defend_camp_damage_bonus: 0.1066
     all_captain_attack_power_bonus: 19520
     all_captain_defense_power_bonus: 19520
-    all_captain_wit_bonus: 19520
+    all_captain_wit_bonus: 23020
     army_speed_bonus: 0.8
     rally_speed_bonus: 0.145
     recall_speed_bonus: 0.95
@@ -79,4 +79,4 @@ MonoBehaviour:
     rally_summon_time_reduction: 0
     food_consumption_reduction: 0.1
     money_consumption_reduction: 0.1
-    teleport_cost_reduction: 0.15
+    teleport_cost_reduction: 0.3

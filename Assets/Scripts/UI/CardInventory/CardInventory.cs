@@ -50,6 +50,9 @@ public class CardInventory : MonoBehaviour
     [SerializeField] private int cardSize = 180;
     [SerializeField] private float colGap = 8f;
     [SerializeField] private float rowGap = 12f;
+    // 放在已有的 Dictionary<string, Button> cardBtnMap = new(); 下面
+private readonly Dictionary<string, VisualElement> cardCache = new();
+
 
     /*──────────── 2. 运行时引用 ────────────*/
     private VisualElement selectedCardVE;
@@ -127,68 +130,24 @@ public class CardInventory : MonoBehaviour
     }
 
     /*──────── 根据当前模式排序并刷新 ──────*/
+    /// <summary>
+/// 根据当前排序模式重新排列卡片
+/// </summary>
     void ApplySort()
     {
         var list = cardDatabase.AllCards.ToList();
+        list.Sort(CompareCards);                  // ↓ 抽成独立方法
 
-        list.Sort((a, b) =>
+        if (cardCache.Count == 0)
         {
-            bool ownedA = cardBank.Get(a.id) != null;
-            bool ownedB = cardBank.Get(b.id) != null;
-            if (ownedA != ownedB) return ownedB.CompareTo(ownedA); // 已拥有在前
-
-            /* 玩家动态数据（可能为 null） */
-            var dynA = cardBank.Get(a.id);
-            var dynB = cardBank.Get(b.id);
-
-            int starA = dynA?.star  ?? -1;
-            int starB = dynB?.star  ?? -1;
-            int lvlA  = dynA?.level ?? -1;
-            int lvlB  = dynB?.level ?? -1;
-
-            switch (sortModes[modeIdx])
-            {
-                /* ───── 稀有度排序 ───── */
-                case "稀有度排序":
-                {
-                    int tierCmp = a.tier.CompareTo(b.tier);  // S(0) < A(1)…
-                    if (tierCmp != 0) return tierCmp;
-
-                    int starCmp = starB.CompareTo(starA);    // 星多在前
-                    if (starCmp != 0) return starCmp;
-
-                    return lvlB.CompareTo(lvlA);             // 等级高在前
-                }
-
-                /* ───── 星级排序 ───── */
-                case "星级排序":
-                {
-                    int starCmp = starB.CompareTo(starA);    // 星多在前
-                    if (starCmp != 0) return starCmp;
-
-                    int tierCmp = a.tier.CompareTo(b.tier);  // S > A > B
-                    if (tierCmp != 0) return tierCmp;
-
-                    return lvlB.CompareTo(lvlA);             // 等级高在前
-                }
-
-                /* ───── 等级排序 ───── */
-                case "等级排序":
-                default:
-                {
-                    int lvlCmp = lvlB.CompareTo(lvlA);       // 等级高在前
-                    if (lvlCmp != 0) return lvlCmp;
-
-                    int starCmp = starB.CompareTo(starA);    // 星多在前
-                    if (starCmp != 0) return starCmp;
-
-                    return a.tier.CompareTo(b.tier);         // S > A > B
-                }
-            }
-        });
-
-        BuildGrid(list);    // 重新生成网格
+            BuildGrid(list);                      // 首次：真正实例化
+        }
+        else
+        {
+            ReorderGrid(list);                    // 之后：只重新挂节点
+        }
     }
+
 
 
     /*──────── 生成 / 刷新网格 ───────────*/
@@ -200,40 +159,42 @@ public class CardInventory : MonoBehaviour
         cardBtnMap.Clear();
 
         VisualElement btnToFocus = null;
-
         int idx = 0;
+
         while (idx < cards.Count)
         {
-            /*─ 新建一列 ─*/
+            // ── 建列 ───────────────────────────
             var col = new VisualElement
             {
                 style =
-                {
-                    flexDirection = FlexDirection.Column,
-                    marginRight   = colGap,
-                    width         = cardSize,
-                    flexShrink    = 0,
-                    flexGrow      = 0
-                }
+            {
+                flexDirection = FlexDirection.Column,
+                marginRight   = colGap,
+                width         = cardSize,
+                flexShrink    = 0,
+                flexGrow      = 0
+            }
             };
 
-            /*─ 每列塞 rows 张 ─*/
             for (int r = 0; r < rows && idx < cards.Count; r++)
             {
-                CardInfoStatic info = cards[idx];
+                var info = cards[idx];
 
-                /* 生成卡片 UI */
-                var cardContainer = BuildCard(info);
+                // ── 生成或取缓存 ────────────────
+                if (!cardCache.TryGetValue(info.id, out var cardContainer))
+                {
+                    cardContainer = BuildCard(info);
+                    cardCache[info.id] = cardContainer;   // ☆ 存缓存
+                }
 
-                /* 行内垂直间距 */
+                // 行距
                 if (r > 0) cardContainer.style.marginTop = rowGap;
 
-                /* 记录按钮映射与焦点检查 */
+                // 按钮映射 & 焦点
                 var cardBtn = cardContainer.Q<Button>("CardRoot");
                 if (cardBtn != null)
                 {
                     cardBtnMap[info.id] = cardBtn;
-
                     if (currentSelectedStatic != null && cardBtn.userData == currentSelectedStatic)
                         btnToFocus = cardBtn;
                 }
@@ -247,13 +208,13 @@ public class CardInventory : MonoBehaviour
 
         scroll.RefreshAfterHierarchyChange();
 
-        /*─ 恢复焦点 / 默认选第一张 ─*/
+        // ── 恢复焦点 / 默认第一张 ─────────────
         if (btnToFocus != null)
         {
             btnToFocus.schedule.Execute(() =>
             {
                 btnToFocus.Focus();
-                scroll.ScrollTo(btnToFocus);   // 或 SnapToItem
+                scroll.ScrollTo(btnToFocus);
             }).ExecuteLater(0);
         }
         else
@@ -261,10 +222,102 @@ public class CardInventory : MonoBehaviour
             FocusFirstCard();
         }
     }
-    void OnDisable()
+
+    /// <summary>
+/// 仅重新排布已有卡片，不再 Instantiate
+    /// </summary>
+    /// <summary>
+/// 仅重新排布已有卡片，不再 Instantiate
+/// </summary>
+    void ReorderGrid(IReadOnlyList<CardInfoStatic> cards)
     {
-        PlayerCardBankMgr.I.onCardUpdated -= OnCardUpdated;
+        gridRoot.Clear();
+
+        int idx = 0;
+        while (idx < cards.Count)
+        {
+            var col = new VisualElement
+            {
+                style =
+                {
+                    flexDirection = FlexDirection.Column,
+                    marginRight   = colGap,
+                    width         = cardSize,
+                    flexShrink    = 0,
+                    flexGrow      = 0
+                }
+            };
+
+            for (int r = 0; r < rows && idx < cards.Count; r++)
+            {
+                var info      = cards[idx];
+                var container = cardCache[info.id];
+
+                /* ★ 关键：根据 r 重设 marginTop，抹掉旧值 ★ */
+                container.style.marginTop = r == 0 ? 0 : rowGap;
+
+                col.Add(container);
+                idx++;
+            }
+            gridRoot.Add(col);
+        }
+
+        scroll.RefreshAfterHierarchyChange();
+        FocusFirstCard();                 // 焦点逻辑保持
     }
+
+    int CompareCards(CardInfoStatic a, CardInfoStatic b)
+{
+    bool ownedA = cardBank.Get(a.id) != null;
+    bool ownedB = cardBank.Get(b.id) != null;
+    if (ownedA != ownedB) return ownedB.CompareTo(ownedA);    // 已拥有在前
+
+    var dynA = cardBank.Get(a.id);
+    var dynB = cardBank.Get(b.id);
+
+    int starA = dynA?.star  ?? -1;
+    int starB = dynB?.star  ?? -1;
+    int lvlA  = dynA?.level ?? -1;
+    int lvlB  = dynB?.level ?? -1;
+
+    switch (sortModes[modeIdx])
+    {
+        case "稀有度排序":
+            {
+                int tierCmp = a.tier.CompareTo(b.tier);
+                if (tierCmp != 0) return tierCmp;
+                int starCmp = starB.CompareTo(starA);
+                if (starCmp != 0) return starCmp;
+                return lvlB.CompareTo(lvlA);
+            }
+        case "星级排序":
+            {
+                int starCmp = starB.CompareTo(starA);
+                if (starCmp != 0) return starCmp;
+                int tierCmp = a.tier.CompareTo(b.tier);
+                if (tierCmp != 0) return tierCmp;
+                return lvlB.CompareTo(lvlA);
+            }
+        case "等级排序":
+        default:
+            {
+                int lvlCmp = lvlB.CompareTo(lvlA);
+                if (lvlCmp != 0) return lvlCmp;
+                int starCmp = starB.CompareTo(starA);
+                if (starCmp != 0) return starCmp;
+                return a.tier.CompareTo(b.tier);
+            }
+    }
+}
+
+
+
+    void OnDisable()
+{
+    PlayerCardBankMgr.I.onCardChanged -= OnCardStatChanged;
+    PlayerCardBankMgr.I.onCardUpdated -= OnCardUpdated;
+}
+
     void OnCardUpdated(string id)
     {
         if (!cardBtnMap.TryGetValue(id, out var btn)) return;
