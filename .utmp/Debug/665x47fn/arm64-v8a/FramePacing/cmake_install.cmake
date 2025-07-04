@@ -1,4 +1,4 @@
-# Install script for directory: G:/ROL3K/Library/PramData/AndroidApplicationController/Cache/com.realmoflegend.threekingdoms/gradle-project/unityLibrary/src/main/cpp/FramePacing
+# Install script for directory: G:/ROL3K/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/FramePacing
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

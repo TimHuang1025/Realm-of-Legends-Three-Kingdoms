@@ -55,7 +55,7 @@ namespace Assets.SimpleSignIn.Google.Scripts.Editor
                     }
                     else
                     {
-                        Debug.Log($"{packageInfo.name} is up to date.");
+//                        Debug.Log($"{packageInfo.name} is up to date.");
                     }
                 }
                 else

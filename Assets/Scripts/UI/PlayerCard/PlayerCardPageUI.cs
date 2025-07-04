@@ -21,7 +21,10 @@ public class PlayerCardPage : MonoBehaviour
     [SerializeField] private PlayerLordCard       playerLordCard;
     [SerializeField] private ActiveSkillDatabase  activeDB;
     [SerializeField] private PassiveSkillDatabase passiveDB;
-    [SerializeField] private PlayerBaseController playerBaseController;
+    //[SerializeField] private PlayerBaseController playerBaseController;
+    [SerializeField] private BuildingClickDetectorMinimal clickDetector;   // ← 新增：拖 ClickSystem
+
+    
 
     [Header("UI Sprites")]
     [Tooltip("技能等级环：索引 0-3 → Lv1-Lv4")]
@@ -45,6 +48,8 @@ public class PlayerCardPage : MonoBehaviour
     PlayerCard    currentDyn;
 
     /*──────────────── 生命周期 ─────────────────*/
+
+    
     void OnEnable()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
@@ -88,8 +93,14 @@ public class PlayerCardPage : MonoBehaviour
         foreach (var btn in addBtns)
             btn.RegisterCallback<ClickEvent>(_ => StartCoroutine(OpenSkillPanel()));
 
-        root.Q<Button>("ReturnBtn")?.RegisterCallback<ClickEvent>(_ =>
-            playerBaseController?.HidePlayerCardUpgradePage());
+        var returnBtn = root.Q<Button>("ReturnBtn");
+        if (returnBtn != null)
+        {
+            // 调用 ClickSystem 上的收尾函数，关掉本页 & 恢复主界面
+            returnBtn.clicked += clickDetector.ClosePlayerCardPage;
+        }
+        //root.Q<Button>("ReturnBtn")?.RegisterCallback<ClickEvent>(_ =>
+        //playerBaseController?.HidePlayerCardUpgradePage());
 
         /*── 事件监听 ──*/
         if (skillPanelCtrl != null)
@@ -100,7 +111,7 @@ public class PlayerCardPage : MonoBehaviour
 
         RefreshAll();
     }
-
+    
     void OnDisable()
     {
         if (upgradeLvBtn != null) upgradeLvBtn.clicked -= OnUpgradeLvClicked;

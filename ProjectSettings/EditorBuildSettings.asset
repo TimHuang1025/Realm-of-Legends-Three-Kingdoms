@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/SimpleSignIn/Google/Example.unity
     guid: ec8d31ae88495cc418fc0fa28b40d898
   - enabled: 1
+    path: Assets/Scenes/Camp/PlayerCamp.unity
+    guid: a94d68575c0b98e4f957b4636d1d2138
+  - enabled: 1
     path: Assets/Scenes/UI/LogInScreen.unity
     guid: 894aaf921b422a6409a16a137f19e324
   - enabled: 1

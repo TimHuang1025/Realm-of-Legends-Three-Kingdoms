@@ -130,7 +130,7 @@ public class PlayerBaseController : MonoBehaviour
     }
 
     /* —— 主将府 —— */
-    private void ShowPlayerCardUpgradePage()
+    public void ShowPlayerCardUpgradePage()
     {
         TogglePages(cardUpgrade: true);
     }
