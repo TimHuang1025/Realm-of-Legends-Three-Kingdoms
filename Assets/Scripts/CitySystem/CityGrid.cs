@@ -20,7 +20,6 @@ public class CityGrid : MonoBehaviour
             UnityEngine.Debug.LogWarning("[CityGrid] 检测到多个实例，已覆盖 I 引用");
         I = this;
         Resize();
-        ClearAll(); // 进入 Play 时清空残留
     }
 
 #if UNITY_EDITOR

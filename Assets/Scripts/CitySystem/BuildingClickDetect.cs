@@ -4,50 +4,41 @@ using UnityEngine.EventSystems;
 public class BuildingClickDetectorMinimal : MonoBehaviour
 {
     [Header("1. 基础设置")]
-    [Tooltip("射线用的摄像机")]
-    [SerializeField] private Camera cam;
-    [Tooltip("建筑所在的 Layer")]
-    [SerializeField] private LayerMask buildingMask;
-    [Tooltip("只响应此类型的建筑 SO")]
+    [SerializeField] private Camera        cam;
+    [SerializeField] private LayerMask     buildingMask;
     [SerializeField] private BuildingTypeSO townHallSO;
 
     [Header("2. 点击/拖动判定")]
-    [Tooltip("点击到建筑中心的最大水平距离（米）")]
-    [SerializeField] private float clickRadius   = 0.6f;
-    [Tooltip("超过此像素距离算拖动")]
-    [SerializeField] private float dragThreshold = 5f;
-    [Tooltip("最大射线距离")]
+    [SerializeField] private float clickRadius    = 0.6f;
+    [SerializeField] private float dragThreshold  = 5f;
     [SerializeField] private float maxRayDistance = 800f;
 
-    [Header("3. World Space UI")]
-    [Tooltip("FloatingBuildingUI Prefab，内部 Canvas RenderMode=World Space")]
+    [Header("3. World-Space UI Prefab")]
     [SerializeField] private FloatingBuildingUI floatingUIPrefab;
-    [Tooltip("UI 在建筑顶端的世界 Y 偏移（米）")]
-    [SerializeField] private float uiVerticalOffset = 2f;
+    [SerializeField] private float               uiVerticalOffset = 2f;
 
-    [Header("4. 移动逻辑")]
-    [Tooltip("场景中负责放置与移动的 BuildingPlacer 实例")]
+    [Header("4. 建筑移动逻辑")]
     [SerializeField] private BuildingPlacer placer;
 
     [Header("5. 面板切换")]
     [SerializeField] private GameObject playerCardPage;
     [SerializeField] private GameObject mainUIPanel;
 
-    // —— 运行时缓存 ——————————————————
+    // —— 运行时字段 ——————————————————
     private FloatingBuildingUI currentUI;
     private Building           candidateBuilding;
     private Vector2            pressPos;
     private bool               isDragging;
     private int                activeFingerId = -1;
 
-    private void Awake()
+    void Awake()
     {
-        if (cam == null) cam = Camera.main;
-        if (playerCardPage) playerCardPage.SetActive(false);
+        if (cam == null)   cam    = Camera.main;
         if (placer == null) placer = FindObjectOfType<BuildingPlacer>();
+        if (playerCardPage) playerCardPage.SetActive(false);
     }
 
-    private void Update()
+    void Update()
     {
         // 触摸优先
         if (Input.touchCount > 0)
@@ -61,6 +52,7 @@ public class BuildingClickDetectorMinimal : MonoBehaviour
         }
         else
         {
+            // 鼠标
             if (Input.GetMouseButtonDown(0)) OnPress(Input.mousePosition, -1);
             if (Input.GetMouseButton(0))     OnDrag(Input.mousePosition, -1);
             if (Input.GetMouseButtonUp(0))   OnRelease();
@@ -82,15 +74,15 @@ public class BuildingClickDetectorMinimal : MonoBehaviour
         activeFingerId    = fingerId;
         pressPos          = screenPos;
 
-        // 点在 UI 上就忽略（这样按钮才有机会接收事件）
+        // 如果点在 UI 上就忽略，保证面板按钮可点
         if (EventSystem.current != null &&
             EventSystem.current.IsPointerOverGameObject(fingerId))
             return;
 
-        // 只有点击到场景时才删旧 UI
+        // 只有在场景点击时才销毁旧 UI
         DestroyCurrentUI();
 
-        // 射线检测建筑
+        // 发射射线检测建筑
         Ray ray = cam.ScreenPointToRay(screenPos);
         if (!Physics.Raycast(ray, out var hit, maxRayDistance, buildingMask))
             return;
@@ -104,20 +96,22 @@ public class BuildingClickDetectorMinimal : MonoBehaviour
         Vector3 gh = ray.GetPoint(enter);
         if (Vector2.Distance(
                 new Vector2(gh.x, gh.z),
-                new Vector2(b.transform.position.x, b.transform.position.z))
-            > clickRadius)
-            return;
+                new Vector2(b.transform.position.x, b.transform.position.z)
+            ) > clickRadius) return;
 
-        // 通过检测：弹 UI
+        // 通过检测，弹出世界空间 UI
         candidateBuilding = b;
         ShowUIAboveBuilding(b);
     }
 
     private void OnDrag(Vector2 pos, int fingerId)
     {
-        if (fingerId != activeFingerId || candidateBuilding == null || isDragging)
-            return;
-        if ((pos - pressPos).sqrMagnitude > dragThreshold * dragThreshold)
+        if (fingerId != activeFingerId ||
+            candidateBuilding == null ||
+            isDragging) return;
+
+        if ((pos - pressPos).sqrMagnitude >
+            dragThreshold * dragThreshold)
         {
             isDragging = true;
             DestroyCurrentUI();
@@ -136,31 +130,32 @@ public class BuildingClickDetectorMinimal : MonoBehaviour
         DestroyCurrentUI();
         if (floatingUIPrefab == null) return;
 
-        // 1. 实例化
+        // 1) 实例化 World-Space UI
         currentUI = Instantiate(floatingUIPrefab);
 
-        // 2. 设置位置与朝向
-        Vector3 worldPos = b.transform.position + Vector3.up * uiVerticalOffset;
-        RectTransform rt = currentUI.GetComponent<RectTransform>();
-        rt.position = worldPos;
-        rt.rotation = Quaternion.LookRotation(rt.position - cam.transform.position);
+        // 2) 绑定 Canvas 的 worldCamera，以接收按钮事件
+        var canvas = currentUI.GetComponent<Canvas>();
+        if (canvas != null) canvas.worldCamera = cam;
 
-        // 3. 初始化回调：Action 打开卡页，Move 开始移动
+        // 3) 放到建筑顶部 + 偏移 （世界坐标）
+        currentUI.transform.position = b.transform.position
+                                      + Vector3.up * uiVerticalOffset;
+
+        // 4) 初始化名字、按钮回调
         currentUI.Init(
             b.transform,
             b.type.buildingName,
             cam,
-            OpenPlayerCardPage,
+            // Action 按钮：打开卡页
+            () =>
+            {
+                DestroyCurrentUI();
+                if (mainUIPanel)    mainUIPanel.SetActive(false);
+                if (playerCardPage) playerCardPage.SetActive(true);
+            },
+            // Move 按钮：开始移动
             () => placer.BeginMove(b)
         );
-    }
-
-    private void OpenPlayerCardPage()
-    {
-        Debug.Log("[ClickDetector] OpenPlayerCardPage called");
-        DestroyCurrentUI();
-        if (mainUIPanel)    mainUIPanel.SetActive(false);
-        if (playerCardPage) playerCardPage.SetActive(true);
     }
 
     public void ClosePlayerCardPage()

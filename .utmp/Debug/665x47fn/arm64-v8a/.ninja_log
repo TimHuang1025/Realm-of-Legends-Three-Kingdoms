@@ -1,3 +1,3 @@
 # ninja log v5
-0	201	7732092084027507	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	f8125240376237d0
-202	285	7732092084757606	G:/ROL3K/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/665x47fn/obj/arm64-v8a/libswappywrapper.so	4cd4e6933f46b3fe
+0	187	7733838206561907	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	55c9d8950ba0c45
+187	257	7733838207185511	G:/ROL3K/Library/PramData/AndroidApplicationController/Cache/com.realmoflegend.threekingdoms/gradle-project/unityLibrary/build/intermediates/cxx/Debug/665x47fn/obj/arm64-v8a/libswappywrapper.so	646b162fce346c36
