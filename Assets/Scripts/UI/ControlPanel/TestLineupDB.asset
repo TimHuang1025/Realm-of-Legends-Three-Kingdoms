@@ -15,12 +15,12 @@ MonoBehaviour:
   lineups:
   - mainId: 
     subId1: S3
-    subId2: B2
+    subId2: S5
     strategistId: S6
     ratio:
-      infantry: 35
-      cavalry: 45
-      archer: 20
+      infantry: 50
+      cavalry: 50
+      archer: 0
   - mainId: 
     subId1: 
     subId2: 

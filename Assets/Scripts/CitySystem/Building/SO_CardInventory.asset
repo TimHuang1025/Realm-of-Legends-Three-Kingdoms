@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3eadb6ba559a8bd4eac0b9494e6cd486, type: 3}
-  m_Name: SO_Barrack
+  m_Name: SO_CardInventory
   m_EditorClassIdentifier: 
-  buildingName: "\u4E3B\u5C06\u5E9C"
-  prefab: {fileID: 4380914891404673754, guid: 0f7286dd62c46944ab25ab12f0c957e4, type: 3}
+  buildingName: "\u6B66\u5C06\u5E9C"
+  prefab: {fileID: 8382572950819076002, guid: 9ffab4ed774dd5a4ea17fd2dd26b2ac4, type: 3}
   size: 4
   previewMat: {fileID: 2100000, guid: 10ef48517f2c99b4abc09491686a75a8, type: 2}

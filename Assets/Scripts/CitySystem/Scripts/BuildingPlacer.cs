@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class BuildingPlacer : MonoBehaviour
 {
@@ -50,8 +51,6 @@ public class BuildingPlacer : MonoBehaviour
         grid = CityGrid.I;
         ResetPreviewData();
 
-        
-
         // 创建线条材质（GL 渲染网格用）
         var shader = Shader.Find("Hidden/Internal-Colored");
         lineMaterial = new Material(shader) { hideFlags = HideFlags.HideAndDontSave };
@@ -77,8 +76,16 @@ public class BuildingPlacer : MonoBehaviour
             return;
         }
 
-        // 否则优先处理“点击已有建筑弹面板”
-        if (Input.GetMouseButtonDown(0) && !IsPointerOverUI(Input.mousePosition))
+        // ★ 修复：统一处理点击检测
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began && !IsPointerOverUI())
+            {
+                TryShowOptions(touch.position);
+            }
+        }
+        else if (Input.GetMouseButtonDown(0) && !IsPointerOverUI())
         {
             TryShowOptions(Input.mousePosition);
         }
@@ -89,7 +96,6 @@ public class BuildingPlacer : MonoBehaviour
     /// </summary>
     private void TryShowOptions(Vector2 screenPos)
     {
-
         var ray = cam.ScreenPointToRay(screenPos);
         if (!Physics.Raycast(ray, out var hit, maxRayDist, buildingMask))
             return;
@@ -113,27 +119,29 @@ public class BuildingPlacer : MonoBehaviour
         selectedBuilding = b;
     }
 
-
-
     // ── 新建预览 & 放置 逻辑 ─────────────────────
 
     private void HandlePlacement()
     {
-        Vector2 sp; bool place=false, cancel=false;
-        if (Input.touchCount>0)
+        Vector2 sp; 
+        bool place = false, cancel = false;
+        
+        // ★ 修复：统一处理输入
+        if (Input.touchCount > 0)
         {
             var t = Input.GetTouch(0);
             sp = t.position;
-            if (t.phase==TouchPhase.Ended) place=true;
-            if (twoFingerCancel && Input.touchCount>1 &&
-                Input.GetTouch(1).phase==TouchPhase.Began)
+            if (t.phase == TouchPhase.Ended) 
+                place = true;
+            if (twoFingerCancel && Input.touchCount > 1 &&
+                Input.GetTouch(1).phase == TouchPhase.Began)
                 cancel = true;
         }
         else
         {
-            sp    = Input.mousePosition;
-            place = Input.GetMouseButtonDown(0);
-            cancel= Input.GetMouseButtonDown(1);
+            sp     = Input.mousePosition;
+            place  = Input.GetMouseButtonDown(0);
+            cancel = Input.GetMouseButtonDown(1);
         }
 
         if (cancel)
@@ -159,7 +167,7 @@ public class BuildingPlacer : MonoBehaviour
         preview.transform.position = center;
         UpdatePreviewTint(ok);
 
-        if (place && ok && !IsPointerOverUI(sp))
+        if (place && ok && !IsPointerOverUI())
             ConfirmPlacement(bl.x, bl.y);
     }
 
@@ -173,6 +181,8 @@ public class BuildingPlacer : MonoBehaviour
 
     public void BeginMove(Building b)
     {
+        Debug.Log($"[BuildingPlacer] BeginMove: {b.name}");
+        
         // 释放旧占格
         int oldSize = b.type.size;
         var oldBL   = grid.WorldToBL(b.transform.position, oldSize);
@@ -250,12 +260,25 @@ public class BuildingPlacer : MonoBehaviour
             r.material.color = c;
     }
 
-    private bool IsPointerOverUI(Vector2 sp)
+    // ★ 修复：更可靠的UI检测
+    private bool IsPointerOverUI()
     {
         if (EventSystem.current == null) return false;
-        return Input.touchCount > 0
-            ? EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)
-            : EventSystem.current.IsPointerOverGameObject();
+
+        // 创建PointerEventData
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        
+        // 设置位置
+        if (Input.touchCount > 0)
+            eventData.position = Input.GetTouch(0).position;
+        else
+            eventData.position = Input.mousePosition;
+
+        // 执行射线检测
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+        
+        return results.Count > 0;
     }
 
     //── 运行时渲染网格和预览 ─────────────────────

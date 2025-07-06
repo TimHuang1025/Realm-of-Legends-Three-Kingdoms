@@ -15,6 +15,7 @@ public class PlayerCardPage : MonoBehaviour
     [Header("面板控制器")]
     [SerializeField] private SkillUpgradePanelController skillPanelCtrl;
     [SerializeField] private SkillDetailPopupController  skillPopupCtrl;
+    [SerializeField] PlayerBaseController playerBaseController;
 
     [Header("数据")]
     [SerializeField] private LordCardStaticData   lordCardStatic;
@@ -97,7 +98,7 @@ public class PlayerCardPage : MonoBehaviour
         if (returnBtn != null)
         {
             // 调用 ClickSystem 上的收尾函数，关掉本页 & 恢复主界面
-            returnBtn.clicked += clickDetector.ClosePlayerCardPage;
+            returnBtn?.RegisterCallback<ClickEvent>(_ => playerBaseController.HidePlayerCardUpgradePage());
         }
         //root.Q<Button>("ReturnBtn")?.RegisterCallback<ClickEvent>(_ =>
         //playerBaseController?.HidePlayerCardUpgradePage());
@@ -188,14 +189,14 @@ public class PlayerCardPage : MonoBehaviour
                 break;
         }
         if (icon != null)
-            iconVE.style.backgroundImage = new StyleBackground(icon);
+    iconVE.style.backgroundImage = new StyleBackground(icon.texture);
 
-        // 等级环：索引 = Lv-1
-        if (ringSprites != null && ringSprites.Length >= 4)
-        {
-            int idx = Mathf.Clamp(lv - 1, 0, ringSprites.Length - 1);
-            ringVE.style.backgroundImage = new StyleBackground(ringSprites[idx]);
-        }
+    // 等级环
+    if (ringSprites != null && ringSprites.Length >= 4)
+    {
+        int idx = Mathf.Clamp(lv - 1, 0, ringSprites.Length - 1);
+        ringVE.style.backgroundImage = new StyleBackground(ringSprites[idx].texture);
+    }
     }
 
     /*──────────────── 打开加点面板 ─────────────────*/
