@@ -1065,10 +1065,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3085c544d0662474298a56a8eb0f0c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panSpeed: 0.5
+  panSpeed: 0.3
   minHeight: 8
   maxHeight: 12
-  zoomSpeed: 0.1
+  zoomSpeed: 0.02
   pinchZoomSpeed: 0.005
   minPitchDeg: 50
   maxPitchDeg: 50
@@ -1137,7 +1137,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b36ccf13b03e3b448b710543aacdd6a, type: 2}
   - {fileID: 11400000, guid: 14c28dddc285e9b49af4630214f9dc4a, type: 2}
   - {fileID: 11400000, guid: b8deaed6e3aa5ae469f4b2a695a5f316, type: 2}
-  clickRadius: 0.6
+  clickRadius: 3
   dragThreshold: 5
   maxRayDistance: 800
   floatingUIPrefab: {fileID: 7910871887646012376, guid: e8134517809779045ba7a43daa41ee9f, type: 3}
@@ -1904,7 +1904,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 27482c2b6f89e08498eaf7be2f8bdec6, type: 2}
   twoFingerCancel: 1
   filterSO: {fileID: 11400000, guid: 3b36ccf13b03e3b448b710543aacdd6a, type: 2}
-  clickRadius: 1.2
+  clickRadius: 4
   maxRayDist: 800
 --- !u!4 &1257762816
 Transform:
